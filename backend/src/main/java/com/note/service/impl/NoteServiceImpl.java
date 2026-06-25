@@ -1,7 +1,9 @@
 package com.note.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.note.dto.request.NoteCreateRequest;
 import com.note.dto.request.NoteUpdateRequest;
 import com.note.dto.response.NoteDetailResponse;
@@ -16,7 +18,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
@@ -27,23 +28,43 @@ public class NoteServiceImpl implements NoteService {
     private final NoteTagMapper noteTagMapper;
     private final NoteLikeMapper noteLikeMapper;
     private final NoteFavoriteMapper noteFavoriteMapper;
-    private final UserFollowMapper userFollowMapper;
     private final RedisService redis;
     @Override
     public PageResult<NoteListResponse> getNoteList(int page, int size, String sort,
                                                     String tag, String keyword, Long currentUserId) {
-        IPage<Note> notePage = noteMapper.selectPage(new Page<>(page, size),
-                new LambdaQueryWrapper<Note>()
-                        .eq(Note::getDeleted, false)
-                        .eq(tag != null && !tag.isEmpty(), Note::getId, null) // filtered via subquery
-                        .like(keyword != null && !keyword.isEmpty(), Note::getTitle, keyword)
-                        .orderByDesc("hottest".equals(sort), Note::getLikeCount)
-                        .orderByDesc(!"hottest".equals(sort), Note::getCreatedAt));
+        var wrapper = new LambdaQueryWrapper<Note>()
+                .eq(Note::getDeleted, false);
+        // Tag filter: resolve tag name to note IDs
+        if (tag != null && !tag.isEmpty()) {
+            Tag t = tagMapper.selectOne(new LambdaQueryWrapper<Tag>().eq(Tag::getName, tag));
+            if (t != null) {
+                List<Long> noteIds = noteTagMapper.selectList(
+                    new LambdaQueryWrapper<NoteTag>().eq(NoteTag::getTagId, t.getId()))
+                    .stream().map(NoteTag::getNoteId).collect(Collectors.toList());
+                if (!noteIds.isEmpty()) {
+                    wrapper.in(Note::getId, noteIds);
+                } else {
+                    wrapper.eq(Note::getId, 0L);
+                }
+            } else {
+                wrapper.eq(Note::getId, 0L);
+            }
+        }
+        if (keyword != null && !keyword.isEmpty()) {
+            wrapper.like(Note::getTitle, keyword);
+        }
+        if ("hottest".equals(sort)) {
+            wrapper.orderByDesc(Note::getLikeCount);
+        } else {
+            wrapper.orderByDesc(Note::getCreatedAt);
+        }
+        IPage<Note> notePage = noteMapper.selectPage(new Page<>(page, size), wrapper);
         var list = notePage.getRecords().stream().map(n -> toListResponse(n, currentUserId)).toList();
         return new PageResult<>(list, notePage.getTotal(), notePage.getCurrent(), notePage.getSize());
     }
     @Override
     public PageResult<NoteListResponse> getNoteDynamic(int page, int size, Long currentUserId) {
+        // Safe: currentUserId comes from JWT token (server-issued), not user input
         IPage<Note> notePage = noteMapper.selectPage(new Page<>(page, size),
                 new LambdaQueryWrapper<Note>()
                         .eq(Note::getDeleted, false)
@@ -66,10 +87,10 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public NoteDetailResponse getNoteDetail(Long noteId, Long currentUserId) {
         Note note = noteMapper.selectById(noteId);
-        if (note == null || note.getDeleted()) throw new BusinessException("?????");
+        if (note == null || note.getDeleted()) throw new BusinessException("笔记不存在");
         User author = userMapper.selectById(note.getAuthorId());
         List<String> tags = getTagsByNoteId(noteId);
-        boolean isLiked = currentUserId != null && 
+        boolean isLiked = currentUserId != null &&
             redis.isMember("liked:" + currentUserId, String.valueOf(noteId));
         boolean isFavorited = currentUserId != null &&
             noteFavoriteMapper.selectCount(new LambdaQueryWrapper<NoteFavorite>()
@@ -101,7 +122,6 @@ public class NoteServiceImpl implements NoteService {
         note.setFavoriteCount(0);
         note.setDeleted(false);
         noteMapper.insert(note);
-        // Tags
         if (req.getTags() != null && !req.getTags().isEmpty()) {
             for (String tagName : req.getTags()) {
                 Long tagId = ensureTag(tagName);
@@ -111,23 +131,20 @@ public class NoteServiceImpl implements NoteService {
                 noteTagMapper.insert(nt);
             }
         }
-        // Update user note count
-        userMapper.updateById(new User() {{ 
-            setId(userId); 
-            setNoteCount(userMapper.selectById(userId).getNoteCount() + 1); 
-        }});
+        userMapper.update(null, new LambdaUpdateWrapper<User>()
+                .eq(User::getId, userId)
+                .setSql("note_count = note_count + 1"));
         return note.getId();
     }
     @Override
     @Transactional
     public void updateNote(Long noteId, NoteUpdateRequest req, Long userId) {
         Note note = noteMapper.selectById(noteId);
-        if (note == null || note.getDeleted()) throw new BusinessException("?????");
-        if (!note.getAuthorId().equals(userId)) throw new BusinessException("????");
+        if (note == null || note.getDeleted()) throw new BusinessException("笔记不存在");
+        if (!note.getAuthorId().equals(userId)) throw new BusinessException("无权修改");
         note.setTitle(req.getTitle());
         note.setContent(req.getContent());
         noteMapper.updateById(note);
-        // Rebuild tags
         noteTagMapper.delete(new LambdaQueryWrapper<NoteTag>().eq(NoteTag::getNoteId, noteId));
         if (req.getTags() != null) {
             for (String tagName : req.getTags()) {
@@ -138,21 +155,19 @@ public class NoteServiceImpl implements NoteService {
                 noteTagMapper.insert(nt);
             }
         }
-        // Clear cache
         redis.delete("note:" + noteId);
     }
     @Override
     @Transactional
     public void deleteNote(Long noteId, Long userId) {
         Note note = noteMapper.selectById(noteId);
-        if (note == null || note.getDeleted()) throw new BusinessException("?????");
-        if (!note.getAuthorId().equals(userId)) throw new BusinessException("????");
+        if (note == null || note.getDeleted()) throw new BusinessException("笔记不存在");
+        if (!note.getAuthorId().equals(userId)) throw new BusinessException("无权删除");
         note.setDeleted(true);
         noteMapper.updateById(note);
-        userMapper.updateById(new User() {{
-            setId(userId);
-            setNoteCount(Math.max(0, userMapper.selectById(userId).getNoteCount() - 1));
-        }});
+        userMapper.update(null, new LambdaUpdateWrapper<User>()
+                .eq(User::getId, userId)
+                .setSql("note_count = GREATEST(0, note_count - 1)"));
         redis.delete("note:" + noteId);
     }
     @Override
@@ -170,16 +185,14 @@ public class NoteServiceImpl implements NoteService {
         nl.setNoteId(noteId);
         nl.setUserId(userId);
         noteLikeMapper.insert(nl);
-        noteMapper.updateById(new Note() {{
-            setId(noteId);
-            setLikeCount(noteMapper.selectById(noteId).getLikeCount() + 1);
-        }});
+        noteMapper.update(null, new LambdaUpdateWrapper<Note>()
+                .eq(Note::getId, noteId)
+                .setSql("like_count = like_count + 1"));
         Note note = noteMapper.selectById(noteId);
         if (note != null) {
-            userMapper.updateById(new User() {{
-                setId(note.getAuthorId());
-                setTotalLikes(userMapper.selectById(note.getAuthorId()).getTotalLikes() + 1);
-            }});
+            userMapper.update(null, new LambdaUpdateWrapper<User>()
+                    .eq(User::getId, note.getAuthorId())
+                    .setSql("total_likes = total_likes + 1"));
             redis.incrementScore("rank:notes:like_count", String.valueOf(noteId), 1);
             redis.incrementScore("rank:users:total_likes", String.valueOf(note.getAuthorId()), 1);
         }
@@ -191,16 +204,14 @@ public class NoteServiceImpl implements NoteService {
         noteLikeMapper.delete(new LambdaQueryWrapper<NoteLike>()
                 .eq(NoteLike::getNoteId, noteId)
                 .eq(NoteLike::getUserId, userId));
-        noteMapper.updateById(new Note() {{
-            setId(noteId);
-            setLikeCount(Math.max(0, noteMapper.selectById(noteId).getLikeCount() - 1));
-        }});
+        noteMapper.update(null, new LambdaUpdateWrapper<Note>()
+                .eq(Note::getId, noteId)
+                .setSql("like_count = GREATEST(0, like_count - 1)"));
         Note note = noteMapper.selectById(noteId);
         if (note != null) {
-            userMapper.updateById(new User() {{
-                setId(note.getAuthorId());
-                setTotalLikes(Math.max(0, userMapper.selectById(note.getAuthorId()).getTotalLikes() - 1));
-            }});
+            userMapper.update(null, new LambdaUpdateWrapper<User>()
+                    .eq(User::getId, note.getAuthorId())
+                    .setSql("total_likes = GREATEST(0, total_likes - 1)"));
             redis.incrementScore("rank:notes:like_count", String.valueOf(noteId), -1);
             redis.incrementScore("rank:users:total_likes", String.valueOf(note.getAuthorId()), -1);
         }
@@ -225,8 +236,14 @@ public class NoteServiceImpl implements NoteService {
     private NoteListResponse toListResponse(Note n, Long currentUserId) {
         User author = userMapper.selectById(n.getAuthorId());
         List<String> tags = getTagsByNoteId(n.getId());
-        String summary = n.getContent().replaceAll("(?s)<[^>]*>", "")
-                .replaceAll("[#*>`~\-|]", "").replaceAll("\n+", " ").trim();
+        String summary = n.getContent()
+                .replaceAll("!\[[^\]]*\]\([^)]+\)", "")   // remove images
+                .replaceAll("\[[^\]]*\]\([^)]+\)", "")    // remove links
+                .replaceAll("[#*>`~\-|_]", "")                 // remove markdown symbols
+                .replaceAll("\n{2,}", "\n")                    // collapse blank lines
+                .replace('
+', ' ')                              // newlines to spaces
+                .trim();
         if (summary.length() > 120) summary = summary.substring(0, 120) + "...";
         boolean isLiked = currentUserId != null &&
             redis.isMember("liked:" + currentUserId, String.valueOf(n.getId()));

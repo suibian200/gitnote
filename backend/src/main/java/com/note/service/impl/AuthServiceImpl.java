@@ -22,7 +22,7 @@ public class AuthServiceImpl implements AuthService {
         User user = userMapper.selectOne(
                 new LambdaQueryWrapper<User>().eq(User::getUsername, req.getUsername()));
         if (user == null || !passwordEncoder.matches(req.getPassword(), user.getPassword())) {
-            throw new BusinessException(401, "????????");
+            throw new BusinessException(401, "用户名或密码错误");
         }
         String token = jwtUtil.generateToken(user.getId(), user.getUsername());
         return new LoginResponse(token, user.getId(), user.getUsername(),
@@ -32,11 +32,11 @@ public class AuthServiceImpl implements AuthService {
     public void register(RegisterRequest req) {
         if (userMapper.selectCount(new LambdaQueryWrapper<User>()
                 .eq(User::getUsername, req.getUsername())) > 0) {
-            throw new BusinessException("??????");
+            throw new BusinessException("用户名已存在");
         }
         if (userMapper.selectCount(new LambdaQueryWrapper<User>()
                 .eq(User::getEmail, req.getEmail())) > 0) {
-            throw new BusinessException("??????");
+            throw new BusinessException("邮箱已被注册");
         }
         User user = new User();
         user.setUsername(req.getUsername());

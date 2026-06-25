@@ -1,5 +1,6 @@
 package com.note.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.note.dto.response.PageResult;
@@ -24,9 +25,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserProfileResponse getUserProfile(Long targetUserId, Long currentUserId) {
         User user = userMapper.selectById(targetUserId);
-        if (user == null) throw new BusinessException("?????");
-        boolean isFollowing = currentUserId != null && 
-            isFollowing(currentUserId, targetUserId);
+        if (user == null) throw new BusinessException("用户不存在");
+        boolean isFollowing = currentUserId != null &&
+            redisService.isMember("following:" + currentUserId, String.valueOf(targetUserId));
         UserProfileResponse resp = new UserProfileResponse();
         resp.setUserId(user.getId());
         resp.setUsername(user.getUsername());
@@ -68,21 +69,23 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void follow(Long followerId, Long followeeId) {
-        if (followerId.equals(followeeId)) throw new BusinessException("??????");
+        if (followerId.equals(followeeId)) throw new BusinessException("不能关注自己");
         if (userFollowMapper.selectCount(new LambdaQueryWrapper<UserFollow>()
                 .eq(UserFollow::getFollowerId, followerId)
                 .eq(UserFollow::getFolloweeId, followeeId)) > 0) {
-            throw new BusinessException("??????");
+            throw new BusinessException("已关注该用户");
         }
         UserFollow uf = new UserFollow();
         uf.setFollowerId(followerId);
         uf.setFolloweeId(followeeId);
         userFollowMapper.insert(uf);
-        userMapper.updateById(new User() {{ setId(followerId); setFollowingCount(
-            userMapper.selectById(followerId).getFollowingCount() + 1); }});
-        userMapper.updateById(new User() {{ setId(followeeId); setFollowerCount(
-            userMapper.selectById(followeeId).getFollowerCount() + 1); }});
-        // Redis
+        // In-place increment avoids extra SELECT
+        userMapper.update(null, new LambdaUpdateWrapper<User>()
+                .eq(User::getId, followerId)
+                .setSql("following_count = following_count + 1"));
+        userMapper.update(null, new LambdaUpdateWrapper<User>()
+                .eq(User::getId, followeeId)
+                .setSql("follower_count = follower_count + 1"));
         redisService.addToSet("following:" + followerId, String.valueOf(followeeId));
         redisService.addToSet("followers:" + followeeId, String.valueOf(followerId));
     }
@@ -92,10 +95,12 @@ public class UserServiceImpl implements UserService {
         userFollowMapper.delete(new LambdaQueryWrapper<UserFollow>()
                 .eq(UserFollow::getFollowerId, followerId)
                 .eq(UserFollow::getFolloweeId, followeeId));
-        userMapper.updateById(new User() {{ setId(followerId); setFollowingCount(
-            Math.max(0, userMapper.selectById(followerId).getFollowingCount() - 1)); }});
-        userMapper.updateById(new User() {{ setId(followeeId); setFollowerCount(
-            Math.max(0, userMapper.selectById(followeeId).getFollowerCount() - 1)); }});
+        userMapper.update(null, new LambdaUpdateWrapper<User>()
+                .eq(User::getId, followerId)
+                .setSql("following_count = GREATEST(0, following_count - 1)"));
+        userMapper.update(null, new LambdaUpdateWrapper<User>()
+                .eq(User::getId, followeeId)
+                .setSql("follower_count = GREATEST(0, follower_count - 1)"));
         redisService.removeFromSet("following:" + followerId, String.valueOf(followeeId));
         redisService.removeFromSet("followers:" + followeeId, String.valueOf(followerId));
     }
@@ -109,9 +114,6 @@ public class UserServiceImpl implements UserService {
                 .map(u -> toSimple(u, currentUserId)).toList();
         return new PageResult<>(list, userPage.getTotal(), userPage.getCurrent(), userPage.getSize());
     }
-    private boolean isFollowing(Long followerId, Long followeeId) {
-        return redisService.isMember("following:" + followerId, String.valueOf(followeeId));
-    }
     private UserSimpleResponse toSimple(User u, Long currentUserId) {
         UserSimpleResponse r = new UserSimpleResponse();
         r.setUserId(u.getId());
@@ -119,7 +121,8 @@ public class UserServiceImpl implements UserService {
         r.setAvatar(u.getAvatar() == null ? "" : u.getAvatar());
         r.setBio(u.getBio() == null ? "" : u.getBio());
         r.setLikeCount(u.getTotalLikes() == null ? 0 : u.getTotalLikes());
-        r.setIsFollowing(currentUserId != null && isFollowing(currentUserId, u.getId()));
+        r.setIsFollowing(currentUserId != null &&
+            redisService.isMember("following:" + currentUserId, String.valueOf(u.getId())));
         return r;
     }
 }
