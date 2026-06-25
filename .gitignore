@@ -3,3 +3,10 @@ dist/
 .vite/
 *.local
 .DS_Store
+
+# 笔记数据目录
+data/
+
+# IDE
+.idea/
+
