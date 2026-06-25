@@ -6,6 +6,9 @@
 CREATE DATABASE IF NOT EXISTS `db_notes` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE `db_notes`;
 
+
+USE db_notes;
+
 -- 1. 用户表
 -- --------------------------
 CREATE TABLE user (

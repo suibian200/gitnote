@@ -1,78 +1,68 @@
-﻿-- ============================================================
--- 笔记系统 · 初始数据种子 (seed.sql)
--- 生成时间: 2026-06-25 18:33:48
--- 密码: '123456' 的 BCrypt 占位哈希，登录后建议修改
 -- ============================================================
+-- ???? ? ?????? (seed.sql)
+-- ????: 2025-06-25 18:45:00
+-- ??: ?? BCrypt ????? '123456'
+-- ============================================================
+
+START TRANSACTION;
 
 SET FOREIGN_KEY_CHECKS = 0;
-TRUNCATE TABLE note_favorite;
-TRUNCATE TABLE note_like;
-TRUNCATE TABLE user_follow;
-TRUNCATE TABLE note_tag;
-DELETE FROM tag;
-TRUNCATE TABLE note;
-DELETE FROM user;
-SET FOREIGN_KEY_CHECKS = 1;
 
 -- ============================================================
--- 1. 用户
+-- 1. ????
 -- ============================================================
 
-INSERT INTO user (id, username, password, email, vatar, 
-ote_count, created_at)
-VALUES (1001, 'user1001', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'user1001@example.com', 'avatars/1001_106799.jpg', 5, NOW());
-INSERT INTO user (id, username, password, email, vatar, 
-ote_count, created_at)
-VALUES (1002, 'user1002', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'user1002@example.com', 'avatars/1002_960094.jpg', 4, NOW());
-INSERT INTO user (id, username, password, email, vatar, 
-ote_count, created_at)
-VALUES (1003, 'user1003', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'user1003@example.com', 'avatars/1003_273803.jpeg', 4, NOW());
-INSERT INTO user (id, username, password, email, vatar, 
-ote_count, created_at)
-VALUES (1004, 'user1004', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'user1004@example.com', 'avatars/1004_415551.jpeg', 4, NOW());
-INSERT INTO user (id, username, password, email, vatar, 
-ote_count, created_at)
-VALUES (1005, 'user1005', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'user1005@example.com', 'avatars/1005_692517.jpg', 4, NOW());
+DELETE FROM `user`;
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `avatar`, `bio`, `note_count`, `created_at`)
+VALUES (1001, 'user1001', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'user1001@example.com', 'avatars/1001_106799.jpg', '', 0, NOW());
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `avatar`, `bio`, `note_count`, `created_at`)
+VALUES (1002, 'user1002', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'user1002@example.com', 'avatars/1002_960094.jpg', '', 0, NOW());
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `avatar`, `bio`, `note_count`, `created_at`)
+VALUES (1003, 'user1003', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'user1003@example.com', 'avatars/1003_273803.jpeg', '', 0, NOW());
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `avatar`, `bio`, `note_count`, `created_at`)
+VALUES (1004, 'user1004', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'user1004@example.com', 'avatars/1004_415551.jpeg', '', 0, NOW());
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `avatar`, `bio`, `note_count`, `created_at`)
+VALUES (1005, 'user1005', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'user1005@example.com', 'avatars/1005_692517.jpg', '', 0, NOW());
 
 -- ============================================================
--- 2. 笔记 & 标签
+-- 2. ????
 -- ============================================================
 
-INSERT INTO 
-ote (uthor_id, 	itle, content, created_at)
-VALUES (1001, 'CSS', '# CSS绠€浠?
-## 鍙戝睍鍙?
+DELETE FROM `note`;
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+VALUES (1, 1001, 'CSS', '# CSS简介
+## 发展史
 css1.0
 
-css2.0 DIV锛堝揩锛? CSS锛孒TML涓嶤SS缁撴瀯鍒嗙鐨勬€濇兂锛岀綉椤靛彉寰楃畝鍗曪紝SEO
+css2.0 DIV（快）+ CSS，HTML与CSS结构分离的思想，网页变得简单，SEO
 
-css3.0 鍦嗚锛岄槾褰憋紝鍔ㄧ敾銆傘€傘€?
+css3.0 圆角，阴影，动画。。。
 
-## 蹇€熷叆闂?
-### 鍩烘湰璇硶
+## 快速入门
+### 基本语法
 ```plain
-瑙勮寖锛宻tyle 鍙互缂栧啓css鐨勭殑浠ｇ爜锛岃涓€涓０鏄庯紝鏈€濂戒娇鐢ㄥ垎鍙风粨灏?
-璇硶
-  閫夋嫨鍣▄
-    澹版槑1;
-    澹版槑2;
-    澹版槑3;
+规范，style 可以编写css的的代码，设一个声明，最好使用分号结尾
+语法
+  选择器{
+    声明1;
+    声明2;
+    声明3;
   }
-  寮曠敤鏂规硶
+  引用方法
   <link rel="stylesheet" href="../css/style2.css">
 ```
 
-## 浼樺娍
-+ 鍐呭琛ㄧ幇鍒嗙
-+ 缃戦〉缁撴瀯琛ㄧ幇缁熶竴锛屽彲浠ュ疄鐜板鐢?
-+ 鏍峰紡鍗佸垎涓板瘜
-+ 寤鸿浣跨敤鐙珛浜嶩TML鐨凜SS鏂囦欢
-+ 鍒╀簬SEO锛屽鏄撹鎼滅储寮曟搸鏀跺綍
+## 优势
++ 内容表现分离
++ 网页结构表现统一，可以实现复用
++ 样式十分丰富
++ 建议使用独立于HTML的CSS文件
++ 利于SEO，容易被搜索引擎收录
 
-# CSS瀵煎叆鏂瑰紡
-## 琛屽唴鏍峰紡
+# CSS导入方式
+## 行内样式
 ```html
-<!--琛屽唴鏍峰紡锛氬湪鏍囩鍏冪礌涓紝缂栧啓涓€涓猻tyle灞炴€э紝缂栧啓鏍峰紡鍗冲彲-->
+<!--行内样式：在标签元素中，编写一个style属性，编写样式即可-->
 <h1 style="color: red"></h1>
 ```
 
@@ -160,7 +150,7 @@ css3.0 鍦嗚锛岄槾褰憋紝鍔ㄧ敾銆傘€傘€?
 
 
 
-## style鏍囩
+## style标签
 ```html
   <style>
     h1{
@@ -169,8 +159,8 @@ css3.0 鍦嗚锛岄槾褰憋紝鍔ㄧ敾銆傘€傘€?
   </style>
 ```
 
-## 澶栭儴鏍峰紡
-杩炴帴寮?
+## 外部样式
+连接式
 
 ```html
 h1{
@@ -179,7 +169,7 @@ h1{
 <link rel="stylesheet" href="../css/style2.css">
 ```
 
-瀵煎叆寮?
+导入式
 
 ```html
   <style>
@@ -187,42 +177,42 @@ h1{
   </style>
 ```
 
-# 閫夋嫨鍣?
-## 鍩烘湰閫夋嫨鍣?
-### 鏍囩閫夋嫨鍣?
+# 选择器
+## 基本选择器
+### 标签选择器
 ```html
-鏍煎紡锛?
-鏍囩鍚峽
-  灞炴€?;
-  灞炴€?;
+格式：
+标签名{
+  属性1;
+  属性2;
 }
 ```
 
-### 绫婚€夋嫨鍣?
+### 类选择器
 ```html
-鏍煎紡 .class鐨勫悕绉皗
-  灞炴€?
-  灞炴€?
+格式 .class的名称{
+  属性;
+  属性;
 }
-濂藉锛屽彲浠ュ涓爣绛惧綊绫伙紝鏄悓涓€涓猚lass锛屽彲浠ュ鐢?
+好处，可以多个标签归类，是同一个class，可以复用
 
 ```
 
-### id閫夋嫨鍣?
+### id选择器
 ```html
-鏍煎紡
-#id鍚嶇О{
-  灞炴€?
+格式
+#id名称{
+  属性;
 }
-id 蹇呴』淇濊瘉鍏ㄥ眬鍞竴
+id 必须保证全局唯一
 ```
 
-### 浼樺厛绾?
-id>class>鏍囩
+### 优先级
+id>class>标签
 
-## 楂樼骇閫夋嫨鍣?
-### 灞傛閫夋嫨鍣?
-+ 鍚庝唬閫夋嫨鍣細鍦ㄦ煇涓厓绱犵殑鍚庨潰
+## 高级选择器
+### 层次选择器
++ 后代选择器：在某个元素的后面
 
 ```html
 body p{
@@ -230,7 +220,7 @@ body p{
 }
 ```
 
-+ 瀛愰€夋嫨鍣? 鍙綔鐢ㄤ簬涓€灞傜粨鏋?
++ 子选择器  只作用于一层结构
 
 ```plain
 body>p{
@@ -238,7 +228,7 @@ body>p{
 }
 ```
 
-+ 鐩搁偦閫夋嫨鍣?鍙湁涓€涓?鐩搁偦锛堝悜涓嬶級
++ 相邻选择器 只有一个 相邻（向下）
 
 ```plain
 .hidden + p{
@@ -246,7 +236,7 @@ body>p{
 }
 ```
 
-+ 閫氱敤閫夋嫨鍣?褰撳墠閫変腑鍏冪礌鐨勫悜涓嬬殑鎵€鏈夊厔寮熷厓绱?
++ 通用选择器 当前选中元素的向下的所有兄弟元素
 
 ```plain
 .hidden~p{
@@ -254,197 +244,197 @@ body>p{
 }
 ```
 
-### 缁撴瀯浼被閫夋嫨鍣?
+### 结构伪类选择器
 ```plain
-/*ul鐨勭涓€涓瓙鍏冪礌*/
+/*ul的第一个子元素*/
 ul li:first-child{
   background: greenyellow;
 }
 
-/*ul鐨勬渶鍚庡瓙鍏冪礌*/
+/*ul的最后子元素*/
 ul li:last-child{
   background: #b3d4fc;
 }
 ```
 
 ```plain
-/*閫夋嫨p2 瀹氫綅鍒扮埗鍏冪礌锛岄€夋嫨褰撳墠鐨勭涓€涓厓绱?/
-/*閫夋嫨褰撳墠p鍏冪礌鐨勭埗绾ф爣绛撅紝閫変腑鐖剁骇鏍囩鐨勭鍑犱釜, 骞朵笖鏄綋鍓嶅厓绱犳墠鑳界敓鏁?/
+/*选择p2 定位到父元素，选择当前的第一个元素*/
+/*选择当前p元素的父级标签，选中父级标签的第几个, 并且是当前元素才能生效*/
 p:nth-child(2){
   background: cornsilk;
 }
-/*閫変腑鐖跺厓绱犱笅鐨刾鍏冪礌鐨勭浜屼釜*/
+/*选中父元素下的p元素的第二个*/
 p:nth-of-type(2){
   background: cadetblue;
 }
 ```
 
-### 灞炴€ч€夋嫨鍣紙甯哥敤锛?
-+ 鏍囩[灞炴€у悕]
-+ 鏍囩[灞炴€у悕=灞炴€у€糫
-+ 鏍囩[灞炴€у€?姝ｅ垯琛ㄨ揪寮廬
-    - = 鏄粷瀵圭瓑浜?
-    - *= 鏄寘鍚?
-    - ^= 浠ヨ繖涓粨灏?
-    - $= 浠ヨ繖涓粨灏?
+### 属性选择器（常用）
++ 标签[属性名]
++ 标签[属性名=属性值]
++ 标签[属性值=正则表达式]
+    - = 是绝对等于
+    - *= 是包含
+    - ^= 以这个结尾
+    - $= 以这个结尾
 
-# 瀛椾綋缇庡寲
-span鏍囩锛氶噸鐐硅绐佸嚭鐨勬枃瀛楋紝浣跨敤span鏍囩濂楄捣鏉?
+# 字体美化
+span标签：重点要突出的文字，使用span标签套起来
 
-瀛椾綋璁剧疆
+字体设置
 
 ```plain
-font-family 瀛椾綋
-font-size: 澶у皬
-font-weight: 瀛椾綋绮楃粏
-color: 瀛椾綋棰滆壊
-font锛氬瓧浣撴牱寮?
+font-family 字体
+font-size: 大小
+font-weight: 字体粗细
+color: 字体颜色
+font：字体样式
 ```
 
-# 鏂囨湰鏍峰紡
-+ 棰滆壊color
-    - 鑻辨枃鍗曡瘝
+# 文本样式
++ 颜色color
+    - 英文单词
     - rgb 0~F
-    - rgba(r, g, b, a) 閫忔槑搴 0-1
-+ 鏂囨湰瀵归綈鏂瑰紡 text-align
-    - center灞呬腑
-    - left锛氬乏杈?
-    - right锛氬彸杈?
-+ 娈佃惤棣栬缂╄繘text-indent   鍗曚綅em锛堝瓧闀匡級
-+ 琛岄珮 鍜?鍧楃殑楂樺害涓€鑷村彲瀹炵幇灞呬腑
-    - height 鍧楅珮
-    - line-height  琛岄珮
-+ text-decoration淇グ鏂囨湰
-    - <font style="color:rgba(0, 0, 0, 0.9);"></font>`<font style="color:rgba(0, 0, 0, 0.9);">underline</font>`<font style="color:rgba(0, 0, 0, 0.9);">锛氭坊鍔犱笅鍒掔嚎銆?/font>
-    - `<font style="color:rgba(0, 0, 0, 0.9);">overline</font>`<font style="color:rgba(0, 0, 0, 0.9);">锛氭坊鍔犱笂鍒掔嚎銆?/font>
-    - `<font style="color:rgba(0, 0, 0, 0.9);">line-through</font>`<font style="color:rgba(0, 0, 0, 0.9);">锛氭坊鍔犲垹闄ょ嚎銆?/font>
-    - `<font style="color:rgba(0, 0, 0, 0.9);">none</font>`<font style="color:rgba(0, 0, 0, 0.9);">锛氫笉璁剧疆</font>
-+ 鏂囨湰鍥剧墖姘村钩瀵归綈锛歷ertica-align锛歮iddle
-+ 鏂囨湰闃村奖 text-shadow
+    - rgba(r, g, b, a) 透明度a 0-1
++ 文本对齐方式 text-align
+    - center居中
+    - left：左边
+    - right：右边
++ 段落首行缩进text-indent   单位em（字长）
++ 行高 和 块的高度一致可实现居中
+    - height 块高
+    - line-height  行高
++ text-decoration修饰文本
+    - <font style="color:rgba(0, 0, 0, 0.9);"></font>`<font style="color:rgba(0, 0, 0, 0.9);">underline</font>`<font style="color:rgba(0, 0, 0, 0.9);">：添加下划线。</font>
+    - `<font style="color:rgba(0, 0, 0, 0.9);">overline</font>`<font style="color:rgba(0, 0, 0, 0.9);">：添加上划线。</font>
+    - `<font style="color:rgba(0, 0, 0, 0.9);">line-through</font>`<font style="color:rgba(0, 0, 0, 0.9);">：添加删除线。</font>
+    - `<font style="color:rgba(0, 0, 0, 0.9);">none</font>`<font style="color:rgba(0, 0, 0, 0.9);">：不设置</font>
++ 文本图片水平对齐：vertica-align：middle
++ 文本阴影 text-shadow
 
 ```plain
 #price{
-  /*闃村奖棰滆壊 x y z 鍋忕Щ鍊?/
+  /*阴影颜色 x y z 偏移值*/
   text-shadow: #15abe3 10px 10px 10px;
 }
 ```
 
-# 瓒呴摼鎺ヤ吉绫?
+# 超链接伪类
 ```plain
-/*榧犳爣鎮仠鐘舵€?/
+/*鼠标悬停状态*/
 a:hover{
   color: aqua;
 
 }
-/*闀挎寜鐘舵€?/
+/*长按状态*/
 a:active{
   color: green;
 }
-/*鐐瑰嚮鍚庣殑棰滆壊*/
+/*点击后的颜色*/
 a:visited{
   color: red;
 }
 ```
 
-# 鍒楄〃
+# 列表
 + list-style:
-    - none: 鍘绘帀鍦嗙偣鎴栨暟瀛?
-    - circle锛氱┖蹇冨渾
-    - decimol 鏁板瓧
-    - square 姝ｆ柟褰?
+    - none: 去掉圆点或数字
+    - circle：空心圆
+    - decimol 数字
+    - square 正方形
 
-# 鑳屾櫙鍥剧墖
-+ 娣诲姞鑳屾櫙鍥剧墖锛歜ackground-image 锛?url("鍥剧墖鍦板潃")
-+ 鍥剧墖浣嶇疆 background-position锛氭按骞充綅缃紝绔栫洿浣嶇疆锛?
-+ 鍥剧墖娓愬彉 background-image锛歭inear-gradient锛?
+# 背景图片
++ 添加背景图片：background-image ： url("图片地址")
++ 图片位置 background-position：水平位置，竖直位置；
++ 图片渐变 background-image：linear-gradient；
     - https://www.gradient.com/
-    - 寰勫悜娓愬彉
-    - 鍦嗗舰娓愬彉
-+ 閫夋嫨骞抽摵锛歜ackground-repeat
-    - 榛樿涓哄叏閮ㄥ钩閾?
-    - repeat-x锛氭按骞冲钩閾?
-    - repeat-y锛氱珫鐩村钩閾?
-    - no-repeat锛氫笉骞抽摵
-+ background锛歝olor url("鍥剧墖")  姘村钩浣嶇疆 绔栫洿浣嶇疆 骞抽摵鏂瑰紡repeat
+    - 径向渐变
+    - 圆形渐变
++ 选择平铺：background-repeat
+    - 默认为全部平铺
+    - repeat-x：水平平铺
+    - repeat-y：竖直平铺
+    - no-repeat：不平铺
++ background：color url("图片")  水平位置 竖直位置 平铺方式repeat
 +
 
-# 鐩掑瓙妯″瀷
-## 浠€涔堟槸鐩掑瓙妯″瀷
-margin锛氬杈硅窛
+# 盒子模型
+## 什么是盒子模型
+margin：外边距
 
-border锛氳竟妗?
+border：边框
 
-padding锛氬唴杈硅窛
+padding：内边距
 
 <img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1745496964933-7d0db80f-241f-4bac-8bf3-6e4abf6d4efb.png" width="369.6000061035156" title="" crop="0,0,1,1" id="udbbacf9d" class="ne-image">
 
-## 杈规 border
-border 锛氬ぇ灏?  鏍峰紡   棰滆壊;
+## 边框 border
+border ：大小   样式   颜色;
 
-鏍峰紡锛?
+样式：
 
-solid锛氬疄绾?
+solid：实线
 
-dashed锛氳櫄绾?
-
-
-
-## 澶栬竟璺?margin
-margin锛?锛涗笂涓?宸﹀彸閮戒负0
-
-margin锛?  auto  涓婁笅涓?  宸﹀彸鐩哥瓑
-
-margin锛?  0  0  0锛涗笂 宸?涓?鍙?椤烘椂閽堟棆杞?
-
-## 鍐呰竟璺?padding
-## 鍦嗚杈规 border-radius
-椤烘椂閽堟柟鍚?
-
-+ border-radius锛?0px 20px 30px 40px銆?
-
-鍦嗚鐨勫崐寰?
-
-鍙疄鐜板崐鍦嗭紝鎵囧舰绛夊浘鐗?
-
-## 鐩掑瓙闃村奖 box-shadow
-# display灞炴€?
-## 鍧楀厓绱?block
-+ 鍦ㄧ綉椤典腑鐙崰涓€琛?
-+ 甯歌鐨勫彸h1~h6 p div 鍒楄〃
-
-## 鍧楀厓绱?inline
-+ 琛屽唴鍏冪礌涓嶄細鐙崰涓€琛岋紝涓€琛屽彲浠ユ樉绀哄涓鍐呭厓绱狅紝涓嶈兘璁剧疆瀹藉害鍜岄珮搴﹀睘鎬?
-+ 甯歌鐨勬湁span  a  img  strong em
-
-## 琛屽唴鍧楀厓绱?inline-block
-+ 琛屽唴鍧楀厓绱犱笉浼氳嚜鍔ㄦ崲琛岋紝澶氫釜琛屽唴鍧楀厓绱犲彲浠ユ帓鍦ㄥ悓涓€琛?
-+ 甯歌鐨勬湁input(閮ㄥ垎)  buttom
-
-## none 闅愯棌鍏冪礌
-# 娴姩 float
-float锛歭eft 鍚戝乏
-
-float锛歳ight 鍚戝彸
+dashed：虚线
 
 
 
-# 鐖剁骇杈规濉岄櫡闂
-## 澧炲姞鐖剁骇鍏冪礌鐨勯珮搴?
+## 外边距 margin
+margin：0；上下 左右都为0
+
+margin：0  auto  上下为0  左右相等
+
+margin：0  0  0  0；上 左 下 右 顺时针旋转
+
+## 内边距 padding
+## 圆角边框 border-radius
+顺时针方向
+
++ border-radius：10px 20px 30px 40px、
+
+圆角的半径
+
+可实现半圆，扇形等图片
+
+## 盒子阴影 box-shadow
+# display属性
+## 块元素 block
++ 在网页中独占一行
++ 常见的右h1~h6 p div 列表
+
+## 块元素 inline
++ 行内元素不会独占一行，一行可以显示多个行内元素，不能设置宽度和高度属性
++ 常见的有span  a  img  strong em
+
+## 行内块元素 inline-block
++ 行内块元素不会自动换行，多个行内块元素可以排在同一行
++ 常见的有input(部分)  buttom
+
+## none 隐藏元素
+# 浮动 float
+float：left 向左
+
+float：right 向右
+
+
+
+# 父级边框塌陷问题
+## 增加父级元素的高度
 ##  clear
-clear锛歳ight锛涘彸渚т笉鍏佽鏈夋诞鍔ㄥ厓绱?
+clear：right；右侧不允许有浮动元素
 
-clear锛歭eft锛涘乏渚т笉鍏佽鏈夋诞鍔ㄥ厓绱?
+clear：left；左侧不允许有浮动元素
 
-clear锛歜oth锛涗袱渚т笉鍏佽鏈夋诞鍔ㄥ厓绱?
+clear：both；两侧不允许有浮动元素
 
-clear锛歯one锛?
+clear：none；
 
 ## overflow
-hidden 锛氶殣钘忚秴鍑虹殑閮ㄥ垎
+hidden ：隐藏超出的部分
 
-scroll锛氬鏋滄湁瓒呭嚭閮ㄥ垎娣诲姞涓€涓粴鍔ㄦ潯
+scroll：如果有超出部分添加一个滚动条
 
-## 鐖剁骇鍏冪礌娣诲姞涓€涓吉绫?
+## 父级元素添加一个伪类
 ```css
 #father:after{
   content: '''';
@@ -453,1123 +443,72 @@ scroll锛氬鏋滄湁瓒呭嚭閮ㄥ垎娣诲姞涓€涓粴鍔ㄦ潯
 }
 ```
 
-# 瀹氫綅锛歱osition
-## 鐩稿瀹氫綅 ralative
-+ position锛歳elative
-+ 鐩稿浜庡師鏉ョ殑浣嶇疆锛岃繘琛屾寚瀹氱殑鍋忕Щ锛屽畠浠荤劧鍦ㄦ爣鍑嗘枃妗ｆ祦涓紝鍘熸潵鐨勪綅缃細琚繚鐣?
-    - top -20px锛?
-    - left 20px锛?
-    - bottom -10px锛?
+# 定位：position
+## 相对定位 ralative
++ position：relative
++ 相对于原来的位置，进行指定的偏移，它任然在标准文档流中，原来的位置会被保留
+    - top -20px；
+    - left 20px；
+    - bottom -10px；
     - right 20px
 
-## 缁濆瀹氫綅 absolute
-+ 娌℃湁鐖剁骇鍏冪礌瀹氫綅鐨勫墠鎻愪笅锛岀浉瀵逛簬娴忚鍣ㄥ畾浣?
-+ 鍋囪鐖剁骇鍏冪礌瀛樺湪瀹氫綅锛屾垜浠€氬父浼氱浉瀵逛簬鐖剁骇鍏冪礌杩涜鍋忕Щ
-+ 鍦ㄧ埗绾у厓绱犺寖鍥村唴绉诲姩
-+ 鍘熸潵浣嶇疆涓嶄細琚繚鐣?
+## 绝对定位 absolute
++ 没有父级元素定位的前提下，相对于浏览器定位
++ 假设父级元素存在定位，我们通常会相对于父级元素进行偏移
++ 在父级元素范围内移动
++ 原来位置不会被保留
 
-## 鍥哄畾瀹氫綅 fixed
-## z-index 灞傜骇璁剧疆
-z-index: 10锛?
+## 固定定位 fixed
+## z-index 层级设置
+z-index: 10；
 
-瀹炵幇鍧楃骇灞傜骇
+实现块级层级
 
-0~鈭? 灞傜骇瓒婂ぇ锛岃〃绀鸿秺鍦ㄤ笂闈?
+0~∞  层级越大，表示越在上面
 
-## opacity 鑳屾櫙閫忔槑搴?
+## opacity 背景透明度
 0~1
 
-# 鍔ㄧ敾锛', NOW());
-SET @last_note_id = LAST_INSERT_ID();
-
-INSERT INTO 
-ote (uthor_id, 	itle, content, created_at)
-VALUES (1001, 'javaSE', '## 甯哥敤蹇嵎閿?
-Ctrl + D  锛?澶嶅埗褰撳墠琛屽埌涓嬩竴琛?
-
-ALT + INSERT 锛氳嚜鍔ㄧ敓鎴愭瀯閫犲櫒
-
-Ctrl + H锛氭墦寮€鏍戠粨鏋?
-
-Ctrl + Alt + T 锛氶€夋嫨浠ｇ爜琚寘瑁圭殑绫诲瀷
-
-## 鎼缓鐜
-### 鍗歌浇JDK
-+ 鍒犻櫎java鐨勫畨瑁呯洰褰?
-+ 鍒犻櫎鐜鍙橀噺JAVA_HOME
-+ 鍒犻櫎path椤瑰叧浜嶫ava鐨勭洰褰?
-+ java -version
-
-### 瀹夎JDK
-+ 鐧惧害鎼滅储JDK8锛屾壘鍒颁笅杞藉湴鍧€
-+ 鍚屾剰鍗忚
-+ 涓嬭浇鐢佃剳瀵瑰簲鐨勭増鏈?
-+ 鍙屽嚮瀹夎
-+ 璁颁綇瀹夎鐨勮矾寰?
-+ 閰嶇疆鐜鍙橀噺
-    - 鎴戠殑鐢佃剳-->鍙抽敭-->灞炴€?
-    - 鐜鍙橀噺-->鏂板缓绯荤粺鍙橀噺-->JAVA_HOME锛屽畨瑁呰矾寰?
-    - 閰嶇疆path鍙橀噺
-        * %JAVA_HOME%\bin
-        * %JAVA_HOME%\jre\bin
-+ java -version
-
-### HelloWorld
-+ 鍒涘缓涓€涓斁浠ｇ爜鐨勬枃浠跺す
-+ 鍒涘缓涓€涓互.java涓哄悗缂€鐨勬枃浠?
-+ 缂栧啓浠ｇ爜
-
-```java
-public class Hello{
-    public static void main(String[], args){
-        System.out.print("Hello World锛?);
-    }
-}
-```
-
-+ 缂栬瘧锛歫avac java鏂囦欢锛屼細鐢熸垚涓€涓猚lass鏂囦欢
-+ 杩愯class鏂囦欢S
-
-<img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1743765924281-0b39cd7e-0524-45e8-9f83-0f56a11ba992.png" width="397.4285888671875" title="" crop="0,0,1,1" id="ua426976d" class="ne-image">
-
-### 鍙兘鍑虹幇鐨勯棶棰?
-+ 姣忎釜鍗曡瘝鐨勫ぇ灏忓啓涓嶈兘鍑虹幇闂锛孞ava鏄ぇ灏忓啓鏁忔劅鐨?
-+ 灏介噺浣跨敤鑻辨枃
-+ 鏂囦欢鍚?鍜?绫诲悕蹇呴』淇濇寔涓€鑷达紝骞朵笖棣栧瓧姣嶅ぇ鍐?
-+ 绗﹀彿蹇呴』浣跨敤鑻辨枃
-
-
-
-## Java鍩虹璇硶
-### 娉ㄩ噴銆佹爣璇嗙銆佸叧閿瓧
-#### 娉ㄩ噴
-娉ㄩ噴骞朵笉浼氳鎵ц锛屾槸缁欏啓浠ｇ爜缁欏埆浜虹湅鐨?
-
-java涓殑娉ㄩ噴鏈変笁绉?
-
-+ 鍗曡娉ㄩ噴
-
-```java
-// 杩欐槸涓€涓崟琛屾敞閲?
-```
-
-+ 澶氳娉ㄩ噴
-
-```java
-/*
-    杩欐槸涓€涓琛屾敞閲?
-*/
-```
-
-+ 鏂囨。娉ㄩ噴
-
-```java
-//JavaDoc: 鏂囨。娉ㄩ噴
-/**
- *@bes
- */
-```
-
-#### 鏍囪瘑绗?
-鎵€鏈夌殑鏍囪瘑绗﹂兘鏄互瀛楁瘝锛圓-Z鎴朼-z锛夛紝缇庡厓绗︼紙$锛夛紝鎴栬€呬笅鍒掔嚎锛坃锛夊紑濮?
-
-棣栧瓧姣嶄箣鍚庡彲浠ユ槸瀛楁瘝锛圓-Z鎴朼-z锛夛紝缇庡厓绗︼紙$锛夛紝涓嬪垝绾匡紙_锛夋垨鏁板瓧鐨勪换浣曞瓧绗︾粍鍚?
-
-鏍囪瘑绗︽槸澶у皬鍐欐晱鎰熺殑
-
-涓嶈兘浣跨敤鍏抽敭瀛椾綔涓哄彉閲忓悕鎴栨柟娉曞悕
-
-涓嶅缓璁娇鐢ㄤ腑鏂囧悕鎴栨嫾闊筹紝寰坙ow
-
-#### 鍏抽敭瀛?
-<img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1743768836077-a6bb4d11-f8dd-4a6e-8d5a-92e9df83ec46.png" width="443.2857360839844" title="" crop="0,0,1,1" id="ufe692728" class="ne-image">
-
-java鎵€鏈夌殑缁勬垚閮ㄥ垎閮介渶瑕佸悕瀛椼€傜被鍚嶏紝鍙橀噺鍚嶄互鍙婃柟娉曞悕閮借绉颁负鏍囪瘑绗?
-
-### 鏁版嵁绫诲瀷
-寮虹被鍨嬭瑷€锛氳姹傚彉閲忕殑浣跨敤瑕佷弗鏍肩鍚堣瀹氾紝鎵€鏈夊彉閲忛兘蹇呴』鍏堝畾涔夊悗鎵嶈兘浣跨敤
-
-#### 鍩烘湰鏁版嵁绫诲瀷
-![鐢绘澘](https://cdn.nlark.com/yuque/0/2025/jpeg/54050922/1743770818061-53510fd8-15e9-4553-877b-d26792d71910.jpeg)
-
-```java
-public class Demo2{
-    public static void main(String[] args){
-        //鏁存暟
-        int num1 = 10;
-        byte num2 = 20;
-        short num3 = 30;
-        long num4 = 30L; //Long绫诲瀷瑕佸湪鏁板瓧鍚庨潰鍔犱笂L
-
-        //灏忔暟锛?娴偣鏁?
-        float num5 = 5.1F; //float绫诲瀷瑕佸湪鏁板瓧鍚庨潰鍔犱笂F
-        double num6 = 3.123436534;
-
-        //瀛楃
-        char name = ''涓?;
-        //瀛楃涓诧紝 String涓嶆槸鍏抽敭瀛楋紝 绫?
-        String name2 = "濂介毦杩?;
-
-        //甯冨皵鍊?
-        boolean flag = true;
-        boolean flag2 = false;
-    }
-}
-```
-
-#### 寮曠敤鏁版嵁绫诲瀷
-绫?
-
-鎺ュ彛
-
-鏁扮粍
-
-#### 浠€涔堟槸瀛楄妭
-浣嶏紙bit锛夛細鏄绠楁満鍐呴儴鏁版嵁瀛樺偍鐨勬渶灏忓崟浣嶏紝11001100鏄竴涓?浣嶄簩杩涘埗鏁?
-
-瀛楄妭锛坆yte锛夛細鏄绠楁満涓暟鎹鐞嗙殑鍩烘湰鍗曚綅锛屼範鎯笂鐢ㄥぇ鍐橞鏉ヨ〃绀?
-
-1B锛坆yte锛屽瓧鑺傦級= 8bit锛堜綅锛?
-
-瀛楃锛氭槸鎸囪绠楁満涓娇鐢ㄧ殑瀛楁瘝锛屾暟瀛楋紝瀛楀拰绗﹀彿
-
-#### 鎵╁睍
-1. 杩涘埗琛ㄧず
-
-```java
-public class Demo2{
-    public static void main(String[] args){
-        //鏁存暟 鎵╁睍
-        int i3 = 0b100;   //浜岃繘鍒?
-        int i = 10;       //鍗佽繘鍒?
-        int i1 = 010;     //鍏繘鍒?
-        int i2 = 0x10;    //鍗佸叚杩涘埗
-
-    }
-}
-```
-
-2. 杞箟瀛楃
-+ \t锛氭按骞冲埗琛ㄧ
-+ \n锛氭崲琛岀
-+ \r锛氬洖杞︾
-+ \b锛氳鏍肩
-+ \f锛氭崲椤电
-+ \\锛氬弽鏂滄潬瀛楃
-+ \''锛氬崟寮曞彿瀛楃
-+ \"锛氬弻寮曞彿瀛楃
-+ \u锛氳〃绀轰竴涓猆nicode瀛楃
-+ \ddd锛氳〃绀轰竴涓叓杩涘埗瀛楃
-
-### 绫诲瀷杞崲
-涓嶅悓绫诲瀷鐨勬暟鎹厛杞崲涓哄悓涓€绫诲瀷锛岀劧鍚庤繘琛岃繍绠?
-
-浣?------------------------------------------------>楂?
-
-byte, short, char-->int-->long-->float-->double
-
-#### 寮哄埗绫诲瀷杞崲
-鏁版嵁绫诲瀷 鍙橀噺鍚? =锛堝彉閲忓悕2锛夊彉閲忥紱  楂?->浣?
-
-```java
-public class Demo{
-    public static void main(String[] args){
-        int i = 128;
-        byte b = (byte)i;
-        System.out.println(i);   //鍐呭瓨婧㈠嚭
-        System.out.println(b);
-    }
-}
-```
-
-#### 鑷姩绫诲瀷杞崲
-鏁版嵁绫诲瀷 鍙橀噺鍚?= 鍙橀噺锛?  浣?->楂?
-
-#### 娉ㄦ剰
-1. 涓嶈兘瀵瑰竷灏斿€艰繘琛岀被鍨嬭浆鎹?
-2. 涓嶈兘鎶婂璞＄被鍨嬭浆鎹负涓嶇浉骞茬殑绫诲瀷
-3. 鍦ㄦ妸楂樺閲忚浆鎹㈠埌浣庡閲忕殑鏃跺€欙紝寮哄埗杞崲
-4. 杞崲鐨勬椂鍊欒偗瀛樺湪鍐呭瓨婧㈠嚭锛屾垨鑰呯簿搴﹂棶棰?
-5. 鎿嶄綔鏁版瘮杈冨ぇ鐨勬椂鍊欙紝娉ㄦ剰婧㈠嚭闂
-6. 鏁板瓧涔嬮棿鍙埄鐢ㄧ敤涓嬫粦绾垮垎鍓?  `int money = 10_0000_0000;`
-7.
-
-
-
-### 鍙橀噺锛屽父閲忥紝浣滅敤鍩?
-#### 鍙橀噺
-鍙互鍙樺寲鐨勯噺
-
-姣忎釜鍙橀噺閮藉繀椤讳簨鍏堝０鍏剁被鍨?
-
-鍙橀噺鏄▼搴忎腑鏈€鍩烘湰鐨勫瓨鍌ㄥ崟鍏冿紝鍏惰绱犲寘鎷彉閲忓悕锛屽彉閲忕被鍨嬪拰浣滅敤鍩?
-
-`鏁版嵁绫诲瀷 鍙橀噺鍚?= 鍊?`
-
-#####  娉ㄦ剰浜嬮」
-+ 姣忎釜鍙橀噺閮芥湁绫诲瀷锛岀被鍨嬪彲浠ユ槸鍩烘湰绫诲瀷锛屼篃鍙互鏄紩鐢ㄧ被鍨?
-+ 鍙橀噺鍚嶅繀椤绘槸鍚堟硶鐨勬爣璇嗙
-+ 鍙橀噺澹版槑鏄竴鏉″畬鏁寸殑璇彞锛屽洜姝ゆ瘡涓€涓０鏄庨兘蹇呴』浠ュ垎鍙风粨鏉?
-
-#### 浣滅敤鍩?
-绫诲彉閲?
-
-瀹炰緥鍙橀噺
-
-灞€閮ㄥ彉閲?
-
-```java
-public class Damo {
-    //灞炴€?鏂规硶
-
-    // 绫诲彉閲?
-    static double salary = 2500;
-    
-    
-    //瀹炰緥鍙橀噺锛屼粠灞炰簬瀵硅薄 
-    //濡傛灉涓嶈繘琛屽垵濮嬪寲锛岃繖涓被鍨嬬殑榛樿鍊?  0.0 
-    //甯冨皵鍊硷細榛樿鍊间负false
-    //闄や簡鍩烘湰绫诲瀷锛屽叾浣欑殑榛樿鍊奸兘鏄痭ull
-    String name;
-    int age;
-
-    
-    //main鏂规硶
-    public static void main(String[] args) {
-        //灞€閮ㄥ彉閲?蹇呴』澹版槑鍜屽垵濮嬪寲鍊?
-        int i = 10;
-        System.out.println(i);
-
-        Damo damo = new Damo();
-        damo.age;
-    }
-
-    //鍏朵粬鏂规硶
-    
-}
-
-```
-
-#### 甯搁噺
-甯搁噺鍙互鐞嗚В涓轰竴绉嶇壒娈婄殑鍙橀噺锛屼粬鐨勫€艰璁惧畾鍚庯紝鍦ㄧ▼搴忔墽琛岃繃绋嬩腑涓嶅厑璁歌鏀瑰彉
-
-```java
-final 鍙橀噺鍚?= 鍊?
-final double PI = 3.14;
-```
-
-甯搁噺鍚嶄竴鑸敤澶у啓瀛楃
-
-淇グ绗︼紝涓嶅瓨鍦ㄥ厛鍚庨『搴?
-
-
-
-#### 鍙橀噺鍚嶇殑鍛藉悕瑙勮寖
-+ 鎵€鏈夊彉閲忥紝鏂规硶锛岀被鍚嶏細瑙佸悕鐭ユ剰
-+ 绫绘垚鍛樺彉閲忥細棣栧瓧姣嶅皬鍐欏拰椹煎嘲鍘熷垯锛歮onthSalary
-+ 灞€閮ㄥ彉閲忥細棣栧瓧姣嶅皬鍐欏拰椹煎嘲鍘熷垯
-+ 甯搁噺锛氬ぇ鍐欏瓧姣嶅拰涓嬪垝绾匡細MAX_VALUE
-+ 绫诲悕锛氶瀛楁瘝澶у啓鍜岄┘宄板師鍒欙細Man锛孏oodMan
-+ 鏂规硶鍚嶏細棣栧瓧姣嶅皬鍐欏拰椹煎嘲鍘熷垯锛歳an(); ranRan();
-
-### 杩愮畻绗?
-#### 鍩烘湰杩愮畻绗?
-+ 绠楁暟杩愮畻绗︼細+, -, *, /, %, ++, --
-+ 璧嬪€艰繍绠楃锛?
-+ 鍏崇郴杩愮畻绗︼細>, <, >=, <=, ==, !=, instanceof
-+ 閫昏緫杩愮畻绗︼細&&, ||锛?锛?
-+ 浣嶈繍绠楃锛?&(涓?, |(鎴?, ^(寮傛垨), ~(闈?,>>, <<, >>>(浜嗚В锛侊紒锛?
-
-鍦ㄨ绠楁満杩愮畻鏃舵晥鐜囨渶楂?
-
-`2<<1`=2*2
-
-`2<<2`=2*2*2
-
-`2>>1`=2/2
-
-`2>>2`=2/2/2
-
-+ 鏉′欢杩愮畻绗︼細锛?锛?
-+ 鎵╁睍璧嬪€艰繍绠楃锛?=锛?-=锛?=锛?/=
-
-a+=b   //a = a+b
-
-a-=b   //a = a-b
-
-#### 涓€鍏冭繍绠楃
-++   --
-
-++a锛氬厛璧嬪€硷紝鍐嶈嚜澧?
-
-a++锛氬厛鑷锛屽啀璧嬪€?
-
-
-
-#### Math宸ュ叿绫?
-鏁版嵁绫诲瀷 鍙橀噺鍚?= Math.鏁板鍑芥暟();
-
-
-
-
-
-#### 瀛楃涓茶繛鎺ョ
-```java
-System.out.println(""+a+b)
->> ab 瀛楃涓?
-System.out.println(a+b+"")
->> a+b 杩愮畻鍚庣殑鍊?
-```
-
-#### 涓夊厓杩愮畻绗?  锛?锛?
-x ? y : z
-
-濡傛灉x=true 杩斿洖 y
-
-濡傛灉x=false 杩斿洖 z
-
-`score < 60 ? "涓嶅強鏍? : "鍙婃牸"`
-
-
-
-#### 浼樺厛绾?
-鏈€楂樹紭鍏堢骇(鎷彿)
-
-鍚庣紑杩愮畻绗?++ --
-
-涓€鍏冭繍绠楃 +(姝ｅ彿) -(璐熷彿) !(閫昏緫闈? ~(浣嶅彇鍙? ++(鍓嶇紑閫掑) --(鍓嶇紑閫掑噺)
-
-涔橀櫎杩愮畻绗?* / %
-
-鍔犲噺杩愮畻绗?+ -
-
-鍏崇郴杩愮畻绗?> >= < <= instanceof
-
-鐩哥瓑杩愮畻绗?== !=
-
-浣嶈繍绠楃 & | ^
-
-閫昏緫杩愮畻绗?&& ||
-
-涓夊厓杩愮畻绗?锛?锛?
-
-璧嬪€艰繍绠楃 = += -= .......
-
-鏈€浣庣骇杩愮畻绗?閫楀彿杩愮畻绗︼紝
-
-#### 
-### 鍖呮満鍒? 鏂囦欢澶? package
-涓€鑸埄鐢ㄥ叕鍙稿煙鍚嶅€掔疆浣滀负鍖呭悕  com.baidu.www
-
-package pkg1[.pkg2[.pkg3...]]
-
-涓轰簡鑳藉浣跨敤鏌愪竴涓寘鐨勬垚鍛橈紝闇€瑕佸啀Java绋嬪簭涓槑纭鍏ヨ鍖咃紝浣跨敤"import"璇彞浜嗗畬鎴愭鍔熻兘
-
-import pkg1[.pkg2[.pkg3...].classname|*]
-
-閫氶厤绗? 瀵煎叆鎵€鏈夋枃浠?*
-
-### JavaDoc
-```java
-/**
- *鍙傛暟淇℃伅
- *绫绘敞閲?
- *@author 浣滆€呭悕 
- *@version 鐗堟湰鍙?
- *@since 鎸囨槑闇€瑕佹渶鏃╀娇鐢ㄧ殑jdk鐗堟湰鍙?
- *
- *鏂规硶娉ㄩ噴
- *@param 鍙傛暟鍚?
- *@return 杩斿洖鍊兼儏鍐?
- *@thrwos 寮傚父鎶涘嚭鎯呭喌
- */
-```
-
-####  cmd鍛戒护
-javadoc -encoding UTF-8 -charser UTF-8 鏂囦欢鍚?java
-
-## 娴佺▼鎺у埗
-鍑℃槸灞炰簬IO(杈撳叆杈撳嚭)娴佺殑绫诲鏋滀笉鍏抽棴浼氫竴鐩村崰鐢ㄨ祫婧?  **瀵硅薄鍚?close();**
-
-### 鐢ㄦ埛浜や簰Scanner
-`**java.util.Scanner**`**鑾峰彇鐢ㄦ埛杈撳叆**
-
-**鍩烘湰璇硶**`**Scanner s = new Scanner(System.in)**`** **
-
-**閫氳繃Scanner绫荤殑next()涓巒ext()鏂规硶鑾峰彇杈撳叆鐨勫瓧绗︿覆锛屽湪璇诲彇鍓嶄竴鑸浣跨敤hasNext()涓巋asNextLine()鍒ゆ柇鏄惁杩樻湁杈撳叆鐨勬暟鎹?*
-
-+ next()浠ョ┖鏍兼垨鍥炶溅浣滀负缁撴潫绗?鍗充笉鑳藉緱鍒板甫鏈夌┖鏍肩殑瀛楃涓?
-+ nextLine()浠ュ洖杞︾浣滀负缁撴潫绗?鍗宠幏寰楀洖杞︾浠ュ墠鐨勬墍鏈夊瓧绗?
-
-```java
-public class damo {
-    public static void main(String[] args) {
-        Scanner scnner = new Scnner(System.in);
-        if(scnner.hasNext()) {
-            String str = scnner.next();
-            System.out.println("杈撳嚭鐨勫唴瀹逛负锛?+str);
-        }
-        if(scnner.hasNextLint()) {
-            String str = scnner.nextLine();
-            System.out.println("杈撳嚭鐨勫唴瀹逛负锛?+str);
-        }
-        scnner.close();
-    }
-}
-```
-
-+ `scanner.nextInt()` 鎺ユ敹鏁存暟鏁版嵁
-+ `scanner.hasNextInt()` 鏄惁鏄疘nt绫诲瀷鐨勬暟鎹?
-+ `scanner.nextFloat()` 鎺ユ敹灏忔暟鏁版嵁
-+ `equals()`鍒ゆ柇瀛楃涓叉槸鍚︾浉绛?
-
-### 椤哄簭缁撴瀯
-Java绋嬪簭鏄粠涓婂線涓嬩緷娆℃墽琛岋紝鏄换鎰忎竴涓畻娉曠▼搴忕鍩烘湰缁撴瀯
-
-### 閫夋嫨缁撴瀯
-#### if鍗曢€夋嫨缁撴瀯
-```java
-if(甯冨皵琛ㄨ揪寮? {
-    //濡傛灉甯冨皵琛ㄨ揪寮忎负true灏嗘墽琛岀殑璇彞
-}
-```
-
-#### if鍙岄€夋嫨缁撴瀯
-```java
-if(甯冨皵琛ㄨ揪寮? {
-    //濡傛灉甯冨皵琛ㄨ揪寮忕殑鍊紅rue灏嗘墽琛岀殑璇彞
-}else{
-    //濡傛灉甯冨皵琛ㄨ揪寮忕殑鍊间负false灏嗘墽琛岀殑浠ｇ爜
-}
-```
-
-#### if澶氶€夋嫨缁撴瀯
-```java
-if(甯冨皵琛ㄨ揪寮?) {
-    //濡傛灉甯冨皵琛ㄨ揪寮?鐨勫€紅rue灏嗘墽琛岀殑璇彞
-}else if(甯冨皵琛ㄨ揪寮?){
-    //濡傛灉甯冨皵琛ㄨ揪寮?鐨勫€间负true灏嗘墽琛岀殑浠ｇ爜
-}else if(甯冨皵琛ㄨ揪寮?) {
-    //濡傛灉甯冨皵琛ㄨ揪寮?鐨勫€间负true灏嗘墽琛岀殑浠ｇ爜
-}else {
-    //濡傛灉浠ヤ笂甯冨皵琛ㄨ揪寮忕殑鍊奸兘涓篺alse灏嗘墽琛岀殑浠ｇ爜
-}
-```
-
-#### 宓屽if缁撴瀯
-```java
-if(甯冨皵琛ㄨ揪寮?) {
-    //濡傛灉甯冨皵琛ㄨ揪寮?鐨勫€紅rue灏嗘墽琛岀殑璇彞
-    if(甯冨皵琛ㄨ揪寮?) {
-        //濡傛灉甯冨皵琛ㄨ揪寮?鐨勫€紅rue灏嗘墽琛岀殑璇彞
-    }
-}
-```
-
-#### switch澶氶€夋嫨缁撴瀯
-switch 璇彞涓殑鍙橀噺锛坴alue锛夌被鍨嬪彲浠ユ槸
-
-+ byte  short Int char 鎴栨槸 string
-+ case 鏍囩蹇呴』鏄瓧绗︿覆甯搁噺鎴栧瓧闈㈤噺
-+ 濡傛灉case鍚庨潰涓嶅啓break; 灏嗕細浼氳緭鍑哄尮閰峜ase鍜屽悗闈㈢殑鍏ㄩ儴鍐呭
-
-```java
-switch(expression) {
-    case value:
-        //璇彞
-        break;  //鍙€?
-    case vlue:
-        //璇彞
-        break; //鍙€?
-    // 鍙互鏈変换鎰忔暟閲忕殑case璇彞
-    default :  //鍙€?
-        //璇彞
-}
-```
-
-
-
-### 寰幆缁撴瀯
-#### while寰幆
-```java
-while (甯冨皵琛ㄨ揪寮?{
-    // 寰幆鍐呭
-}
-```
-
-+ 鍙琛ㄨ揪寮忎负true锛屽惊鐜氨浼氫竴鐩存墽琛屼笅鍘?
-+ 澶у鏁伴兘瑕佸寰幆缁撴瀯杩涜鍋滄鎿嶄綔鐨?
-+ 閬垮厤姝诲惊鐜?  `while(true){}`
-
-#### do鈥︹€hile
-```java
-do {
-    //浠ｇ爜璇彞
-}while(甯冨皵琛ㄨ揪寮?;
-```
-
-+ 鍏堟墽琛屽悗鍒ゆ柇
-+ 鎬昏兘淇濊瘉寰幆浣撹鎵ц涓€娆?
-
-#### for寰幆
-```java
-for(鍒濆鍖? 甯冨皵琛ㄨ揪寮? 鏇存柊){
-    //浠ｇ爜璇彞
-}
-```
-
-+ for寰幆璇彞鏄敮鎸佽凯浠ｇ殑涓€绉嶉€氱敤缁撴瀯锛屾槸鏈€楂樻晥锛屾渶鐏垫椿鐨勫惊鐜粨鏋?
-
-```java
-for(int i = 1; i <= 9; i++){
-    for(int j = 1; j <= i; j++){
-        System.out.print(i+"*"+j+"="+(i*j)+"\t");
-    }
-    System.out.println();
-}
-```
-
-#### 澧炲己for寰幆
-```java
-for(澹版槑璇彞: 琛ㄨ揪寮?{
-    //浠ｇ爜鍙ュ瓙
-}
-```
-
-+ 澹版槑璇彞锛氬０鏄庡績寰楀眬閮ㄥ彉閲忥紝璇ュ彉閲忕殑绫诲瀷蹇呴』鍜屾暟缁勫厓绱犵殑绫诲瀷鍖归厤锛屽叾浣滅敤鍩熼檺瀹氬湪寰幆璇彞鍧楋紝鍏跺€间笌姝ゆ椂鏁扮粍鍏冪礌鐨勫€肩浉绛?
-+ 琛ㄨ揪寮忥細琛ㄨ揪寮忔槸瑕佽闂殑鏁扮粍鍚嶏紝鎴栨槸杩斿洖鍊间负鏁扮粍鐨勬柟娉?
-
-#### break continue
-+ break锛氬湪浠讳綍寰幆璇彞鐨勪富浣撻儴鍒嗭紝鍧囧彲鐢╞reak鎺у埗寰幆鐨勬祦绋嬶紝break鐢ㄤ簬寮鸿閫€鍑哄惊鐜紝涓嶆墽琛屽惊鐜腑鍓╀綑鐨勮鍙ワ紙break璇彞涔熷彲鍦╯witch璇彞涓娇鐢級
-+ continue锛氳鍙ュ湪寰幆璇彞浣撲腑锛岀敤浜庣粓姝㈡煇娆″惊鐜繃绋嬶紝鍗宠烦鍑哄惊鐜綋涓皻鏈墽琛岀殑璇彞锛屾帴鐫€杩涜涓嬩竴娆℃槸鍚︽墽琛屽惊鐜殑鍒ゅ畾
-+ goto鍏抽敭瀛楋細
-
-## Java鏂规硶
-### 浠€涔堟槸鏂规硶
-鏂规硶鏄竴涓鍙ョ殑闆嗗悎
-
-+ 鏂规硶鏄В鍐充竴绫婚棶棰樼殑姝ラ鐨勬湁搴忕粍鍚?
-+ 鏂规硶鍖呭惈浜庣被 鎴栧璞′腑
-+ 鏂规硶鍦ㄧ▼搴忎腑琚垱寤猴紝鍦ㄥ叾浠栧湴鏂硅寮曠敤
-+ 鍘熷瓙鎬э細涓€涓柟娉曞彧瀹屾垚1涓姛鑳斤紝杩欐牱鍒╀簬鍚庢湡鐨勬墿灞?
-
-### 鏂规硶鐨勫畾涔夊強璋冪敤
-#### 鏂规硶鐨勫畾涔?
-```java
-淇グ绗?杩斿洖鍊肩被鍨?鏂规硶鍚?鍙傛暟绫诲瀷 鍙傛暟鍚?{
-    鏂规硶浣?
-    return 杩斿洖鍊?
-}
-```
-
-#### 鏂规硶鐨勮皟鐢?
-`瀵硅薄鍚?鏂规硶鍚?瀹炰緥鍙傛暟);`
-
-褰撴柟娉曡繑鍥炰竴涓€肩殑鏃跺€欙紝鏂规硶璋冪敤閫氬父琚綋鍋氫竴涓€硷紝
-
-`int larger = max(30, 40)`
-
-濡傛灉鏂规硶杩斿洖鍊兼槸void锛屾柟娉曡皟鐢ㄤ竴瀹氭槸涓€鏉¤鍙?
-
-`System.out.println("");`
-
-### 鏂规硶鐨勯噸杞?
-+ 鍦ㄤ竴涓被涓紝鏈夌浉鍚岀殑鍑芥暟鍚嶇О锛屼絾褰㈠弬涓嶅悓鐨勫嚱鏁?
-+ 鏂规硶閲嶈浇鐨勮鍒?
-    - 鏂规硶鍚嶇О蹇呴』鐩稿悓
-    - 鍙傛暟鍒楄〃蹇呴』涓嶅悓锛堜釜鏁帮紝鍙傛暟绫诲瀷锛屾帓鍒楅『搴?锛?
-    - 鏂规硶鐨勮繑鍥炲€肩被鍨嬪彲浠ョ浉鍚屼篃鍙笉鍚?
-    - 浠呬粎杩斿洖绫诲瀷涓嶅悓涓嶆敞鎰忕О涓烘柟娉曠殑閲嶈浇
-
-```java
-public  class Damo {
-    public static void main(String[] args){
-        int max = max(10, 20);
-    }
-
-    public static int max(int a, int b){......}
-
-    public static double max(double a, double b){......}
-}
-```
-
-+ 鏂规硶鍚嶇О鐩稿悓鏃讹紝缂栬瘧鍣ㄤ細鏍规嵁璋冪敤鏂规硶鐨勫弬鏁颁釜鏁帮紝鍙傛暟绫诲瀷绛夊幓閫愪釜鍖归厤锛屼互閫夋嫨瀵瑰簲鐨勬柟娉曪紝濡傛灉鍖归厤澶辫触锛屽垯缂栬瘧杩囩▼浼氭姤閿?
-
-### 鍛戒护琛屼紶鍙?
-<img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1743924109005-9e929619-b460-460e-b745-2520502de860.png" width="887.2" title="" crop="0,0,1,1" id="u753ee053" class="ne-image">
-
-### 鍙彉鍙傛暟
-+ 鍦ㄦ柟娉曞０鏄庝腑锛屽湪鎸囧畾鍙傛暟绫诲瀷鍚庡姞涓€涓渷鐣ュ彿(...)
-+ 涓€涓柟娉曚腑鍙兘鎸囧畾涓€涓彲鍙樺弬鏁帮紝瀹冨繀椤绘槸鏂规硶鐨勬渶鍚庝竴涓弬鏁帮紝浠讳綍鏅€氱殑鍙傛暟蹇呴』鍦ㄥ畠涔嬪墠澹版槑
-
-```java
-public class Demo(){
-    public static void main(String[] args){
-        Demo demo = new Demo();
-        demo.test(1)
-    }
-
-    public void test(int... i){
-        System.out.println(i);
-    }
-}
-```
-
-### 閫掑綊
-+ 閫掑綊澶达細浠€涔堟椂鍊欎笉璋冪敤鑷韩鏂规硶锛屽鏋滄病鏈夐€掑綊澶达紝灏嗛櫡鍏ユ寰幆
-+ 閫掑綊浣擄細浠€涔堟椂鍊欏緪娑涜皟鐢ㄨ嚜韬柟娉?
-
-```java
-public static int f(ing n){
-    if(n == 1){
-        return 1;
-    }else{
-        return n*f(n-1);
-    }
-}
-```
-
-## 鏁扮粍
-### 鏁扮粍姒傝堪
-+ 鏁扮粍鏄浉鍚岀被鍨嬫暟鎹殑鏈夊簭闆嗗悎
-+ 鏁扮粍鎻忚堪鏄浉鍚岀被鍨嬬殑鑻ュ共涓暟鎹紝鎸夌収涓€瀹氱殑鐨勫厛鍚庢搴忔帓鍒楃粍鍚堣€屾垚鐨?
-+ 鍏朵腑锛屾瘡涓€涓暟鎹搷浣滀竴涓暟缁勫厓绱狅紝姣忎釜鏁扮粍鍏冪礌鍙互閫氳繃涓€涓笅鏍囨潵璁块棶瀹冧滑
-+ 鏁扮粍鐨勫洓涓熀鏈壒鐐?
-    - 鍏堕暱搴︽槸鍥哄畾鐨?
-    - 鍏冪礌绫诲瀷蹇呴』鏄浉鍚岀被鍨?
-    - 鏁扮粍鐨勫厓绱犵被鍨嬪彲浠ユ槸浠讳綍鏁版嵁绫诲瀷锛屽寘鎷熀鏈被鍨嬮粦寮曠敤绫诲瀷
-    - 鏁扮粍瀵硅薄鏈韩鏄湪鍫嗕腑鐨?
-
-### 鏁扮粍鐨勫０鏄庡拰鍒涘缓
-+ 棣栧厛蹇呴』澹版槑鏁扮粍鍙橀噺锛屾墠鑳藉湪绋嬪簭涓娇鐢ㄦ暟缁?
-
-```java
-dataType[] arrayRefVar;   //棣栭€夋柟娉?
-
-dataType arrayRefVar[];  //鏁堟灉鐩稿悓锛屼絾涓嶆槸棣栭€夋柟娉?
-
-```
-
-+ **Java璇█浣跨敤new鎿嶄綔绗︽潵鍒涘缓鏁扮粍**
-
-```java
-dataType[] arrayRefVar = new dataType[arraySize]
-```
-
-+ 鏁扮粍鐨勫厓绱犳槸閫氳繃绱㈠紩璁块棶鐨勶紝鏁扮粍绱㈠紩浠?寮€濮?
-+ 鑾峰彇鏁扮粍闀垮害 `arrays.length`
-
-### 鍐呭瓨鍒嗘瀽
-+ 澹版槑鏁扮粍锛氳幏鍙栦竴涓爤
-+ 鍒涘缓鏁扮粍锛氬湪鍫嗕腑鍒涘缓涓€涓窡鏁扮粍鍚嶄竴鏍风殑瀹归噺涓€鏍风殑鍖哄煙
-+ 缁欐暟缁勮祴鍊硷細鍦ㄦ瘡涓皬鐨勫尯鍩熺粰瀹氫竴涓€?
-+ 涓嬫爣瓒婄晫锛氳幏鍙栨暟缁勫€兼椂锛屼笅鏍囦笉鑳借秴杩囨暟缁勭殑瀹归噺澶у皬
-+ ArrayIndexOutOfBoundsExceptioin锛氭暟缁勪笅鏍囪秺鐣屽紓甯?
-
-### 鏁扮粍鐨勪笁绉嶅垵濮嬪寲
-闈欐€佸垵濮嬪寲锛?
-
-```java
-int[] a = {1, 2, 3}
-Man[] man = {new Man(1, 1), new Man(2, 2)}
-```
-
-鍔ㄦ€佸垵濮嬪寲
-
-```java
-int[] a = new int[2];
-a[0] = 1;
-a[1] = 2;
-```
-
-鏁扮粍鐨勯粯璁ゅ垵濮嬪寲
-
-鏁扮粍鏄紩鐢ㄧ被鍨嬶紝瀹冪殑鍏冪礌鐩稿綋浜庣被鐨勫疄渚嬪彉閲忥紝鍥犳鏁扮粍涓€缁忓垎閰嶇┖闂达紝姣忎釜鍏冪礌涔熻鎸夌収瀹炰緥杈╃浉鍚岀殑鏂瑰紡琚殣寮忓垵濮嬪寲
-
-### 鏁扮粍鐨勪娇鐢?
-#### for-each寰幆
-```java
-public class ArrayDamo {
-    public static void main(String[] args) {
-        int[] arrays = {1, 2, 3, 4};
-
-        for (int array : arrays){
-            System.out.println(array);
-        }
-    }   
-}
-```
-
-#### 鏁扮粍浣滄柟娉曞叆鍙?
-```java
-public class ArrayDamo {
-    public static void main(String[] args) {
-        int[] arrays = {1, 2, 3, 4};
-        printArray(arrays);
-    }  
-
-    public static void printArray(int[] arrays){
-        for(int array : arrays){
-            System.out.println(array);
-        }
-    }
-}
-```
-
-#### 鏁扮粍浣滀负杩斿洖鍊?
-```java
-public class ArrayDamo {
-    public static void main(String[] args) {
-        int[] arrays = {1, 2, 3, 4};
-        int[] reverses = reverse(arrays);
-        printArray(reveres);
-    }  
-    public static int[] revers(int[] arrays){
-        int[] reslts = new arrays[arrays.length]
-        // 鍙嶈浆鏁扮粍
-        for (int i = 0, int j = arrays.length - 1; i < arrays.length; i++, j--){
-            reslts[j] = arrays[i];
-        }
-        return revers;
-    }
-}
-```
-
-### 澶氱淮鏁扮粍
-澶氱淮鏁扮粍鍙互鐪嬩綔鏄暟缁勭殑鏁扮粍
-
-浜岀淮鏁扮粍
-
-`int a[][] = new arr[2][4];`
-
-浠ヤ笂鏁扮粍鍙互鐪嬩綔鏄袱琛屽洓鍒楃殑鏁扮粍
-
-浜岀淮鏁扮粍鍙互鏍规嵁绱㈠紩閬嶅巻
-
-### Array 绫?
-API锛歚java.util.Array;`
-
-浣跨敤 Array.鏂规硶鍚?);
-
-
-
-### 鍐掓场鎺掑簭
-涓ゅ眰寰幆锛屽灞傚啋娉¤疆鏁帮紝閲屽眰渚濇姣旇緝
-
-```java
-int[] array = {5,4,3,2,1};
-int tmp = 0;
-for (int i = 0; i < array.length-1; i++){
-    for (j = 0; j < array.length-i; j++ ){
-        if{array[j+1]>arraj[j]}
-            tmp = array[j];
-            array[j] = array[j + 1];
-            array[j + 1] = tmp;
-    }
-}
-```
-
-### 绋€鐤忔暟缁?
-#### 浠嬬粛
-褰撲竴涓暟缁勪腑澶ч儴鍒嗗厓绱?锛屾垨鑰呬负鍚屼竴鍊肩殑鏁板€兼椂锛屽彲浠ヤ娇鐢ㄧ█鐤忔暟缁勬潵淇濆瓨璇ユ暟缁?
-
-绋€鐤忔暟缁勭殑澶勭悊鏂瑰紡鏄?锛?
-
-+ 璁板綍鏁扮粍涓€鍏卞嚑琛屽嚑鍒楋紝鏈夊灏戜釜涓嶅悓鍊?
-+ 鎶婂叿鏈変笉鍚屾寚鐨勫厓绱犲拰琛屽垪鍙婅褰曞湪涓€涓皬瑙勬ā鐨勬暟缁勪腑锛屼粠鑰岀缉灏忕▼搴忕殑瑙勬ā
-
-| 琛?| 鍒?| 鍊?|
-| --- | --- | --- |
-| 琛屾暟 | 鍒楁暟 | 鏁版嵁涓暟 |
-| 鏁版嵁1琛屽潗鏍?| 鏁版嵁1鍒楀潗鏍?| 鏁版嵁1 |
-| 鏁版嵁2琛屽潗鏍?| 鏁版嵁2鍒楀潗鏍?| 鏁版嵁2 |
-
-
-## 闈㈠悜瀵硅薄缂栫▼锛圤bject-Orientend Programming, OOP锛?
-### 鍒濊瘑闈㈠悜瀵硅薄
-+ 闈㈠悜瀵硅薄缂栫▼鐨勬湰璐ㄦ槸锛氫互绫荤殑鏂瑰紡缁勭粐浠ｇ爜锛屼互瀵硅薄鐨勭粍缁囷紙灏佽锛夋暟鎹?
-+ 鎶借薄
-+ 涓夊ぇ鐗规€?灏佽 缁ф壙 澶氭€?
-+ 浠庤璇嗚瑙掑害鑰冭檻鏄厛鏈夊璞″悗鏈夌被锛屽璞★紝鍏蜂綋鐨勪簨鐗╋紝绫伙紝鏄娊璞＄殑锛屾槸瀵瑰璞＄殑鎶借薄
-+ 浠庝唬鐮佽繍琛岃搴﹁€冭檻鏄厛鏈夌被鍚庢湁瀵硅薄锛岀被鏄璞＄殑妯＄増
-
-
-
-### 绫讳笌瀵硅薄鐨勫垱寤?
-#### 绫讳笌瀵硅薄鐨勫叧绯?
-+ 绫绘槸涓€绉嶆娊璞＄殑鏁版嵁绫诲瀷锛屽畠鏄鏌愪竴瀵逛簨鐗╂暣浣撴弿杩?瀹氫箟锛屼絾骞朵笉鏄唬琛ㄦ煇涓€涓叿浣撶殑浜嬬墿
-+ 瀵硅薄鏄娊璞℃蹇电殑鍏蜂綋瀹炰緥
-
-鍒涘缓涓庡垵濮嬪寲瀵硅薄
-
-+ 浣跨敤new鍏抽敭瀛楀垱寤哄璞?
-+ 浣跨敤new鍏抽敭瀛楀垱寤哄璞＄殑鏃跺€欙紝闄や簡 鍒嗛厤鍐呭瓨绌洪棿涔嬪锛岃繕浼氱粰鍒涘缓濂界殑瀵硅薄杩涜榛樿鐨勫垵濮嬪寲锛屽強瀵圭被涓瀯閫犲櫒鐨勮皟鐢?
-+ 绫讳腑鐨勬瀯閫犲櫒涔熺О涓烘瀯閫犳柟娉曪紝鏄湪杩涜鍒涘缓瀵硅薄鐨勬椂鍊欏繀椤昏皟鐢ㄧ殑锛屽苟涓旀瀯閫犲櫒鏈変互涓嬩袱涓壒鐐癸細
-    - 蹇呴』鍜岀被鐨勫悕瀛楃浉鍚?
-    - 蹇呴』娌℃湁杩斿洖绫诲瀷锛屼篃涓嶈兘鍐檝oid
-+ 鏋勯€犲櫒蹇呴』瑕佹帉鎻?
-    - 浣跨敤new鍏抽敭瀛楋紝鏈川鏄皟鐢ㄦ瀯閫犲櫒
-    - 鐢ㄦ潵鍒濆鍖栧€?
-    - 鏈夊弬鏋勯€狅細涓€鏃﹀畾涔変簡鏈夊弬鏋勯€狅紝鏃犲弬鏋勯€犲繀椤绘樉绀哄畾涔?
-
-#### 鏋勯€犲櫒
-+ 鍜岀被鍚嶇浉鍚?
-+ 娌℃湁杩斿洖鍊?
-
-浣滅敤
-
-+ new 鏈川鍦ㄨ皟鐢ㄦ瀯閫犳柟娉?
-+ 鍒濊瘑鍖栧璞＄殑鍊?
-
-娉ㄦ剰鐐?
-
-+ 瀹氫箟鏈夊弬鏋勯€犳墽涔嬪墠锛屽鏋滄兂浣跨敤鏃犲弬鏋勯€狅紝鏄剧ず鍦板畾涔変竴涓棤鍙傛瀯閫?
-
-ALT + INSTRL: 鑷姩鐢熸垚鏋勯€犲櫒
-
-### 灏佽
-+ 楂樺唴鑱氾紝浣庤€﹀悎
-    - 楂樺唴鑱氾細灏辨槸绫荤殑鍐呴儴鏁版嵁鎿嶄綔缁嗚妭鑷繁瀹屾垚锛屼笉鍏佽澶栭儴骞叉秹
-    - 浣庤€﹀悎锛氫粎鏆撮湶灏戦噺鐨勬柟娉曠粰澶栭儴浣跨敤
-+ 鏁版嵁鐨勯殣钘忥細閫氬父锛屽簲绂佹鐩存帴璁块棶涓€涓璞′腑鏁版嵁鐨勫疄闄呰〃绀猴紝鑰屽簲閫氳繃鎿嶄綔鎺ュ彛鏉ヨ闂?
-+ **灞炴€х鏈夛紝 get/set**
-    - get锛氳幏寰楄繖涓暟鎹?
-    - set锛氱粰杩欎釜鏁版嵁璁剧疆鍊?
-
-```java
-// 灞炴€х鏈?
-private String name;
-private int id;
-private char sex;
-```
-
-+ 鎰忎箟
-    - 鎻愰珮绋嬪簭鐨勫畨鍏ㄦ€э紝淇濇姢鏁版嵁
-    - 闅愯棌浠ｇ爜鐨勫疄鐜扮粏鑺?
-    - 缁熶竴鎺ュ彛
-    - 澧炲姞浜嗙郴缁熺殑鍙淮鎶ゆ€?
-
-### 缁ф壙
-#### 缁ф壙鍩虹
-+ extends鐨勬剰鎬濇槸"鎵╁睍"锛屽瓙绫绘槸鐖剁被鐨勬墿灞?
-+ Java涓被鍙湁鍗曠户鎵匡紝娌℃湁澶氱户鎵?
-+ 缁ф壙鏄被鍜岀被鐨勪竴绉嶅叧绯伙紝绫诲拰绫荤殑鍏崇郴杩樻湁渚濊禆锛岀粍鍚堬紝鑱氬悎绛?
-+ 缁ф壙鍏崇郴鐨勪袱涓被锛屼竴涓负瀛愮被锛堟淳鐢熺被锛夛紝涓€涓负鐖剁被锛堝熀绫伙級锛屽瓙绫荤户鎵跨埗绫伙紝浣跨敤鍏抽敭瀛梕xtends琛ㄧず
-+ 瀛愮被鍜岀埗绫讳箣闂达紝浠庢剰涔変笂璁插簲璇ュ叿鏈?is a" 鐨勫叧绯?
-+ 瀛愮被缁ф壙浜嗙埗绫伙紝灏变細鎷ユ湁鐖剁被鐨勬墍鏈塸ublic鏂规硶
-+ 鍦╦ava涓紝鎵€鏈夌殑绫婚兘鐩存帴鎴栭棿鎺ョ户鎵縊bject绫?
-
-#### super锛氳皟鐢ㄧ埗绫绘柟娉?
-+ super璋冪敤鐖剁被鐨勬瀯閫犳柟娉曪紝蹇呴』鍦ㄦ瀯閫犳柟娉曠殑绗竴涓?
-+ super 蹇呴』鍙兘鍑虹幇鍦ㄥ瓙绫荤殑鏂规硶鎴栬€呮瀯閫犳柟娉曚腑
-+ super鍜宼his涓嶈兘鍚屾椂璋冪敤
-+ VS this
-    - 浠ｈ〃鐨勫璞′笉鍚?
-        * this锛氭湰韬皟鐢ㄨ€呰繖涓璞?
-        * super锛氫唬琛ㄧ埗绫诲璞＄殑搴旂敤
-    - 鍓嶆彁
-        * this锛氭病鏈夌户鎵夸篃鍙互浣跨敤
-        * super锛氬彧鑳藉湪缁ф壙鏉′欢涓嬫墠鍙互浣跨敤
-    - 鏋勯€犳柟娉?
-        * this();   鏈被鐨勬瀯閫?
-        * super(); 鐖剁被鐨勬瀯閫?
-
-
-
-#### 鏂规硶閲嶅啓锛氶渶瑕佹湁缁ф壙鍏崇郴锛屽瓙绫婚噸鍐欑埗绫荤殑鏂规硶
-+ 鏂规硶鍚嶅繀椤荤浉鍚?
-+ 鍙傛暟鍒楄〃蹇呴』鐩稿悓
-+ 淇グ绗︼細鑼冨洿鍙互鎵╁ぇ锛? public-->Protected-->private
-+ 鎶涘嚭寮傚父锛氳寖鍥达紝鍙互琚缉灏忥紝浣嗕笉鑳借鎵╁ぇ
-+ 瀛愮被鐨勬柟娉曞拰鐖剁被蹇呴』涓€鑷达細鏂规硶浣撲笉鍚?
-+ 蹇嵎閿細Alt + Insert 锛歰verride锛?
-
-#### 涓嶈兘閲嶅啓鐨勬柟娉?
-+ static 鏂规硶锛屽睘浜庣被锛屼粬涓嶅睘浜庡疄渚?
-+ final 甯搁噺
-+ private 鏂规硶锛氱鏈夋柟娉?
-
-### 澶氭€?
-+ 澶氭€佹槸鏂规硶鐨勫鎬侊紝灞炴€ф病鏈夊鎬?
-+ 鐖剁被鍜屽瓙绫?锛屾湁鑱旂郴 绫诲瀷杞崲寮傚父锛欳lassCastException!
-+ 瀛樺湪鏉′欢锛岀户鎵垮叧绯伙紝鏂规硶闇€瑕侀噸鍐欙紝鐖剁被寮曠敤鍙兂瀛愮被瀵硅薄锛?  Father f1 = new Son()
-+ instanceof    (X instanceof Y)   鍒ゆ柇X鍜孻鏄惁瀛樺湪鐖跺瓙鍏崇郴
-+ 绫诲瀷杞崲
-    - 鐖剁被寮曠敤鎸囧悜瀛愮被鐨勫璞?
-    - 鎶婂瓙绫昏浆鎹负鐖剁被锛屽悜涓婅浆鍚?
-    - 鎶婄埗绫昏浆鎹负瀛愮被锛屽悜涓嬭浆鍚戯紝寮哄埗杞崲
-    - 鏂逛究鏂规硶鐨勮皟鐢紝鍑忓皯閲嶅鐨勪唬鐮?
-
-### static 锛氶潤鎬?
-+ 瀹氫箟闈欐€佸彉閲忥細 private static int age锛?
-+ 瀹氫箟闈欐€佹柟娉曪細public static viod go(){}
-+ 鍖垮悕浠ｇ爜鍧楋細{ //浠ｇ爜鍧?}
-+ 闈欐€佷唬鐮佸潡锛?static  { // 浠ｇ爜鍧?}  //鍙墽琛屼竴娆?
-
-### 鎶借薄绫?abstract
-```java
-// 瀹氫箟鎶借薄绫?
-public abstract class Action {
-    // 瀹氫箟鎶借薄鏂规硶
-    public abstract void toSomethng();
-}
-
-public class a extend Action{
-    @Override
-    public void toSomething{
-        
-    }
-}
-```
-
-+ abstract 淇グ绗﹀彲浠ョ敤鏉ヤ慨楗版柟娉曚篃鍙互鐢ㄦ潵淇グ绫伙紝鎶借薄鏂规硶鍜屾娊璞＄被
-+ 鎶借薄绫讳腑鍙互娌℃湁鎶借薄鏂规硶锛屼絾鎶借薄鏂规硶蹇呴』鏄湪鎶借薄绫讳腑
-+ 鎶借薄绫伙紝涓嶈兘鐢╪ew鍏抽敭瀛楁潵鍒涢€犲璞★紝浠栨槸鐢ㄦ潵璁╁瓙绫荤户鎵跨殑
-+ 鎶借薄鏂规硶鍙湁鏂规硶鐨勫０鏄庯紝娌℃湁鏂规硶鐨勫疄鐜?
-+ 瀛愮被缁ф壙鎶借薄浜嗭紝蹇呴』瀹炵幇鎶借薄绫讳腑鐨勬娊璞℃柟娉曪紝鍚﹀垯璇ュ瓙绫讳篃瑕佸０鏄庝负鎶借薄绫?
-
-
-
-### 鎺ュ彛 interface
-+ 浣滅敤锛?
-    - 绾︽潫
-    - 瀹氫箟涓€浜涙柟娉曪紝璁╀笉鍚岀殑浜哄疄鐜?
-    - public abstract
-    - public static final
-    - 鎺ュ彛涓嶈兘琚疄渚嬪寲锛屾帴鍙ｆ病鏈夋瀯閫犳柟娉?
-    - implements鍙互瀹炵幇澶氫釜鎺ュ彛
-    - 蹇呴』瑕侀噸鍐欐帴鍙ｄ腑鐨勬柟娉?
-
-### 鍐呴儴绫?
-```java
-import Outher锛?
-//娴嬭瘯绫?
-public class Applicant{
-    public static void main(String[] args){
-        Outher outer = new Outer();
-        // 閫氳繃杩欎釜澶栭儴绫绘潵瀹炰緥鍖栧唴閮ㄧ被
-        Outer.Inner inner = outer.new Inner();
-        inner.in();
-        inner.getId();
-    }
-}
-
-// 鍒涘缓澶栭儴绫?
-public class Outer{
-    private int id=10;
-    public void out(){
-        System.out.println("杩欐槸澶栭儴绫荤殑鏂规硶");
-    }
-
-    public class Inner {
-        public void in(){
-            System.out.println("杩欐槸涓€涓唴閮ㄧ被鐨勬柟娉?);
-        }
-        
-        // 鑾峰緱澶栭儴绫荤殑绉佹湁灞炴€?
-        public void getId(){
-            System.out.println(id);
-        }
-    }
-
-    
-}
-
-
-```
-
-## 寮傚父鏈哄埗 exception
-### 浠€涔堟槸寮傚父
-+ 寮傚父鏄寚绋嬪簭杩愯涓嚭鐜扮殑涓嶆湡鑰岃嚦鐨勫悇绉嶇姸鍐碉紝濡傦細鏂囦欢鎵句笉鍒帮紝缃戠粶杩炴帴澶辫触锛岄潪娉曞弬鏁扮瓑
-+ 寮傚父鍙戠敓鍦ㄧ▼搴忚繍琛屾湡闂达紝瀹冨奖鍝嶄簡姝ｅ父鐨勭▼搴忔墽琛屾祦绋?
-+ 寮傚父鐨勭畝鍗曞垎绫?
-    - 妫€鏌ユ€у紓甯革細濡傜敤鎴烽敊璇垨闂寮曡捣鐨勫紓甯革紝杩欐槸绋嬪簭鏃犳硶棰勮鐨?
-    - 杩愯鏃跺紓甯革細鍙兘琚▼搴忓憳閬垮厤鐨勫紓甯?
-    - 閿欒锛氳劚绂荤▼搴忓憳鎺у埗鐨勯棶棰橈紝濡傛爤婧㈠嚭
-
-### Error Exception
-![鐢绘澘](https://cdn.nlark.com/yuque/0/2025/jpeg/54050922/1744009511106-ad39608f-dc1f-4e05-a67f-909ea0f62765.jpeg)
-
-#### Error
-+ 鐢盝ava铏氭嫙鏈虹敓鎴愬苟鎶涘嚭锛屽ぇ澶氭暟閿欒涓庝唬鐮佺紪鍐欒€呮墍鎵ц鐨勬搷浣滄棤鍏?
-+ Java铏氭嫙鏈鸿繍琛岄敊璇紙Virtual MachineError锛夛紝褰搄vm涓嶅湪鐢辩户缁墽琛屾搷浣滄墍闇€鐨勫唴瀛樿祫婧愭椂锛屽皢鍑虹幇OutOfMemoryError銆?
-+ 杩樻湁鍙戠敓鍦ㄨ櫄鎷熸満璇曞浘鎵ц搴旂敤鏃讹紝濡傜被瀹氫箟閿欒锛圢oClassDefFoundError锛夛紝杩炴帴閿欒锛圠inkageError锛夈€傝繖浜涢敊璇槸涓嶅彲鏌ョ殑锛屽洜涓轰粬浠湪搴旂敤绋嬪簭鐨勬帶鍒跺拰澶勭悊鑳藉姏涔嬪锛岃€屼笖缁濆ぇ澶氭暟绋嬪簭杩愯鏃朵笉鍏佽鍑虹幇鐨勭姸鍐?
-
-
-
-
-
-#### Exception
-+ 鍦‥xception鍒嗘敮涓湁涓€涓噸瑕佺殑瀛愮被RuntimeException锛堣繍琛屽紓甯革級
-    - ArrayIndexOutOfBoundsException锛堟暟缁勪笅鏍囪秺鐣岋級
-    - NullPointerException锛堢┖鎸囬拡寮傚父锛?
-    - ArithmeticException锛堢畻鏁板紓甯革級
-    - MissingResourceException锛堜涪澶辫祫婧愶級
-    - ClassNotFoundException锛堟壘涓嶅埌绫伙級绛夊紓甯歌繖浜涘紓甯告椂涓嶆鏌ュ紓甯革紝绋嬪簭涓彲浠ラ€夋嫨鎹曡幏澶勭悊锛屼篃鍙互涓嶅鐞?
-+ 杩欎簺寮傚父涓€鑸槸鐢辩▼搴忛€昏緫閿欒寮曡捣鐨勶紝绋嬪簭搴旇浠庨€昏緫瑙掑害灏藉彲鑳介伩鍏嶈繖绫诲紓甯哥殑鍙戠敓
-+ Error鍜孍xception鐨勫尯鍒細Error閫氬父鏄伨闅炬€х殑鑷村懡鐨勯敊璇紝鏄▼搴忔棤娉曟帶鍒跺拰澶勭悊鐨勶紝褰撳嚭鐜拌繖浜涘紓甯告椂锛孞ava铏氭嫙鏈猴紙JVM锛変竴鑸細閫夋嫨缁堟绾跨▼锛汦xception閫氬父鎯呭喌涓嬫槸鍙互琚▼搴忓鐞嗙殑锛屽苟涓斿湪绋嬪簭涓簲璇ュ敖鍙兘寰楀幓澶勭悊杩欎簺寮傚父
-
-### 寮傚父澶勭悊鏈哄埗
-鎶涘嚭寮傚父
-
-鎹曡幏寮傚父
-
-寮傚父澶勭悊浜斾釜鍏抽敭瀛?
-
-+ try-catch锛氱敤浜庢崟鑾峰紓甯?
-+ finally锛氱敤浜庡鐞嗗紓甯哥殑鍠勫悗宸ヤ綔
-+ throw锛氬湪鏂规硶涓姏鍑哄紓甯?
-+ throws锛氬湪鏂规硶涓婃姏鍑哄紓甯?
-
-### 鑷畾涔夊紓甯?
-鑷畾涔夊紓甯哥被鐨勬楠?
-
-+ 鍒涘缓鑷畾涔夊紓甯哥被
-+ 鍦ㄦ柟娉曚腑閫氳繃throw鍏抽敭瀛楁姏鍑哄紓甯稿璞?
-+ 濡傛灉鍦ㄥ綋鍓嶆姏鍑哄紓甯哥殑鏂规硶涓鐞嗗紓甯革紝鍙互浣跨敤try-catch璇彞鎹曡幏骞跺鐞嗭紱鍚﹀垯鍦ㄦ柟娉曠殑澹版槑澶勯€氳繃throws鍏抽敭瀛楁寚鏄庤鎶涘嚭缁欐柟娉曡皟鐢ㄨ€呯殑寮傚父锛岀户缁暅鍍忎笅涓€姝ユ搷浣?
-+ 鍦ㄥ嚭鐜板紓甯告柟娉曠殑璋冪敤鑰呬腑鎹曡幏骞跺鐞嗗紓甯?
-', NOW());
-SET @last_note_id = LAST_INSERT_ID();
-
-INSERT INTO 
-ote (uthor_id, 	itle, content, created_at)
-VALUES (1001, 'MyBatis-Plus', '# <font style="color:rgb(23, 24, 28);">绠€浠?/font>
-[<font style="color:rgb(70, 142, 247);">MyBatis-Plus</font>](https://github.com/baomidou/mybatis-plus)<font style="color:rgb(53, 56, 65);"> </font><font style="color:rgb(53, 56, 65);">鏄竴涓?/font><font style="color:rgb(53, 56, 65);"> </font>[<font style="color:rgb(70, 142, 247);">MyBatis</font>](https://www.mybatis.org/mybatis-3/)<font style="color:rgb(53, 56, 65);"> </font><font style="color:rgb(53, 56, 65);">鐨勫寮哄伐鍏凤紝鍦?MyBatis 鐨勫熀纭€涓婂彧鍋氬寮轰笉鍋氭敼鍙橈紝涓虹畝鍖栧紑鍙戙€佹彁楂樻晥鐜囪€岀敓銆?/font>
-
-<font style="background-color:rgb(11, 87, 208) !important;">MyBatis-Plus 鏁欑▼</font>
-
-**<font style="color:rgb(102, 8, 145);background-color:rgb(237, 209, 250);">鎰挎櫙</font>**
-
-<font style="color:rgb(23, 24, 28);background-color:rgb(237, 209, 250);">鎴戜滑鐨勬効鏅槸鎴愪负 MyBatis 鏈€濂界殑鎼。锛屽氨鍍?</font>**<font style="color:rgb(23, 24, 28);background-color:rgb(237, 209, 250);">榄傛枟缃?/font>**<font style="color:rgb(23, 24, 28);background-color:rgb(237, 209, 250);"> 涓殑 1P銆?P锛屽熀鍙嬫惌閰嶏紝鏁堢巼缈诲€嶃€?/font>
-
-## <font style="color:rgb(23, 24, 28);">鐗规€?/font>
-+ **<font style="color:rgb(53, 56, 65);">鏃犱镜鍏?/font>**<font style="color:rgb(53, 56, 65);">锛氬彧鍋氬寮轰笉鍋氭敼鍙橈紝寮曞叆瀹冧笉浼氬鐜版湁宸ョ▼浜х敓褰卞搷锛屽涓濊埇椤烘粦</font>
-+ **<font style="color:rgb(53, 56, 65);">鎹熻€楀皬</font>**<font style="color:rgb(53, 56, 65);">锛氬惎鍔ㄥ嵆浼氳嚜鍔ㄦ敞鍏ュ熀鏈?CURD锛屾€ц兘鍩烘湰鏃犳崯鑰楋紝鐩存帴闈㈠悜瀵硅薄鎿嶄綔</font>
-+ **<font style="color:rgb(53, 56, 65);">寮哄ぇ鐨?CRUD 鎿嶄綔</font>**<font style="color:rgb(53, 56, 65);">锛氬唴缃€氱敤 Mapper銆侀€氱敤 Service锛屼粎浠呴€氳繃灏戦噺閰嶇疆鍗冲彲瀹炵幇鍗曡〃澶ч儴鍒?CRUD 鎿嶄綔锛屾洿鏈夊己澶х殑鏉′欢鏋勯€犲櫒锛屾弧瓒冲悇绫讳娇鐢ㄩ渶姹?/font>
-+ **<font style="color:rgb(53, 56, 65);">鏀寔 Lambda 褰㈠紡璋冪敤</font>**<font style="color:rgb(53, 56, 65);">锛氶€氳繃 Lambda 琛ㄨ揪寮忥紝鏂逛究鐨勭紪鍐欏悇绫绘煡璇㈡潯浠讹紝鏃犻渶鍐嶆媴蹇冨瓧娈靛啓閿?/font>
-+ **<font style="color:rgb(53, 56, 65);">鏀寔涓婚敭鑷姩鐢熸垚</font>**<font style="color:rgb(53, 56, 65);">锛氭敮鎸佸杈?4 绉嶄富閿瓥鐣ワ紙鍐呭惈鍒嗗竷寮忓敮涓€ ID 鐢熸垚鍣?- Sequence锛夛紝鍙嚜鐢遍厤缃紝瀹岀編瑙ｅ喅涓婚敭闂</font>
-+ **<font style="color:rgb(53, 56, 65);">鏀寔 ActiveRecord 妯″紡</font>**<font style="color:rgb(53, 56, 65);">锛氭敮鎸?ActiveRecord 褰㈠紡璋冪敤锛屽疄浣撶被鍙渶缁ф壙 Model 绫诲嵆鍙繘琛屽己澶х殑 CRUD 鎿嶄綔</font>
-+ **<font style="color:rgb(53, 56, 65);">鏀寔鑷畾涔夊叏灞€閫氱敤鎿嶄綔</font>**<font style="color:rgb(53, 56, 65);">锛氭敮鎸佸叏灞€閫氱敤鏂规硶娉ㄥ叆锛?Write once, use anywhere 锛?/font>
-+ **<font style="color:rgb(53, 56, 65);">鍐呯疆浠ｇ爜鐢熸垚鍣?/font>**<font style="color:rgb(53, 56, 65);">锛氶噰鐢ㄤ唬鐮佹垨鑰?Maven 鎻掍欢鍙揩閫熺敓鎴?Mapper 銆?Model 銆?Service 銆?Controller 灞備唬鐮侊紝鏀寔妯℃澘寮曟搸锛屾洿鏈夎秴澶氳嚜瀹氫箟閰嶇疆绛夋偍鏉ヤ娇鐢?/font>
-+ **<font style="color:rgb(53, 56, 65);">鍐呯疆鍒嗛〉鎻掍欢</font>**<font style="color:rgb(53, 56, 65);">锛氬熀浜?MyBatis 鐗╃悊鍒嗛〉锛屽紑鍙戣€呮棤闇€鍏冲績鍏蜂綋鎿嶄綔锛岄厤缃ソ鎻掍欢涔嬪悗锛屽啓鍒嗛〉绛夊悓浜庢櫘閫?List 鏌ヨ</font>
-+ **<font style="color:rgb(53, 56, 65);">鍒嗛〉鎻掍欢鏀寔澶氱鏁版嵁搴?/font>**<font style="color:rgb(53, 56, 65);">锛氭敮鎸?MySQL銆丮ariaDB銆丱racle銆丏B2銆丠2銆丠SQL銆丼QLite銆丳ostgre銆丼QLServer 绛夊绉嶆暟鎹簱</font>
-+ **<font style="color:rgb(53, 56, 65);">鍐呯疆鎬ц兘鍒嗘瀽鎻掍欢</font>**<font style="color:rgb(53, 56, 65);">锛氬彲杈撳嚭 SQL 璇彞浠ュ強鍏舵墽琛屾椂闂达紝寤鸿寮€鍙戞祴璇曟椂鍚敤璇ュ姛鑳斤紝鑳藉揩閫熸彧鍑烘參鏌ヨ</font>
-+ **<font style="color:rgb(53, 56, 65);">鍐呯疆鍏ㄥ眬鎷︽埅鎻掍欢</font>**<font style="color:rgb(53, 56, 65);">锛氭彁渚涘叏琛?delete 銆?update 鎿嶄綔鏅鸿兘鍒嗘瀽闃绘柇锛屼篃鍙嚜瀹氫箟鎷︽埅瑙勫垯锛岄闃茶鎿嶄綔</font>
+# 动画：', 0, NOW());
+
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+VALUES (2, 1001, 'MyBatis-Plus', '# <font style="color:rgb(23, 24, 28);">简介</font>
+[<font style="color:rgb(70, 142, 247);">MyBatis-Plus</font>](https://github.com/baomidou/mybatis-plus)<font style="color:rgb(53, 56, 65);"> </font><font style="color:rgb(53, 56, 65);">是一个</font><font style="color:rgb(53, 56, 65);"> </font>[<font style="color:rgb(70, 142, 247);">MyBatis</font>](https://www.mybatis.org/mybatis-3/)<font style="color:rgb(53, 56, 65);"> </font><font style="color:rgb(53, 56, 65);">的增强工具，在 MyBatis 的基础上只做增强不做改变，为简化开发、提高效率而生。</font>
+
+<font style="background-color:rgb(11, 87, 208) !important;">MyBatis-Plus 教程</font>
+
+**<font style="color:rgb(102, 8, 145);background-color:rgb(237, 209, 250);">愿景</font>**
+
+<font style="color:rgb(23, 24, 28);background-color:rgb(237, 209, 250);">我们的愿景是成为 MyBatis 最好的搭档，就像 </font>**<font style="color:rgb(23, 24, 28);background-color:rgb(237, 209, 250);">魂斗罗</font>**<font style="color:rgb(23, 24, 28);background-color:rgb(237, 209, 250);"> 中的 1P、2P，基友搭配，效率翻倍。</font>
+
+## <font style="color:rgb(23, 24, 28);">特性</font>
++ **<font style="color:rgb(53, 56, 65);">无侵入</font>**<font style="color:rgb(53, 56, 65);">：只做增强不做改变，引入它不会对现有工程产生影响，如丝般顺滑</font>
++ **<font style="color:rgb(53, 56, 65);">损耗小</font>**<font style="color:rgb(53, 56, 65);">：启动即会自动注入基本 CURD，性能基本无损耗，直接面向对象操作</font>
++ **<font style="color:rgb(53, 56, 65);">强大的 CRUD 操作</font>**<font style="color:rgb(53, 56, 65);">：内置通用 Mapper、通用 Service，仅仅通过少量配置即可实现单表大部分 CRUD 操作，更有强大的条件构造器，满足各类使用需求</font>
++ **<font style="color:rgb(53, 56, 65);">支持 Lambda 形式调用</font>**<font style="color:rgb(53, 56, 65);">：通过 Lambda 表达式，方便的编写各类查询条件，无需再担心字段写错</font>
++ **<font style="color:rgb(53, 56, 65);">支持主键自动生成</font>**<font style="color:rgb(53, 56, 65);">：支持多达 4 种主键策略（内含分布式唯一 ID 生成器 - Sequence），可自由配置，完美解决主键问题</font>
++ **<font style="color:rgb(53, 56, 65);">支持 ActiveRecord 模式</font>**<font style="color:rgb(53, 56, 65);">：支持 ActiveRecord 形式调用，实体类只需继承 Model 类即可进行强大的 CRUD 操作</font>
++ **<font style="color:rgb(53, 56, 65);">支持自定义全局通用操作</font>**<font style="color:rgb(53, 56, 65);">：支持全局通用方法注入（ Write once, use anywhere ）</font>
++ **<font style="color:rgb(53, 56, 65);">内置代码生成器</font>**<font style="color:rgb(53, 56, 65);">：采用代码或者 Maven 插件可快速生成 Mapper 、 Model 、 Service 、 Controller 层代码，支持模板引擎，更有超多自定义配置等您来使用</font>
++ **<font style="color:rgb(53, 56, 65);">内置分页插件</font>**<font style="color:rgb(53, 56, 65);">：基于 MyBatis 物理分页，开发者无需关心具体操作，配置好插件之后，写分页等同于普通 List 查询</font>
++ **<font style="color:rgb(53, 56, 65);">分页插件支持多种数据库</font>**<font style="color:rgb(53, 56, 65);">：支持 MySQL、MariaDB、Oracle、DB2、H2、HSQL、SQLite、Postgre、SQLServer 等多种数据库</font>
++ **<font style="color:rgb(53, 56, 65);">内置性能分析插件</font>**<font style="color:rgb(53, 56, 65);">：可输出 SQL 语句以及其执行时间，建议开发测试时启用该功能，能快速揪出慢查询</font>
++ **<font style="color:rgb(53, 56, 65);">内置全局拦截插件</font>**<font style="color:rgb(53, 56, 65);">：提供全表 delete 、 update 操作智能分析阻断，也可自定义拦截规则，预防误操作</font>
 
 <font style="color:rgb(53, 56, 65);"></font>
 
-# <font style="color:rgb(23, 24, 28);">蹇€熷紑濮?/font>
-<font style="color:rgb(53, 56, 65);">鎴戜滑灏嗛€氳繃涓€涓畝鍗曠殑 Demo 鏉ラ槓杩?MyBatis-Plus 鐨勫己澶у姛鑳斤紝鍦ㄦ涔嬪墠锛屾垜浠亣璁炬偍宸茬粡锛?/font>
+# <font style="color:rgb(23, 24, 28);">快速开始</font>
+<font style="color:rgb(53, 56, 65);">我们将通过一个简单的 Demo 来阐述 MyBatis-Plus 的强大功能，在此之前，我们假设您已经：</font>
 
-<font style="background-color:rgb(11, 87, 208) !important;">MyBatis-Plus鐢熸€?/font>
+<font style="background-color:rgb(11, 87, 208) !important;">MyBatis-Plus生态</font>
 
-+ <font style="color:rgb(53, 56, 65);">鎷ユ湁 Java 寮€鍙戠幆澧冧互鍙婄浉搴?IDE</font>
-+ <font style="color:rgb(53, 56, 65);">鐔熸倝 Spring Boot</font>
-+ <font style="color:rgb(53, 56, 65);">鐔熸倝 Maven 鎴?Gradle</font>
++ <font style="color:rgb(53, 56, 65);">拥有 Java 开发环境以及相应 IDE</font>
++ <font style="color:rgb(53, 56, 65);">熟悉 Spring Boot</font>
++ <font style="color:rgb(53, 56, 65);">熟悉 Maven 或 Gradle</font>
 
 ---
 
-<font style="color:rgb(53, 56, 65);">鐜版湁涓€寮?User 琛紝鍏惰〃缁撴瀯濡備笅锛?/font>
+<font style="color:rgb(53, 56, 65);">现有一张 User 表，其表结构如下：</font>
 
 | <font style="color:rgb(53, 56, 65);">id</font> | <font style="color:rgb(53, 56, 65);">name</font> | <font style="color:rgb(53, 56, 65);">age</font> | <font style="color:rgb(53, 56, 65);">email</font> |
 | --- | --- | --- | --- |
@@ -1580,11 +519,11 @@ VALUES (1001, 'MyBatis-Plus', '# <font style="color:rgb(23, 24, 28);">绠€浠?
 | <font style="color:rgb(53, 56, 65);">5</font> | <font style="color:rgb(53, 56, 65);">Billie</font> | <font style="color:rgb(53, 56, 65);">24</font> | [<font style="color:rgb(70, 142, 247);">test5@baomidou.com</font>](mailto:test5@baomidou.com) |
 
 
-<font style="color:rgb(53, 56, 65);">鍏跺搴旂殑鏁版嵁搴?Schema 鑴氭湰濡備笅锛?/font>
+<font style="color:rgb(53, 56, 65);">其对应的数据库 Schema 脚本如下：</font>
 
 <font style="color:rgb(53, 56, 65);">schema-h2.sql</font>
 
-<font style="background-color:rgb(11, 87, 208) !important;">Java瀹炰綋绫?/font>
+<font style="background-color:rgb(11, 87, 208) !important;">Java实体类</font>
 
 ```plain
 DROP TABLE IF EXISTS `user`;
@@ -1596,20 +535,20 @@ CREATE TABLE `user`
 
 (
 
-    id BIGINT NOT NULL COMMENT ''涓婚敭ID'',
+    id BIGINT NOT NULL COMMENT ''主键ID'',
 
-    name VARCHAR(30) NULL DEFAULT NULL COMMENT ''濮撳悕'',
+    name VARCHAR(30) NULL DEFAULT NULL COMMENT ''姓名'',
 
-    age INT NULL DEFAULT NULL COMMENT ''骞撮緞'',
+    age INT NULL DEFAULT NULL COMMENT ''年龄'',
 
-    email VARCHAR(50) NULL DEFAULT NULL COMMENT ''閭'',
+    email VARCHAR(50) NULL DEFAULT NULL COMMENT ''邮箱'',
 
     PRIMARY KEY (id)
 
 );
 ```
 
-<font style="color:rgb(53, 56, 65);">鍏跺搴旂殑鏁版嵁搴?Data 鑴氭湰濡備笅锛?/font>
+<font style="color:rgb(53, 56, 65);">其对应的数据库 Data 脚本如下：</font>
 
 <font style="color:rgb(53, 56, 65);">data-h2.sql</font>
 
@@ -1634,10 +573,10 @@ INSERT INTO `user` (id, name, age, email) VALUES
 
 ---
 
-<font style="color:rgb(53, 56, 65);">鍒涘缓涓€涓┖鐨?Spring Boot 宸ョ▼锛屽姞鍏?H2 鏁版嵁搴撹繘琛岄泦鎴愭祴璇曘€?/font>
+<font style="color:rgb(53, 56, 65);">创建一个空的 Spring Boot 工程，加入 H2 数据库进行集成测试。</font>
 
-## <font style="color:rgb(23, 24, 28);">娣诲姞渚濊禆</font>
-<font style="color:rgb(53, 56, 65);">寮曞叆 MyBatis-Plus Starter 渚濊禆</font>
+## <font style="color:rgb(23, 24, 28);">添加依赖</font>
+<font style="color:rgb(53, 56, 65);">引入 MyBatis-Plus Starter 依赖</font>
 
 ```xml
 <dependencies>
@@ -1656,7 +595,7 @@ INSERT INTO `user` (id, name, age, email) VALUES
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--鏁版嵁搴撻┍鍔?->
+        <!--数据库驱动-->
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
@@ -1676,9 +615,9 @@ INSERT INTO `user` (id, name, age, email) VALUES
     </dependencies>
 ```
 
-浣跨敤mybatis-Plus鍙互鑺傜渷澶ч噺鐨勪唬鐮侊紝灏介噺涓嶈鍚屾椂瀵煎叆mybatis鍜宮ybatis-plus
+使用mybatis-Plus可以节省大量的代码，尽量不要同时导入mybatis和mybatis-plus
 
-## <font style="color:rgb(23, 24, 28);">閾炬帴鏁版嵁搴?/font>
+## <font style="color:rgb(23, 24, 28);">链接数据库</font>
 ```xml
 spring.application.name=mybatis_plus
 spring.datasource.username=root
@@ -1688,7 +627,7 @@ spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 
 ```
 
-## <font style="color:rgb(23, 24, 28);">濡備綍浣跨敤</font>
+## <font style="color:rgb(23, 24, 28);">如何使用</font>
 1. pojo
 
 ```java
@@ -1720,15 +659,15 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.jie.pojo.User;
 import org.springframework.stereotype.Repository;
 
-// 鍦ㄥ搴旂殑Mapper涓婇潰缁ф壙鍩烘湰鐨勭被 BaseMapper
-@Repository  // 浠ｈ〃鎸佷箙灞?
+// 在对应的Mapper上面继承基本的类 BaseMapper
+@Repository  // 代表持久层
 public interface UserMapper extends BaseMapper<User> {
-    // 鎵€鏈夌殑crud宸茬粡閰嶇疆瀹屾垚
-    // 涓嶉渶瑕侀厤缃叾浠栨枃浠朵簡
+    // 所有的crud已经配置完成
+    // 不需要配置其他文件了
 }
 ```
 
-3. 娴嬭瘯
+3. 测试
 
 ```java
 package com.jie;
@@ -1744,13 +683,13 @@ import java.util.List;
 @SpringBootTest
 class MybatisPlusApplicationTests {
 
-    @Autowired  // 缁ф壙浜咮aseMapper鎵€鏈夌殑鏂规硶锛屼篃鍙互鑷繁缂栧啓鏂规硶
+    @Autowired  // 继承了BaseMapper所有的方法，也可以自己编写方法
     private UserMapper userMapper;
 
     @Test
     void contextLoads() {
-        // 鍙傛暟鏄竴涓獁rapper锛屾潯浠舵瀯閫犲櫒锛岃繖閲屼娇鐢╪ull
-        // 鏌ヨ鍏ㄩ儴鐢ㄦ埛
+        // 参数是一个wrapper，条件构造器，这里使用null
+        // 查询全部用户
         List<User> users = userMapper.selectList(null);
         users.forEach(System.out::println);
     }
@@ -1758,21 +697,21 @@ class MybatisPlusApplicationTests {
 ```
 
 ## <font style="color:rgb(23, 24, 28);"></font>
-# 閰嶇疆鏃ュ織
-鍦ㄩ厤缃枃浠朵腑璁剧疆
+# 配置日志
+在配置文件中设置
 
 ```plain
-# 鏃ュ織閰嶇疆
+# 日志配置
 mybatis-plus.configuration.log-impl=org.apache.ibatis.logging.stdout.StdOutImpl
 
 ```
 
-鏌ョ湅鑷姩鐢熸垚鐨剆ql
+查看自动生成的sql
 
 # CRUD
-## 鎻掑叆娴嬭瘯
+## 插入测试
 ```java
-@Test // 鎻掑叆娴嬭瘯
+@Test // 插入测试
 public void testInsert(){
     User user = new User();
     user.setName("zhangsan");
@@ -1787,9 +726,9 @@ public void testInsert(){
 
 <img src="https://cdn.nlark.com/yuque/0/2026/png/54050922/1776402148635-5677c0d5-fa5b-4e38-bb18-ef785dac911c.png" width="586.4" title="" crop="0,0,1,1" id="u94b2206c" class="ne-image">
 
-<font style="color:rgb(53, 56, 65);">MyBatis-Plus 鎻愪緵浜嗙伒娲荤殑鑷畾涔塈D鐢熸垚鍣ㄥ姛鑳斤紝鍏佽寮€鍙戣€呮牴鎹笟鍔￠渶姹傚畾鍒禝D鐢熸垚绛栫暐銆備粠3.3.0鐗堟湰寮€濮嬶紝榛樿浣跨敤闆姳绠楁硶缁撳悎涓嶅惈涓垝绾跨殑UUID浣滀负ID鐢熸垚鏂瑰紡</font>
+<font style="color:rgb(53, 56, 65);">MyBatis-Plus 提供了灵活的自定义ID生成器功能，允许开发者根据业务需求定制ID生成策略。从3.3.0版本开始，默认使用雪花算法结合不含中划线的UUID作为ID生成方式</font>
 
-## <font style="color:rgb(53, 56, 65);">鑷绛栫暐</font>
+## <font style="color:rgb(53, 56, 65);">自增策略</font>
 ```java
 @Data
 @AllArgsConstructor
@@ -1806,11 +745,11 @@ public class User {
 
 ```java
 public enum IdType {
-    AUTO(0),  //涓婚敭鑷锛岃姹傛暟鎹簱瀛楁蹇呴』鑷
-    NONE(1),  //鏈缃富閿?
-    INPUT(2), // 鎵嬪姩杈撳叆
-    ASSIGN_ID(3),  // 榛樿鍏ㄥ眬id
-    ASSIGN_UUID(4); // 鍏ㄥ眬id
+    AUTO(0),  //主键自增，要求数据库字段必须自增
+    NONE(1),  //未设置主键
+    INPUT(2), // 手动输入
+    ASSIGN_ID(3),  // 默认全局id
+    ASSIGN_UUID(4); // 全局id
 
     private final int key;
 
@@ -1824,9 +763,9 @@ public enum IdType {
 }
 ```
 
-## 娴嬭瘯鏇存柊
+## 测试更新
 ```java
-@Test // 鏇存柊娴嬭瘯
+@Test // 更新测试
 public void testUpdate(){
     User user = new User();
     user.setId(6L);
@@ -1838,28 +777,28 @@ public void testUpdate(){
 }
 ```
 
-## 鑷姩濉厖
-鍒涘缓鏃堕棿锛屼慨鏀规椂闂达紒杩欎簺鎿嶄綔涓€鑸兘鏄嚜鍔ㄥ寲瀹屾垚鐨勶紝鎴戜滑涓嶅笇鏈涙墜鍔ㄦ洿鏂?
+## 自动填充
+创建时间，修改时间！这些操作一般都是自动化完成的，我们不希望手动更新
 
-闃块噷宸村反寮€鍙戞墜鍐岋細鎵€鏈夌殑鏁版嵁搴撹〃閮藉簲璇ユ湁锛歡mt_create锛?gmt_modified鍑犱箮鎵€鏈夌殑琛ㄩ兘瑕侀厤缃笂锛岃€屼笖闇€瑕佽嚜鍔ㄥ寲锛?
+阿里巴巴开发手册：所有的数据库表都应该有：gmt_create， gmt_modified几乎所有的表都要配置上，而且需要自动化！
 
-### 鏁版嵁搴撶骇鍒?
-鍦ㄨ〃涓柊澧炲瓧娈?create_time,update_time锛屽皢榛樿琛ㄨ揪鏄缃负CURRENT_TIMESTAMP锛屽皢update_tiem鏇存柊璁剧疆涓篊URRENT_TIMESTAMP
+### 数据库级别
+在表中新增字段 create_time,update_time，将默认表达是设置为CURRENT_TIMESTAMP，将update_tiem更新设置为CURRENT_TIMESTAMP
 
-鍦ㄥ垱寤烘暟鎹拰淇敼鏁版嵁鍚庝細鑷姩鏇存敼
+在创建数据和修改数据后会自动更改
 
-### 浠ｇ爜绾у埆
-鍦ㄥ疄浣撶被瀛楁涓婂鍔犳敞瑙?
+### 代码级别
+在实体类字段上增加注解
 
 ```java
-// 瀛楁澧炲姞濉厖鍐呭
+// 字段增加填充内容
 @TableField(fill = FieldFill.INSERT)
 private Date createTime;
 @TableField(fill = FieldFill.UPDATE)
 private Date updateTime;
 ```
 
-鍦ㄥ鐞嗗櫒涓鐞嗘敞瑙?
+在处理器中处理注解
 
 ```java
 package com.jie.handler;
@@ -1873,9 +812,9 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Slf4j
-@Component  // 涓€瀹氫笉瑕佸繕璁版妸澶勭悊鍣ㄥ姞鍒癷oc瀹瑰櫒涓?
+@Component  // 一定不要忘记把处理器加到ioc容器中
 public class MyMetaObjetHandler implements MetaObjectHandler {
-    // 鎻掑叆鏃剁殑濉厖绛栫暐
+    // 插入时的填充策略
     @Override
     public void insertFill(MetaObject metaObject) {
         log.info("start insert fill ....");
@@ -1883,7 +822,7 @@ public class MyMetaObjetHandler implements MetaObjectHandler {
         this.setFieldValByName("createTime", new Date(), metaObject);
         this.setFieldValByName("updateTime", new Date(), metaObject);
     }
-    // 璺熸柊鏃剁殑濉厖绛栫暐
+    // 跟新时的填充策略
     @Override
     public void updateFill(MetaObject metaObject) {
         log.info("start update fill ....");
@@ -1893,38 +832,38 @@ public class MyMetaObjetHandler implements MetaObjectHandler {
 }
 ```
 
-## 涔愯閿?
-<font style="color:rgb(53, 56, 65);">涔愯閿佹槸涓€绉嶅苟鍙戞帶鍒舵満鍒讹紝鐢ㄤ簬纭繚鍦ㄦ洿鏂拌褰曟椂锛岃璁板綍鏈鍏朵粬浜嬪姟淇敼銆侻yBatis-Plus 鎻愪緵浜?/font><font style="color:rgb(53, 56, 65);"> </font>`<font style="color:rgb(53, 56, 65);background-color:rgb(236, 238, 242);">OptimisticLockerInnerInterceptor</font>`<font style="color:rgb(53, 56, 65);"> </font><font style="color:rgb(53, 56, 65);">鎻掍欢锛屼娇寰楀湪搴旂敤涓疄鐜颁箰瑙傞攣鍙樺緱绠€鍗曘€?/font>
+## 乐观锁
+<font style="color:rgb(53, 56, 65);">乐观锁是一种并发控制机制，用于确保在更新记录时，该记录未被其他事务修改。MyBatis-Plus 提供了</font><font style="color:rgb(53, 56, 65);"> </font>`<font style="color:rgb(53, 56, 65);background-color:rgb(236, 238, 242);">OptimisticLockerInnerInterceptor</font>`<font style="color:rgb(53, 56, 65);"> </font><font style="color:rgb(53, 56, 65);">插件，使得在应用中实现乐观锁变得简单。</font>
 
-<font style="background-color:rgb(11, 87, 208) !important;">杞欢</font>
+<font style="background-color:rgb(11, 87, 208) !important;">软件</font>
 
-### <font style="color:rgb(23, 24, 28);">涔愯閿佺殑瀹炵幇鍘熺悊</font>
-<font style="color:rgb(53, 56, 65);">涔愯閿佺殑瀹炵幇閫氬父鍖呮嫭浠ヤ笅姝ラ锛?/font>
+### <font style="color:rgb(23, 24, 28);">乐观锁的实现原理</font>
+<font style="color:rgb(53, 56, 65);">乐观锁的实现通常包括以下步骤：</font>
 
-1. <font style="color:rgb(53, 56, 65);">璇诲彇璁板綍鏃讹紝鑾峰彇褰撳墠鐨勭増鏈彿锛坴ersion锛夈€?/font>
-2. <font style="color:rgb(53, 56, 65);">鍦ㄦ洿鏂拌褰曟椂锛屽皢杩欎釜鐗堟湰鍙蜂竴鍚屼紶閫掋€?/font>
-3. <font style="color:rgb(53, 56, 65);">鎵ц鏇存柊鎿嶄綔鏃讹紝璁剧疆</font><font style="color:rgb(53, 56, 65);"> </font>`<font style="color:rgb(53, 56, 65);background-color:rgb(236, 238, 242);">version = newVersion</font>`<font style="color:rgb(53, 56, 65);"> </font><font style="color:rgb(53, 56, 65);">鐨勬潯浠朵负</font><font style="color:rgb(53, 56, 65);"> </font>`<font style="color:rgb(53, 56, 65);background-color:rgb(236, 238, 242);">version = oldVersion</font>`<font style="color:rgb(53, 56, 65);">銆?/font>
-4. <font style="color:rgb(53, 56, 65);">濡傛灉鐗堟湰鍙蜂笉鍖归厤锛屽垯鏇存柊澶辫触銆?/font>
+1. <font style="color:rgb(53, 56, 65);">读取记录时，获取当前的版本号（version）。</font>
+2. <font style="color:rgb(53, 56, 65);">在更新记录时，将这个版本号一同传递。</font>
+3. <font style="color:rgb(53, 56, 65);">执行更新操作时，设置</font><font style="color:rgb(53, 56, 65);"> </font>`<font style="color:rgb(53, 56, 65);background-color:rgb(236, 238, 242);">version = newVersion</font>`<font style="color:rgb(53, 56, 65);"> </font><font style="color:rgb(53, 56, 65);">的条件为</font><font style="color:rgb(53, 56, 65);"> </font>`<font style="color:rgb(53, 56, 65);background-color:rgb(236, 238, 242);">version = oldVersion</font>`<font style="color:rgb(53, 56, 65);">。</font>
+4. <font style="color:rgb(53, 56, 65);">如果版本号不匹配，则更新失败。</font>
 
-### 濡備綍瀹炵幇
-1. 缁欐暟鎹〃涓姞涓妚ersion瀛楁锛岄粯璁や负1
-2. 淇敼瀹炰綋绫伙紝鍔犱笂version
+### 如何实现
+1. 给数据表中加上version字段，默认为1
+2. 修改实体类，加上version
 
 ```java
 @Version
 private Integer version;
 ```
 
-3. 娉ㄥ唽缁勪欢
+3. 注册组件
 
 ```java
-// 鎵弿mapper鏂囦欢澶?
+// 扫描mapper文件夹
 @MapperScan("com.jie.mapper")
 @EnableTransactionManagement
-@Configuration //閰嶇疆绫?
+@Configuration //配置类
 public class MyBatisPlusConfig {
 
-    // 娉ㄥ唽涔愯閿佹彃浠?
+    // 注册乐观锁插件
     @Bean
     public OptimisticLockerInnerInterceptor optimisticLockerInnerInterceptor() {
         return new OptimisticLockerInnerInterceptor();
@@ -1932,18 +871,18 @@ public class MyBatisPlusConfig {
 }
 ```
 
-4. 涔愯閿佹祴璇?
+4. 乐观锁测试
 
 ```java
-@Test // 娴嬭瘯涔愯閿?
+@Test // 测试乐观锁
 public void testOptimisticLockerInner(){
 
-    // 绾跨▼1
+    // 线程1
     User user = userMapper.selectById(1L);
     user.setAge(18);
     user.setEmail("123456789@qq.com");
 
-    // 妯℃嫙鍙︿竴涓嚎绋嬫墽琛屾彃闃熸搷浣?
+    // 模拟另一个线程执行插队操作
     User user2 = userMapper.selectById(1L);
     user2.setAge(30);
     user2.setEmail("213456789@qq.com");
@@ -1955,21 +894,21 @@ public void testOptimisticLockerInner(){
 }
 ```
 
-## 鏌ヨ鎿嶄綔
+## 查询操作
 ```java
-@Test // 鏌ヨ娴嬭瘯
-public void testSelectById(){  // 鍗曚釜ID
+@Test // 查询测试
+public void testSelectById(){  // 单个ID
     User user = userMapper.selectById(1L);
     System.out.println(user);
 }
 
-@Test  // 娴嬭瘯鎵归噺鏌ヨ
+@Test  // 测试批量查询
 public void testSelectByBatchId(){
     List<User> users = userMapper.selectByIds(Arrays.asList(1L, 2L, 3L));
     users.forEach(System.out::println);
 }
 
-@Test // 鏉′欢鏌ヨ map
+@Test // 条件查询 map
 public void testDeleteByIds(){
     HashMap<String, Object> map = new HashMap<>();
     map.put("name", "zhangsan");
@@ -1981,28 +920,28 @@ public void testDeleteByIds(){
 }
 ```
 
-## 鍒嗛〉鏌ヨ
-1. 閰嶇疆鍒嗛〉鎻掍欢
+## 分页查询
+1. 配置分页插件
 
 ```java
 @Bean
 public MybatisPlusInterceptor mybatisPlusInterceptor() {
     MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-    interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL)); // 濡傛灉閰嶇疆澶氫釜鎻掍欢, 鍒囪鍒嗛〉鏈€鍚庢坊鍔?
-    // 濡傛灉鏈夊鏁版嵁婧愬彲浠ヤ笉閰嶅叿浣撶被鍨? 鍚﹀垯閮藉缓璁厤涓婂叿浣撶殑 DbType
+    interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL)); // 如果配置多个插件, 切记分页最后添加
+    // 如果有多数据源可以不配具体类型, 否则都建议配上具体的 DbType
     return interceptor;
 }
 ```
 
-2. 娴嬭瘯鍒嗛〉鏌ヨ
+2. 测试分页查询
 
 
 
 ```java
-@Test // 娴嬭瘯鍒嗛〉鎻掑彊
+@Test // 测试分页插叙
 public void testPage(){
-    // 鍙傛暟涓€: 褰撳墠椤?
-    // 鍙傛暟浜? 椤甸潰澶у皬
+    // 参数一: 当前页
+    // 参数二: 页面大小
     Page<User> page = new Page<>(1,5);
     userMapper.selectPage(page,null);
     page.getRecords().forEach(System.out::println);
@@ -2014,22 +953,22 @@ public void testPage(){
 
 
 
-## 鍒犻櫎鎿嶄綔
-### 鍩烘湰鍒犻櫎鎿嶄綔
+## 删除操作
+### 基本删除操作
 ```java
-@Test // 鏍规嵁id鍒犻櫎
+@Test // 根据id删除
 public void testDeleteById(){
     User user = userMapper.selectById(1L);
     userMapper.deleteById(2045004534566916098L);
 }
 
-@Test // 鎵归噺鍒犻櫎
+@Test // 批量删除
 public void testDeleteBatchByIds(){
     List<Long> ids = Arrays.asList(7L,6L);
     userMapper.deleteBatchIds(ids);
 }
 
-@Test // 鏍规嵁鏉′欢鍒犻櫎
+@Test // 根据条件删除
 public void testDeleteMap(){
     HashMap<String, Object> map = new HashMap<>();
     map.put("name", "lis");
@@ -2037,21 +976,21 @@ public void testDeleteMap(){
 }
 ```
 
-### 閫昏緫鍒犻櫎
-1. 鐗╃悊鍒犻櫎锛氫粠鏁版嵁搴撲腑鍒犻櫎
-2. 閫昏緫鍒犻櫎锛氬湪鏁版嵁搴撲腑娌℃湁琚Щ闄わ紝鑰屾槸閫氳繃涓€涓彉閲忔潵璁╀粬澶辨晥锛?deleted=0--> deleted =1 锛岀鐞嗗憳鍙互鏌ョ湅鍒犻櫎璁板綍锛岄槻姝㈡暟鎹涪澶?
+### 逻辑删除
+1. 物理删除：从数据库中删除
+2. 逻辑删除：在数据库中没有被移除，而是通过一个变量来让他失效！ deleted=0--> deleted =1 ，管理员可以查看删除记录，防止数据丢失
 
-娴嬭瘯
+测试
 
-1. 鐜板湪鏁版嵁搴撲腑娣诲姞涓€涓猟eleted瀛楁
-2. 鍦ㄥ疄浣撶被涓坊鍔燿eleted灞炴€?
+1. 现在数据库中添加一个deleted字段
+2. 在实体类中添加deleted属性
 
 ```java
-@TableLogic // 閫昏緫鍒犻櫎
+@TableLogic // 逻辑删除
 private Integer deleted;
 ```
 
-3. 閰嶇疆
+3. 配置
 
 ```java
 @Bean
@@ -2061,58 +1000,58 @@ public ISqlInjector sqlInjector() {
 ```
 
 ```xml
-# 閰嶇疆閫昏緫鍒犻櫎
+# 配置逻辑删除
 mybatis-plus.global-config.db-config.logic-delete-value=1
 mybatis-plus.global-config.db-config.logic-not-delete-value=0
 ```
 
-+ 娴嬭瘯鍒犻櫎锛屾湰璐ㄨ蛋鐨勬槸鏇存柊鎿嶄綔锛屽皢deleted鏀逛负0
-+ 鏌ヨ鏃惰嚜鍔ㄨ繃婊よ閫昏緫鍒犻櫎鐨勬暟鎹?
++ 测试删除，本质走的是更新操作，将deleted改为0
++ 查询时自动过滤被逻辑删除的数据
 
 ## 
-# 鎬ц兘鍒嗘瀽鎻掍欢
-鍦ㄦ棩甯稿紑鍙戜腑锛屼細閬囧埌涓€浜涙參sql
+# 性能分析插件
+在日常开发中，会遇到一些慢sql
 
-浣滅敤锛氭€ц兘鍒嗘瀽鎷︽埅鍣紝鐢ㄤ簬杈撳嚭姣忔潯SQL璇彞鍙婂叾鎵ц鏃堕棿
+作用：性能分析拦截器，用于输出每条SQL语句及其执行时间
 
-MP涓篃鎻愪緵鎬ц兘鍒嗘瀽鎻掍欢锛屽鏋滆秴杩囪繖涓椂闂村氨浼氬仠姝㈣繍琛?
+MP中也提供性能分析插件，如果超过这个时间就会停止运行
 
-1. 瀵煎叆鎻掍欢
+1. 导入插件
 
 ```java
 @Bean
-@Profile({"dev","test"}) // 璁剧疆 dev test 鐜寮€鍚?淇濊瘉寮€鍙戞晥鐜?
+@Profile({"dev","test"}) // 设置 dev test 环境开启 保证开发效率
 public PerformanceInterceptor performanceInterceptor() {
     PerformanceInterceptor performanceInterceptor = new PerformanceInterceptor();
-    performanceInterceptor.setMaxTime(1); // ms 璁剧疆璇磋捣鏉ユ墽琛岀殑鏈€澶ф椂闂?
-    performanceInterceptor.setFormat(true); //鏄惁寮€鍚牸寮忓寲鏀寔
+    performanceInterceptor.setMaxTime(1); // ms 设置说起来执行的最大时间
+    performanceInterceptor.setFormat(true); //是否开启格式化支持
     return performanceInterceptor;
 }
 ```
 
-瑕佸湪SpringBoot涓厤缃幆澧冧负dev鎴栬€卼est鐜锛?
+要在SpringBoot中配置环境为dev或者test环境！
 
 ```plain
-# 璁剧疆寮€鍙戠幆澧?
+# 设置开发环境
 spring.profiles.active=dev
 ```
 
-2. 娴嬭瘯浣跨敤锛岃秴杩囨祴璇曟椂闂村氨浼氬仠姝㈣繍琛?
+2. 测试使用，超过测试时间就会停止运行
 
-# 鏉′欢鏋勯€犲櫒
-<font style="color:rgb(53, 56, 65);">MyBatis-Plus 鎻愪緵浜嗕竴濂楀己澶х殑鏉′欢鏋勯€犲櫒锛圵rapper锛夛紝鐢ㄤ簬鏋勫缓澶嶆潅鐨勬暟鎹簱鏌ヨ鏉′欢銆俉rapper 绫诲厑璁稿紑鍙戣€呬互閾惧紡璋冪敤鐨勬柟寮忔瀯閫犳煡璇㈡潯浠讹紝鏃犻渶缂栧啓绻佺悙鐨?SQL 璇彞锛屼粠鑰屾彁楂樺紑鍙戞晥鐜囧苟鍑忓皯 SQL 娉ㄥ叆鐨勯闄┿€?/font>
+# 条件构造器
+<font style="color:rgb(53, 56, 65);">MyBatis-Plus 提供了一套强大的条件构造器（Wrapper），用于构建复杂的数据库查询条件。Wrapper 类允许开发者以链式调用的方式构造查询条件，无需编写繁琐的 SQL 语句，从而提高开发效率并减少 SQL 注入的风险。</font>
 
-<font style="background-color:rgb(11, 87, 208) !important;">閾惧紡璋冪敤</font>
+<font style="background-color:rgb(11, 87, 208) !important;">链式调用</font>
 
-<font style="color:rgb(53, 56, 65);">鍦?MyBatis-Plus 涓紝Wrapper 绫绘槸鏋勫缓鏌ヨ鍜屾洿鏂版潯浠剁殑鏍稿績宸ュ叿銆備互涓嬫槸涓昏鐨?Wrapper 绫诲強鍏跺姛鑳斤細</font>
+<font style="color:rgb(53, 56, 65);">在 MyBatis-Plus 中，Wrapper 类是构建查询和更新条件的核心工具。以下是主要的 Wrapper 类及其功能：</font>
 
-+ **<font style="color:rgb(53, 56, 65);">AbstractWrapper</font>**<font style="color:rgb(53, 56, 65);">锛氳繖鏄竴涓娊璞″熀绫伙紝鎻愪緵浜嗘墍鏈?Wrapper 绫诲叡鏈夌殑鏂规硶鍜屽睘鎬с€傚畠瀹氫箟浜嗘潯浠舵瀯閫犵殑鍩烘湰閫昏緫锛屽寘鎷瓧娈碉紙column锛夈€佸€硷紙value锛夈€佹搷浣滅锛坈ondition锛夌瓑銆傛墍鏈夌殑 QueryWrapper銆乁pdateWrapper銆丩ambdaQueryWrapper 鍜?LambdaUpdateWrapper 閮界户鎵胯嚜 AbstractWrapper銆?/font>
-+ **<font style="color:rgb(53, 56, 65);">QueryWrapper</font>**<font style="color:rgb(53, 56, 65);">锛氫笓闂ㄧ敤浜庢瀯閫犳煡璇㈡潯浠讹紝鏀寔鍩烘湰鐨勭瓑浜庛€佷笉绛変簬銆佸ぇ浜庛€佸皬浜庣瓑鍚勭甯歌鎿嶄綔銆傚畠鍏佽浣犱互閾惧紡璋冪敤鐨勬柟寮忔坊鍔犲涓煡璇㈡潯浠讹紝骞朵笖鍙互缁勫悎浣跨敤</font><font style="color:rgb(53, 56, 65);"> </font>`<font style="color:rgb(53, 56, 65);background-color:rgb(236, 238, 242);">and</font>`<font style="color:rgb(53, 56, 65);"> </font><font style="color:rgb(53, 56, 65);">鍜?/font><font style="color:rgb(53, 56, 65);"> </font>`<font style="color:rgb(53, 56, 65);background-color:rgb(236, 238, 242);">or</font>`<font style="color:rgb(53, 56, 65);"> </font><font style="color:rgb(53, 56, 65);">閫昏緫銆?/font>
-+ **<font style="color:rgb(53, 56, 65);">UpdateWrapper</font>**<font style="color:rgb(53, 56, 65);">锛氱敤浜庢瀯閫犳洿鏂版潯浠讹紝鍙互鍦ㄦ洿鏂版暟鎹椂鎸囧畾鏉′欢銆備笌 QueryWrapper 绫讳技锛屽畠涔熸敮鎸侀摼寮忚皟鐢ㄥ拰閫昏緫缁勫悎銆備娇鐢?UpdateWrapper 鍙互鍦ㄤ笉鍒涘缓瀹炰綋瀵硅薄鐨勬儏鍐典笅锛岀洿鎺ヨ缃洿鏂板瓧娈靛拰鏉′欢銆?/font>
-+ **<font style="color:rgb(53, 56, 65);">LambdaQueryWrapper</font>**<font style="color:rgb(53, 56, 65);">锛氳繖鏄竴涓熀浜?Lambda 琛ㄨ揪寮忕殑鏌ヨ鏉′欢鏋勯€犲櫒锛屽畠閫氳繃 Lambda 琛ㄨ揪寮忔潵寮曠敤瀹炰綋绫荤殑灞炴€э紝浠庤€岄伩鍏嶄簡纭紪鐮佸瓧娈靛悕銆傝繖绉嶆柟寮忔彁楂樹簡浠ｇ爜鐨勫彲璇绘€у拰鍙淮鎶ゆ€э紝灏ゅ叾鏄湪瀛楁鍚嶅彲鑳藉彂鐢熷彉鍖栫殑鎯呭喌涓嬨€?/font>
-+ **<font style="color:rgb(53, 56, 65);">LambdaUpdateWrapper</font>**<font style="color:rgb(53, 56, 65);">锛氱被浼间簬 LambdaQueryWrapper锛孡ambdaUpdateWrapper 鏄熀浜?Lambda 琛ㄨ揪寮忕殑鏇存柊鏉′欢鏋勯€犲櫒銆傚畠鍏佽浣犱娇鐢?Lambda 琛ㄨ揪寮忔潵鎸囧畾鏇存柊瀛楁鍜屾潯浠讹紝鍚屾牱閬垮厤浜嗙‖缂栫爜瀛楁鍚嶇殑闂</font>
++ **<font style="color:rgb(53, 56, 65);">AbstractWrapper</font>**<font style="color:rgb(53, 56, 65);">：这是一个抽象基类，提供了所有 Wrapper 类共有的方法和属性。它定义了条件构造的基本逻辑，包括字段（column）、值（value）、操作符（condition）等。所有的 QueryWrapper、UpdateWrapper、LambdaQueryWrapper 和 LambdaUpdateWrapper 都继承自 AbstractWrapper。</font>
++ **<font style="color:rgb(53, 56, 65);">QueryWrapper</font>**<font style="color:rgb(53, 56, 65);">：专门用于构造查询条件，支持基本的等于、不等于、大于、小于等各种常见操作。它允许你以链式调用的方式添加多个查询条件，并且可以组合使用</font><font style="color:rgb(53, 56, 65);"> </font>`<font style="color:rgb(53, 56, 65);background-color:rgb(236, 238, 242);">and</font>`<font style="color:rgb(53, 56, 65);"> </font><font style="color:rgb(53, 56, 65);">和</font><font style="color:rgb(53, 56, 65);"> </font>`<font style="color:rgb(53, 56, 65);background-color:rgb(236, 238, 242);">or</font>`<font style="color:rgb(53, 56, 65);"> </font><font style="color:rgb(53, 56, 65);">逻辑。</font>
++ **<font style="color:rgb(53, 56, 65);">UpdateWrapper</font>**<font style="color:rgb(53, 56, 65);">：用于构造更新条件，可以在更新数据时指定条件。与 QueryWrapper 类似，它也支持链式调用和逻辑组合。使用 UpdateWrapper 可以在不创建实体对象的情况下，直接设置更新字段和条件。</font>
++ **<font style="color:rgb(53, 56, 65);">LambdaQueryWrapper</font>**<font style="color:rgb(53, 56, 65);">：这是一个基于 Lambda 表达式的查询条件构造器，它通过 Lambda 表达式来引用实体类的属性，从而避免了硬编码字段名。这种方式提高了代码的可读性和可维护性，尤其是在字段名可能发生变化的情况下。</font>
++ **<font style="color:rgb(53, 56, 65);">LambdaUpdateWrapper</font>**<font style="color:rgb(53, 56, 65);">：类似于 LambdaQueryWrapper，LambdaUpdateWrapper 是基于 Lambda 表达式的更新条件构造器。它允许你使用 Lambda 表达式来指定更新字段和条件，同样避免了硬编码字段名的问题</font>
 
-<font style="color:rgb(53, 56, 65);">MyBatis-Plus 鐨?Wrapper 绫绘槸鏋勫缓澶嶆潅鏌ヨ鍜屾洿鏂版潯浠剁殑鍏抽敭宸ュ叿銆傚畠鍏佽寮€鍙戣€呬互閾惧紡璋冪敤鐨勬柟寮忔瀯閫?SQL 鐨?WHERE 瀛愬彞锛屾彁渚涗簡鏋佸ぇ鐨勭伒娲绘€у拰渚垮埄鎬с€?/font>
+<font style="color:rgb(53, 56, 65);">MyBatis-Plus 的 Wrapper 类是构建复杂查询和更新条件的关键工具。它允许开发者以链式调用的方式构造 SQL 的 WHERE 子句，提供了极大的灵活性和便利性。</font>
 
 ```java
 package com.jie;
@@ -2129,12 +1068,12 @@ import java.util.Map;
 
 @SpringBootTest
 public class WrapperTest {
-    @Autowired  // 缁ф壙浜咮aseMapper鎵€鏈夌殑鏂规硶锛屼篃鍙互鑷繁缂栧啓鏂规硶
+    @Autowired  // 继承了BaseMapper所有的方法，也可以自己编写方法
     private UserMapper userMapper;
 
     @Test
     void test1() {
-        // 鏌ヨname涓嶄负绌猴紝涓旈偖绠变笉涓虹┖锛屽勾榫勫ぇ浜庣瓑浜?2鐨勭敤鎴?
+        // 查询name不为空，且邮箱不为空，年龄大于等于12的用户
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.isNotNull("name")
         .isNotNull("email")
@@ -2144,16 +1083,16 @@ public class WrapperTest {
 
     @Test
     void test2() {
-        // 鏌ヨ鍚嶅瓧涓篢om鐨勭敤鎴?
+        // 查询名字为Tom的用户
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq("name","Tom");
-        User user = userMapper.selectOne(wrapper); // 鏌ヨ涓€涓暟鎹紙selectOne锛? 鍑虹幇澶氫釜鍊熺敤鐢╨ist鎴栬€卪ap
+        User user = userMapper.selectOne(wrapper); // 查询一个数据（selectOne）  出现多个借用用list或者map
         System.out.println(user);
     }
 
     @Test
     void test3() {
-        // 鏌ヨ骞撮緞鍦?0鍒?0涔嬮棿鐨勭敤鎴?
+        // 查询年龄在20到30之间的用户
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.between("age",20,30);
         Long l = userMapper.selectCount(wrapper);
@@ -2162,7 +1101,7 @@ public class WrapperTest {
 
     @Test
     void test4() {
-        // 妯＄硦鏌ヨ
+        // 模糊查询
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.notLike("name","o")
         .likeRight("email","t");
@@ -2173,7 +1112,7 @@ public class WrapperTest {
     @Test
     void test5() {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        // id 鍦ㄥ瓙鏌ヨ涓煡鍑烘潵
+        // id 在子查询中查出来
         wrapper.inSql("id", "select id from users where id < 3");
         List<Object> objects = userMapper.selectObjs(wrapper);
         objects.forEach(System.out::println);
@@ -2182,7 +1121,7 @@ public class WrapperTest {
     @Test
     void test6() {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        //閫氳繃id杩涜鎺掑簭
+        //通过id进行排序
         wrapper.orderByDesc("id");
         List<User> users = userMapper.selectObjs(wrapper);
         users.forEach(System.out::println);
@@ -2192,34 +1131,32 @@ public class WrapperTest {
 
 
 
-# 浠ｇ爜鑷姩鐢熸垚鍣', NOW());
-SET @last_note_id = LAST_INSERT_ID();
+# 代码自动生成器', 0, NOW());
 
-INSERT INTO 
-ote (uthor_id, 	itle, content, created_at)
-VALUES (1001, 'Redis', '# <font style="color:rgb(15, 17, 21);">Redis 姒傝堪銆?/font>
-## 姒傝堪
-<font style="color:rgb(15, 17, 21);"> Redis 鏄竴涓紑婧愮殑銆佸熀浜庡唴瀛樼殑閿€煎瀛樺偍鏁版嵁搴擄紝琚獕涓衡€滄暟鎹粨鏋勬湇鍔″櫒鈥濄€傚畠浠?/font>**<font style="color:rgb(15, 17, 21);">鏋侀珮鐨勬€ц兘</font>**<font style="color:rgb(15, 17, 21);">钁楃О锛岃鍐欓€熷害鍙揪姣忕10涓囨浠ヤ笂锛屼富瑕佺敤浜庤В鍐抽珮骞跺彂鍦烘櫙涓嬫暟鎹簱鐨勮闂摱棰堥棶棰樸€?/font>
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+VALUES (3, 1001, 'Redis', '# <font style="color:rgb(15, 17, 21);">Redis 概述、</font>
+## 概述
+<font style="color:rgb(15, 17, 21);"> Redis 是一个开源的、基于内存的键值对存储数据库，被誉为“数据结构服务器”。它以</font>**<font style="color:rgb(15, 17, 21);">极高的性能</font>**<font style="color:rgb(15, 17, 21);">著称，读写速度可达每秒10万次以上，主要用于解决高并发场景下数据库的访问瓶颈问题。</font>
 
-<font style="color:rgb(15, 17, 21);">涓庡彧鏀寔绠€鍗曞瓧绗︿覆鐨勭紦瀛樺伐鍏蜂笉鍚岋紝Redis 鎻愪緵浜?/font>**<font style="color:rgb(15, 17, 21);">涓板瘜鐨勬暟鎹粨鏋?/font>**<font style="color:rgb(15, 17, 21);">锛堝瀛楃涓层€佸搱甯屻€佸垪琛ㄣ€侀泦鍚堛€佹湁搴忛泦鍚堢瓑锛夛紝鍙互鐩存帴瀹炵幇鎺掕姒溿€佺ぞ浜ゅ叧绯汇€佹秷鎭槦鍒楃瓑澶嶆潅鍔熻兘銆傚悓鏃讹紝瀹冭繕鏀寔</font>**<font style="color:rgb(15, 17, 21);">鏁版嵁鎸佷箙鍖?/font>**<font style="color:rgb(15, 17, 21);">锛堥噸鍚笉涓㈠け锛夈€?/font>**<font style="color:rgb(15, 17, 21);">鍒嗗竷寮忛攣</font>**<font style="color:rgb(15, 17, 21);">銆?/font>**<font style="color:rgb(15, 17, 21);">涓讳粠澶嶅埗</font>**<font style="color:rgb(15, 17, 21);">鍜?/font>**<font style="color:rgb(15, 17, 21);">闆嗙兢</font>**<font style="color:rgb(15, 17, 21);">绛夐珮鍙敤鐗规€с€?/font>
+<font style="color:rgb(15, 17, 21);">与只支持简单字符串的缓存工具不同，Redis 提供了</font>**<font style="color:rgb(15, 17, 21);">丰富的数据结构</font>**<font style="color:rgb(15, 17, 21);">（如字符串、哈希、列表、集合、有序集合等），可以直接实现排行榜、社交关系、消息队列等复杂功能。同时，它还支持</font>**<font style="color:rgb(15, 17, 21);">数据持久化</font>**<font style="color:rgb(15, 17, 21);">（重启不丢失）、</font>**<font style="color:rgb(15, 17, 21);">分布式锁</font>**<font style="color:rgb(15, 17, 21);">、</font>**<font style="color:rgb(15, 17, 21);">主从复制</font>**<font style="color:rgb(15, 17, 21);">和</font>**<font style="color:rgb(15, 17, 21);">集群</font>**<font style="color:rgb(15, 17, 21);">等高可用特性。</font>
 
-<font style="color:rgb(15, 17, 21);">绠€鍗曟潵璇达紝Redis 鏄幇浠ｉ珮骞跺彂銆佷綆寤惰繜绯荤粺鐨勨€?/font>**<font style="color:rgb(15, 17, 21);">鎬ц兘鍔犻€熷櫒</font>**<font style="color:rgb(15, 17, 21);">鈥濓紝鍑犱箮鎵€鏈夊ぇ鍨嬩簰鑱旂綉椤圭洰閮界涓嶅紑瀹冦€?/font>
+<font style="color:rgb(15, 17, 21);">简单来说，Redis 是现代高并发、低延迟系统的“</font>**<font style="color:rgb(15, 17, 21);">性能加速器</font>**<font style="color:rgb(15, 17, 21);">”，几乎所有大型互联网项目都离不开它。</font>
 
-## Linux瀹夎
-1. 涓嬭浇瀹夎鍖?
+## Linux安装
+1. 下载安装包
 
 ```properties
 https://download.redis.io/releases/
 ```
 
-2. 灏嗗畨瑁呭寘绉诲埌 /opt/  涓紝瑙ｅ帇缂?
+2. 将安装包移到 /opt/  中，解压缩
 
 ```properties
 mv redis-8.6.4.tar.gz /opt
 tar -v-zxvf redis-8.6.4.tar.gz
 ```
 
-3. 涓嬭浇 gcc-c++
+3. 下载 gcc-c++
 
 ```properties
 yum install gcc-c++
@@ -2227,7 +1164,7 @@ make
 make install
 ```
 
-4. 淇敼閰嶇疆鏂囦欢
+4. 修改配置文件
 
 ```properties
 cd /usr/local/bin
@@ -2240,14 +1177,14 @@ daemonize yes
 
 ```
 
-5. 鍚姩Redis鏈嶅姟
+5. 启动Redis服务
 
 ```properties
 cd /usr/local/bin
 redis-server config/redis.conf
 ```
 
-6. 閾炬帴redis
+6. 链接redis
 
 ```properties
 redis-cli -p 6379
@@ -2255,570 +1192,570 @@ redis-cli -p 6379
 
 <img src="https://cdn.nlark.com/yuque/0/2026/png/54050922/1780733409646-33f9dd5c-6fb2-4c9f-a43e-52ee930a4631.png" width="557.6" title="" crop="0,0,1,1" id="u580fc5dd" class="ne-image">
 
-7. 鏌ョ湅杩涚▼
+7. 查看进程
 
 <img src="https://cdn.nlark.com/yuque/0/2026/png/54050922/1780733587215-d4e9d144-d5ce-46a8-bf1b-2a45e1b8b5ea.png" width="640.8" title="" crop="0,0,1,1" id="u6693e831" class="ne-image">
 
-8. 鍏抽棴閫€鍑?
+8. 关闭退出
 
 <img src="https://cdn.nlark.com/yuque/0/2026/png/54050922/1780733562576-ce71d22b-facb-4026-b12a-b8b96a874af3.png" width="522.4" title="" crop="0,0,1,1" id="uef64c5c8" class="ne-image">
 
-## redis-benchmark 鎬ц兘娴嬭瘯宸ュ叿
-1. 鍙傛暟璇存槑
+## redis-benchmark 性能测试工具
+1. 参数说明
 
-| <font style="color:rgb(15, 17, 21);">鍙傛暟</font> | <font style="color:rgb(15, 17, 21);">璇存槑</font> | <font style="color:rgb(15, 17, 21);">榛樿鍊?/font> |
+| <font style="color:rgb(15, 17, 21);">参数</font> | <font style="color:rgb(15, 17, 21);">说明</font> | <font style="color:rgb(15, 17, 21);">默认值</font> |
 | --- | --- | --- |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-h</font>` | <font style="color:rgb(15, 17, 21);">鏈嶅姟鍣?IP 鎴栧煙鍚?/font> | <font style="color:rgb(15, 17, 21);">127.0.0.1</font> |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-p</font>` | <font style="color:rgb(15, 17, 21);">鏈嶅姟鍣ㄧ鍙?/font> | <font style="color:rgb(15, 17, 21);">6379</font> |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-a</font>` | <font style="color:rgb(15, 17, 21);">杩炴帴瀵嗙爜</font> | <font style="color:rgb(15, 17, 21);">鏃?/font> |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-c</font>` | <font style="color:rgb(15, 17, 21);">骞跺彂杩炴帴鏁帮紙妯℃嫙澶氬皯涓鎴风锛?/font> | <font style="color:rgb(15, 17, 21);">50</font> |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-n</font>` | <font style="color:rgb(15, 17, 21);">鎬昏姹傛暟閲?/font> | <font style="color:rgb(15, 17, 21);">100000</font> |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-d</font>` | <font style="color:rgb(15, 17, 21);">SET/GET 鐨勬暟鎹ぇ灏忥紙瀛楄妭锛?/font> | <font style="color:rgb(15, 17, 21);">3</font> |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-t</font>` | <font style="color:rgb(15, 17, 21);">鎸囧畾娴嬭瘯鐨勫懡浠ら泦锛屽</font><font style="color:rgb(15, 17, 21);"> </font>`<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-t set,get,lpush</font>` | <font style="color:rgb(15, 17, 21);">娴嬭瘯鎵€鏈夊懡浠?/font> |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-r</font>` | <font style="color:rgb(15, 17, 21);">浣跨敤闅忔満 key锛堥伩鍏嶇儹鐐?key 褰卞搷娴嬭瘯缁撴灉锛?/font> | <font style="color:rgb(15, 17, 21);">鍥哄畾 key</font> |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-P</font>` | <font style="color:rgb(15, 17, 21);">绠￠亾锛坧ipeline锛夎姹傛暟</font> | <font style="color:rgb(15, 17, 21);">1锛堟棤绠￠亾锛?/font> |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-q</font>` | <font style="color:rgb(15, 17, 21);">瀹夐潤妯″紡锛屽彧鏄剧ず QPS 鍊?/font> | <font style="color:rgb(15, 17, 21);">鏄剧ず璇︾粏缁撴灉</font> |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-l</font>` | <font style="color:rgb(15, 17, 21);">寰幆娴嬭瘯锛屾案涓嶅仠鏈?/font> | <font style="color:rgb(15, 17, 21);">鍙窇涓€杞?/font> |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">--csv</font>` | <font style="color:rgb(15, 17, 21);">浠?CSV 鏍煎紡杈撳嚭</font> | <font style="color:rgb(15, 17, 21);">鏅€氭枃鏈?/font> |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">--threads</font>` | <font style="color:rgb(15, 17, 21);">澶氱嚎绋嬫ā寮忥紙Redis 6.0+ 缂栬瘧鐨勭増鏈敮鎸侊級</font> | <font style="color:rgb(15, 17, 21);">鍗曠嚎绋?/font> |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">--cluster</font>` | <font style="color:rgb(15, 17, 21);">闆嗙兢妯″紡锛堟祴璇?Redis Cluster 鏃堕渶鍔犳鍙傛暟锛?/font> | <font style="color:rgb(15, 17, 21);">鍗曟満妯″紡</font> |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-e</font>` | <font style="color:rgb(15, 17, 21);">鏄剧ず Redis 杩斿洖鐨勯敊璇俊鎭?/font> | <font style="color:rgb(15, 17, 21);">涓嶆樉绀?/font> |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-h</font>` | <font style="color:rgb(15, 17, 21);">服务器 IP 或域名</font> | <font style="color:rgb(15, 17, 21);">127.0.0.1</font> |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-p</font>` | <font style="color:rgb(15, 17, 21);">服务器端口</font> | <font style="color:rgb(15, 17, 21);">6379</font> |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-a</font>` | <font style="color:rgb(15, 17, 21);">连接密码</font> | <font style="color:rgb(15, 17, 21);">无</font> |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-c</font>` | <font style="color:rgb(15, 17, 21);">并发连接数（模拟多少个客户端）</font> | <font style="color:rgb(15, 17, 21);">50</font> |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-n</font>` | <font style="color:rgb(15, 17, 21);">总请求数量</font> | <font style="color:rgb(15, 17, 21);">100000</font> |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-d</font>` | <font style="color:rgb(15, 17, 21);">SET/GET 的数据大小（字节）</font> | <font style="color:rgb(15, 17, 21);">3</font> |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-t</font>` | <font style="color:rgb(15, 17, 21);">指定测试的命令集，如</font><font style="color:rgb(15, 17, 21);"> </font>`<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-t set,get,lpush</font>` | <font style="color:rgb(15, 17, 21);">测试所有命令</font> |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-r</font>` | <font style="color:rgb(15, 17, 21);">使用随机 key（避免热点 key 影响测试结果）</font> | <font style="color:rgb(15, 17, 21);">固定 key</font> |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-P</font>` | <font style="color:rgb(15, 17, 21);">管道（pipeline）请求数</font> | <font style="color:rgb(15, 17, 21);">1（无管道）</font> |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-q</font>` | <font style="color:rgb(15, 17, 21);">安静模式，只显示 QPS 值</font> | <font style="color:rgb(15, 17, 21);">显示详细结果</font> |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-l</font>` | <font style="color:rgb(15, 17, 21);">循环测试，永不停机</font> | <font style="color:rgb(15, 17, 21);">只跑一轮</font> |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">--csv</font>` | <font style="color:rgb(15, 17, 21);">以 CSV 格式输出</font> | <font style="color:rgb(15, 17, 21);">普通文本</font> |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">--threads</font>` | <font style="color:rgb(15, 17, 21);">多线程模式（Redis 6.0+ 编译的版本支持）</font> | <font style="color:rgb(15, 17, 21);">单线程</font> |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">--cluster</font>` | <font style="color:rgb(15, 17, 21);">集群模式（测试 Redis Cluster 时需加此参数）</font> | <font style="color:rgb(15, 17, 21);">单机模式</font> |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-e</font>` | <font style="color:rgb(15, 17, 21);">显示 Redis 返回的错误信息</font> | <font style="color:rgb(15, 17, 21);">不显示</font> |
 
 
-2. <font style="color:rgb(15, 17, 21);">娴嬭瘯 SET 鍜?GET 鐨勬€ц兘</font>
+2. <font style="color:rgb(15, 17, 21);">测试 SET 和 GET 的性能</font>
 
 ```properties
 redis-benchmark -t set,get -n 1000000 -c 200
 ```
 
-3. <font style="color:rgb(15, 17, 21);">妯℃嫙鐪熷疄鍦烘櫙锛堝ぇ Value銆侀殢鏈?Key锛?/font>
+3. <font style="color:rgb(15, 17, 21);">模拟真实场景（大 Value、随机 Key）</font>
 
 ```properties
 redis-benchmark -t set -n 5000000 -c 500 -d 256 -r 1000000
 ```
 
-| <font style="color:rgb(15, 17, 21);">鍙傛暟</font> | <font style="color:rgb(15, 17, 21);">鍚箟</font> | <font style="color:rgb(15, 17, 21);">璇存槑</font> |
+| <font style="color:rgb(15, 17, 21);">参数</font> | <font style="color:rgb(15, 17, 21);">含义</font> | <font style="color:rgb(15, 17, 21);">说明</font> |
 | --- | --- | --- |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-c 500</font>` | <font style="color:rgb(15, 17, 21);">500 涓苟鍙戣繛鎺?/font> | <font style="color:rgb(15, 17, 21);">妯℃嫙楂樺苟鍙戝満鏅?/font> |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-n 5000000</font>` | <font style="color:rgb(15, 17, 21);">500 涓囨璇锋眰</font> | <font style="color:rgb(15, 17, 21);">娴嬭瘯闀挎椂闂寸ǔ瀹氭€?/font> |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-d 256</font>` | <font style="color:rgb(15, 17, 21);">姣忎釜 Value 256 瀛楄妭</font> | <font style="color:rgb(15, 17, 21);">妯℃嫙瀛樺偍杈冨ぇ鏁版嵁</font> |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-r 1000000</font>` | <font style="color:rgb(15, 17, 21);">100 涓囦釜闅忔満 key</font> | <font style="color:rgb(15, 17, 21);">key 鑼冨洿 </font>`<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">mykey_000000000000</font>`<font style="color:rgb(15, 17, 21);">鍒?</font>`<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">mykey_000000999999</font>` |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-c 500</font>` | <font style="color:rgb(15, 17, 21);">500 个并发连接</font> | <font style="color:rgb(15, 17, 21);">模拟高并发场景</font> |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-n 5000000</font>` | <font style="color:rgb(15, 17, 21);">500 万次请求</font> | <font style="color:rgb(15, 17, 21);">测试长时间稳定性</font> |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-d 256</font>` | <font style="color:rgb(15, 17, 21);">每个 Value 256 字节</font> | <font style="color:rgb(15, 17, 21);">模拟存储较大数据</font> |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">-r 1000000</font>` | <font style="color:rgb(15, 17, 21);">100 万个随机 key</font> | <font style="color:rgb(15, 17, 21);">key 范围 </font>`<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">mykey_000000000000</font>`<font style="color:rgb(15, 17, 21);">到 </font>`<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">mykey_000000999999</font>` |
 
 
-# 鏁版嵁绫诲瀷
-## 涓€銆佸叏灞€閿懡浠わ紙閫氱敤锛?
-杩欎簺鍛戒护閫傜敤浜庢墍鏈夋暟鎹被鍨嬶細
+# 数据类型
+## 一、全局键命令（通用）
+这些命令适用于所有数据类型：
 
-| 鍛戒护 | 浣滅敤 | 绀轰緥 |
+| 命令 | 作用 | 示例 |
 | :--- | :--- | :--- |
-| `SET key value` | 璁剧疆閿€煎 | `SET name "John"` |
-| `GET key` | 鑾峰彇閿殑鍊?| `GET name` |
-| `DEL key [key...]` | 鍒犻櫎涓€涓垨澶氫釜閿?| `DEL name` |
-| `EXISTS key` | 妫€鏌ラ敭鏄惁瀛樺湪锛堣繑鍥?/0锛?| `EXISTS name` |
-| `EXPIRE key seconds` | 璁剧疆杩囨湡鏃堕棿锛堢锛?| `EXPIRE session 3600` |
-| `TTL key` | 鏌ョ湅鍓╀綑杩囨湡鏃堕棿锛?1姘镐箙锛?2涓嶅瓨鍦級 | `TTL session` |
-| `PERSIST key` | 绉婚櫎杩囨湡鏃堕棿锛屼娇鍏舵案涔?| `PERSIST session` |
-| `KEYS pattern` | 鏌ユ壘鍖归厤鐨勯敭锛?*鐢熶骇鐜鎱庣敤锛屼細闃诲**锛?| `KEYS user:*` |
-| `SCAN cursor` | 澧為噺杩唬閿紙鏇夸唬KEYS锛屾棤闃诲锛?| `SCAN 0 MATCH user:*` |
-| `TYPE key` | 鏌ョ湅閿殑鏁版嵁绫诲瀷 | `TYPE name` |
-| `RENAME old new` | 閲嶅懡鍚嶉敭 | `RENAME name username` |
+| `SET key value` | 设置键值对 | `SET name "John"` |
+| `GET key` | 获取键的值 | `GET name` |
+| `DEL key [key...]` | 删除一个或多个键 | `DEL name` |
+| `EXISTS key` | 检查键是否存在（返回1/0） | `EXISTS name` |
+| `EXPIRE key seconds` | 设置过期时间（秒） | `EXPIRE session 3600` |
+| `TTL key` | 查看剩余过期时间（-1永久，-2不存在） | `TTL session` |
+| `PERSIST key` | 移除过期时间，使其永久 | `PERSIST session` |
+| `KEYS pattern` | 查找匹配的键（**生产环境慎用，会阻塞**） | `KEYS user:*` |
+| `SCAN cursor` | 增量迭代键（替代KEYS，无阻塞） | `SCAN 0 MATCH user:*` |
+| `TYPE key` | 查看键的数据类型 | `TYPE name` |
+| `RENAME old new` | 重命名键 | `RENAME name username` |
 
 
-**鉀?*** 鐗瑰埆璀﹀憡**锛歚KEYS` 鍛戒护浼氭壂鎻忔暣涓暟鎹簱锛屽湪鐢熶骇鐜锛堝嚑鐧句竾key锛変腑鎵ц浼氶樆濉濺edis鏁扮鐢氳嚦鏇翠箙锛屽鑷存湇鍔′笉鍙敤銆傝浣跨敤 `SCAN` 浠ｆ浛銆?
+**⛔**** 特别警告**：`KEYS` 命令会扫描整个数据库，在生产环境（几百万key）中执行会阻塞Redis数秒甚至更久，导致服务不可用。请使用 `SCAN` 代替。
 
 ---
 
-## 浜屻€佷簲澶ф牳蹇冩暟鎹被鍨?
-#### 1. 瀛楃涓诧紙String锛?
-鏈€鍩虹鐨勭被鍨嬶紝閫傚悎缂撳瓨銆佽鏁板櫒銆佸垎甯冨紡閿併€?
+## 二、五大核心数据类型
+#### 1. 字符串（String）
+最基础的类型，适合缓存、计数器、分布式锁。
 
-| 鍛戒护 | 浣滅敤 | 绀轰緥 |
+| 命令 | 作用 | 示例 |
 | :--- | :--- | :--- |
-| `SET key value [EX seconds] [NX/XX]` | 璁剧疆鍊硷紙鏀寔杩囨湡鏃堕棿銆佷粎涓嶅瓨鍦ㄦ椂璁剧疆锛?| `SET user:1 "Alice" EX 60 NX` |
-| `GET key` | 鑾峰彇鍊?| `GET user:1` |
-| `MSET k1 v1 k2 v2` | 鎵归噺璁剧疆 | `MSET a 1 b 2 c 3` |
-| `MGET k1 k2` | 鎵归噺鑾峰彇 | `MGET a b` |
-| `INCR key` | 鍘熷瓙+1 | `INCR page_view` |
-| `DECR key` | 鍘熷瓙-1 | `DECR stock` |
-| `INCRBY key n` | 鍘熷瓙+n | `INCRBY score 10` |
-| `APPEND key value` | 杩藉姞瀛楃涓?| `APPEND log " new line"` |
-| `STRLEN key` | 鑾峰彇瀛楃涓查暱搴?| `STRLEN name` |
-| GETRANGE key a b | 鎴彇瀛楃涓?[a, b] | GETRANGE key1 0 3 |
-| GETRANGE key 0 -1 | 鎴彇鍏ㄩ儴瀛楃涓?| GETRANGE key1 0 -1 |
+| `SET key value [EX seconds] [NX/XX]` | 设置值（支持过期时间、仅不存在时设置） | `SET user:1 "Alice" EX 60 NX` |
+| `GET key` | 获取值 | `GET user:1` |
+| `MSET k1 v1 k2 v2` | 批量设置 | `MSET a 1 b 2 c 3` |
+| `MGET k1 k2` | 批量获取 | `MGET a b` |
+| `INCR key` | 原子+1 | `INCR page_view` |
+| `DECR key` | 原子-1 | `DECR stock` |
+| `INCRBY key n` | 原子+n | `INCRBY score 10` |
+| `APPEND key value` | 追加字符串 | `APPEND log " new line"` |
+| `STRLEN key` | 获取字符串长度 | `STRLEN name` |
+| GETRANGE key a b | 截取字符串 [a, b] | GETRANGE key1 0 3 |
+| GETRANGE key 0 -1 | 截取全部字符串 | GETRANGE key1 0 -1 |
 
 
-**搴旂敤鍦烘櫙**锛?
+**应用场景**：
 
-+ 缂撳瓨鐢ㄦ埛淇℃伅銆侀〉闈TML
-+ 鏂囩珷闃呰閲忋€佺偣璧炴暟璁℃暟鍣?
-+ 鍒嗗竷寮忛攣锛坄SET key value NX EX 30`锛?
++ 缓存用户信息、页面HTML
++ 文章阅读量、点赞数计数器
++ 分布式锁（`SET key value NX EX 30`）
 
 ---
 
-#### 2. 鍝堝笇锛圚ash锛?
-閫傚悎瀛樺偍瀵硅薄锛堝鐢ㄦ埛淇℃伅銆佸晢鍝佽鎯咃級銆?
+#### 2. 哈希（Hash）
+适合存储对象（如用户信息、商品详情）。
 
-| 鍛戒护 | 浣滅敤 | 绀轰緥 |
+| 命令 | 作用 | 示例 |
 | :--- | :--- | :--- |
-| `HSET key field value` | 璁剧疆瀛楁鍊?| `HSET user:100 name "Bob" age 25` |
-| `HGET key field` | 鑾峰彇瀛楁鍊?| `HGET user:100 name` |
-| `HMSET key field val [field val...]` | 鎵归噺璁剧疆 | `HMSET user:100 name "Bob" age 25` |
-| `HMGET key field [field...]` | 鎵归噺鑾峰彇 | `HMGET user:100 name age` |
-| `HGETALL key` | 鑾峰彇鎵€鏈夊瓧娈靛拰鍊?| `HGETALL user:100` |
-| `HKEYS key` | 鑾峰彇鎵€鏈夊瓧娈靛悕 | `HKEYS user:100` |
-| `HVALS key` | 鑾峰彇鎵€鏈夊€?| `HVALS user:100` |
-| `HDEL key field [field...]` | 鍒犻櫎瀛楁 | `HDEL user:100 age` |
-| `HEXISTS key field` | 鍒ゆ柇瀛楁鏄惁瀛樺湪 | `HEXISTS user:100 name` |
-| `HINCRBY key field n` | 瀛楁鍊煎鍔爊 | `HINCRBY user:100 score 10` |
-| `HLEN key` | 鑾峰彇瀛楁鏁伴噺 | `HLEN user:100` |
+| `HSET key field value` | 设置字段值 | `HSET user:100 name "Bob" age 25` |
+| `HGET key field` | 获取字段值 | `HGET user:100 name` |
+| `HMSET key field val [field val...]` | 批量设置 | `HMSET user:100 name "Bob" age 25` |
+| `HMGET key field [field...]` | 批量获取 | `HMGET user:100 name age` |
+| `HGETALL key` | 获取所有字段和值 | `HGETALL user:100` |
+| `HKEYS key` | 获取所有字段名 | `HKEYS user:100` |
+| `HVALS key` | 获取所有值 | `HVALS user:100` |
+| `HDEL key field [field...]` | 删除字段 | `HDEL user:100 age` |
+| `HEXISTS key field` | 判断字段是否存在 | `HEXISTS user:100 name` |
+| `HINCRBY key field n` | 字段值增加n | `HINCRBY user:100 score 10` |
+| `HLEN key` | 获取字段数量 | `HLEN user:100` |
 
 
-**搴旂敤鍦烘櫙**锛?
+**应用场景**：
 
-+ 瀛樺偍鐢ㄦ埛璧勬枡銆佸晢鍝佽鎯咃紙姣擲tring鑺傜渷鍐呭瓨锛屾敮鎸佸瓧娈电骇鎿嶄綔锛?
++ 存储用户资料、商品详情（比String节省内存，支持字段级操作）
 
 ---
 
-#### 3. 鍒楄〃锛圠ist锛?
-鏈夊簭鍙噸澶嶏紝閫傚悎娑堟伅闃熷垪銆佹渶鏂版秷鎭垪琛ㄣ€?
+#### 3. 列表（List）
+有序可重复，适合消息队列、最新消息列表。
 
-| 鍛戒护 | 浣滅敤 | 绀轰緥 |
+| 命令 | 作用 | 示例 |
 | :--- | :--- | :--- |
-| `LPUSH key value [value...]` | 宸︿晶鎻掑叆锛堝ご閮級 | `LPUSH queue "task1" "task2"` |
-| `RPUSH key value [value...]` | 鍙充晶鎻掑叆锛堝熬閮級 | `RPUSH queue "task3"` |
-| `LPOP key` | 宸︿晶寮瑰嚭骞剁Щ闄?| `LPOP queue` |
-| `RPOP key` | 鍙充晶寮瑰嚭骞剁Щ闄?| `RPOP queue` |
-| `LRANGE key start stop` | 鑾峰彇鎸囧畾鑼冨洿鍏冪礌锛?寮€濮嬶紝-1缁撳熬锛?| `LRANGE queue 0 -1` |
-| `LLEN key` | 鑾峰彇鍒楄〃闀垮害 | `LLEN queue` |
-| `LINDEX key index` | 鑾峰彇鎸囧畾绱㈠紩鍏冪礌 | `LINDEX queue 0` |
-| `LTRIM key start stop` | 鎴彇淇濈暀鎸囧畾鑼冨洿 | `LTRIM queue 0 99`锛堜繚鐣欏墠100鏉★級 |
-| `BLPOP key timeout` | 闃诲寮忓乏渚у脊鍑?| `BLPOP queue 10`锛堢瓑寰?0绉掞級 |
-| `BRPOP key timeout` | 闃诲寮忓彸渚у脊鍑?| `BRPOP queue 10` |
+| `LPUSH key value [value...]` | 左侧插入（头部） | `LPUSH queue "task1" "task2"` |
+| `RPUSH key value [value...]` | 右侧插入（尾部） | `RPUSH queue "task3"` |
+| `LPOP key` | 左侧弹出并移除 | `LPOP queue` |
+| `RPOP key` | 右侧弹出并移除 | `RPOP queue` |
+| `LRANGE key start stop` | 获取指定范围元素（0开始，-1结尾） | `LRANGE queue 0 -1` |
+| `LLEN key` | 获取列表长度 | `LLEN queue` |
+| `LINDEX key index` | 获取指定索引元素 | `LINDEX queue 0` |
+| `LTRIM key start stop` | 截取保留指定范围 | `LTRIM queue 0 99`（保留前100条） |
+| `BLPOP key timeout` | 阻塞式左侧弹出 | `BLPOP queue 10`（等待10秒） |
+| `BRPOP key timeout` | 阻塞式右侧弹出 | `BRPOP queue 10` |
 
 
-**搴旂敤鍦烘櫙**锛?
+**应用场景**：
 
-+ 闃熷垪/鏍堢粨鏋勶紙LPUSH+RPOP=闃熷垪锛孡PUSH+LPOP=鏍堬級
-+ 鏈€鏂版秷鎭椂闂寸嚎锛堝寰崥鏈€鏂?0鏉★級
-+ 闃诲闃熷垪锛圔LPOP瀹炵幇鐢熶骇鑰?娑堣垂鑰呮ā寮忥級
++ 队列/栈结构（LPUSH+RPOP=队列，LPUSH+LPOP=栈）
++ 最新消息时间线（如微博最新10条）
++ 阻塞队列（BLPOP实现生产者-消费者模式）
 
 ---
 
-#### 4. 闆嗗悎锛圫et锛?
-鏃犲簭涓斿厓绱犲敮涓€锛岄€傚悎鏍囩绯荤粺銆佸叡鍚屽ソ鍙嬨€佹娊濂栥€?
+#### 4. 集合（Set）
+无序且元素唯一，适合标签系统、共同好友、抽奖。
 
-| 鍛戒护 | 浣滅敤 | 绀轰緥 |
+| 命令 | 作用 | 示例 |
 | :--- | :--- | :--- |
-| `SADD key member [member...]` | 娣诲姞鍏冪礌 | `SADD tags "redis" "db"` |
-| `SREM key member [member...]` | 鍒犻櫎鍏冪礌 | `SREM tags "db"` |
-| `SMEMBERS key` | 鑾峰彇鎵€鏈夊厓绱狅紙澶ч泦鍚堟厧鐢級 | `SMEMBERS tags` |
-| `SISMEMBER key member` | 鍒ゆ柇鏄惁瀛樺湪 | `SISMEMBER tags "redis"` |
-| `SCARD key` | 鑾峰彇鍏冪礌涓暟 | `SCARD tags` |
-| `SPOP key [count]` | 闅忔満寮瑰嚭骞剁Щ闄?| `SPOP lottery 1`锛堟娊濂栵級 |
-| `SRANDMEMBER key [count]` | 闅忔満鑾峰彇锛堜笉绉婚櫎锛?| `SRANDMEMBER lottery 1` |
-| `SINTER key1 key2` | 浜ら泦 | `SINTER setA setB`锛堝叡鍚屽ソ鍙嬶級 |
-| `SUNION key1 key2` | 骞堕泦 | `SUNION setA setB` |
-| `SDIFF key1 key2` | 宸泦锛坘ey1鏈夎€宬ey2娌℃湁鐨勶級 | `SDIFF setA setB` |
+| `SADD key member [member...]` | 添加元素 | `SADD tags "redis" "db"` |
+| `SREM key member [member...]` | 删除元素 | `SREM tags "db"` |
+| `SMEMBERS key` | 获取所有元素（大集合慎用） | `SMEMBERS tags` |
+| `SISMEMBER key member` | 判断是否存在 | `SISMEMBER tags "redis"` |
+| `SCARD key` | 获取元素个数 | `SCARD tags` |
+| `SPOP key [count]` | 随机弹出并移除 | `SPOP lottery 1`（抽奖） |
+| `SRANDMEMBER key [count]` | 随机获取（不移除） | `SRANDMEMBER lottery 1` |
+| `SINTER key1 key2` | 交集 | `SINTER setA setB`（共同好友） |
+| `SUNION key1 key2` | 并集 | `SUNION setA setB` |
+| `SDIFF key1 key2` | 差集（key1有而key2没有的） | `SDIFF setA setB` |
 
 
-**搴旂敤鍦烘櫙**锛?
+**应用场景**：
 
-+ 鐢ㄦ埛鏍囩绯荤粺
-+ 鍏卞悓濂藉弸/鍙兘璁よ瘑鐨勪汉锛堜氦闆嗭級
-+ 鎶藉/闅忔満鎺ㄨ崘锛圫POP锛?
++ 用户标签系统
++ 共同好友/可能认识的人（交集）
++ 抽奖/随机推荐（SPOP）
 
 ---
 
-#### 5. 鏈夊簭闆嗗悎锛圸Set锛?
-甯﹀垎鏁扮殑鏈夊簭闆嗗悎锛岄€傚悎鎺掕姒溿€佷紭鍏堥槦鍒椼€?
+#### 5. 有序集合（ZSet）
+带分数的有序集合，适合排行榜、优先队列。
 
-| 鍛戒护 | 浣滅敤 | 绀轰緥 |
+| 命令 | 作用 | 示例 |
 | :--- | :--- | :--- |
-| `ZADD key score member [score member...]` | 娣诲姞鍏冪礌鍙婂垎鏁?| `ZADD rank 100 "Alice" 90 "Bob"` |
-| `ZREM key member [member...]` | 鍒犻櫎鍏冪礌 | `ZREM rank "Bob"` |
-| `ZRANGE key start stop [WITHSCORES]` | 鎸夊垎鏁板崌搴忚幏鍙?| `ZRANGE rank 0 -1 WITHSCORES` |
-| `ZREVRANGE key start stop [WITHSCORES]` | 鎸夊垎鏁伴檷搴忚幏鍙?| `ZREVRANGE rank 0 9`锛堝墠10鍚嶏級 |
-| `ZRANGEBYSCORE key min max` | 鎸夊垎鏁拌寖鍥磋幏鍙?| `ZRANGEBYSCORE rank 80 100` |
-| `ZRANK key member` | 鑾峰彇鍗囧簭鎺掑悕锛?寮€濮嬶級 | `ZRANK rank "Alice"` |
-| `ZREVRANK key member` | 鑾峰彇闄嶅簭鎺掑悕 | `ZREVRANK rank "Alice"` |
-| `ZSCORE key member` | 鑾峰彇鍏冪礌鍒嗘暟 | `ZSCORE rank "Alice"` |
-| `ZINCRBY key n member` | 澧炲姞鍏冪礌鍒嗘暟 | `ZINCRBY rank 10 "Alice"` |
-| `ZCARD key` | 鑾峰彇鍏冪礌涓暟 | `ZCARD rank` |
-| `ZCOUNT key min max` | 缁熻鍒嗘暟鑼冨洿鍐呬釜鏁?| `ZCOUNT rank 60 100` |
+| `ZADD key score member [score member...]` | 添加元素及分数 | `ZADD rank 100 "Alice" 90 "Bob"` |
+| `ZREM key member [member...]` | 删除元素 | `ZREM rank "Bob"` |
+| `ZRANGE key start stop [WITHSCORES]` | 按分数升序获取 | `ZRANGE rank 0 -1 WITHSCORES` |
+| `ZREVRANGE key start stop [WITHSCORES]` | 按分数降序获取 | `ZREVRANGE rank 0 9`（前10名） |
+| `ZRANGEBYSCORE key min max` | 按分数范围获取 | `ZRANGEBYSCORE rank 80 100` |
+| `ZRANK key member` | 获取升序排名（0开始） | `ZRANK rank "Alice"` |
+| `ZREVRANK key member` | 获取降序排名 | `ZREVRANK rank "Alice"` |
+| `ZSCORE key member` | 获取元素分数 | `ZSCORE rank "Alice"` |
+| `ZINCRBY key n member` | 增加元素分数 | `ZINCRBY rank 10 "Alice"` |
+| `ZCARD key` | 获取元素个数 | `ZCARD rank` |
+| `ZCOUNT key min max` | 统计分数范围内个数 | `ZCOUNT rank 60 100` |
 
 
-**搴旂敤鍦烘櫙**锛?
+**应用场景**：
 
-+ 娓告垙鎺掕姒滐紙ZREVRANGE鍙栧墠N鍚嶏級
-+ 浼樺厛绾т换鍔￠槦鍒?
-+ 甯︽潈閲嶇殑鎺ㄨ崘绯荤粺
++ 游戏排行榜（ZREVRANGE取前N名）
++ 优先级任务队列
++ 带权重的推荐系统
 
 ---
 
-## 涓夈€佸疄鐢ㄧ鐞嗗懡浠?
-| 鍛戒护 | 浣滅敤 | 绀轰緥 |
+## 三、实用管理命令
+| 命令 | 作用 | 示例 |
 | :--- | :--- | :--- |
-| `PING` | 娴嬭瘯杩炴帴锛岃繑鍥濸ONG | `PING` |
-| `SELECT db` | 鍒囨崲鏁版嵁搴擄紙0-15锛?| `SELECT 1` |
-| `DBSIZE` | 鏌ョ湅褰撳墠搴搆ey鏁伴噺 | `DBSIZE` |
-| `FLUSHDB` | 娓呯┖褰撳墠搴擄紙**鎱庣敤**锛?| `FLUSHDB` |
-| `FLUSHALL` | 娓呯┖鎵€鏈夊簱锛?*鏋佸害鎱庣敤**锛?| `FLUSHALL` |
-| `INFO [section]` | 鏌ョ湅鏈嶅姟鍣ㄤ俊鎭?| `INFO memory` |
-| `CONFIG GET param` | 鑾峰彇閰嶇疆鍙傛暟 | `CONFIG GET maxmemory` |
-| `CONFIG SET param value` | 鍔ㄦ€佷慨鏀归厤缃?| `CONFIG SET maxmemory 2gb` |
-| `SLOWLOG GET n` | 鏌ョ湅鎱㈡煡璇㈡棩蹇?| `SLOWLOG GET 10` |
-| `MONITOR` | 瀹炴椂鐩戞帶鎵€鏈夊懡浠わ紙璋冭瘯鐢紝褰卞搷鎬ц兘锛?| `MONITOR` |
+| `PING` | 测试连接，返回PONG | `PING` |
+| `SELECT db` | 切换数据库（0-15） | `SELECT 1` |
+| `DBSIZE` | 查看当前库key数量 | `DBSIZE` |
+| `FLUSHDB` | 清空当前库（**慎用**） | `FLUSHDB` |
+| `FLUSHALL` | 清空所有库（**极度慎用**） | `FLUSHALL` |
+| `INFO [section]` | 查看服务器信息 | `INFO memory` |
+| `CONFIG GET param` | 获取配置参数 | `CONFIG GET maxmemory` |
+| `CONFIG SET param value` | 动态修改配置 | `CONFIG SET maxmemory 2gb` |
+| `SLOWLOG GET n` | 查看慢查询日志 | `SLOWLOG GET 10` |
+| `MONITOR` | 实时监控所有命令（调试用，影响性能） | `MONITOR` |
 
 
-## 鍥涖€佸揩閫熻蹇嗗崱
-| 鎯宠浠€涔?| 鐢ㄤ粈涔堝懡浠?|
+## 四、快速记忆卡
+| 想要什么 | 用什么命令 |
 | :--- | :--- |
-| 瀛樹竴涓€?| `SET key value` |
-| 鍙栦竴涓€?| `GET key` |
-| 瀛樺璞?| `HSET user:1 name "John"` |
-| 鍒楄〃澶存彃 | `LPUSH queue item` |
-| 鍒楄〃灏惧脊 | `RPOP queue` |
-| 瀛樹笉閲嶅鍊?| `SADD tags "redis"` |
-| 浜ら泦锛堝叡鍚屽ソ鍙嬶級 | `SINTER set1 set2` |
-| 鎺掕姒滃墠10 | `ZREVRANGE rank 0 9` |
-| 璁℃暟鍣?1 | `INCR page_view` |
-| 璁剧疆30绉掕繃鏈?| `SET key value EX 30` |
-| 娴嬭瘯杩炴帴 | `PING` |
+| 存一个值 | `SET key value` |
+| 取一个值 | `GET key` |
+| 存对象 | `HSET user:1 name "John"` |
+| 列表头插 | `LPUSH queue item` |
+| 列表尾弹 | `RPOP queue` |
+| 存不重复值 | `SADD tags "redis"` |
+| 交集（共同好友） | `SINTER set1 set2` |
+| 排行榜前10 | `ZREVRANGE rank 0 9` |
+| 计数器+1 | `INCR page_view` |
+| 设置30秒过期 | `SET key value EX 30` |
+| 测试连接 | `PING` |
 
 
-# 鐗规畩鏁版嵁绫诲瀷
-## 涓€銆丟EO锛堝湴鐞嗕綅缃級
-瀛樺偍鍦扮悊浣嶇疆锛堢粡绾害锛夛紝瀹炵幇**闄勮繎鐨勪汉**銆?*璺濈璁＄畻**銆?*闂ㄥ簵鎼滅储**绛?LBS锛堝熀浜庝綅缃殑鏈嶅姟锛夊姛鑳姐€?
+# 特殊数据类型
+## 一、GEO（地理位置）
+存储地理位置（经纬度），实现**附近的人**、**距离计算**、**门店搜索**等 LBS（基于位置的服务）功能。
 
-### 搴曞眰瀹炵幇
-鍩轰簬 ZSet锛堟湁搴忛泦鍚堬級锛屽皢缁忕含搴︾紪鐮佷负 GeoHash 瀛楃涓蹭綔涓?score銆?
+### 底层实现
+基于 ZSet（有序集合），将经纬度编码为 GeoHash 字符串作为 score。
 
-### 鏍稿績鍛戒护
-| 鍛戒护 | 璇硶 | 浣滅敤 | 绀轰緥 |
+### 核心命令
+| 命令 | 语法 | 作用 | 示例 |
 | :--- | :--- | :--- | :--- |
-| `GEOADD` | `GEOADD key longitude latitude member [longitude latitude member ...]` | 娣诲姞涓€涓垨澶氫釜鍦扮悊浣嶇疆 | `GEOADD cities 116.397128 39.916527 beijing` |
-| `GEOPOS` | `GEOPOS key member [member ...]` | 鑾峰彇鎸囧畾浣嶇疆鐨勭粡绾害 | `GEOPOS cities beijing` |
-| `GEODIST` | `GEODIST key member1 member2 [鍗曚綅]` | 璁＄畻涓ょ偣涔嬮棿鐨勮窛绂?| `GEODIST cities beijing shanghai km` |
-| `GEORADIUS` | `GEORADIUS key longitude latitude radius 鍗曚綅 [WITHDIST] [WITHCOORD] [COUNT n]` | 鏍规嵁缁欏畾缁忕含搴﹀崐寰勬煡璇?| `GEORADIUS cities 116.40 39.90 100 km WITHDIST` |
-| `GEORADIUSBYMEMBER` | `GEORADIUSBYMEMBER key member radius 鍗曚綅 [WITHDIST] [WITHCOORD] [COUNT n]` | 浠ユ寚瀹氭垚鍛樹负涓績鍗婂緞鏌ヨ | `GEORADIUSBYMEMBER cities beijing 200 km` |
-| `GEOHASH` | `GEOHASH key member [member ...]` | 杩斿洖 GeoHash 瀛楃涓诧紙鍙敤浜?URL 鍒嗕韩锛?| `GEOHASH cities beijing` |
+| `GEOADD` | `GEOADD key longitude latitude member [longitude latitude member ...]` | 添加一个或多个地理位置 | `GEOADD cities 116.397128 39.916527 beijing` |
+| `GEOPOS` | `GEOPOS key member [member ...]` | 获取指定位置的经纬度 | `GEOPOS cities beijing` |
+| `GEODIST` | `GEODIST key member1 member2 [单位]` | 计算两点之间的距离 | `GEODIST cities beijing shanghai km` |
+| `GEORADIUS` | `GEORADIUS key longitude latitude radius 单位 [WITHDIST] [WITHCOORD] [COUNT n]` | 根据给定经纬度半径查询 | `GEORADIUS cities 116.40 39.90 100 km WITHDIST` |
+| `GEORADIUSBYMEMBER` | `GEORADIUSBYMEMBER key member radius 单位 [WITHDIST] [WITHCOORD] [COUNT n]` | 以指定成员为中心半径查询 | `GEORADIUSBYMEMBER cities beijing 200 km` |
+| `GEOHASH` | `GEOHASH key member [member ...]` | 返回 GeoHash 字符串（可用于 URL 分享） | `GEOHASH cities beijing` |
 
 
-**鍗曚綅**锛歚m`锛堢背锛夈€乣km`锛堝崈绫筹級銆乣mi`锛堣嫳閲岋級銆乣ft`锛堣嫳灏猴級
+**单位**：`m`（米）、`km`（千米）、`mi`（英里）、`ft`（英尺）
 
-### 浣跨敤绀轰緥
+### 使用示例
 ```bash
-# 1. 娣诲姞澶氫釜鍩庡競鍧愭爣
+# 1. 添加多个城市坐标
 GEOADD cities 116.397128 39.916527 beijing 121.473701 31.230416 shanghai
 
-# 2. 璁＄畻鍖椾含鍒颁笂娴风殑璺濈锛堝叕閲岋級
+# 2. 计算北京到上海的距离（公里）
 GEODIST cities beijing shanghai km
-# 杈撳嚭: "1067.1234"
+# 输出: "1067.1234"
 
-# 3. 鏌ヨ鍖椾含鍛ㄥ洿200鍏噷鍐呯殑鍩庡競锛堝甫璺濈锛?
+# 3. 查询北京周围200公里内的城市（带距离）
 GEORADIUSBYMEMBER cities beijing 200 km WITHDIST
-# 杈撳嚭: 1) beijing (0.0000 km)
+# 输出: 1) beijing (0.0000 km)
 
-# 4. 鏍规嵁缁忕含搴︽煡璇㈤檮杩?00km鐨勪綅缃?
+# 4. 根据经纬度查询附近100km的位置
 GEORADIUS cities 116.40 39.90 100 km WITHCOORD
 ```
 
-### 瀹為檯搴旂敤鍦烘櫙
-+ 婊存淮鎵撹溅锛氭煡鎵鹃檮杩?鍏噷鐨勫徃鏈?
-+ 缇庡洟/澶т紬鐐硅瘎锛氭煡鎵鹃檮杩?00绫崇殑椁愬巺
-+ 寰俊/闄岄檶锛氭煡鎵鹃檮杩戠殑浜?
-+ 楂樺痉鍦板浘锛氳绠椾袱鍦伴┚杞﹁窛绂?
+### 实际应用场景
++ 滴滴打车：查找附近3公里的司机
++ 美团/大众点评：查找附近500米的餐厅
++ 微信/陌陌：查找附近的人
++ 高德地图：计算两地驾车距离
 
 ---
 
-## 浜屻€丅itmap锛堜綅鍥撅級
-浠?*浣嶏紙bit锛?*涓哄崟浣嶅瓨鍌ㄤ簩鍊肩姸鎬侊紙0/1锛夛紝閫傚悎**娴烽噺鏁版嵁鐨勫竷灏斿瀷缁熻**锛屽鐢ㄦ埛绛惧埌銆佸湪绾跨姸鎬併€佸竷闅嗚繃婊ゅ櫒銆?
+## 二、Bitmap（位图）
+以**位（bit）**为单位存储二值状态（0/1），适合**海量数据的布尔型统计**，如用户签到、在线状态、布隆过滤器。
 
-### 搴曞眰瀹炵幇
-鏈川鏄?String 绫诲瀷锛屼絾鎸変綅鎿嶄綔銆?瀛楄妭=8浣嶏紝1浜夸綅浠呴渶绾?**12MB** 鍐呭瓨銆?
+### 底层实现
+本质是 String 类型，但按位操作。1字节=8位，1亿位仅需约 **12MB** 内存。
 
-### 鏍稿績鍛戒护
-| 鍛戒护 | 璇硶 | 浣滅敤 | 绀轰緥 |
+### 核心命令
+| 命令 | 语法 | 作用 | 示例 |
 | :--- | :--- | :--- | :--- |
-| `SETBIT` | `SETBIT key offset value` | 璁剧疆鎸囧畾鍋忕Щ閲忎笂鐨勪綅鍊硷紙0鎴?锛?| `SETBIT sign:202501 1000 1` |
-| `GETBIT` | `GETBIT key offset` | 鑾峰彇鎸囧畾鍋忕Щ閲忎笂鐨勪綅鍊?| `GETBIT sign:202501 1000` |
-| `BITCOUNT` | `BITCOUNT key [start end]` | 缁熻鍊间负1鐨勪綅鏁帮紙缁熻鏁伴噺锛?| `BITCOUNT sign:202501` |
-| `BITOP` | `BITOP operation destkey key [key ...]` | 瀵瑰涓綅鍥炬墽琛屼綅杩愮畻锛圓ND/OR/XOR/NOT锛?| `BITOP AND dest key1 key2` |
-| `BITPOS` | `BITPOS key bit [start end]` | 鏌ユ壘绗竴涓寚瀹氫綅鍊肩殑浣嶇疆 | `BITPOS sign:202501 1` |
-| `BITFIELD` | `BITFIELD key [GET type offset] [SET type offset value]` | 鍘熷瓙鎿嶄綔澶氫釜浣嶅煙 | `BITFIELD stats:user GET u32 0` |
+| `SETBIT` | `SETBIT key offset value` | 设置指定偏移量上的位值（0或1） | `SETBIT sign:202501 1000 1` |
+| `GETBIT` | `GETBIT key offset` | 获取指定偏移量上的位值 | `GETBIT sign:202501 1000` |
+| `BITCOUNT` | `BITCOUNT key [start end]` | 统计值为1的位数（统计数量） | `BITCOUNT sign:202501` |
+| `BITOP` | `BITOP operation destkey key [key ...]` | 对多个位图执行位运算（AND/OR/XOR/NOT） | `BITOP AND dest key1 key2` |
+| `BITPOS` | `BITPOS key bit [start end]` | 查找第一个指定位值的位置 | `BITPOS sign:202501 1` |
+| `BITFIELD` | `BITFIELD key [GET type offset] [SET type offset value]` | 原子操作多个位域 | `BITFIELD stats:user GET u32 0` |
 
 
-### 浣跨敤绀轰緥
+### 使用示例
 ```bash
-# 鍦烘櫙1锛氱敤鎴风鍒扮郴缁燂紙鐢ㄦ埛ID=1000锛岀30澶╃鍒帮級
+# 场景1：用户签到系统（用户ID=1000，第30天签到）
 SETBIT sign:2025-01 30 1
 
-# 鏌ヨ鐢ㄦ埛ID=1000 绗?0澶╂槸鍚︾鍒?
+# 查询用户ID=1000 第30天是否签到
 GETBIT sign:2025-01 30
-# 杈撳嚭: 1
+# 输出: 1
 
-# 缁熻2025骞?鏈堟墍鏈夌敤鎴风鍒版€绘鏁?
+# 统计2025年1月所有用户签到总次数
 BITCOUNT sign:2025-01
 
-# 鍦烘櫙2锛氱敤鎴峰湪绾跨姸鎬侊紙鐢ㄦ埛ID=1000 鍦ㄧ嚎锛?
+# 场景2：用户在线状态（用户ID=1000 在线）
 SETBIT online:20250101 1000 1
 
-# 缁熻鍦ㄧ嚎浜烘暟
+# 统计在线人数
 BITCOUNT online:20250101
 ```
 
-### 瀹為檯搴旂敤鍦烘櫙
-+ **杩炵画绛惧埌缁熻**锛氳褰曠敤鎴锋瘡鏃ョ鍒扮姸鎬?
-+ **娲昏穬鐢ㄦ埛缁熻**锛氭棩娲伙紙DAU锛夈€佹湀娲伙紙MAU锛?
-+ **鐢ㄦ埛鍦ㄧ嚎鐘舵€?*锛氬疄鏃舵樉绀哄湪绾?绂荤嚎
-+ **甯冮殕杩囨护鍣?*锛氳В鍐崇紦瀛樼┛閫忛棶棰?
-+ **娓告垙鎴愬氨绯荤粺**锛氳褰曠敤鎴疯В閿佸摢浜涙垚灏?
+### 实际应用场景
++ **连续签到统计**：记录用户每日签到状态
++ **活跃用户统计**：日活（DAU）、月活（MAU）
++ **用户在线状态**：实时显示在线/离线
++ **布隆过滤器**：解决缓存穿透问题
++ **游戏成就系统**：记录用户解锁哪些成就
 
-### 鍐呭瓨浼扮畻
-| 鏁版嵁閲?| 鍗犵敤鐨勫唴瀛?|
+### 内存估算
+| 数据量 | 占用的内存 |
 | :--- | :--- |
-| 100涓囩敤鎴?| 绾?0.12 MB |
-| 1浜跨敤鎴?| 绾?12 MB |
-| 10浜跨敤鎴?| 绾?120 MB |
+| 100万用户 | 约 0.12 MB |
+| 1亿用户 | 约 12 MB |
+| 10亿用户 | 约 120 MB |
 
 
 ---
 
-## 涓夈€丠yperLogLog锛堝熀鏁扮粺璁★級
-璁＄畻**涓嶉噸澶嶅厓绱犵殑澶ф鏁伴噺**锛堝熀鏁帮級锛屽吀鍨嬪満鏅槸缁熻**UV锛堢嫭绔嬭瀹級**銆傛渶澶т紭鍔匡細璁＄畻绾?2^64 涓厓绱犵殑鍩烘暟鍙渶 **12KB 鍐呭瓨**銆?
+## 三、HyperLogLog（基数统计）
+计算**不重复元素的大概数量**（基数），典型场景是统计**UV（独立访客）**。最大优势：计算约 2^64 个元素的基数只需 **12KB 内存**。
 
-### 鐗圭偣
-+ 鉁?**鏋佺渷鍐呭瓨**锛?2KB 鍥哄畾鍐呭瓨
-+ 鉁?**鑷姩鍘婚噸**锛氳嚜鍔ㄧ粺璁′笉閲嶅鍏冪礌
-+ 鈿狅笍 **鏈夎宸?*锛氭爣鍑嗚宸害 **0.81%**锛堢敤绮惧害鎹㈢┖闂达級
-+ 鉂?**涓嶈兘鍙栧洖鍏冪礌**锛氬彧鑳界粺璁℃暟閲忥紝涓嶈兘鑾峰彇鍏蜂綋鍏冪礌
+### 特点
++ ✅ **极省内存**：12KB 固定内存
++ ✅ **自动去重**：自动统计不重复元素
++ ⚠️ **有误差**：标准误差约 **0.81%**（用精度换空间）
++ ❌ **不能取回元素**：只能统计数量，不能获取具体元素
 
-### 鏍稿績鍛戒护
-| 鍛戒护 | 璇硶 | 浣滅敤 | 绀轰緥 |
+### 核心命令
+| 命令 | 语法 | 作用 | 示例 |
 | :--- | :--- | :--- | :--- |
-| `PFADD` | `PFADD key element [element ...]` | 娣诲姞涓€涓垨澶氫釜鍏冪礌 | `PFADD uv:20250101 user_123` |
-| `PFCOUNT` | `PFCOUNT key [key ...]` | 鑾峰彇鍘婚噸鍚庣殑鍩烘暟浼扮畻鍊?| `PFCOUNT uv:20250101` |
-| `PFMERGE` | `PFMERGE destkey sourcekey [sourcekey ...]` | 鍚堝苟澶氫釜 HyperLogLog | `PFMERGE uv:week uv:day1 uv:day2` |
+| `PFADD` | `PFADD key element [element ...]` | 添加一个或多个元素 | `PFADD uv:20250101 user_123` |
+| `PFCOUNT` | `PFCOUNT key [key ...]` | 获取去重后的基数估算值 | `PFCOUNT uv:20250101` |
+| `PFMERGE` | `PFMERGE destkey sourcekey [sourcekey ...]` | 合并多个 HyperLogLog | `PFMERGE uv:week uv:day1 uv:day2` |
 
 
-### 浣跨敤绀轰緥
+### 使用示例
 ```bash
-# 鍦烘櫙1锛氱粺璁＄綉椤礥V锛堢嫭绔嬭瀹級
-# 鐢ㄦ埛 user_1001 璁块棶棣栭〉
+# 场景1：统计网页UV（独立访客）
+# 用户 user_1001 访问首页
 PFADD page:home:20250101 user_1001
 
-# 鐢ㄦ埛 user_1002 璁块棶棣栭〉
+# 用户 user_1002 访问首页
 PFADD page:home:20250101 user_1002
 
-# 鐢ㄦ埛 user_1001 鍐嶆璁块棶锛堥噸澶嶈闂笉璁★級
+# 用户 user_1001 再次访问（重复访问不计）
 PFADD page:home:20250101 user_1001
 
-# 缁熻浠婃棩 UV
+# 统计今日 UV
 PFCOUNT page:home:20250101
-# 杈撳嚭: 2
+# 输出: 2
 
-# 鍦烘櫙2锛氱粺璁″懆娲伙紙鍚堝苟7澶╂暟鎹級
+# 场景2：统计周活（合并7天数据）
 PFADD week1_uv user1 user2 user3
 PFADD week2_uv user2 user3 user4
 PFMERGE total_uv week1_uv week2_uv
 PFCOUNT total_uv
-# 杈撳嚭: 4锛堝幓閲嶅悗鐨勬暟閲忥細user1,user2,user3,user4锛?
+# 输出: 4（去重后的数量：user1,user2,user3,user4）
 ```
 
-### 瀹為檯搴旂敤鍦烘櫙
-+ **缃戠珯 UV 缁熻**锛堟浛浠?Set锛岃妭鐪佸唴瀛橈級
-+ **鎼滅储鍏抽敭璇嶅幓閲嶇粺璁?*
-+ **IP 鐙珛璁垮鏁?*
-+ **娉ㄥ唽璁惧鏁扮粺璁?*
-+ **甯栧瓙鐙珛娴忚浜烘暟**
+### 实际应用场景
++ **网站 UV 统计**（替代 Set，节省内存）
++ **搜索关键词去重统计**
++ **IP 独立访客数**
++ **注册设备数统计**
++ **帖子独立浏览人数**
 
-### 瀵规瘮 Set
-| 瀵规瘮椤?| Set | HyperLogLog |
+### 对比 Set
+| 对比项 | Set | HyperLogLog |
 | :--- | :--- | :--- |
-| 鍐呭瓨鍗犵敤 | 闅忓厓绱犳暟閲忕嚎鎬у闀?| 鍥哄畾 12KB |
-| 绮剧‘搴?| 100% 绮剧‘ | 绾?99.19%锛?.81% 璇樊锛?|
-| 鑳藉惁鍙栧洖鍏冪礌 | 鑳?| 涓嶈兘 |
-| 閫傜敤鏁版嵁閲?| 鐧句竾绾т互涓?| 浜跨骇浠ヤ笂 |
+| 内存占用 | 随元素数量线性增长 | 固定 12KB |
+| 精确度 | 100% 精确 | 约 99.19%（0.81% 误差） |
+| 能否取回元素 | 能 | 不能 |
+| 适用数据量 | 百万级以下 | 亿级以上 |
 
 
 ---
 
-## 鍥涖€丼tream锛堟秷鎭槦鍒楋級
-### 馃搶 鐢ㄩ€?
-瀹炵幇**鎸佷箙鍖栥€佸彲闈犵殑娑堟伅闃熷垪**锛圧edis 5.0 寮曞叆锛夛紝瑙ｅ喅浜?List 鍜?Pub/Sub 鐨勭己闄凤細
+## 四、Stream（消息队列）
+### 📌 用途
+实现**持久化、可靠的消息队列**（Redis 5.0 引入），解决了 List 和 Pub/Sub 的缺陷：
 
-+ **List 浣滀负闃熷垪**锛氫笉鏀寔 ACK锛堟秷鎭‘璁わ級锛屾秷璐硅€呭穿婧冧細瀵艰嚧娑堟伅涓㈠け
-+ **Pub/Sub**锛氭秷鎭笉鎸佷箙鍖栵紝娑堣垂鑰呯绾垮悗娑堟伅鐩存帴涓㈠純
++ **List 作为队列**：不支持 ACK（消息确认），消费者崩溃会导致消息丢失
++ **Pub/Sub**：消息不持久化，消费者离线后消息直接丢弃
 
-### 鏍稿績鐗规€?
-+ 鉁?**娑堟伅鎸佷箙鍖?*锛氭秷鎭瓨鍌ㄥ湪鍐呭瓨锛堝彲閫?RDB/AOF 鎸佷箙鍖栵級
-+ 鉁?**娑堣垂缁?*锛氭敮鎸佸涓秷璐硅€呭垎宸ユ秷璐?
-+ 鉁?**ACK 鏈哄埗**锛氫繚璇佹秷鎭嚦灏戣娑堣垂涓€娆?
-+ 鉁?**娑堟伅鍥炴函**锛氭敮鎸侀噸鏂版秷璐瑰巻鍙叉秷鎭?
+### 核心特性
++ ✅ **消息持久化**：消息存储在内存（可选 RDB/AOF 持久化）
++ ✅ **消费组**：支持多个消费者分工消费
++ ✅ **ACK 机制**：保证消息至少被消费一次
++ ✅ **消息回溯**：支持重新消费历史消息
 
-### 鏍稿績鍛戒护
-| 鍛戒护 | 璇硶 | 浣滅敤 | 绀轰緥 |
+### 核心命令
+| 命令 | 语法 | 作用 | 示例 |
 | :--- | :--- | :--- | :--- |
-| `XADD` | `XADD key [MAXLEN ~ count] ID field value [field value ...]` | 娣诲姞娑堟伅鍒伴槦鍒楋紙鑷姩鐢熸垚ID锛?| `XADD mystream * user "John" age 30` |
-| `XREAD` | `XREAD [COUNT n] [BLOCK ms] STREAMS key [key ...] id [id ...]` | 璇诲彇娑堟伅锛堝彲闃诲锛?| `XREAD COUNT 1 STREAMS mystream 0` |
-| `XGROUP` | `XGROUP CREATE key groupname id [MKSTREAM]` | 鍒涘缓娑堣垂缁?| `XGROUP CREATE mystream mygroup 0` |
-| `XREADGROUP` | `XREADGROUP GROUP group consumer [COUNT n] [BLOCK ms] STREAMS key [key ...] id [id ...]` | 娑堣垂缁勮鍙栨秷鎭?| `XREADGROUP GROUP mygroup consumer1 STREAMS mystream >` |
-| `XACK` | `XACK key group id [id ...]` | 纭娑堟伅宸茶澶勭悊 | `XACK mystream mygroup 123456-0` |
-| `XPENDING` | `XPENDING key group [start end count] [consumer]` | 鏌ョ湅寰呯‘璁ょ殑娑堟伅 | `XPENDING mystream mygroup` |
-| `XCLAIM` | `XCLAIM key group consumer min-idle-time id [id ...]` | 杞Щ鏈狝CK鐨勬秷鎭粰鍏朵粬娑堣垂鑰?| `XCLAIM mystream mygroup consumer2 3600000 123456-0` |
-| `XDEL` | `XDEL key id [id ...]` | 鍒犻櫎娑堟伅 | `XDEL mystream 123456-0` |
-| `XLEN` | `XLEN key` | 鑾峰彇娑堟伅闃熷垪闀垮害 | `XLEN mystream` |
-| `XRANGE` | `XRANGE key start end [COUNT n]` | 鎸塈D鑼冨洿鑾峰彇娑堟伅 | `XRANGE mystream - + COUNT 10` |
+| `XADD` | `XADD key [MAXLEN ~ count] ID field value [field value ...]` | 添加消息到队列（自动生成ID） | `XADD mystream * user "John" age 30` |
+| `XREAD` | `XREAD [COUNT n] [BLOCK ms] STREAMS key [key ...] id [id ...]` | 读取消息（可阻塞） | `XREAD COUNT 1 STREAMS mystream 0` |
+| `XGROUP` | `XGROUP CREATE key groupname id [MKSTREAM]` | 创建消费组 | `XGROUP CREATE mystream mygroup 0` |
+| `XREADGROUP` | `XREADGROUP GROUP group consumer [COUNT n] [BLOCK ms] STREAMS key [key ...] id [id ...]` | 消费组读取消息 | `XREADGROUP GROUP mygroup consumer1 STREAMS mystream >` |
+| `XACK` | `XACK key group id [id ...]` | 确认消息已被处理 | `XACK mystream mygroup 123456-0` |
+| `XPENDING` | `XPENDING key group [start end count] [consumer]` | 查看待确认的消息 | `XPENDING mystream mygroup` |
+| `XCLAIM` | `XCLAIM key group consumer min-idle-time id [id ...]` | 转移未ACK的消息给其他消费者 | `XCLAIM mystream mygroup consumer2 3600000 123456-0` |
+| `XDEL` | `XDEL key id [id ...]` | 删除消息 | `XDEL mystream 123456-0` |
+| `XLEN` | `XLEN key` | 获取消息队列长度 | `XLEN mystream` |
+| `XRANGE` | `XRANGE key start end [COUNT n]` | 按ID范围获取消息 | `XRANGE mystream - + COUNT 10` |
 
 
-### 浣跨敤绀轰緥锛堟秷鎭槦鍒楀畬鏁存祦绋嬶級
+### 使用示例（消息队列完整流程）
 ```bash
-# 1. 鐢熶骇鑰咃細娣诲姞娑堟伅锛? 琛ㄧず鑷姩鐢熸垚ID锛?
+# 1. 生产者：添加消息（* 表示自动生成ID）
 XADD orders * user_id 1001 product "iPhone" price 5999
-# 杩斿洖: "1736234567890-0"
+# 返回: "1736234567890-0"
 
-# 2. 娑堣垂鑰?锛氬垱寤烘秷璐圭粍锛堜粠娑堟伅澶村紑濮嬫秷璐癸級
+# 2. 消费者1：创建消费组（从消息头开始消费）
 XGROUP CREATE orders mygroup 0 MKSTREAM
 
-# 3. 娑堣垂鑰?锛氭秷璐规秷鎭紙> 琛ㄧず璇诲彇鏈秷璐圭殑娑堟伅锛?
+# 3. 消费者1：消费消息（> 表示读取未消费的消息）
 XREADGROUP GROUP mygroup consumer1 COUNT 1 STREAMS orders >
-# 杩斿洖娑堟伅鍐呭
+# 返回消息内容
 
-# 4. 娑堣垂鑰?锛氬鐞嗗畬娑堟伅鍚庣‘璁?
+# 4. 消费者1：处理完消息后确认
 XACK orders mygroup 1736234567890-0
 
-# 5. 鏌ョ湅寰呯‘璁ょ殑娑堟伅锛堟晠闅滄仮澶嶏級
+# 5. 查看待确认的消息（故障恢复）
 XPENDING orders mygroup
 ```
 
-### 瀹為檯搴旂敤鍦烘櫙
-+ **璁㈠崟澶勭悊绯荤粺**锛氬彲闈犲湴澶勭悊璁㈠崟娑堟伅
-+ **鏃ュ織鏀堕泦绯荤粺**锛氭寔涔呭寲瀛樺偍鏃ュ織
-+ **瀹炴椂閫氱煡鎺ㄩ€?*锛氭秷鎭彲闈犳姇閫?
-+ **寮傛浠诲姟闃熷垪**锛氳€楁椂鐨勫悗鍙颁换鍔?
-+ **浜嬩欢婧簮**锛氬瓨鍌ㄤ簨浠舵祦
+### 实际应用场景
++ **订单处理系统**：可靠地处理订单消息
++ **日志收集系统**：持久化存储日志
++ **实时通知推送**：消息可靠投递
++ **异步任务队列**：耗时的后台任务
++ **事件溯源**：存储事件流
 
 ---
 
-## 浜斻€丅itfield锛堜綅鍩燂級
-### 馃搶 鐢ㄩ€?
-鍦?Redis 瀛楃涓蹭腑**鍘熷瓙鎿嶄綔澶氫釜浣嶅瓧娈?*锛岄€傚悎瀛樺偍澶ч噺灏忔暣鏁帮紙濡傜敤鎴风殑澶氶」浜岃繘鍒跺睘鎬с€佹父鎴忓瓨妗ｆ暟鎹級銆?
+## 五、Bitfield（位域）
+### 📌 用途
+在 Redis 字符串中**原子操作多个位字段**，适合存储大量小整数（如用户的多项二进制属性、游戏存档数据）。
 
-### 鏍稿績鍛戒护
-| 鍛戒护 | 璇硶 | 浣滅敤 | 绀轰緥 |
+### 核心命令
+| 命令 | 语法 | 作用 | 示例 |
 | :--- | :--- | :--- | :--- |
-| `BITFIELD` | `BITFIELD key [GET type offset] [SET type offset value] [INCRBY type offset increment] [OVERFLOW WRAP/SAT/FAIL]` | 鍘熷瓙鎿嶄綔澶氫釜浣嶅煙 | `BITFIELD stats:user GET u32 0 SET u32 0 100` |
+| `BITFIELD` | `BITFIELD key [GET type offset] [SET type offset value] [INCRBY type offset increment] [OVERFLOW WRAP/SAT/FAIL]` | 原子操作多个位域 | `BITFIELD stats:user GET u32 0 SET u32 0 100` |
 
 
-**绫诲瀷鏍煎紡**锛歚i8`锛堟湁绗﹀彿8浣嶏級銆乣u16`锛堟棤绗﹀彿16浣嶏級銆乣i32`绛?
+**类型格式**：`i8`（有符号8位）、`u16`（无符号16位）、`i32`等
 
-### 浣跨敤绀轰緥
+### 使用示例
 ```bash
-# 鍦烘櫙锛氱敤1涓猭ey瀛樺偍鐢ㄦ埛鐨勫椤瑰睘鎬?
-# offset 0-7: 绛夌骇 (u8, 鑼冨洿0-255)
-# offset 8-15: 缁忛獙鍊?(u8)
-# offset 16-23: 瑁呭ID (u8)
+# 场景：用1个key存储用户的多项属性
+# offset 0-7: 等级 (u8, 范围0-255)
+# offset 8-15: 经验值 (u8)
+# offset 16-23: 装备ID (u8)
 
-# 璁剧疆绛夌骇=10
+# 设置等级=10
 BITFIELD user:1001 SET u8 0 10
 
-# 璁剧疆缁忛獙鍊?50
+# 设置经验值=50
 BITFIELD user:1001 SET u8 8 50
 
-# 涓€娆℃€ц幏鍙栧涓睘鎬?
+# 一次性获取多个属性
 BITFIELD user:1001 GET u8 0 GET u8 8
-# 杈撳嚭: 10, 50
+# 输出: 10, 50
 
-# 鍘熷瓙澧炲姞绛夌骇锛堟孩鍑哄悗鐜粫锛?
+# 原子增加等级（溢出后环绕）
 BITFIELD user:1001 OVERFLOW WRAP INCRBY u8 0 1
 ```
 
-### 瀹為檯搴旂敤鍦烘櫙
-+ **娓告垙瀛樻。**锛氬瓨鍌ㄧ瓑绾с€佺粡楠屽€笺€佽澶嘔D绛夊皬鏁存暟
-+ **鐢ㄦ埛灞炴€т綅鍥?*锛氬瓨鍌ㄥ椤瑰紑鍏崇姸鎬?
-+ **绱у噾瀛樺偍**锛氳妭鐪佸唴瀛橈紙姣?Hash 鏇寸渷鍐呭瓨锛?
+### 实际应用场景
++ **游戏存档**：存储等级、经验值、装备ID等小整数
++ **用户属性位图**：存储多项开关状态
++ **紧凑存储**：节省内存（比 Hash 更省内存）
 
 ---
 
-## 馃搳 蹇€熼€夋嫨鎸囧崡
-| 闇€姹傚満鏅?| 閫夋嫨鐨勬暟鎹被鍨?| 鐞嗙敱 |
+## 📊 快速选择指南
+| 需求场景 | 选择的数据类型 | 理由 |
 | :--- | :--- | :--- |
-| **闄勮繎鐨勪汉/闂ㄥ簵** | **GEO** | 鍘熺敓鏀寔鍦扮悊鍧愭爣鍜岃窛绂昏绠?|
-| **鐢ㄦ埛绛惧埌/鍦ㄧ嚎鐘舵€?* | **Bitmap** | 鏋佺渷鍐呭瓨锛岄€傚悎娴烽噺浜屽€肩姸鎬?|
-| **缁熻 UV锛堢嫭绔嬭瀹級** | **HyperLogLog** | 鍥哄畾12KB鍐呭瓨锛屽厑璁?.81%璇樊 |
-| **绮惧噯 UV 缁熻** | **Set** | 100% 绮剧‘锛屼絾鍐呭瓨闅忔暟鎹噺澧為暱 |
-| **鍙潬娑堟伅闃熷垪** | **Stream** | 鏀寔鎸佷箙鍖栥€丄CK銆佹秷璐圭粍 |
-| **瀛樺偍澶氶」灏忔暣鏁?* | **Bitfield** | 鍘熷瓙鎿嶄綔锛岃妭鐪佸唴瀛?|
+| **附近的人/门店** | **GEO** | 原生支持地理坐标和距离计算 |
+| **用户签到/在线状态** | **Bitmap** | 极省内存，适合海量二值状态 |
+| **统计 UV（独立访客）** | **HyperLogLog** | 固定12KB内存，允许0.81%误差 |
+| **精准 UV 统计** | **Set** | 100% 精确，但内存随数据量增长 |
+| **可靠消息队列** | **Stream** | 支持持久化、ACK、消费组 |
+| **存储多项小整数** | **Bitfield** | 原子操作，节省内存 |
 
 
 ---
 
-## 馃挕 瀹炵敤鎶€宸?
-1. **GEO 搴曞眰鏄?ZSet**锛氬彲浠ョ敤 ZSet 鐨勫懡浠ゆ搷浣?GEO 鏁版嵁锛堝 `ZREM` 鍒犻櫎浣嶇疆锛?
-2. **Bitmap 鎸夋湀鍒?key**锛歚sign:2025-01`銆乣sign:2025-02` 鏂逛究娓呯悊杩囨湡鏁版嵁
-3. **HyperLogLog 鍚堝苟**锛氱敤 `PFMERGE` 鍚堝苟澶氬ぉ鏁版嵁缁熻鍛ㄦ椿/鏈堟椿
-4. **Stream 娑堟伅ID**锛氱敤 `*` 璁?Redis 鑷姩鐢熸垚鏃堕棿鎴矷D锛堟绉掔骇锛夛紝鏀寔鎸夋椂闂磋寖鍥存煡璇?
-5. **Stream 娑堣垂缁?*锛氬涓秷璐硅€呯敤鍚屼竴涓?group 鍚嶏紝鑷姩璐熻浇鍧囪　
+## 💡 实用技巧
+1. **GEO 底层是 ZSet**：可以用 ZSet 的命令操作 GEO 数据（如 `ZREM` 删除位置）
+2. **Bitmap 按月分 key**：`sign:2025-01`、`sign:2025-02` 方便清理过期数据
+3. **HyperLogLog 合并**：用 `PFMERGE` 合并多天数据统计周活/月活
+4. **Stream 消息ID**：用 `*` 让 Redis 自动生成时间戳ID（毫秒级），支持按时间范围查询
+5. **Stream 消费组**：多个消费者用同一个 group 名，自动负载均衡
 
 ---
 
-**浣犳兂娣卞叆浜嗚В鍝釜鐗规畩鏁版嵁绫诲瀷鐨勫叿浣撳疄鐜帮紝鎴栬€呮湁鐗瑰畾鐨勪笟鍔″満鏅渶瑕佽璁″悧锛?* 鎴戝彲浠ユ彁渚涙洿璇︾粏鐨勪唬鐮佺ず渚嬪拰浼樺寲寤鸿銆?
+**你想深入了解哪个特殊数据类型的具体实现，或者有特定的业务场景需要设计吗？** 我可以提供更详细的代码示例和优化建议。
 
-# Redis 浜嬪姟
-## 涓€銆佷簨鍔℃杩?
-### 浠€涔堟槸 Redis 浜嬪姟锛?
-Redis 浜嬪姟鍏佽**涓€娆℃€с€佹寜椤哄簭鎵ц澶氫釜鍛戒护**锛屽苟涓斿叿鏈変互涓嬬壒鐐癸細
+# Redis 事务
+## 一、事务概述
+### 什么是 Redis 事务？
+Redis 事务允许**一次性、按顺序执行多个命令**，并且具有以下特点：
 
-+ 鉁?**涓€娆℃€ф墽琛?*锛氫簨鍔′腑鐨勬墍鏈夊懡浠や細鎸夐『搴忔墽琛?
-+ 鉁?**闅旂鎬?*锛氫簨鍔℃墽琛岃繃绋嬩腑锛屼笉浼氳鍏朵粬瀹㈡埛绔殑鍛戒护鎵撴柇
-+ 鉁?**鍘熷瓙鎬э紙閮ㄥ垎鏀寔锛?*锛歊edis 鐨勪簨鍔″師瀛愭€т笌浼犵粺鏁版嵁搴撲笉鍚?
++ ✅ **一次性执行**：事务中的所有命令会按顺序执行
++ ✅ **隔离性**：事务执行过程中，不会被其他客户端的命令打断
++ ✅ **原子性（部分支持）**：Redis 的事务原子性与传统数据库不同
 
-### 涓?MySQL 浜嬪姟鐨勫尯鍒?
-| 鐗规€?| MySQL 浜嬪姟 | Redis 浜嬪姟 |
+### 与 MySQL 事务的区别
+| 特性 | MySQL 事务 | Redis 事务 |
 | :--- | :--- | :--- |
-| **鍘熷瓙鎬?* | 瑕佷箞鍏ㄦ垚鍔燂紝瑕佷箞鍏ㄥ洖婊?| **涓嶆敮鎸佸洖婊?*锛屼竴涓懡浠ゅけ璐ワ紝鍏朵粬缁х画鎵ц |
-| **闅旂鎬?* | 澶氱骇闅旂绾у埆 | 鍗曠嚎绋嬫墽琛岋紝澶╃劧闅旂 |
-| **鎸佷箙鎬?* | 鏀寔 | 鍙栧喅浜庢寔涔呭寲閰嶇疆 |
-| **鍥炴粴** | 鏀寔 | **涓嶆敮鎸?* |
+| **原子性** | 要么全成功，要么全回滚 | **不支持回滚**，一个命令失败，其他继续执行 |
+| **隔离性** | 多级隔离级别 | 单线程执行，天然隔离 |
+| **持久性** | 支持 | 取决于持久化配置 |
+| **回滚** | 支持 | **不支持** |
 
 
-> 鈿狅笍 **閲嶈**锛歊edis 浜嬪姟鐨?鍘熷瓙鎬?鏄寚浜嬪姟涓殑鍛戒护**涓嶄細琚叾浠栧鎴风鐨勫懡浠ゆ墦鏂?*锛岃€屼笉鏄紶缁熸剰涔変笂鐨?瑕佷箞鍏ㄥ仛锛岃涔堝叏涓嶅仛"銆?
+> ⚠️ **重要**：Redis 事务的"原子性"是指事务中的命令**不会被其他客户端的命令打断**，而不是传统意义上的"要么全做，要么全不做"。
 >
 
-## 浜屻€佷簨鍔′笁澶у懡浠?
-| 鍛戒护 | 浣滅敤 | 璇存槑 |
+## 二、事务三大命令
+| 命令 | 作用 | 说明 |
 | :--- | :--- | :--- |
-| **MULTI** | 寮€鍚簨鍔?| 鏍囪浜嬪姟鍧楃殑寮€濮嬶紝鍚庣画鍛戒护浼氬叆闃熻€屼笉绔嬪嵆鎵ц |
-| **EXEC** | 鎵ц浜嬪姟 | 鎵ц浜嬪姟鍧椾腑鐨勬墍鏈夊懡浠?|
-| **DISCARD** | 鍙栨秷浜嬪姟 | 鏀惧純浜嬪姟锛屾竻绌哄懡浠ら槦鍒?|
+| **MULTI** | 开启事务 | 标记事务块的开始，后续命令会入队而不立即执行 |
+| **EXEC** | 执行事务 | 执行事务块中的所有命令 |
+| **DISCARD** | 取消事务 | 放弃事务，清空命令队列 |
 
 
-### 杈呭姪鍛戒护
-| 鍛戒护 | 浣滅敤 | 璇存槑 |
+### 辅助命令
+| 命令 | 作用 | 说明 |
 | :--- | :--- | :--- |
-| **WATCH** | 鐩戣涓€涓垨澶氫釜 key | 涔愯閿侊紝濡傛灉琚洃瑙嗙殑 key 琚慨鏀癸紝浜嬪姟灏嗚鎵撴柇 |
-| **UNWATCH** | 鍙栨秷鐩戣 | 娓呴櫎鎵€鏈夌洃瑙嗙殑 key |
+| **WATCH** | 监视一个或多个 key | 乐观锁，如果被监视的 key 被修改，事务将被打断 |
+| **UNWATCH** | 取消监视 | 清除所有监视的 key |
 
 
-## 涓夈€佷簨鍔″伐浣滄祦绋?
+## 三、事务工作流程
 ```plain
-鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?    鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?    鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?    鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
-鈹? MULTI  鈹?鈹€鈹€鈻?鈹? 鍛戒护1  鈹?鈹€鈹€鈻?鈹? 鍛戒护2  鈹?鈹€鈹€鈻?鈹? EXEC   鈹?
-鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?    鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?    鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?    鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
-    鈹?              鈹?              鈹?              鈹?
-    鈹?         鍛戒护鍏ラ槦          鍛戒护鍏ラ槦        鎵归噺鎵ц
-    鈹?        (QUEUED)          (QUEUED)        (涓€娆℃€?
+┌─────────┐     ┌─────────┐     ┌─────────┐     ┌─────────┐
+│  MULTI  │ ──▶ │  命令1  │ ──▶ │  命令2  │ ──▶ │  EXEC   │
+└─────────┘     └─────────┘     └─────────┘     └─────────┘
+    │               │               │               │
+    │          命令入队          命令入队        批量执行
+    │         (QUEUED)          (QUEUED)        (一次性)
 ```
 
-## 鍥涖€佸熀鏈娇鐢ㄧず渚?
-### 1. 鎴愬姛鐨勪簨鍔?
+## 四、基本使用示例
+### 1. 成功的事务
 ```bash
-# 寮€鍚簨鍔?
+# 开启事务
 127.0.0.1:6379> MULTI
 OK
 
-# 鍛戒护鍏ラ槦
-127.0.0.1:6379(TX)> SET user:1001 name "寮犱笁"
+# 命令入队
+127.0.0.1:6379(TX)> SET user:1001 name "张三"
 QUEUED
 
 127.0.0.1:6379(TX)> SET user:1001 age 25
@@ -2827,18 +1764,18 @@ QUEUED
 127.0.0.1:6379(TX)> INCR user:1001 age
 QUEUED
 
-# 鎵ц浜嬪姟
+# 执行事务
 127.0.0.1:6379(TX)> EXEC
 1) OK
 2) OK
 3) (integer) 26
 
-# 楠岃瘉缁撴灉
+# 验证结果
 127.0.0.1:6379> GET user:1001:age
 "26"
 ```
 
-### 2. 鍙栨秷浜嬪姟
+### 2. 取消事务
 ```bash
 127.0.0.1:6379> MULTI
 OK
@@ -2849,16 +1786,16 @@ QUEUED
 127.0.0.1:6379(TX)> SET order:001 amount 100
 QUEUED
 
-# 鍙栨秷浜嬪姟锛堟斁寮冩墍鏈夋帓闃熷懡浠わ級
+# 取消事务（放弃所有排队命令）
 127.0.0.1:6379(TX)> DISCARD
 OK
 
-# 楠岃瘉锛歬ey 娌℃湁琚垱寤?
+# 验证：key 没有被创建
 127.0.0.1:6379> EXISTS order:001
 (integer) 0
 ```
 
-### 3. 璇硶閿欒锛堝懡浠ら敊璇級
+### 3. 语法错误（命令错误）
 ```bash
 127.0.0.1:6379> MULTI
 OK
@@ -2866,22 +1803,22 @@ OK
 127.0.0.1:6379(TX)> SET name "Alice"
 QUEUED
 
-# 閿欒鐨勫懡浠ゅ悕
+# 错误的命令名
 127.0.0.1:6379(TX)> SETT name "Bob"
 (error) ERR unknown command ''SETT''
 
 127.0.0.1:6379(TX)> GET name
 QUEUED
 
-# 鎵ц EXEC 浼氭姤閿欙紝浜嬪姟琚嫆缁濇墽琛?
+# 执行 EXEC 会报错，事务被拒绝执行
 127.0.0.1:6379(TX)> EXEC
 (error) EXECABORT Transaction discarded because of previous errors.
 ```
 
-> 馃搶 **缁撹**锛氬鏋滀簨鍔′腑鏈?*璇硶閿欒**锛屾暣涓簨鍔′細琚嫆缁濇墽琛屻€?
+> 📌 **结论**：如果事务中有**语法错误**，整个事务会被拒绝执行。
 >
 
-### 4. 杩愯鏃堕敊璇紙閫昏緫閿欒锛?
+### 4. 运行时错误（逻辑错误）
 ```bash
 127.0.0.1:6379> MULTI
 OK
@@ -2889,28 +1826,28 @@ OK
 127.0.0.1:6379(TX)> SET score 100
 QUEUED
 
-# 瀵瑰瓧绗︿覆绫诲瀷杩涜 INCR锛堣繍琛屾椂閿欒锛?
+# 对字符串类型进行 INCR（运行时错误）
 127.0.0.1:6379(TX)> INCR score
 QUEUED
 
 127.0.0.1:6379(TX)> GET score
 QUEUED
 
-# 鎵ц浜嬪姟
+# 执行事务
 127.0.0.1:6379(TX)> EXEC
 1) OK
 2) (error) ERR value is not an integer or out of range
-3) "100"                    # 馃憟 娉ㄦ剰锛氶敊璇笉褰卞搷鍚庣画鍛戒护鎵ц锛?
+3) "100"                    # 👈 注意：错误不影响后续命令执行！
 
-# 楠岃瘉缁撴灉
+# 验证结果
 127.0.0.1:6379> GET score
-"100"                       # SET 鎴愬姛锛孖NCR 澶辫触
+"100"                       # SET 成功，INCR 失败
 ```
 
-> 鈿狅笍 **鍏抽敭鐐?*锛氳繍琛屾椂閿欒**涓嶄細瀵艰嚧浜嬪姟鍥炴粴**锛屽叾浠栧懡浠や粛鐒舵甯告墽琛岋紒
+> ⚠️ **关键点**：运行时错误**不会导致事务回滚**，其他命令仍然正常执行！
 >
 
-### 5. 浜嬪姟涓殑璇绘搷浣?
+### 5. 事务中的读操作
 ```bash
 127.0.0.1:6379> SET count 10
 OK
@@ -2928,70 +1865,70 @@ QUEUED
 QUEUED
 
 127.0.0.1:6379(TX)> EXEC
-1) "10"      # 鎵ц鍓嶇殑鍊?
+1) "10"      # 执行前的值
 2) (integer) 11
-3) "11"      # 鎵ц鍚庣殑鍊?
+3) "11"      # 执行后的值
 ```
 
-## 浜斻€乄ATCH 涔愯閿?
-### 鍘熺悊
-`WATCH` 鍛戒护鐢ㄤ簬瀹炵幇**涔愯閿?*锛岀洃瑙嗕竴涓垨澶氫釜 key锛?
+## 五、WATCH 乐观锁
+### 原理
+`WATCH` 命令用于实现**乐观锁**，监视一个或多个 key：
 
-+ 濡傛灉鍦?`WATCH` 涔嬪悗銆乣EXEC` 涔嬪墠锛岃鐩戣鐨?key 琚?*鍏朵粬瀹㈡埛绔慨鏀?*锛岄偅涔?`EXEC` 浼氳繑鍥?`(nil)`锛屼簨鍔?*澶辫触**
-+ 閫傜敤浜庤В鍐?*绔炴€佹潯浠?*
++ 如果在 `WATCH` 之后、`EXEC` 之前，被监视的 key 被**其他客户端修改**，那么 `EXEC` 会返回 `(nil)`，事务**失败**
++ 适用于解决**竞态条件**
 
-### 浣跨敤妯″紡
+### 使用模式
 ```plain
 WATCH key
-    鈫?
-璇诲彇 key 鐨勫€?
-    鈫?
-鏍规嵁鍊煎仛涓氬姟鍒ゆ柇
-    鈫?
+    ↓
+读取 key 的值
+    ↓
+根据值做业务判断
+    ↓
 MULTI
-    鈫?
-鎵ц鐩稿叧鍛戒护
-    鈫?
+    ↓
+执行相关命令
+    ↓
 EXEC
-    鈫?
-妫€鏌?EXEC 杩斿洖鍊?
+    ↓
+检查 EXEC 返回值
 ```
 
-### 绀轰緥1锛氶槻姝㈣秴鍗栵紙搴撳瓨鎵ｅ噺锛?
+### 示例1：防止超卖（库存扣减）
 ```bash
-# 鍦烘櫙锛氬晢鍝佸簱瀛樹负 10锛岄槻姝㈠苟鍙戣秴鍗?
+# 场景：商品库存为 10，防止并发超卖
 
-# 瀹㈡埛绔?A
-127.0.0.1:6379> WATCH stock:iphone      # 鐩戣搴撳瓨 key
+# 客户端 A
+127.0.0.1:6379> WATCH stock:iphone      # 监视库存 key
 OK
-127.0.0.1:6379> GET stock:iphone         # 璇诲彇褰撳墠搴撳瓨
+127.0.0.1:6379> GET stock:iphone         # 读取当前库存
 "10"
 127.0.0.1:6379> MULTI
 OK
-127.0.0.1:6379(TX)> DECR stock:iphone    # 鎵ｅ噺搴撳瓨
+127.0.0.1:6379(TX)> DECR stock:iphone    # 扣减库存
 QUEUED
 127.0.0.1:6379(TX)> EXEC
-1) (integer) 9                           # 鎴愬姛锛屽簱瀛樺彉涓?9
+1) (integer) 9                           # 成功，库存变为 9
 
-# 濡傛灉鍦?WATCH 鍜?EXEC 涔嬮棿锛屽叾浠栧鎴风淇敼浜?stock:iphone
-# 鍒?EXEC 浼氳繑鍥?(nil)锛屼簨鍔″け璐?
+# 如果在 WATCH 和 EXEC 之间，其他客户端修改了 stock:iphone
+# 则 EXEC 会返回 (nil)，事务失败
 ```
 
-### 绀轰緥2锛歐ATCH 澶辨晥鍦烘櫙
+### 示例2：WATCH 失效场景
 ```bash
-# 瀹㈡埛绔?1
+# 客户端 1
 127.0.0.1:6379> SET balance 100
 OK
 
 127.0.0.1:6379> WATCH balance
 OK
 
-# 姝ゆ椂锛屽鎴风 2 淇敼浜?balance
-# 瀹㈡埛绔?2
+# 此时，客户端 2 修改了 balance
+# 客户端 2
 127.0.0.1:6379> SET balance 50
 OK
 
-# 瀹㈡埛绔?1 缁х画鎵ц浜嬪姟
+# 客户端 1 继续执行事务
 127.0.0.1:6379> MULTI
 OK
 
@@ -2999,159 +1936,159 @@ OK
 QUEUED
 
 127.0.0.1:6379(TX)> EXEC
-(nil)                                    # 浜嬪姟澶辫触锛?
+(nil)                                    # 事务失败！
 
-# 楠岃瘉锛歜alance 娌℃湁琚慨鏀规垚 200
+# 验证：balance 没有被修改成 200
 127.0.0.1:6379> GET balance
-"50"                                     # 杩樻槸瀹㈡埛绔?璁剧疆鐨勫€?
+"50"                                     # 还是客户端2设置的值
 ```
 
-### 绀轰緥3锛氶噸璇曟満鍒讹紙Python 浼唬鐮侊級
+### 示例3：重试机制（Python 伪代码）
 ```python
 def transfer_money(source, target, amount):
     while True:
-        # 鐩戣婧愯处鎴?
+        # 监视源账户
         redis.watch(source)
         
-        # 璇诲彇褰撳墠浣欓
+        # 读取当前余额
         balance = int(redis.get(source))
         
         if balance < amount:
             redis.unwatch()
-            return False, "浣欓涓嶈冻"
+            return False, "余额不足"
         
-        # 寮€鍚簨鍔?
+        # 开启事务
         redis.multi()
         redis.decrby(source, amount)
         redis.incrby(target, amount)
         
-        # 鎵ц浜嬪姟
+        # 执行事务
         result = redis.exec()
         
         if result is not None:
-            # 浜嬪姟鎴愬姛
-            return True, "杞处鎴愬姛"
-        # 浜嬪姟澶辫触锛岄噸璇?
+            # 事务成功
+            return True, "转账成功"
+        # 事务失败，重试
 ```
 
 ---
 
-## 鍏€佷簨鍔′笌 Pipeline 鐨勫尯鍒?
-| 瀵规瘮椤?| 浜嬪姟 (MULTI/EXEC) | Pipeline |
+## 六、事务与 Pipeline 的区别
+| 对比项 | 事务 (MULTI/EXEC) | Pipeline |
 | :--- | :--- | :--- |
-| **鐩殑** | 淇濊瘉鍛戒护搴忓垪鐨勫師瀛愭€ф墽琛?| 鍑忓皯缃戠粶寰€杩斿欢杩?|
-| **鍘熷瓙鎬?* | 鍛戒护涔嬮棿涓嶄細琚叾浠栧鎴风鎵撴柇 | 涓嶄繚璇侊紝鍙兘琚叾浠栧懡浠ゆ彃鍏?|
-| **鍥炴粴** | 涓嶆敮鎸?| 涓嶆敮鎸?|
-| **杩斿洖缁撴灉** | 涓€娆℃€ц繑鍥炴墍鏈夌粨鏋?| 娴佸紡杩斿洖缁撴灉 |
-| **浣跨敤鍦烘櫙** | 闇€瑕佷繚璇佸懡浠よ繛缁墽琛岀殑鍦烘櫙 | 鎵归噺鎿嶄綔锛屽叧娉ㄦ€ц兘鐨勫満鏅?|
+| **目的** | 保证命令序列的原子性执行 | 减少网络往返延迟 |
+| **原子性** | 命令之间不会被其他客户端打断 | 不保证，可能被其他命令插入 |
+| **回滚** | 不支持 | 不支持 |
+| **返回结果** | 一次性返回所有结果 | 流式返回结果 |
+| **使用场景** | 需要保证命令连续执行的场景 | 批量操作，关注性能的场景 |
 
 
-### 绀轰緥锛氫簨鍔?vs Pipeline
+### 示例：事务 vs Pipeline
 ```python
-# 浜嬪姟锛氬懡浠や笉浼氳鍏朵粬瀹㈡埛绔墦鏂?
+# 事务：命令不会被其他客户端打断
 redis_client.multi()
 redis_client.set("key1", "value1")
 redis_client.set("key2", "value2")
 redis_client.exec()
 
-# Pipeline锛氬彧鍏虫敞鎬ц兘锛屼笉淇濊瘉鍘熷瓙鎬?
+# Pipeline：只关注性能，不保证原子性
 pipe = redis_client.pipeline()
 pipe.set("key1", "value1")
 pipe.set("key2", "value2")
 pipe.execute()
 ```
 
-> 馃挕 **鎻愮ず**锛氫簨鍔″拰 Pipeline 鍙互缁撳悎浣跨敤锛堥€氳繃 Pipeline 鍙戦€?MULTI/EXEC锛夛紝鏃㈣兘淇濊瘉鍘熷瓙鎬э紝鍙堣兘鍑忓皯缃戠粶寤惰繜銆?
+> 💡 **提示**：事务和 Pipeline 可以结合使用（通过 Pipeline 发送 MULTI/EXEC），既能保证原子性，又能减少网络延迟。
 >
 
 ---
 
-## 涓冦€佷簨鍔″け璐ヤ笌鍥炴粴璇存槑
-### Redis 涓轰粈涔堜笉鏀寔鍥炴粴锛?
-Redis 瀹樻柟鏂囨。璇存槑锛?
+## 七、事务失败与回滚说明
+### Redis 为什么不支持回滚？
+Redis 官方文档说明：
 
-> Redis 鍛戒护鍙細鍥犱负**閿欒鐨勮娉?*锛堝湪闃熷垪鏃舵娴嬩笉鍒帮級鎴?*閿欒鐨勬暟鎹被鍨?*鑰屽け璐ワ紝杩欎簺閿欒鏄紪绋嬮敊璇紝搴旇鍦ㄥ紑鍙戦樁娈佃鍙戠幇銆傚洜姝?Redis 鍐呴儴鏇寸畝鍗曘€佹洿蹇€燂紝涓嶉渶瑕佸洖婊氬姛鑳姐€?
+> Redis 命令只会因为**错误的语法**（在队列时检测不到）或**错误的数据类型**而失败，这些错误是编程错误，应该在开发阶段被发现。因此 Redis 内部更简单、更快速，不需要回滚功能。
 >
 
-### 浜嬪姟澶辫触鍦烘櫙鎬荤粨
-| 澶辫触绫诲瀷 | 鍙戠敓鏃舵満 | 浜嬪姟琛屼负 |
+### 事务失败场景总结
+| 失败类型 | 发生时机 | 事务行为 |
 | :--- | :--- | :--- |
-| **璇硶閿欒** | 鍛戒护鍏ラ槦鏃舵娴嬪埌 | 鏁翠釜浜嬪姟琚嫆缁濓紝EXEC 鎶ラ敊 |
-| **杩愯鏃堕敊璇?* | 鍛戒护鎵ц鏃跺彂鐢?| 璇ュ懡浠ゅけ璐ワ紝鍏朵粬鍛戒护缁х画鎵ц |
-| **WATCH 鍐茬獊** | EXEC 鎵ц鍓嶆娴嬪埌 | 鏁翠釜浜嬪姟琚斁寮冿紝EXEC 杩斿洖 nil |
+| **语法错误** | 命令入队时检测到 | 整个事务被拒绝，EXEC 报错 |
+| **运行时错误** | 命令执行时发生 | 该命令失败，其他命令继续执行 |
+| **WATCH 冲突** | EXEC 执行前检测到 | 整个事务被放弃，EXEC 返回 nil |
 
 
 ---
 
-## 鍏€佹渶浣冲疄璺?
-### 鉁?鎺ㄨ崘鍋氭硶
-1. **浣跨敤 WATCH 瀹炵幇涔愯閿?*锛氳В鍐冲苟鍙戝啿绐侀棶棰?
-2. **浜嬪姟涓伩鍏嶄緷璧栧叾浠栧懡浠ょ殑缁撴灉**锛氬洜涓烘墍鏈夊懡浠ゅ湪 EXEC 鍓嶅彧鎺掗槦涓嶆墽琛?
-3. **鍚堢悊璁剧疆浜嬪姟澶у皬**锛氶伩鍏嶈繃澶т簨鍔″鑷撮暱鏃堕棿闃诲
-4. **閰嶅悎 Lua 鑴氭湰鏇夸唬澶嶆潅浜嬪姟**锛歀ua 鑴氭湰鍙互淇濊瘉鍘熷瓙鎬э紝涓旀敮鎸侀€昏緫鍒ゆ柇
+## 八、最佳实践
+### ✅ 推荐做法
+1. **使用 WATCH 实现乐观锁**：解决并发冲突问题
+2. **事务中避免依赖其他命令的结果**：因为所有命令在 EXEC 前只排队不执行
+3. **合理设置事务大小**：避免过大事务导致长时间阻塞
+4. **配合 Lua 脚本替代复杂事务**：Lua 脚本可以保证原子性，且支持逻辑判断
 
-### 鉂?閬垮厤鐨勫仛娉?
-1. **涓嶈鏈熸湜鍥炴粴**锛歊edis 浜嬪姟涓嶆敮鎸佸洖婊?
-2. **涓嶈鍦ㄤ簨鍔′腑鎵ц杩囧鏁伴噺鐨勫懡浠?*锛氫細闀挎椂闂撮樆濉?Redis
-3. **涓嶈渚濊禆浜嬪姟涓殑璇绘搷浣滃仛涓氬姟鍒ゆ柇**锛氬洜涓鸿鎿嶄綔鐨勭粨鏋滄槸鎺掗槦鏃剁殑蹇収锛屼笉鏄墽琛屾椂鐨勫疄闄呭€?
+### ❌ 避免的做法
+1. **不要期望回滚**：Redis 事务不支持回滚
+2. **不要在事务中执行过多数量的命令**：会长时间阻塞 Redis
+3. **不要依赖事务中的读操作做业务判断**：因为读操作的结果是排队时的快照，不是执行时的实际值
 
-### 浜嬪姟 vs Lua 鑴氭湰閫夋嫨
-| 鍦烘櫙 | 鎺ㄨ崘鏂规 |
+### 事务 vs Lua 脚本选择
+| 场景 | 推荐方案 |
 | :--- | :--- |
-| 绠€鍗曠殑鍛戒护搴忓垪鎵ц | **浜嬪姟** |
-| 闇€瑕佹潯浠跺垽鏂紙if/else锛?| **Lua 鑴氭湰** |
-| 闇€瑕佸洖婊氶€昏緫 | **Lua 鑴氭湰** |
-| 澶嶆潅涓氬姟閫昏緫 | **Lua 鑴氭湰** |
-| 澶氫釜瀹㈡埛绔殑骞跺彂鎺у埗 | **WATCH + 浜嬪姟** |
+| 简单的命令序列执行 | **事务** |
+| 需要条件判断（if/else） | **Lua 脚本** |
+| 需要回滚逻辑 | **Lua 脚本** |
+| 复杂业务逻辑 | **Lua 脚本** |
+| 多个客户端的并发控制 | **WATCH + 事务** |
 
 
 ---
 
-## 涔濄€佸懡浠ら€熸煡琛?
-| 鍛戒护 | 浣滅敤 | 鏃堕棿澶嶆潅搴?|
+## 九、命令速查表
+| 命令 | 作用 | 时间复杂度 |
 | :--- | :--- | :--- |
-| `MULTI` | 寮€鍚簨鍔?| O(1) |
-| `EXEC` | 鎵ц浜嬪姟涓殑鎵€鏈夊懡浠?| 鍙栧喅浜庡懡浠ゆ暟閲?|
-| `DISCARD` | 鍙栨秷浜嬪姟锛屾竻绌洪槦鍒?| O(1) |
-| `WATCH key [key...]` | 鐩戣涓€涓垨澶氫釜 key | O(N) |
-| `UNWATCH` | 鍙栨秷鎵€鏈夌洃瑙?| O(1) |
+| `MULTI` | 开启事务 | O(1) |
+| `EXEC` | 执行事务中的所有命令 | 取决于命令数量 |
+| `DISCARD` | 取消事务，清空队列 | O(1) |
+| `WATCH key [key...]` | 监视一个或多个 key | O(N) |
+| `UNWATCH` | 取消所有监视 | O(1) |
 
 
 ---
 
-## 鍗併€佸父瑙侀潰璇曢
-### Q1锛歊edis 浜嬪姟鏀寔鍥炴粴鍚楋紵
-**A**锛氫笉鏀寔銆俁edis 鐨勮璁″摬瀛︽槸"淇濇寔绠€鍗曘€佸揩閫?锛岃涓哄懡浠ゅけ璐ラ€氬父鏄紪绋嬮敊璇紝搴旇鍦ㄥ紑鍙戦樁娈佃В鍐筹紝鑰屼笉鏄湪杩愯鏃跺洖婊氥€?
+## 十、常见面试题
+### Q1：Redis 事务支持回滚吗？
+**A**：不支持。Redis 的设计哲学是"保持简单、快速"，认为命令失败通常是编程错误，应该在开发阶段解决，而不是在运行时回滚。
 
-### Q2锛歐ATCH 鏄浣曞疄鐜扮殑锛?
-**A**锛歐ATCH 浼氬湪 Redis 鏈嶅姟鍣ㄧ鏍囪琚洃瑙嗙殑 key锛屽綋鎵ц EXEC 鏃讹紝妫€鏌ヨ繖浜?key 鏄惁琚叾浠栧鎴风淇敼杩囷紝濡傛灉琚慨鏀瑰垯鎷掔粷鎵ц浜嬪姟銆?
+### Q2：WATCH 是如何实现的？
+**A**：WATCH 会在 Redis 服务器端标记被监视的 key，当执行 EXEC 时，检查这些 key 是否被其他客户端修改过，如果被修改则拒绝执行事务。
 
-### Q3锛氫簨鍔″拰 Lua 鑴氭湰鏈変粈涔堝尯鍒紵
-**A**锛?
+### Q3：事务和 Lua 脚本有什么区别？
+**A**：
 
-+ 浜嬪姟淇濊瘉鍛戒护椤哄簭鎵ц涓嶈鎵撴柇锛屼絾涓嶆敮鎸佹潯浠堕€昏緫鍜屽洖婊?
-+ Lua 鑴氭湰鍦?Redis 鍐呴儴鍘熷瓙鎵ц锛屾敮鎸佸鏉傞€昏緫锛屽姛鑳芥洿寮哄ぇ
++ 事务保证命令顺序执行不被打断，但不支持条件逻辑和回滚
++ Lua 脚本在 Redis 内部原子执行，支持复杂逻辑，功能更强大
 
-### Q4锛氫簨鍔′腑鍙互浣跨敤 WATCH 鐩戣澶氫釜 key 鍚楋紵
-**A**锛氬彲浠ャ€俙WATCH key1 key2 key3...` 鍙互鐩戣澶氫釜 key锛屼换浣曚竴涓淇敼閮戒細瀵艰嚧浜嬪姟澶辫触銆?
+### Q4：事务中可以使用 WATCH 监视多个 key 吗？
+**A**：可以。`WATCH key1 key2 key3...` 可以监视多个 key，任何一个被修改都会导致事务失败。
 
 ---
 
 
 
-> **MULTI 寮€锛屽懡浠ゆ帓锛孍XEC 鎵ц涓€璧锋潵**  
-**鍑洪敊涓嶅垎鍓嶅悗鎺掞紝璇硶閿欒鍏ㄥけ璐?*  
-**杩愯閿欒鍗曚釜鏍斤紝鍏朵粬鍛戒护鐓ф牱鏉?*  
-**WATCH 鐩戣鍋氫繚闄╋紝骞跺彂鍐茬獊灏遍噸鏉?*
+> **MULTI 开，命令排，EXEC 执行一起来**  
+**出错不分前后排，语法错误全失败**  
+**运行错误单个栽，其他命令照样来**  
+**WATCH 监视做保险，并发冲突就重来**
 >
 
 ---
 
-甯屾湜杩欎唤绗旇瀵逛綘鏈夊府鍔╋紒濡傛灉闇€瑕?Lua 鑴氭湰鐨勮缁嗙瑪璁帮紝鎴栬€呮湁鍏朵粬鍏蜂綋闂锛岄殢鏃堕棶鎴戯綖
+希望这份笔记对你有帮助！如果需要 Lua 脚本的详细笔记，或者有其他具体问题，随时问我～
 
 # jedis
-## 蹇€熷紑濮?
-+ 瀵煎叆渚濊禆
+## 快速开始
++ 导入依赖
 
 ```xml
 <!--jedis-->
@@ -3168,21 +2105,21 @@ Redis 瀹樻柟鏂囨。璇存槑锛?
 </dependency>
 ```
 
-+ 閾炬帴redis
++ 链接redis
 
 ```java
 public class TestPing {
     public static void main(String[] args) {
-        // 1. new Jedis 瀵硅薄
+        // 1. new Jedis 对象
         Jedis jedis = new Jedis("192.168.2.129", 6379);
-        // Jedis 涓墍鏈夌殑鍛戒护閮藉湪杩欓噷闈?
+        // Jedis 中所有的命令都在这里面
         System.out.println(jedis.ping());
     }
 }
 ```
 
-# 鑷畾涔塕edisTemplate  springboot 3.0
-## 瀵煎叆渚濊禆
+# 自定义RedisTemplate  springboot 3.0
+## 导入依赖
 ```xml
 <parent>
   <groupId>org.springframework.boot</groupId>
@@ -3206,7 +2143,7 @@ public class TestPing {
 </dependencies>
 ```
 
-## 鑷姩涔塕edisTemplate閰嶇疆绫?
+## 自动义RedisTemplate配置类
 ```java
 package com.jie.config;
 
@@ -3224,42 +2161,42 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
- * Redis 閰嶇疆绫?
- * 鑷畾涔?RedisTemplate锛岀粺涓€搴忓垪鍖栨柟寮?
+ * Redis 配置类
+ * 自定义 RedisTemplate，统一序列化方式
  */
 @Configuration
 public class RedisConfig {
 
     /**
-     * 鑷畾涔?RedisTemplate
-     * 鐢ㄤ簬瀛樺偍瀵硅薄锛屼娇鐢?JSON 搴忓垪鍖?
+     * 自定义 RedisTemplate
+     * 用于存储对象，使用 JSON 序列化
      */
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(connectionFactory);
         
-        // 璁剧疆 JSON 搴忓垪鍖栧櫒
+        // 设置 JSON 序列化器
         Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = 
                 new Jackson2JsonRedisSerializer<>(Object.class);
         
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        // 婵€娲婚粯璁ょ被鍨嬶紝瑙ｅ喅绫诲瀷杞崲闂
+        // 激活默认类型，解决类型转换问题
         objectMapper.activateDefaultTyping(
                 LaissezFaireSubTypeValidator.instance,
                 ObjectMapper.DefaultTyping.NON_FINAL
         );
         jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
         
-        // 璁剧疆 String 搴忓垪鍖栧櫒锛堢敤浜?key锛?
+        // 设置 String 序列化器（用于 key）
         StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
         
-        // key 浣跨敤 String 搴忓垪鍖?
+        // key 使用 String 序列化
         template.setKeySerializer(stringRedisSerializer);
         template.setHashKeySerializer(stringRedisSerializer);
         
-        // value 浣跨敤 JSON 搴忓垪鍖?
+        // value 使用 JSON 序列化
         template.setValueSerializer(jackson2JsonRedisSerializer);
         template.setHashValueSerializer(jackson2JsonRedisSerializer);
         
@@ -3269,7 +2206,7 @@ public class RedisConfig {
     
     /**
      * StringRedisTemplate
-     * 鐢ㄤ簬瀛樺偍瀛楃涓诧紝key 鍜?value 閮戒娇鐢?String 搴忓垪鍖?
+     * 用于存储字符串，key 和 value 都使用 String 序列化
      */
     @Bean
     public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory connectionFactory) {
@@ -3278,7 +2215,7 @@ public class RedisConfig {
 }
 ```
 
-## 灏佽RedisService宸ュ叿绫?
+## 封装RedisService工具类
 ```java
 package com.jie.service;
 
@@ -3294,8 +2231,8 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Redis 鎿嶄綔鏈嶅姟绫?
- * 灏佽甯哥敤鎿嶄綔锛屾彁渚涗究鎹风殑 API
+ * Redis 操作服务类
+ * 封装常用操作，提供便捷的 API
  */
 @Component
 public class RedisService {
@@ -3306,230 +2243,230 @@ public class RedisService {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-    // ==================== String 鎿嶄綔锛堝璞★級 ====================
+    // ==================== String 操作（对象） ====================
 
     /**
-     * 璁剧疆鍊?
+     * 设置值
      */
     public void set(String key, Object value) {
         redisTemplate.opsForValue().set(key, value);
     }
 
     /**
-     * 璁剧疆鍊煎苟鎸囧畾杩囨湡鏃堕棿
+     * 设置值并指定过期时间
      */
     public void set(String key, Object value, long timeout, TimeUnit unit) {
         redisTemplate.opsForValue().set(key, value, timeout, unit);
     }
 
     /**
-     * 鑾峰彇鍊?
+     * 获取值
      */
     public Object get(String key) {
         return redisTemplate.opsForValue().get(key);
     }
 
     /**
-     * 鍒犻櫎 key
+     * 删除 key
      */
     public Boolean delete(String key) {
         return redisTemplate.delete(key);
     }
 
     /**
-     * 鎵归噺鍒犻櫎
+     * 批量删除
      */
     public Long delete(Collection<String> keys) {
         return redisTemplate.delete(keys);
     }
 
     /**
-     * 鍒ゆ柇 key 鏄惁瀛樺湪
+     * 判断 key 是否存在
      */
     public Boolean hasKey(String key) {
         return redisTemplate.hasKey(key);
     }
 
     /**
-     * 璁剧疆杩囨湡鏃堕棿
+     * 设置过期时间
      */
     public Boolean expire(String key, long timeout, TimeUnit unit) {
         return redisTemplate.expire(key, timeout, unit);
     }
 
     /**
-     * 鑾峰彇杩囨湡鏃堕棿
+     * 获取过期时间
      */
     public Long getExpire(String key) {
         return redisTemplate.getExpire(key);
     }
 
-    // ==================== String 鎿嶄綔锛堝瓧绗︿覆锛?====================
+    // ==================== String 操作（字符串） ====================
 
     /**
-     * 璁剧疆瀛楃涓插€?
+     * 设置字符串值
      */
     public void setString(String key, String value) {
         stringRedisTemplate.opsForValue().set(key, value);
     }
 
     /**
-     * 璁剧疆瀛楃涓插€煎苟鎸囧畾杩囨湡鏃堕棿
+     * 设置字符串值并指定过期时间
      */
     public void setString(String key, String value, long timeout, TimeUnit unit) {
         stringRedisTemplate.opsForValue().set(key, value, timeout, unit);
     }
 
     /**
-     * 鑾峰彇瀛楃涓插€?
+     * 获取字符串值
      */
     public String getString(String key) {
         return stringRedisTemplate.opsForValue().get(key);
     }
 
     /**
-     * 鑷锛堣鏁板櫒锛?
+     * 自增（计数器）
      */
     public Long increment(String key) {
         return stringRedisTemplate.opsForValue().increment(key);
     }
 
     /**
-     * 鑷鎸囧畾姝ラ暱
+     * 自增指定步长
      */
     public Long increment(String key, long delta) {
         return stringRedisTemplate.opsForValue().increment(key, delta);
     }
 
-    // ==================== Hash 鎿嶄綔 ====================
+    // ==================== Hash 操作 ====================
 
     /**
-     * 璁剧疆 Hash 瀛楁鍊?
+     * 设置 Hash 字段值
      */
     public void hset(String key, String field, Object value) {
         redisTemplate.opsForHash().put(key, field, value);
     }
 
     /**
-     * 鎵归噺璁剧疆 Hash 瀛楁鍊?
+     * 批量设置 Hash 字段值
      */
     public void hsetAll(String key, Map<String, Object> map) {
         redisTemplate.opsForHash().putAll(key, map);
     }
     
     /**
-     * 鑾峰彇 Hash 瀛楁鍊?
+     * 获取 Hash 字段值
      */
     public Object hget(String key, String field) {
         return redisTemplate.opsForHash().get(key, field);
     }
     
     /**
-     * 鑾峰彇鎵€鏈?Hash 瀛楁鍊?
+     * 获取所有 Hash 字段值
      */
     public Map<Object, Object> hgetAll(String key) {
         return redisTemplate.opsForHash().entries(key);
     }
     
     /**
-     * 鍒犻櫎 Hash 瀛楁
+     * 删除 Hash 字段
      */
     public Long hdel(String key, Object... fields) {
         return redisTemplate.opsForHash().delete(key, fields);
     }
     
-    // ==================== List 鎿嶄綔 ====================
+    // ==================== List 操作 ====================
     
     /**
-     * 宸︿晶鎻掑叆
+     * 左侧插入
      */
     public Long lpush(String key, Object value) {
         return redisTemplate.opsForList().leftPush(key, value);
     }
     
     /**
-     * 鍙充晶鎻掑叆
+     * 右侧插入
      */
     public Long rpush(String key, Object value) {
         return redisTemplate.opsForList().rightPush(key, value);
     }
     
     /**
-     * 宸︿晶寮瑰嚭
+     * 左侧弹出
      */
     public Object lpop(String key) {
         return redisTemplate.opsForList().leftPop(key);
     }
     
     /**
-     * 鍙充晶寮瑰嚭
+     * 右侧弹出
      */
     public Object rpop(String key) {
         return redisTemplate.opsForList().rightPop(key);
     }
     
     /**
-     * 鑾峰彇鍒楄〃鑼冨洿
+     * 获取列表范围
      */
     public List<Object> lrange(String key, long start, long end) {
         return redisTemplate.opsForList().range(key, start, end);
     }
     
-    // ==================== Set 鎿嶄綔 ====================
+    // ==================== Set 操作 ====================
     
     /**
-     * 娣诲姞 Set 鍏冪礌
+     * 添加 Set 元素
      */
     public Long sadd(String key, Object... values) {
         return redisTemplate.opsForSet().add(key, values);
     }
     
     /**
-     * 鑾峰彇鎵€鏈?Set 鍏冪礌
+     * 获取所有 Set 元素
      */
     public Set<Object> smembers(String key) {
         return redisTemplate.opsForSet().members(key);
     }
     
     /**
-     * 鍒ゆ柇鏄惁鏄?Set 鎴愬憳
+     * 判断是否是 Set 成员
      */
     public Boolean sismember(String key, Object value) {
         return redisTemplate.opsForSet().isMember(key, value);
     }
     
     /**
-     * 鍒犻櫎 Set 鍏冪礌
+     * 删除 Set 元素
      */
     public Long srem(String key, Object... values) {
         return redisTemplate.opsForSet().remove(key, values);
     }
     
-    // ==================== ZSet 鎿嶄綔 ====================
+    // ==================== ZSet 操作 ====================
     
     /**
-     * 娣诲姞 ZSet 鍏冪礌锛堝甫鍒嗘暟锛?
+     * 添加 ZSet 元素（带分数）
      */
     public Boolean zadd(String key, Object value, double score) {
         return redisTemplate.opsForZSet().add(key, value, score);
     }
     
     /**
-     * 鎸夊垎鏁伴檷搴忚幏鍙栨寚瀹氳寖鍥达紙鎺掕姒滐級
+     * 按分数降序获取指定范围（排行榜）
      */
     public Set<Object> zrevrange(String key, long start, long end) {
         return redisTemplate.opsForZSet().reverseRange(key, start, end);
     }
     
     /**
-     * 鑾峰彇鍏冪礌鍒嗘暟
+     * 获取元素分数
      */
     public Double zscore(String key, Object value) {
         return redisTemplate.opsForZSet().score(key, value);
     }
     
     /**
-     * 澧炲姞鍏冪礌鍒嗘暟
+     * 增加元素分数
      */
     public Double zincrby(String key, Object value, double delta) {
         return redisTemplate.opsForZSet().incrementScore(key, value, delta);
@@ -3537,7 +2474,7 @@ public class RedisService {
 }
 ```
 
-## controller娴嬭瘯
+## controller测试
 ```java
 package com.jie.controller;
 
@@ -3556,12 +2493,12 @@ public class RedisController {
     
     @GetMapping("/test")
     public String test() {
-        // 瀛樺偍瀛楃涓?
-        redisService.setString("name", "寮犱笁", 60, TimeUnit.SECONDS);
+        // 存储字符串
+        redisService.setString("name", "张三", 60, TimeUnit.SECONDS);
         String name = redisService.getString("name");
         
-        // 瀛樺偍瀵硅薄
-        User user = new User(1L, "鏉庡洓", 25);
+        // 存储对象
+        User user = new User(1L, "李四", 25);
         redisService.set("user:1", user, 60, TimeUnit.SECONDS);
         User cachedUser = (User) redisService.get("user:1");
         
@@ -3570,13 +2507,13 @@ public class RedisController {
     
     @GetMapping("/incr")
     public Long incr() {
-        // 璁℃暟鍣?
+        // 计数器
         return redisService.increment("page:view:2025-01-01");
     }
 }
 ```
 
-## 瀹炰綋绫?
+## 实体类
 ```java
 package com.jie.pojo;
 
@@ -3598,309 +2535,309 @@ public class User implements Serializable {
 }
 ```
 
-# redis.conf鏂囦欢閰嶇疆淇℃伅
-## 涓€銆佺綉缁滀笌瀹夊叏閰嶇疆
-### 1.1 bind - 缁戝畾鐩戝惉鍦板潃
+# redis.conf文件配置信息
+## 一、网络与安全配置
+### 1.1 bind - 绑定监听地址
 ```nginx
-# 鐢熶骇鐜锛氱粦瀹氬唴缃慖P锛屼笉瀵瑰鏆撮湶
-bind 192.168.1.100   # 鏀逛负浣犵殑鍐呯綉IP
+# 生产环境：绑定内网IP，不对外暴露
+bind 192.168.1.100   # 改为你的内网IP
 
-# 寮€鍙戠幆澧冿細鍏佽鎵€鏈夋帴鍙ｏ紙闇€閰嶅悎瀵嗙爜鍜岄槻鐏锛?
+# 开发环境：允许所有接口（需配合密码和防火墙）
 # bind 0.0.0.0
 
-# 閿欒绀轰緥锛氶粯璁ゅ彧鍏佽鏈湴璁块棶
+# 错误示例：默认只允许本地访问
 # bind 127.0.0.1
 ```
 
-**鐢熶骇寤鸿**锛氱粦瀹氬唴缃?IP锛屼笉瑕佸湪鍏綉鏆撮湶 Redis 绔彛銆備簯鏈嶅姟鍣ㄩ渶閰嶅悎瀹夊叏缁勮鍒欍€?
+**生产建议**：绑定内网 IP，不要在公网暴露 Redis 端口。云服务器需配合安全组规则。
 
-### 1.2 protected-mode - 淇濇姢妯″紡
+### 1.2 protected-mode - 保护模式
 ```nginx
 protected-mode yes
 ```
 
-**璇存槑**锛氫繚鎸佸紑鍚€傚綋 `bind` 鏈缃垨璁剧疆涓?`0.0.0.0` 涓旀湭璁剧疆瀵嗙爜鏃讹紝璇ユā寮忎細闃绘澶栭儴璁块棶銆?
+**说明**：保持开启。当 `bind` 未设置或设置为 `0.0.0.0` 且未设置密码时，该模式会阻止外部访问。
 
-### 1.3 requirepass - 璁剧疆瀵嗙爜
+### 1.3 requirepass - 设置密码
 ```nginx
 requirepass YourStrongPassword123!
 ```
 
-**閲嶈**锛氱敓浜х幆澧?*蹇呴』璁剧疆寮哄瘑鐮?*銆傛牸寮忓缓璁細澶у皬鍐欏瓧姣?+ 鏁板瓧 + 鐗规畩绗﹀彿锛岃嚦灏?16 浣嶃€?
+**重要**：生产环境**必须设置强密码**。格式建议：大小写字母 + 数字 + 特殊符号，至少 16 位。
 
-### 1.4 rename-command - 绂佺敤鍗遍櫓鍛戒护
+### 1.4 rename-command - 禁用危险命令
 ```nginx
-# 閲嶅懡鍚嶆垨绂佺敤鍗遍櫓鍛戒护
-rename-command FLUSHALL ""      # 绂佺敤
-rename-command FLUSHDB ""       # 绂佺敤
-rename-command CONFIG "new_config_name"  # 閲嶅懡鍚?
-rename-command KEYS "new_keys_name"     # 閲嶅懡鍚?
+# 重命名或禁用危险命令
+rename-command FLUSHALL ""      # 禁用
+rename-command FLUSHDB ""       # 禁用
+rename-command CONFIG "new_config_name"  # 重命名
+rename-command KEYS "new_keys_name"     # 重命名
 ```
 
-**鐢熶骇寤鸿**锛氱鐢?`FLUSHALL`銆乣FLUSHDB`锛岄槻姝㈣鎿嶄綔瀵艰嚧鏁版嵁涓㈠け銆?
+**生产建议**：禁用 `FLUSHALL`、`FLUSHDB`，防止误操作导致数据丢失。
 
-### 1.5 port - 淇敼榛樿绔彛
+### 1.5 port - 修改默认端口
 ```nginx
-# 涓嶆帹鑽愪娇鐢ㄩ粯璁?379
+# 不推荐使用默认6379
 port 6380
 ```
 
-**璇存槑**锛氶伩鍏嶄娇鐢ㄩ粯璁ょ鍙ｅ彲闄嶄綆琚壂鎻忔敾鍑荤殑椋庨櫓銆?
+**说明**：避免使用默认端口可降低被扫描攻击的风险。
 
 
 
-## 浜屻€佸唴瀛樼鐞嗛厤缃?
-### 2.1 maxmemory - 鏈€澶у唴瀛橀檺鍒讹紙**蹇呴厤**锛?
+## 二、内存管理配置
+### 2.1 maxmemory - 最大内存限制（**必配**）
 ```nginx
-# 鐗╃悊鍐呭瓨鐨?0%-80%锛岄鐣欑┖闂寸粰绯荤粺鍜孉OF閲嶅啓
-maxmemory 24gb   # 鍋囪鏈嶅姟鍣?2GB鍐呭瓨
+# 物理内存的70%-80%，预留空间给系统和AOF重写
+maxmemory 24gb   # 假设服务器32GB内存
 ```
 
-**閲嶈**锛氬繀椤昏缃紝鍚﹀垯 Redis 浼氭寔缁垎閰嶅唴瀛樼洿鑷?OOM銆?
+**重要**：必须设置，否则 Redis 会持续分配内存直至 OOM。
 
-### 2.2 maxmemory-policy - 鍐呭瓨娣樻卑绛栫暐
+### 2.2 maxmemory-policy - 内存淘汰策略
 ```nginx
-# 鎺ㄨ崘閰嶇疆锛堟牴鎹笟鍔″満鏅€夋嫨锛?
-maxmemory-policy allkeys-lru     # 鐑偣鏁版嵁缂撳瓨鍦烘櫙
+# 推荐配置（根据业务场景选择）
+maxmemory-policy allkeys-lru     # 热点数据缓存场景
 
-# 鍏朵粬鍙€夌瓥鐣?
-# volatile-lru     - 浠呮窐姹拌缃簡杩囨湡鏃堕棿鐨刱ey锛堥€傜敤浜庣紦瀛?鎸佷箙鍖栨贩鍚堬級
-# allkeys-random   - 闅忔満娣樻卑锛堜笉鎺ㄨ崘锛?
-# volatile-ttl     - 娣樻卑鍗冲皢杩囨湡鐨刱ey
-# noeviction       - 绂佹娣樻卑锛屽唴瀛樻弧鏃跺啓鍏ユ姤閿欙紙涓嶆帹鑽愶級
+# 其他可选策略
+# volatile-lru     - 仅淘汰设置了过期时间的key（适用于缓存+持久化混合）
+# allkeys-random   - 随机淘汰（不推荐）
+# volatile-ttl     - 淘汰即将过期的key
+# noeviction       - 禁止淘汰，内存满时写入报错（不推荐）
 ```
 
-**绛栫暐閫夋嫨鎸囧崡**锛?
+**策略选择指南**：
 
-+ **绾紦瀛樺満鏅?*锛歚allkeys-lru` 鎴?`allkeys-lfu`锛堟帹鑽愶級
-+ **缂撳瓨+鎸佷箙鍖?*锛歚volatile-lru`锛堝彧娣樻卑璁剧疆浜?TTL 鐨?key锛?
-+ **璁块棶棰戠巼鏁忔劅**锛歚allkeys-lfu`锛圧edis 4.0+锛屾窐姹版渶灏戜娇鐢ㄧ殑锛?
++ **纯缓存场景**：`allkeys-lru` 或 `allkeys-lfu`（推荐）
++ **缓存+持久化**：`volatile-lru`（只淘汰设置了 TTL 的 key）
++ **访问频率敏感**：`allkeys-lfu`（Redis 4.0+，淘汰最少使用的）
 
-### 2.3 maxmemory-samples - LRU 閲囨牱绮惧害
+### 2.3 maxmemory-samples - LRU 采样精度
 ```nginx
 maxmemory-samples 10
 ```
 
-**璇存槑**锛氶粯璁?5锛屽€艰秺澶ф窐姹扮畻娉曡秺绮剧‘锛屼絾娑堣€?CPU 鏇村銆傜敓浜х幆澧冨缓璁?10銆?
+**说明**：默认 5，值越大淘汰算法越精确，但消耗 CPU 更多。生产环境建议 10。
 
 
 
-## 涓夈€佹寔涔呭寲閰嶇疆
-### 3.1 RDB 蹇収閰嶇疆
+## 三、持久化配置
+### 3.1 RDB 快照配置
 ```nginx
-# 瑙﹀彂鏉′欢锛氭椂闂?+ 鍙樺寲娆℃暟
-save 900 1       # 15鍒嗛挓鍐呰嚦灏?涓猭ey鍙樺寲
-save 300 10      # 5鍒嗛挓鍐呰嚦灏?0涓猭ey鍙樺寲
-save 60 10000    # 1鍒嗛挓鍐呰嚦灏?0000涓猭ey鍙樺寲
+# 触发条件：时间 + 变化次数
+save 900 1       # 15分钟内至少1个key变化
+save 300 10      # 5分钟内至少10个key变化
+save 60 10000    # 1分钟内至少10000个key变化
 
-# 閰嶇疆椤硅鏄?
-stop-writes-on-bgsave-error yes   # 澶囦唤澶辫触鏃跺仠姝㈠啓鍏ワ紙鐢熶骇寤鸿寮€鍚級
-rdbcompression yes                 # 寮€鍚帇缂╋紙鑺傜渷纾佺洏锛?
-rdbchecksum yes                    # 鏍￠獙鍜岋紙鏁版嵁瀹夊叏锛?
-dbfilename dump.rdb                # 鏂囦欢鍚?
-dir /var/lib/redis/                # 瀛樺偍鐩綍
+# 配置项说明
+stop-writes-on-bgsave-error yes   # 备份失败时停止写入（生产建议开启）
+rdbcompression yes                 # 开启压缩（节省磁盘）
+rdbchecksum yes                    # 校验和（数据安全）
+dbfilename dump.rdb                # 文件名
+dir /var/lib/redis/                # 存储目录
 ```
 
-**鐢熶骇寤鸿**锛歊DB 閫傚悎鍋氬畾鏈熷浠斤紝鎭㈠閫熷害蹇€?
+**生产建议**：RDB 适合做定期备份，恢复速度快。
 
-### 3.2 AOF 鎸佷箙鍖栭厤缃?
+### 3.2 AOF 持久化配置
 ```nginx
-# 寮€鍚疉OF
+# 开启AOF
 appendonly yes
 
-# AOF鏂囦欢鍚?
+# AOF文件名
 appendfilename "appendonly.aof"
 
-# 鍚屾绛栫暐锛氭帹鑽?everysec锛堝钩琛℃€ц兘涓庡畨鍏級
+# 同步策略：推荐 everysec（平衡性能与安全）
 appendfsync everysec
 
-# AOF閲嶅啓閰嶇疆
-auto-aof-rewrite-percentage 100   # 鏂囦欢澧為暱100%鏃惰Е鍙戦噸鍐?
-auto-aof-rewrite-min-size 64mb    # 閲嶅啓鏈€灏忔枃浠跺ぇ灏?
+# AOF重写配置
+auto-aof-rewrite-percentage 100   # 文件增长100%时触发重写
+auto-aof-rewrite-min-size 64mb    # 重写最小文件大小
 
-# AOF閲嶅啓鏃舵槸鍚﹀仠姝sync锛堝缓璁紑鍚級
+# AOF重写时是否停止fsync（建议开启）
 no-appendfsync-on-rewrite yes
 
-# 娣峰悎鎸佷箙鍖栵紙Redis 4.0+锛屽己鐑堟帹鑽愶級
+# 混合持久化（Redis 4.0+，强烈推荐）
 aof-use-rdb-preamble yes
 ```
 
-**鍚屾绛栫暐瀵规瘮**锛?
+**同步策略对比**：
 
-| 绛栫暐 | 鎬ц兘 | 鏁版嵁瀹夊叏 | 閫傜敤鍦烘櫙 |
+| 策略 | 性能 | 数据安全 | 适用场景 |
 | --- | --- | --- | --- |
-| `always` | 鏈€宸?| 鏈€楂橈紙姣忔潯鍛戒护鍚屾锛?| 閲戣瀺鏀粯绫?|
-| `everysec` | 濂?| 涓㈠け1绉掓暟鎹?| **鎺ㄨ崘鐢熶骇鐜** |
-| `no` | 鏈€濂?| 涓嶇‘瀹?| 鍙蹇嶆暟鎹涪澶?|
+| `always` | 最差 | 最高（每条命令同步） | 金融支付类 |
+| `everysec` | 好 | 丢失1秒数据 | **推荐生产环境** |
+| `no` | 最好 | 不确定 | 可容忍数据丢失 |
 
 
-**娣峰悎鎸佷箙鍖?*锛欰OF 閲嶅啓鏃跺厛鐢熸垚 RDB 鏍煎紡锛屽啀杩藉姞澧為噺鏃ュ織锛屽吋椤炬仮澶嶉€熷害鍜屾暟鎹畨鍏ㄣ€?
+**混合持久化**：AOF 重写时先生成 RDB 格式，再追加增量日志，兼顾恢复速度和数据安全。
 
 
 
-## 鍥涖€佷富浠庡鍒堕厤缃?
-### 4.1 浠庤妭鐐归厤缃?
+## 四、主从复制配置
+### 4.1 从节点配置
 ```nginx
-# 鎸囧畾涓昏妭鐐?
+# 指定主节点
 replicaof 192.168.1.100 6379
 
-# 涓昏妭鐐瑰瘑鐮侊紙濡傛灉璁剧疆浜嗭級
+# 主节点密码（如果设置了）
 masterauth your_password
 
-# 浠庤妭鐐瑰彧璇?
+# 从节点只读
 replica-read-only yes
 
-# 鏃犵洏澶嶅埗锛圧edis 2.8.18+锛?
+# 无盘复制（Redis 2.8.18+）
 repl-diskless-sync yes
 
-# 澶嶅埗绉帇缂撳啿鍖哄ぇ灏?
+# 复制积压缓冲区大小
 repl-backlog-size 100mb
 ```
 
-### 4.2 澶嶅埗浼樺寲鍙傛暟
+### 4.2 复制优化参数
 ```nginx
-# 澶嶅埗瓒呮椂鏃堕棿
+# 复制超时时间
 repl-timeout 60
 
-# 浠庤妭鐐瑰悜涓昏妭鐐瑰彂閫乸ing鐨勯棿闅?
+# 从节点向主节点发送ping的间隔
 repl-ping-slave-period 10
 
-# 鏄惁绂佺敤TCP_NODELAY
-repl-disable-tcp-nodelay no   # 浣庡欢杩熷満鏅繚鎸乶o
+# 是否禁用TCP_NODELAY
+repl-disable-tcp-nodelay no   # 低延迟场景保持no
 ```
 
-**璇存槑**锛歚repl-disable-tcp-nodelay no` 鍙噺灏戝欢杩燂紝閫傚悎瀵瑰疄鏃舵€ц姹傞珮鐨勫満鏅€?
+**说明**：`repl-disable-tcp-nodelay no` 可减少延迟，适合对实时性要求高的场景。
 
 
 
-## 浜斻€佹€ц兘浼樺寲閰嶇疆
-### 5.1 杩炴帴涓庣綉缁?
+## 五、性能优化配置
+### 5.1 连接与网络
 ```nginx
-# 鏈€澶у鎴风杩炴帴鏁?
+# 最大客户端连接数
 maxclients 10000
 
-# TCP杩炴帴闃熷垪闀垮害
+# TCP连接队列长度
 tcp-backlog 511
 
-# 瀹㈡埛绔┖闂茶秴鏃讹紙0琛ㄧず姘镐笉瓒呮椂锛?
+# 客户端空闲超时（0表示永不超时）
 timeout 0
 
-# TCP淇濇椿闂撮殧
+# TCP保活间隔
 tcp-keepalive 300
 ```
 
-**璋冩暣寤鸿**锛氶珮骞跺彂鍦烘櫙鍙皟澶?`maxclients` 鍜?`tcp-backlog`锛屽悓鏃堕渶鍚屾璋冩暣鍐呮牳鍙傛暟 `net.core.somaxconn`銆?
+**调整建议**：高并发场景可调大 `maxclients` 和 `tcp-backlog`，同时需同步调整内核参数 `net.core.somaxconn`。
 
-### 5.2 鏁版嵁缁撴瀯鍐呭瓨浼樺寲
+### 5.2 数据结构内存优化
 ```nginx
-# Redis 7.0+ 浣跨敤 listpack 缂栫爜
+# Redis 7.0+ 使用 listpack 编码
 hash-max-listpack-entries 512
 hash-max-listpack-value 64
 zset-max-listpack-entries 128
 zset-max-listpack-value 64
 set-max-intset-entries 512
 
-# Redis 7.2+ 鏂板
+# Redis 7.2+ 新增
 set-max-listpack-entries 128
 set-max-listpack-value 64
 ```
 
-**璇存槑**锛氬皬鍝堝笇銆佸皬闆嗗悎浣跨敤鍘嬬缉缂栫爜鍙妭鐪?**5-10 鍊嶅唴瀛?*銆?
+**说明**：小哈希、小集合使用压缩编码可节省 **5-10 倍内存**。
 
-### 5.3 鎱㈡煡璇㈤厤缃?
+### 5.3 慢查询配置
 ```nginx
-# 鎱㈡煡璇㈤槇鍊硷紙寰锛?0000 = 10ms锛?
+# 慢查询阈值（微秒，10000 = 10ms）
 slowlog-log-slower-than 10000
 
-# 鎱㈡煡璇㈡棩蹇楁渶澶ф潯鏁?
+# 慢查询日志最大条数
 slowlog-max-len 128
 ```
 
-### 5.4 鍐呭瓨纰庣墖鏁寸悊
+### 5.4 内存碎片整理
 ```nginx
-# 寮€鍚富鍔ㄧ鐗囨暣鐞?
+# 开启主动碎片整理
 activedefrag yes
 
-# 瑙﹀彂纰庣墖鏁寸悊鐨勯槇鍊?
+# 触发碎片整理的阈值
 active-defrag-ignore-bytes 100mb
 active-defrag-threshold-lower 10
 active-defrag-cycle-min 5
 active-defrag-cycle-max 75
 ```
 
-**璇存槑**锛氬綋 `mem_fragmentation_ratio > 1.5` 鏃跺缓璁紑鍚€?
+**说明**：当 `mem_fragmentation_ratio > 1.5` 时建议开启。
 
 
 
-## 鍏€侀泦缇ゆā寮忛厤缃紙Redis Cluster锛?
-### 6.1 闆嗙兢鏍稿績閰嶇疆
+## 六、集群模式配置（Redis Cluster）
+### 6.1 集群核心配置
 ```nginx
-# 寮€鍚泦缇ゆā寮?
+# 开启集群模式
 cluster-enabled yes
 
-# 闆嗙兢閰嶇疆鏂囦欢锛堣嚜鍔ㄧ敓鎴愶級
+# 集群配置文件（自动生成）
 cluster-config-file nodes-6379.conf
 
-# 鑺傜偣瓒呮椂鏃堕棿锛堟绉掞級
+# 节点超时时间（毫秒）
 cluster-node-timeout 15000
 
-# 鏄惁鍏佽閮ㄥ垎鑺傜偣鏁呴殰鏃舵彁渚涙湇鍔?
+# 是否允许部分节点故障时提供服务
 cluster-require-full-coverage no
 
-# 鍓湰鏁帮紙姣忎釜涓昏妭鐐圭殑浠庤妭鐐规暟閲忥級
+# 副本数（每个主节点的从节点数量）
 cluster-replicas 1
 ```
 
-**鐢熶骇寤鸿**锛歚cluster-require-full-coverage no` 閬垮厤鍗曡妭鐐规晠闅滃鑷存暣涓泦缇や笉鍙敤銆?
+**生产建议**：`cluster-require-full-coverage no` 避免单节点故障导致整个集群不可用。
 
 
 
-## 涓冦€佹棩蹇椾笌鐩戞帶閰嶇疆
-### 7.1 鏃ュ織閰嶇疆
+## 七、日志与监控配置
+### 7.1 日志配置
 ```nginx
-# 鏃ュ織绾у埆
+# 日志级别
 loglevel notice
 
-# 鏃ュ織鏂囦欢璺緞
+# 日志文件路径
 logfile /var/log/redis/redis-server.log
 
-# 鏄惁璁板綍绯荤粺鏃ュ織
+# 是否记录系统日志
 syslog-enabled no
 ```
 
-### 7.2 瀹炰緥杩愯妯″紡
+### 7.2 实例运行模式
 ```nginx
-# 瀹堟姢杩涚▼妯″紡锛堢敓浜у繀椤讳负yes锛?
+# 守护进程模式（生产必须为yes）
 daemonize yes
 
-# PID鏂囦欢璺緞
+# PID文件路径
 pidfile /var/run/redis_6379.pid
 
-# 杩涚▼绠＄悊鏂瑰紡锛坰ystemd/upstart锛?
+# 进程管理方式（systemd/upstart）
 supervised systemd
 ```
 
-**璇存槑**锛歚daemonize yes` 浣?Redis 鍚庡彴杩愯銆?
+**说明**：`daemonize yes` 使 Redis 后台运行。
 
 
 
-## 鍏€佺敓浜х幆澧冨畬鏁撮厤缃ず渚?
+## 八、生产环境完整配置示例
 ```nginx
-# ===== 缃戠粶閰嶇疆 =====
+# ===== 网络配置 =====
 bind 192.168.1.100
 port 6380
 tcp-backlog 2048
 timeout 0
 tcp-keepalive 300
 
-# ===== 瀹夊叏閰嶇疆 =====
+# ===== 安全配置 =====
 protected-mode yes
 requirepass YourStrongPassword123!
 rename-command FLUSHALL ""
 rename-command FLUSHDB ""
 rename-command CONFIG ""
 
-# ===== 閫氱敤閰嶇疆 =====
+# ===== 通用配置 =====
 daemonize yes
 supervised systemd
 pidfile /var/run/redis_6380.pid
@@ -3908,12 +2845,12 @@ loglevel notice
 logfile /var/log/redis/redis-server.log
 databases 16
 
-# ===== 鍐呭瓨绠＄悊 =====
+# ===== 内存管理 =====
 maxmemory 24gb
 maxmemory-policy allkeys-lru
 maxmemory-samples 10
 
-# ===== 鎸佷箙鍖栭厤缃?=====
+# ===== 持久化配置 =====
 save 900 1
 save 300 10
 save 60 10000
@@ -3931,14 +2868,14 @@ auto-aof-rewrite-percentage 100
 auto-aof-rewrite-min-size 64mb
 aof-use-rdb-preamble yes
 
-# ===== 涓讳粠澶嶅埗 =====
+# ===== 主从复制 =====
 # replicaof 192.168.1.100 6379
 # masterauth your_password
 replica-read-only yes
 repl-diskless-sync yes
 repl-backlog-size 100mb
 
-# ===== 鎬ц兘浼樺寲 =====
+# ===== 性能优化 =====
 maxclients 10000
 hash-max-listpack-entries 512
 hash-max-listpack-value 64
@@ -3947,7 +2884,7 @@ slowlog-log-slower-than 10000
 slowlog-max-len 128
 activedefrag yes
 
-# ===== 闆嗙兢妯″紡 =====
+# ===== 集群模式 =====
 # cluster-enabled yes
 # cluster-node-timeout 15000
 # cluster-require-full-coverage no
@@ -3955,280 +2892,280 @@ activedefrag yes
 
 
 
-## 涔濄€侀厤缃敓鏁堜笌楠岃瘉
-### 9.1 浣块厤缃敓鏁?
+## 九、配置生效与验证
+### 9.1 使配置生效
 ```bash
-# 閲嶅惎Redis
+# 重启Redis
 sudo systemctl restart redis
 
-# 楠岃瘉閰嶇疆
+# 验证配置
 redis-cli -h 127.0.0.1 -p 6380 -a your_password CONFIG GET maxmemory
 redis-cli INFO memory
 ```
 
-### 9.2 鐩戞帶鍛戒护
+### 9.2 监控命令
 ```bash
-# 鏌ョ湅鍐呭瓨浣跨敤鎯呭喌
+# 查看内存使用情况
 redis-cli INFO memory
 
-# 鏌ョ湅杩炴帴鏁?
+# 查看连接数
 redis-cli INFO clients
 
-# 鏌ョ湅鎸佷箙鍖栫姸鎬?
+# 查看持久化状态
 redis-cli INFO persistence
 
-# 鏌ョ湅涓讳粠澶嶅埗鐘舵€?
+# 查看主从复制状态
 redis-cli INFO replication
 
-# 鏌ョ湅鎱㈡煡璇㈡棩蹇?
+# 查看慢查询日志
 redis-cli SLOWLOG GET 10
 ```
 
 
 
-## 鍗併€侀厤缃鏌ユ竻鍗?
-| 妫€鏌ラ」 | 鐘舵€?| 璇存槑 |
+## 十、配置检查清单
+| 检查项 | 状态 | 说明 |
 | --- | --- | --- |
-| 鉁?璁剧疆寮哄瘑鐮?| 蹇呴』 | requirepass |
-| 鉁?绂佺敤鍗遍櫓鍛戒护 | 蹇呴』 | rename-command FLUSHALL/FLUSHDB |
-| 鉁?璁剧疆鏈€澶у唴瀛?| 蹇呴』 | maxmemory |
-| 鉁?閰嶇疆娣樻卑绛栫暐 | 蹇呴』 | maxmemory-policy |
-| 鉁?缁戝畾鍐呯綉IP | 鎺ㄨ崘 | bind |
-| 鉁?淇敼榛樿绔彛 | 鎺ㄨ崘 | port |
-| 鉁?寮€鍚寔涔呭寲 | 鎺ㄨ崘 | AOF + RDB |
-| 鉁?閰嶇疆鏃ュ織 | 鎺ㄨ崘 | logfile |
-| 鉁?寮€鍚畧鎶よ繘绋?| 蹇呴』 | daemonize yes |
-| 鉁?閰嶇疆鎱㈡煡璇?| 鎺ㄨ崘 | slowlog |
-| 鉁?寮€鍚鐗囨暣鐞?| 鍙€?| activedefrag |
+| ✅ 设置强密码 | 必须 | requirepass |
+| ✅ 禁用危险命令 | 必须 | rename-command FLUSHALL/FLUSHDB |
+| ✅ 设置最大内存 | 必须 | maxmemory |
+| ✅ 配置淘汰策略 | 必须 | maxmemory-policy |
+| ✅ 绑定内网IP | 推荐 | bind |
+| ✅ 修改默认端口 | 推荐 | port |
+| ✅ 开启持久化 | 推荐 | AOF + RDB |
+| ✅ 配置日志 | 推荐 | logfile |
+| ✅ 开启守护进程 | 必须 | daemonize yes |
+| ✅ 配置慢查询 | 推荐 | slowlog |
+| ✅ 开启碎片整理 | 可选 | activedefrag |
 
 
-杩欎唤閰嶇疆娑电洊浜嗙敓浜х幆澧?Redis 鎵€闇€鐨勫叧閿弬鏁般€傚缓璁厛鍦ㄦ祴璇曠幆澧冮獙璇侊紝纭鏃犻棶棰樺悗鍐嶅簲鐢ㄥ埌鐢熶骇鐜銆傚闇€鏍规嵁鍏蜂綋涓氬姟鍦烘櫙锛堝绾紦瀛樸€佹秷鎭槦鍒椼€佹帓琛屾绛夛級鍋氱簿缁嗗寲閰嶇疆锛屽彲浠ヨ繘涓€姝ヨ璁猴紒
+这份配置涵盖了生产环境 Redis 所需的关键参数。建议先在测试环境验证，确认无问题后再应用到生产环境。如需根据具体业务场景（如纯缓存、消息队列、排行榜等）做精细化配置，可以进一步讨论！
 
-# Redis 鎸佷箙鍖?
-## 涓€銆佹寔涔呭寲姒傝堪
-### 浠€涔堟槸鎸佷箙鍖栵紵
-Redis 鏄?*鍐呭瓨鏁版嵁搴?*锛屾暟鎹粯璁ゅ瓨鍌ㄥ湪鍐呭瓨涓€傛寔涔呭寲灏辨槸灏嗗唴瀛樹腑鐨勬暟鎹繚瀛樺埌纾佺洏锛岄槻姝㈣繘绋嬮€€鍑哄悗鏁版嵁涓㈠け銆?
+# Redis 持久化
+## 一、持久化概述
+### 什么是持久化？
+Redis 是**内存数据库**，数据默认存储在内存中。持久化就是将内存中的数据保存到磁盘，防止进程退出后数据丢失。
 
-### 涓轰粈涔堥渶瑕佹寔涔呭寲锛?
-| 鍦烘櫙 | 璇存槑 |
+### 为什么需要持久化？
+| 场景 | 说明 |
 | --- | --- |
-| **缂撳瓨鍦烘櫙** | 鍏佽鏁版嵁涓㈠け锛屽彲涓嶅紑鍚垨鍙紑RDB |
-| **鏁版嵁瀛樺偍鍦烘櫙** | 涓嶅厑璁镐涪鏁版嵁锛屽繀椤诲紑鍚疉OF鎴栨贩鍚堟ā寮?|
+| **缓存场景** | 允许数据丢失，可不开启或只开RDB |
+| **数据存储场景** | 不允许丢数据，必须开启AOF或混合模式 |
 
 
-### Redis 鎸佷箙鍖栫殑涓夌鏂瑰紡
-| 鏂瑰紡 | 璇存槑 | Redis鐗堟湰 |
+### Redis 持久化的三种方式
+| 方式 | 说明 | Redis版本 |
 | --- | --- | --- |
-| **RDB** | 瀹氭椂鐢熸垚鍐呭瓨蹇収 | 鎵€鏈夌増鏈?|
-| **AOF** | 璁板綍鎵€鏈夊啓鍛戒护鏃ュ織 | 1.1+ |
-| **娣峰悎鎸佷箙鍖?* | RDB + AOF 缁撳悎 | 4.0+ |
+| **RDB** | 定时生成内存快照 | 所有版本 |
+| **AOF** | 记录所有写命令日志 | 1.1+ |
+| **混合持久化** | RDB + AOF 结合 | 4.0+ |
 
 
-## 浜屻€丷DB锛圧edis DataBase锛?
-### 2.1 鏍稿績鍘熺悊
-鍦ㄦ寚瀹氭椂闂撮棿闅斿唴锛屽皢鍐呭瓨涓殑鏁版嵁闆嗗揩鐓у啓鍏ョ鐩樸€傛仮澶嶆椂鐩存帴璇诲彇蹇収鏂囦欢鍒板唴瀛樸€?
+## 二、RDB（Redis DataBase）
+### 2.1 核心原理
+在指定时间间隔内，将内存中的数据集快照写入磁盘。恢复时直接读取快照文件到内存。
 
-**鏂囦欢鐗圭偣**锛氫簩杩涘埗鍘嬬缉鏍煎紡锛屼綋绉皬锛屾仮澶嶅揩銆?
+**文件特点**：二进制压缩格式，体积小，恢复快。
 
-### 2.2 瑙﹀彂鏂瑰紡
-#### 鑷姩瑙﹀彂锛堥厤缃枃浠讹級
+### 2.2 触发方式
+#### 自动触发（配置文件）
 ```nginx
 # redis.conf
-save 900 1      # 900绉掑唴鑷冲皯1涓猭ey鍙樺寲
-save 300 10     # 300绉掑唴鑷冲皯10涓猭ey鍙樺寲
-save 60 10000   # 60绉掑唴鑷冲皯10000涓猭ey鍙樺寲
+save 900 1      # 900秒内至少1个key变化
+save 300 10     # 300秒内至少10个key变化
+save 60 10000   # 60秒内至少10000个key变化
 ```
 
-#### 鎵嬪姩瑙﹀彂
+#### 手动触发
 ```bash
-# 鍚屾鐢熸垚锛堥樆濉炰富绾跨▼锛屾厧鐢級
+# 同步生成（阻塞主线程，慎用）
 SAVE
 
-# 寮傛鐢熸垚锛坒ork瀛愯繘绋嬶紝鎺ㄨ崘锛?
+# 异步生成（fork子进程，推荐）
 BGSAVE
 
-# 鏌ョ湅鐘舵€?
+# 查看状态
 LASTSAVE
 ```
 
-### 2.3 鏍稿績閰嶇疆
+### 2.3 核心配置
 ```nginx
-# 鏂囦欢鍚?
+# 文件名
 dbfilename dump.rdb
 
-# 瀛樺偍璺緞
+# 存储路径
 dir /var/lib/redis/
 
-# bgsave鍑洪敊鏃舵槸鍚﹀仠姝㈠啓鍏?
+# bgsave出错时是否停止写入
 stop-writes-on-bgsave-error yes
 
-# 鏄惁鍘嬬缉锛堟秷鑰桟PU锛?
+# 是否压缩（消耗CPU）
 rdbcompression yes
 
-# 鏄惁寮€鍚牎楠屽拰
+# 是否开启校验和
 rdbchecksum yes
 ```
 
-### 2.4 宸ヤ綔娴佺▼
+### 2.4 工作流程
 ```plain
-1. 鐖惰繘绋嬪垽鏂槸鍚︽湁bgsave瀛愯繘绋嬭繍琛?
-2. 鐖惰繘绋媐ork()鍒涘缓瀛愯繘绋嬶紙鐭殏闃诲锛?
-3. 鐖惰繘绋嬬户缁鐞嗚姹傦紝瀛愯繘绋嬪啓涓存椂RDB鏂囦欢
-4. 瀛愯繘绋嬪畬鎴愬悗鏇挎崲鏃ф枃浠?
-5. 瀛愯繘绋嬮€€鍑猴紝鐖惰繘绋嬫洿鏂扮粺璁′俊鎭?
+1. 父进程判断是否有bgsave子进程运行
+2. 父进程fork()创建子进程（短暂阻塞）
+3. 父进程继续处理请求，子进程写临时RDB文件
+4. 子进程完成后替换旧文件
+5. 子进程退出，父进程更新统计信息
 ```
 
-### 2.5 浼樼己鐐?
-| 浼樼偣 | 缂虹偣 |
+### 2.5 优缺点
+| 优点 | 缺点 |
 | --- | --- |
-| 鏂囦欢绱у噾锛屼綋绉皬 | 鍙兘涓㈠け鏈€鍚庝竴娆″揩鐓у悗鐨勬暟鎹?|
-| 鎭㈠澶ф暟鎹泦閫熷害蹇?| fork鏃跺唴瀛樼炕鍊嶏紝澶ф暟鎹泦浼氬崱椤?|
-| 閫傚悎澶囦唤鍜屽鐏?| 棰戠箒鎵ц褰卞搷鎬ц兘 |
-| 鏍煎紡鍏煎鎬уソ | 鏁版嵁閲忓ぇ鏃秄ork鑰楁椂澧炲姞 |
+| 文件紧凑，体积小 | 可能丢失最后一次快照后的数据 |
+| 恢复大数据集速度快 | fork时内存翻倍，大数据集会卡顿 |
+| 适合备份和容灾 | 频繁执行影响性能 |
+| 格式兼容性好 | 数据量大时fork耗时增加 |
 
 
-## 涓夈€丄OF锛圓ppend Only File锛?
-### 3.1 鏍稿績鍘熺悊
-璁板綍姣忔鍐欐搷浣滃埌鏃ュ織鏂囦欢锛堣拷鍔犳ā寮忥級锛岄噸鍚椂閫氳繃閲嶆斁鍛戒护鎭㈠鏁版嵁銆?
+## 三、AOF（Append Only File）
+### 3.1 核心原理
+记录每次写操作到日志文件（追加模式），重启时通过重放命令恢复数据。
 
-### 3.2 鏍稿績閰嶇疆
+### 3.2 核心配置
 ```nginx
-# 寮€鍚疉OF锛堥粯璁ゅ叧闂級
+# 开启AOF（默认关闭）
 appendonly yes
 
-# 鏂囦欢鍚?
+# 文件名
 appendfilename "appendonly.aof"
 
-# 鍚屾绛栫暐锛堥噸瑕侊級
+# 同步策略（重要）
 appendfsync everysec
 
-# 閲嶅啓鏃舵槸鍚﹀仠姝sync
+# 重写时是否停止fsync
 no-appendfsync-on-rewrite yes
 
-# 閲嶅啓瑙﹀彂鏉′欢
-auto-aof-rewrite-percentage 100   # 鏂囦欢澧為暱100%鏃惰Е鍙?
-auto-aof-rewrite-min-size 64mb    # 鏈€灏?4MB鎵嶈Е鍙?
+# 重写触发条件
+auto-aof-rewrite-percentage 100   # 文件增长100%时触发
+auto-aof-rewrite-min-size 64mb    # 最小64MB才触发
 
-# 鍔犺浇鏃舵槸鍚﹀拷鐣ユ渶鍚庝竴鏉′笉瀹屾暣鍛戒护
+# 加载时是否忽略最后一条不完整命令
 aof-load-truncated yes
 
-# 娣峰悎鎸佷箙鍖栵紙Redis 4.0+锛?
+# 混合持久化（Redis 4.0+）
 aof-use-rdb-preamble yes
 ```
 
-### 3.3 appendfsync 涓夌绛栫暐
-| 绛栫暐 | 璇存槑 | 鎬ц兘 | 鏁版嵁瀹夊叏 |
+### 3.3 appendfsync 三种策略
+| 策略 | 说明 | 性能 | 数据安全 |
 | --- | --- | --- | --- |
-| `always` | 姣忔鍐欏悗绔嬪嵆鍚屾 | 鏈€宸?| 鏈€楂橈紙涓竴涓懡浠わ級 |
-| `everysec` | 姣忕鍚屾涓€娆?| 濂?| 涓㈠け1绉掓暟鎹?|
-| `no` | 鎿嶄綔绯荤粺鍐冲畾 | 鏈€濂?| 涓嶇‘瀹?|
+| `always` | 每次写后立即同步 | 最差 | 最高（丢一个命令） |
+| `everysec` | 每秒同步一次 | 好 | 丢失1秒数据 |
+| `no` | 操作系统决定 | 最好 | 不确定 |
 
 
-**鐢熶骇鎺ㄨ崘**锛歚appendfsync everysec`
+**生产推荐**：`appendfsync everysec`
 
-### 3.4 AOF 閲嶅啓鏈哄埗
-**涓轰粈涔堥渶瑕侀噸鍐欙紵** AOF鏂囦欢浼氫笉鏂闀匡紝閲嶅啓鍙紭鍖栨枃浠跺ぇ灏忋€?
+### 3.4 AOF 重写机制
+**为什么需要重写？** AOF文件会不断增长，重写可优化文件大小。
 
-**閲嶅啓鍘熺悊**锛氬皢澶氭潯鍛戒护鍚堝苟鎴愭渶缁堢姸鎬併€?
+**重写原理**：将多条命令合并成最终状态。
 
 ```plain
-鍘熷AOF锛?
+原始AOF：
 SET count 1
 INCR count
 INCR count
 INCR count
 
-閲嶅啓鍚庯細
+重写后：
 SET count 4
 ```
 
-**瑙﹀彂鏂瑰紡**锛?
+**触发方式**：
 
-+ 鑷姩锛氭弧瓒抽厤缃潯浠?
-+ 鎵嬪姩锛歚BGREWRITEAOF`
++ 自动：满足配置条件
++ 手动：`BGREWRITEAOF`
 
-### 3.5 浼樼己鐐?
-| 浼樼偣 | 缂虹偣 |
+### 3.5 优缺点
+| 优点 | 缺点 |
 | --- | --- |
-| 鏁版嵁瀹夊叏鎬ф洿楂橈紙鏈€澶氫涪1绉掞級 | 鏂囦欢浣撶Н澶?|
-| 鏃ュ織鍙鎬у己 | 鎭㈠閫熷害鎱?|
-| 鏀寔閲嶅啓浼樺寲 | 鍐欐搷浣滈绻佸奖鍝嶆€ц兘 |
-| 鍙墜鍔ㄤ慨澶嶆崯鍧忔枃浠?| 鏋佺鎯呭喌涓嬪彲鑳芥崯鍧?|
+| 数据安全性更高（最多丢1秒） | 文件体积大 |
+| 日志可读性强 | 恢复速度慢 |
+| 支持重写优化 | 写操作频繁影响性能 |
+| 可手动修复损坏文件 | 极端情况下可能损坏 |
 
 
-## 鍥涖€丷DB vs AOF 瀵规瘮
-| 瀵规瘮椤?| RDB | AOF |
+## 四、RDB vs AOF 对比
+| 对比项 | RDB | AOF |
 | --- | --- | --- |
-| 榛樿寮€鍚?| 鏄?| 鍚?|
-| 鏂囦欢鏍煎紡 | 浜岃繘鍒跺帇缂?| 鏂囨湰鍗忚 |
-| 鏂囦欢澶у皬 | 灏?| 澶э紙5-10鍊嶏級 |
-| 鎭㈠閫熷害 | 蹇?| 鎱?|
-| 鏁版嵁瀹夊叏鎬?| 鍙兘涓㈠嚑鍒嗛挓 | 鏈€澶氫涪1绉?|
-| CPU娑堣€?| fork鏃堕珮 | 鎸佺画鍐欏叆楂?|
-| 鍐呭瓨娑堣€?| fork鏃剁炕鍊?| 鎸佺画鍗犵敤 |
-| 閫傜敤鍦烘櫙 | 澶囦唤銆佸揩閫熸仮澶?| 鏁版嵁瀹夊叏瑕佹眰楂?|
+| 默认开启 | 是 | 否 |
+| 文件格式 | 二进制压缩 | 文本协议 |
+| 文件大小 | 小 | 大（5-10倍） |
+| 恢复速度 | 快 | 慢 |
+| 数据安全性 | 可能丢几分钟 | 最多丢1秒 |
+| CPU消耗 | fork时高 | 持续写入高 |
+| 内存消耗 | fork时翻倍 | 持续占用 |
+| 适用场景 | 备份、快速恢复 | 数据安全要求高 |
 
 
-## 浜斻€佹贩鍚堟寔涔呭寲锛圧edis 4.0+锛?
-### 5.1 鏍稿績鍘熺悊
-AOF閲嶅啓鏃讹紝鍏堢敓鎴怰DB鏍煎紡鐨勫揩鐓э紝鍐嶈拷鍔犲閲忓懡浠ゃ€?
+## 五、混合持久化（Redis 4.0+）
+### 5.1 核心原理
+AOF重写时，先生成RDB格式的快照，再追加增量命令。
 
-**鏂囦欢缁撴瀯**锛歚[RDB蹇収] + [AOF澧為噺鏃ュ織]`
+**文件结构**：`[RDB快照] + [AOF增量日志]`
 
-### 5.2 閰嶇疆
+### 5.2 配置
 ```nginx
-# 寮€鍚贩鍚堟寔涔呭寲
+# 开启混合持久化
 aof-use-rdb-preamble yes
 ```
 
-### 5.3 浼樺娍
-| 浼樺娍 | 璇存槑 |
+### 5.3 优势
+| 优势 | 说明 |
 | --- | --- |
-| 鎭㈠閫熷害蹇?| 鍏堝姞杞絉DB蹇収锛屽啀閲嶆斁灏戦噺AOF |
-| 鏂囦欢浣撶Н灏?| RDB閮ㄥ垎浣撶Н灏?|
-| 鏁版嵁鏇村畨鍏?| 淇濈暀AOF绉掔骇淇濇姢 |
-| 鍏煎鎬уソ | 鏃х増鏈彲璺宠繃RDB閮ㄥ垎 |
+| 恢复速度快 | 先加载RDB快照，再重放少量AOF |
+| 文件体积小 | RDB部分体积小 |
+| 数据更安全 | 保留AOF秒级保护 |
+| 兼容性好 | 旧版本可跳过RDB部分 |
 
 
-**鐢熶骇鐜棣栭€?*锛歊edis 4.0+ 蹇呴』寮€鍚贩鍚堟寔涔呭寲銆?
+**生产环境首选**：Redis 4.0+ 必须开启混合持久化。
 
 
 
-## 鍏€佹暟鎹仮澶嶆祦绋?
-### 6.1 鍚姩鏃跺姞杞介『搴?
+## 六、数据恢复流程
+### 6.1 启动时加载顺序
 ```plain
-AOF寮€鍚笖鏂囦欢瀛樺湪 鈫?鍔犺浇AOF
-       鈫?鍚?
-RDB鏂囦欢瀛樺湪 鈫?鍔犺浇RDB
-       鈫?鍚?
-鍚姩绌烘暟鎹簱
+AOF开启且文件存在 → 加载AOF
+       ↓ 否
+RDB文件存在 → 加载RDB
+       ↓ 否
+启动空数据库
 ```
 
-### 6.2 鏂囦欢淇
+### 6.2 文件修复
 ```bash
-# 淇AOF鏂囦欢
+# 修复AOF文件
 redis-check-aof --fix appendonly.aof
 
-# 妫€鏌DB鏂囦欢
+# 检查RDB文件
 redis-check-rdb dump.rdb
 ```
 
 
 
-## 涓冦€佺敓浜х幆澧冩渶浣冲疄璺?
-### 7.1 鍦烘櫙閫夋嫨
-| 鍦烘櫙 | 鎺ㄨ崘鏂规 | 鐞嗙敱 |
+## 七、生产环境最佳实践
+### 7.1 场景选择
+| 场景 | 推荐方案 | 理由 |
 | --- | --- | --- |
-| 绾紦瀛?| 涓嶅紑鍚垨鍙紑RDB | 鏁版嵁鍙涪澶憋紝鎬ц兘浼樺厛 |
-| 閲嶈鏁版嵁瀛樺偍 | AOF(everysec) + RDB | 鏈€澶氫涪1绉?|
-| 楂樻€ц兘瀛樺偍 | 鍙紑RDB | 鍑忓皯纾佺洏I/O |
-| 鏁版嵁瀹夊叏绗竴 | AOF(always) + RDB | 鍑犱箮涓嶄涪鏁版嵁 |
-| **涓绘祦鎺ㄨ崘** | **娣峰悎鎸佷箙鍖?* | 鍏奸【鎬ц兘鍜屽畨鍏?|
+| 纯缓存 | 不开启或只开RDB | 数据可丢失，性能优先 |
+| 重要数据存储 | AOF(everysec) + RDB | 最多丢1秒 |
+| 高性能存储 | 只开RDB | 减少磁盘I/O |
+| 数据安全第一 | AOF(always) + RDB | 几乎不丢数据 |
+| **主流推荐** | **混合持久化** | 兼顾性能和安全 |
 
 
-### 7.2 鐢熶骇閰嶇疆妯℃澘
+### 7.2 生产配置模板
 ```nginx
-# RDB閰嶇疆
+# RDB配置
 save 900 1
 save 300 10
 save 60 10000
@@ -4237,7 +3174,7 @@ rdbcompression yes
 dbfilename dump.rdb
 dir /data/redis/
 
-# AOF閰嶇疆
+# AOF配置
 appendonly yes
 appendfilename "appendonly.aof"
 appendfsync everysec
@@ -4245,241 +3182,241 @@ no-appendfsync-on-rewrite yes
 auto-aof-rewrite-percentage 100
 auto-aof-rewrite-min-size 64mb
 
-# 娣峰悎鎸佷箙鍖栵紙蹇呴』寮€鍚級
+# 混合持久化（必须开启）
 aof-use-rdb-preamble yes
 ```
 
-### 7.3 澶囦唤绛栫暐
+### 7.3 备份策略
 ```bash
-# 瀹氭椂澶囦唤RDB锛坈rontab锛?
+# 定时备份RDB（crontab）
 0 2 * * * cp /var/lib/redis/dump.rdb /backup/dump_$(date +\%Y\%m\%d).rdb
 
-# 寮傚湴澶囦唤
+# 异地备份
 0 3 * * * rsync -avz /backup/ backup-server:/backup/
 
-# 娓呯悊30澶╁墠澶囦唤
+# 清理30天前备份
 0 4 * * * find /backup/ -name "*.rdb" -mtime +30 -delete
 ```
 
-### 7.4 鐩戞帶鎸囨爣
+### 7.4 监控指标
 ```bash
-# 鏌ョ湅鎸佷箙鍖栫姸鎬?
+# 查看持久化状态
 redis-cli INFO persistence
 
-# 鍏抽敭鎸囨爣锛?
-# rdb_last_bgsave_status      # 搴斾负ok
-# rdb_last_bgsave_time_sec    # 鑰楁椂
-# aof_enabled                  # 鏄惁寮€鍚?
-# aof_last_bgrewrite_status   # 搴斾负ok
-# aof_current_size             # 褰撳墠澶у皬
+# 关键指标：
+# rdb_last_bgsave_status      # 应为ok
+# rdb_last_bgsave_time_sec    # 耗时
+# aof_enabled                  # 是否开启
+# aof_last_bgrewrite_status   # 应为ok
+# aof_current_size             # 当前大小
 ```
 
-### 7.5 鍐呮牳浼樺寲
+### 7.5 内核优化
 ```bash
 # /etc/sysctl.conf
 vm.overcommit_memory = 1
 
-# 绂佺敤閫忔槑澶ч〉
+# 禁用透明大页
 echo never > /sys/kernel/mm/transparent_hugepage/enabled
 
-# 鐢熸晥
+# 生效
 sysctl -p
 ```
 
-### 7.6 甯歌闂
-| 闂 | 鍘熷洜 | 瑙ｅ喅鏂规 |
+### 7.6 常见问题
+| 问题 | 原因 | 解决方案 |
 | --- | --- | --- |
-| 鎸佷箙鍖栧け璐?| 纾佺洏绌洪棿涓嶈冻 | 娓呯悊纾佺洏 |
-| bgsave涓€鐩村け璐?| fork澶辫触 | 妫€鏌ュ唴瀛橈紝璁剧疆vm.overcommit_memory=1 |
-| Redis鍙樻參 | AOF閲嶅啓鍗燙PU | 璋冩暣閲嶅啓鏃堕棿绐楀彛 |
-| 鏁版嵁涓㈠け | 蹇収闂撮殧澶暱 | 璋冩暣save鍙傛暟鎴栨敼鐢ˋOF |
-| AOF鏂囦欢杩囧ぇ | 鏈厤缃嚜鍔ㄩ噸鍐?| 寮€鍚痑uto-aof-rewrite-* |
+| 持久化失败 | 磁盘空间不足 | 清理磁盘 |
+| bgsave一直失败 | fork失败 | 检查内存，设置vm.overcommit_memory=1 |
+| Redis变慢 | AOF重写占CPU | 调整重写时间窗口 |
+| 数据丢失 | 快照间隔太长 | 调整save参数或改用AOF |
+| AOF文件过大 | 未配置自动重写 | 开启auto-aof-rewrite-* |
 
 
-## 鍏€佸揩閫熻蹇?
-| 瀵规瘮缁村害 | RDB | AOF |
+## 八、快速记忆
+| 对比维度 | RDB | AOF |
 | --- | --- | --- |
-| **鍒悕** | 蹇収 | 鏃ュ織 |
-| **鏍煎紡** | 浜岃繘鍒?| 鏂囨湰 |
-| **澶у皬** | 灏?| 澶?|
-| **閫熷害** | 蹇?| 鎱?|
-| **瀹夊叏** | 浣?| 楂?|
-| **鍦烘櫙** | 澶囦唤 | 瀛樺偍 |
+| **别名** | 快照 | 日志 |
+| **格式** | 二进制 | 文本 |
+| **大小** | 小 | 大 |
+| **速度** | 快 | 慢 |
+| **安全** | 低 | 高 |
+| **场景** | 备份 | 存储 |
 
 
-**鐢熶骇鍛戒护**锛?
+**生产命令**：
 
 ```bash
-# RDB鎵嬪姩澶囦唤
+# RDB手动备份
 BGSAVE
 
-# AOF鎵嬪姩閲嶅啓
+# AOF手动重写
 BGREWRITEAOF
 
-# 鏌ョ湅鎸佷箙鍖栦俊鎭?
+# 查看持久化信息
 INFO persistence
 
-# 妫€鏌ユ枃浠?
+# 检查文件
 redis-check-aof --fix appendonly.aof
 redis-check-rdb dump.rdb
 ```
 
 ---
 
-**涓€鍙ヨ瘽鎬荤粨**锛歊edis 4.0+ 鐢熶骇鐜**蹇呴』寮€鍚贩鍚堟寔涔呭寲**锛坄aof-use-rdb-preamble yes` + `appendfsync everysec`锛夛紝骞堕厤鍚堝畾鏈烺DB澶囦唤鍜屽紓鍦板鐏俱€?
+**一句话总结**：Redis 4.0+ 生产环境**必须开启混合持久化**（`aof-use-rdb-preamble yes` + `appendfsync everysec`），并配合定期RDB备份和异地容灾。
 
-# Redis 鍙戝竷璁㈤槄
-## 涓€銆佹杩?
-### 1.1 浠€涔堟槸鍙戝竷璁㈤槄锛?
-Redis 鍙戝竷璁㈤槄锛圥ub/Sub锛夋槸涓€绉?*娑堟伅閫氫俊妯″紡**锛?
+# Redis 发布订阅
+## 一、概述
+### 1.1 什么是发布订阅？
+Redis 发布订阅（Pub/Sub）是一种**消息通信模式**：
 
-+ **鍙戝竷鑰咃紙Publisher锛?*锛氬彂閫佹秷鎭?
-+ **璁㈤槄鑰咃紙Subscriber锛?*锛氭帴鏀舵秷鎭?
-+ **棰戦亾锛圕hannel锛?*锛氭秷鎭殑杞戒綋
++ **发布者（Publisher）**：发送消息
++ **订阅者（Subscriber）**：接收消息
++ **频道（Channel）**：消息的载体
 
-### 1.2 鏍稿績鐗圭偣
-| 鐗圭偣 | 璇存槑 |
+### 1.2 核心特点
+| 特点 | 说明 |
 | --- | --- |
-| **娑堟伅澶氭挱** | 涓€鏉℃秷鎭彲琚涓闃呰€呮帴鏀?|
-| **娑堟伅鍗冲彂鍗冲純** | 娑堟伅涓嶆寔涔呭寲锛屾病鏈夎闃呰€呮椂娑堟伅涓㈠け |
-| **瀹炴椂鎬ч珮** | 娑堟伅瀹炴椂鎺ㄩ€佺粰璁㈤槄鑰?|
-| **杞婚噺绾?* | 鏃犻渶棰濆缁勪欢锛堝姣?Kafka銆丷abbitMQ锛?|
+| **消息多播** | 一条消息可被多个订阅者接收 |
+| **消息即发即弃** | 消息不持久化，没有订阅者时消息丢失 |
+| **实时性高** | 消息实时推送给订阅者 |
+| **轻量级** | 无需额外组件（对比 Kafka、RabbitMQ） |
 
 
-### 1.3 涓庢秷鎭槦鍒楃殑鍖哄埆
-| 瀵规瘮椤?| Pub/Sub | 娑堟伅闃熷垪锛圠ist/Stream锛?|
+### 1.3 与消息队列的区别
+| 对比项 | Pub/Sub | 消息队列（List/Stream） |
 | --- | --- | --- |
-| 娑堟伅鎸佷箙鍖?| 鉂?涓嶆敮鎸?| 鉁?鏀寔 |
-| 娑堟伅纭(ACK) | 鉂?涓嶆敮鎸?| 鉁?鏀寔 |
-| 娑堟伅鍥炴函 | 鉂?涓嶆敮鎸?| 鉁?鏀寔 |
-| 鍗曟挱/澶氭挱 | 澶氭挱 | 鍗曟挱锛堟秷璐硅€呯珵浜夛級 |
-| 閫傜敤鍦烘櫙 | 瀹炴椂閫氱煡銆佸箍鎾?| 鍙潬娑堟伅銆佷换鍔￠槦鍒?|
+| 消息持久化 | ❌ 不支持 | ✅ 支持 |
+| 消息确认(ACK) | ❌ 不支持 | ✅ 支持 |
+| 消息回溯 | ❌ 不支持 | ✅ 支持 |
+| 单播/多播 | 多播 | 单播（消费者竞争） |
+| 适用场景 | 实时通知、广播 | 可靠消息、任务队列 |
 
 
-> **娉ㄦ剰**锛歅ub/Sub 閫傚悎瀹炴椂骞挎挱锛屼笉閫傚悎闇€瑕佸彲闈犳姇閫掔殑鍦烘櫙銆?
+> **注意**：Pub/Sub 适合实时广播，不适合需要可靠投递的场景。
 >
 
-## 浜屻€佹牳蹇冨懡浠?
-### 2.1 鍙戝竷鍛戒护
-#### PUBLISH - 鍙戝竷娑堟伅
+## 二、核心命令
+### 2.1 发布命令
+#### PUBLISH - 发布消息
 ```bash
-# 璇硶锛歅UBLISH channel message
+# 语法：PUBLISH channel message
 PUBLISH news "Hello Redis"
-# 杩斿洖锛氳闃呰€呮暟閲?
+# 返回：订阅者数量
 (integer) 2
 ```
 
-#### PUBSUB - 鏌ョ湅璁㈤槄淇℃伅
+#### PUBSUB - 查看订阅信息
 ```bash
-# 鏌ョ湅娲昏穬棰戦亾
+# 查看活跃频道
 PUBSUB CHANNELS [pattern]
-PUBSUB CHANNELS          # 鎵€鏈夐閬?
-PUBSUB CHANNELS news*    # 鍖归厤news寮€澶寸殑棰戦亾
+PUBSUB CHANNELS          # 所有频道
+PUBSUB CHANNELS news*    # 匹配news开头的频道
 
-# 鏌ョ湅棰戦亾鐨勮闃呰€呮暟閲?
+# 查看频道的订阅者数量
 PUBSUB NUMSUB channel1 channel2
 PUBSUB NUMSUB news sports
 
-# 鏌ョ湅妯″紡璁㈤槄鏁伴噺
+# 查看模式订阅数量
 PUBSUB NUMPAT
 ```
 
-### 2.2 璁㈤槄鍛戒护
-#### SUBSCRIBE - 璁㈤槄涓€涓垨澶氫釜棰戦亾
+### 2.2 订阅命令
+#### SUBSCRIBE - 订阅一个或多个频道
 ```bash
-# 璇硶锛歋UBSCRIBE channel [channel ...]
+# 语法：SUBSCRIBE channel [channel ...]
 SUBSCRIBE news sports
-# 杩斿洖锛?
-1) "subscribe"    # 璁㈤槄纭
-2) "news"         # 棰戦亾鍚?
-3) (integer) 1    # 褰撳墠璁㈤槄鏁?
+# 返回：
+1) "subscribe"    # 订阅确认
+2) "news"         # 频道名
+3) (integer) 1    # 当前订阅数
 
-# 姝ゆ椂浼氶樆濉炵瓑寰呮秷鎭?
+# 此时会阻塞等待消息
 ```
 
-#### UNSUBSCRIBE - 閫€璁㈤閬?
+#### UNSUBSCRIBE - 退订频道
 ```bash
-# 璇硶锛歎NSUBSCRIBE [channel ...]
-UNSUBSCRIBE news        # 閫€璁㈡寚瀹氶閬?
-UNSUBSCRIBE             # 閫€璁㈡墍鏈夐閬?
+# 语法：UNSUBSCRIBE [channel ...]
+UNSUBSCRIBE news        # 退订指定频道
+UNSUBSCRIBE             # 退订所有频道
 ```
 
-### 2.3 妯″紡璁㈤槄鍛戒护
-#### PSUBSCRIBE - 妯″紡璁㈤槄锛堟敮鎸侀€氶厤绗︼級
+### 2.3 模式订阅命令
+#### PSUBSCRIBE - 模式订阅（支持通配符）
 ```bash
-# 璇硶锛歅SUBSCRIBE pattern [pattern ...]
-PSUBSCRIBE news.*        # 璁㈤槄鎵€鏈塶ews.寮€澶寸殑棰戦亾
-PSUBSCRIBE *.sports      # 璁㈤槄鎵€鏈?sports缁撳熬鐨勯閬?
+# 语法：PSUBSCRIBE pattern [pattern ...]
+PSUBSCRIBE news.*        # 订阅所有news.开头的频道
+PSUBSCRIBE *.sports      # 订阅所有.sports结尾的频道
 
-# 閫氶厤绗﹁鏄庯細
-# * - 鍖归厤浠绘剰瀛楃
-# ? - 鍖归厤鍗曚釜瀛楃
-# [] - 鍖归厤鎷彿鍐呯殑瀛楃
+# 通配符说明：
+# * - 匹配任意字符
+# ? - 匹配单个字符
+# [] - 匹配括号内的字符
 ```
 
-#### PUNSUBSCRIBE - 閫€璁㈡ā寮?
+#### PUNSUBSCRIBE - 退订模式
 ```bash
-# 璇硶锛歅UNSUBSCRIBE [pattern ...]
-PUNSUBSCRIBE news.*      # 閫€璁㈡寚瀹氭ā寮?
-PUNSUBSCRIBE             # 閫€璁㈡墍鏈夋ā寮?
+# 语法：PUNSUBSCRIBE [pattern ...]
+PUNSUBSCRIBE news.*      # 退订指定模式
+PUNSUBSCRIBE             # 退订所有模式
 ```
 
-### 2.4 鍛戒护閫熸煡琛?
-| 鍛戒护 | 浣滅敤 | 绀轰緥 |
+### 2.4 命令速查表
+| 命令 | 作用 | 示例 |
 | --- | --- | --- |
-| `PUBLISH channel msg` | 鍙戝竷娑堟伅 | `PUBLISH news "hello"` |
-| `SUBSCRIBE channel` | 璁㈤槄棰戦亾 | `SUBSCRIBE news sports` |
-| `UNSUBSCRIBE channel` | 閫€璁㈤閬?| `UNSUBSCRIBE news` |
-| `PSUBSCRIBE pattern` | 妯″紡璁㈤槄 | `PSUBSCRIBE news.*` |
-| `PUNSUBSCRIBE pattern` | 閫€璁㈡ā寮?| `PUNSUBSCRIBE news.*` |
-| `PUBSUB CHANNELS` | 鏌ョ湅娲昏穬棰戦亾 | `PUBSUB CHANNELS` |
-| `PUBSUB NUMSUB ch` | 鏌ョ湅璁㈤槄鑰呮暟 | `PUBSUB NUMSUB news` |
-| `PUBSUB NUMPAT` | 鏌ョ湅妯″紡璁㈤槄鏁?| `PUBSUB NUMPAT` |
+| `PUBLISH channel msg` | 发布消息 | `PUBLISH news "hello"` |
+| `SUBSCRIBE channel` | 订阅频道 | `SUBSCRIBE news sports` |
+| `UNSUBSCRIBE channel` | 退订频道 | `UNSUBSCRIBE news` |
+| `PSUBSCRIBE pattern` | 模式订阅 | `PSUBSCRIBE news.*` |
+| `PUNSUBSCRIBE pattern` | 退订模式 | `PUNSUBSCRIBE news.*` |
+| `PUBSUB CHANNELS` | 查看活跃频道 | `PUBSUB CHANNELS` |
+| `PUBSUB NUMSUB ch` | 查看订阅者数 | `PUBSUB NUMSUB news` |
+| `PUBSUB NUMPAT` | 查看模式订阅数 | `PUBSUB NUMPAT` |
 
 
-## 涓夈€佹秷鎭牸寮?
-### 3.1 璁㈤槄纭娑堟伅
+## 三、消息格式
+### 3.1 订阅确认消息
 ```plain
-*3              # 鏁扮粍闀垮害3
-$9              # 绗竴涓瓧绗︿覆闀垮害9
-subscribe       # 鍛戒护鍚?
-$4              # 绗簩涓瓧绗︿覆闀垮害4
-news            # 棰戦亾鍚?
-:1              # 鏁存暟1锛屽綋鍓嶈闃呮暟
+*3              # 数组长度3
+$9              # 第一个字符串长度9
+subscribe       # 命令名
+$4              # 第二个字符串长度4
+news            # 频道名
+:1              # 整数1，当前订阅数
 ```
 
-### 3.2 鏅€氭秷鎭?
+### 3.2 普通消息
 ```plain
-*3              # 鏁扮粍闀垮害3
-$5              # 绗竴涓瓧绗︿覆闀垮害5
-message         # 娑堟伅绫诲瀷
-$4              # 绗簩涓瓧绗︿覆闀垮害4
-news            # 棰戦亾鍚?
-$5              # 绗笁涓瓧绗︿覆闀垮害5
-hello           # 娑堟伅鍐呭
+*3              # 数组长度3
+$5              # 第一个字符串长度5
+message         # 消息类型
+$4              # 第二个字符串长度4
+news            # 频道名
+$5              # 第三个字符串长度5
+hello           # 消息内容
 ```
 
 
 
-## 鍥涖€佸畬鏁翠娇鐢ㄧず渚?
-### 4.1 鍩虹绀轰緥
-**缁堢1 - 璁㈤槄鑰?*
+## 四、完整使用示例
+### 4.1 基础示例
+**终端1 - 订阅者**
 
 ```bash
-# 璁㈤槄鏂伴椈棰戦亾
+# 订阅新闻频道
 127.0.0.1:6379> SUBSCRIBE news
 Reading messages... (press Ctrl-C to quit)
 1) "subscribe"
 2) "news"
 3) (integer) 1
 
-# 绛夊緟娑堟伅...
+# 等待消息...
 ```
 
-**缁堢2 - 璁㈤槄鑰?*
+**终端2 - 订阅者**
 
 ```bash
-# 鍚屾椂璁㈤槄鏂伴椈鍜屼綋鑲查閬?
+# 同时订阅新闻和体育频道
 127.0.0.1:6379> SUBSCRIBE news sports
 Reading messages... (press Ctrl-C to quit)
 1) "subscribe"
@@ -4490,19 +3427,19 @@ Reading messages... (press Ctrl-C to quit)
 3) (integer) 2
 ```
 
-**缁堢3 - 鍙戝竷鑰?*
+**终端3 - 发布者**
 
 ```bash
-# 鍙戝竷娑堟伅鍒皀ews棰戦亾
+# 发布消息到news频道
 127.0.0.1:6379> PUBLISH news "Redis 7.0 released!"
-(integer) 2   # 2涓闃呰€呮敹鍒?
+(integer) 2   # 2个订阅者收到
 
-# 鍙戝竷娑堟伅鍒皊ports棰戦亾
+# 发布消息到sports频道
 127.0.0.1:6379> PUBLISH sports "China wins gold medal!"
-(integer) 1   # 1涓闃呰€呮敹鍒?
+(integer) 1   # 1个订阅者收到
 ```
 
-**缁堢1 杈撳嚭**
+**终端1 输出**
 
 ```plain
 1) "message"
@@ -4510,7 +3447,7 @@ Reading messages... (press Ctrl-C to quit)
 3) "Redis 7.0 released!"
 ```
 
-**缁堢2 杈撳嚭**
+**终端2 输出**
 
 ```plain
 1) "message"
@@ -4521,11 +3458,11 @@ Reading messages... (press Ctrl-C to quit)
 3) "China wins gold medal!"
 ```
 
-### 4.2 妯″紡璁㈤槄绀轰緥
-**璁㈤槄鑰?*
+### 4.2 模式订阅示例
+**订阅者**
 
 ```bash
-# 璁㈤槄鎵€鏈変互.news缁撳熬鐨勯閬?
+# 订阅所有以.news结尾的频道
 127.0.0.1:6379> PSUBSCRIBE *.news
 Reading messages... (press Ctrl-C to quit)
 1) "psubscribe"
@@ -4533,10 +3470,10 @@ Reading messages... (press Ctrl-C to quit)
 3) (integer) 1
 ```
 
-**鍙戝竷鑰?*
+**发布者**
 
 ```bash
-# 鍙戝竷鍒颁笉鍚岄閬?
+# 发布到不同频道
 127.0.0.1:6379> PUBLISH tech.news "New CPU released"
 (integer) 1
 127.0.0.1:6379> PUBLISH sports.news "Football match today"
@@ -4545,12 +3482,12 @@ Reading messages... (press Ctrl-C to quit)
 (integer) 1
 ```
 
-**璁㈤槄鑰呰緭鍑?*
+**订阅者输出**
 
 ```plain
 1) "pmessage"
-2) "*.news"           # 鍖归厤鐨勬ā寮?
-3) "tech.news"        # 瀹為檯棰戦亾
+2) "*.news"           # 匹配的模式
+3) "tech.news"        # 实际频道
 4) "New CPU released"
 
 1) "pmessage"
@@ -4566,8 +3503,8 @@ Reading messages... (press Ctrl-C to quit)
 
 
 
-## 浜斻€丣ava 浠ｇ爜瀹炵幇锛圝edis锛?
-### 5.1 Maven渚濊禆
+## 五、Java 代码实现（Jedis）
+### 5.1 Maven依赖
 ```xml
 <dependency>
     <groupId>redis.clients</groupId>
@@ -4577,7 +3514,7 @@ Reading messages... (press Ctrl-C to quit)
 
 ```
 
-### 5.2 鍙戝竷鑰呭疄鐜?
+### 5.2 发布者实现
 ```java
 import redis.clients.jedis.Jedis;
 
@@ -4585,7 +3522,7 @@ public class Publisher {
     public static void main(String[] args) {
         try (Jedis jedis = new Jedis("localhost", 6379)) {
             
-            // 鍙戝竷娑堟伅
+            // 发布消息
             for (int i = 1; i <= 10; i++) {
                 String message = "Message " + i;
                 Long count = jedis.publish("news", message);
@@ -4600,7 +3537,7 @@ public class Publisher {
 }
 ```
 
-### 5.3 璁㈤槄鑰呭疄鐜?
+### 5.3 订阅者实现
 ```java
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPubSub;
@@ -4609,47 +3546,47 @@ public class Subscriber {
     public static void main(String[] args) {
         try (Jedis jedis = new Jedis("localhost", 6379)) {
             
-            // 鍒涘缓璁㈤槄鐩戝惉鍣?
+            // 创建订阅监听器
             JedisPubSub jedisPubSub = new JedisPubSub() {
                 @Override
                 public void onMessage(String channel, String message) {
-                    System.out.println("鏀跺埌娑堟伅 - 棰戦亾: " + channel + ", 鍐呭: " + message);
+                    System.out.println("收到消息 - 频道: " + channel + ", 内容: " + message);
                 }
                 
                 @Override
                 public void onSubscribe(String channel, int subscribedChannels) {
-                    System.out.println("璁㈤槄棰戦亾: " + channel + ", 褰撳墠璁㈤槄鏁? " + subscribedChannels);
+                    System.out.println("订阅频道: " + channel + ", 当前订阅数: " + subscribedChannels);
                 }
                 
                 @Override
                 public void onUnsubscribe(String channel, int subscribedChannels) {
-                    System.out.println("鍙栨秷璁㈤槄: " + channel);
+                    System.out.println("取消订阅: " + channel);
                 }
                 
                 @Override
                 public void onPMessage(String pattern, String channel, String message) {
-                    System.out.println("妯″紡鍖归厤 - 妯″紡: " + pattern + 
-                                       ", 棰戦亾: " + channel + ", 鍐呭: " + message);
+                    System.out.println("模式匹配 - 模式: " + pattern + 
+                                       ", 频道: " + channel + ", 内容: " + message);
                 }
                 
                 @Override
                 public void onPSubscribe(String pattern, int subscribedChannels) {
-                    System.out.println("妯″紡璁㈤槄: " + pattern);
+                    System.out.println("模式订阅: " + pattern);
                 }
             };
             
-            // 璁㈤槄棰戦亾锛堥樆濉炴柟娉曪級
-            System.out.println("寮€濮嬭闃?news 棰戦亾...");
+            // 订阅频道（阻塞方法）
+            System.out.println("开始订阅 news 频道...");
             jedis.subscribe(jedisPubSub, "news");
             
-            // 妯″紡璁㈤槄锛堜細闃诲锛?
+            // 模式订阅（会阻塞）
             // jedis.psubscribe(jedisPubSub, "news.*");
         }
     }
 }
 ```
 
-### 5.4 浣跨敤绾跨▼姹犵鐞嗚闃?
+### 5.4 使用线程池管理订阅
 ```java
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -4669,33 +3606,33 @@ public class PubSubService {
     }
     
     /**
-     * 璁㈤槄棰戦亾
+     * 订阅频道
      */
     public void subscribe(JedisPubSub listener, String... channels) {
         executorService.submit(() -> {
             try (Jedis jedis = jedisPool.getResource()) {
                 jedis.subscribe(listener, channels);
             } catch (Exception e) {
-                System.err.println("璁㈤槄澶辫触: " + e.getMessage());
+                System.err.println("订阅失败: " + e.getMessage());
             }
         });
     }
     
     /**
-     * 妯″紡璁㈤槄
+     * 模式订阅
      */
     public void psubscribe(JedisPubSub listener, String... patterns) {
         executorService.submit(() -> {
             try (Jedis jedis = jedisPool.getResource()) {
                 jedis.psubscribe(listener, patterns);
             } catch (Exception e) {
-                System.err.println("妯″紡璁㈤槄澶辫触: " + e.getMessage());
+                System.err.println("模式订阅失败: " + e.getMessage());
             }
         });
     }
     
     /**
-     * 鍙戝竷娑堟伅
+     * 发布消息
      */
     public Long publish(String channel, String message) {
         try (Jedis jedis = jedisPool.getResource()) {
@@ -4704,7 +3641,7 @@ public class PubSubService {
     }
     
     /**
-     * 鍏抽棴鏈嶅姟
+     * 关闭服务
      */
     public void shutdown() {
         executorService.shutdown();
@@ -4713,7 +3650,7 @@ public class PubSubService {
 }
 ```
 
-### 5.5 浣跨敤绀轰緥
+### 5.5 使用示例
 ```java
 import redis.clients.jedis.JedisPubSub;
 
@@ -4721,7 +3658,7 @@ public class PubSubDemo {
     public static void main(String[] args) {
         PubSubService service = new PubSubService("localhost", 6379);
         
-        // 鍒涘缓璁㈤槄鐩戝惉鍣?
+        // 创建订阅监听器
         JedisPubSub listener = new JedisPubSub() {
             @Override
             public void onMessage(String channel, String message) {
@@ -4730,25 +3667,25 @@ public class PubSubDemo {
             
             @Override
             public void onSubscribe(String channel, int subscribedChannels) {
-                System.out.println("璁㈤槄鎴愬姛: " + channel);
+                System.out.println("订阅成功: " + channel);
             }
         };
         
-        // 璁㈤槄棰戦亾
+        // 订阅频道
         service.subscribe(listener, "news", "sports");
         
-        // 鍙戝竷娑堟伅
+        // 发布消息
         service.publish("news", "Hello Redis");
         service.publish("sports", "Game started");
         
-        // 绛夊緟涓€娈垫椂闂?
+        // 等待一段时间
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         
-        // 鍏抽棴鏈嶅姟
+        // 关闭服务
         service.shutdown();
     }
 }
@@ -4756,8 +3693,8 @@ public class PubSubDemo {
 
 
 
-## 鍏€丼pring Boot 鏁村悎 Pub/Sub
-### 6.1 閰嶇疆绫?
+## 六、Spring Boot 整合 Pub/Sub
+### 6.1 配置类
 ```java
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -4800,7 +3737,7 @@ public class RedisPubSubConfig {
 }
 ```
 
-### 6.2 娑堟伅鎺ユ敹鍣?
+### 6.2 消息接收器
 ```java
 import org.springframework.stereotype.Component;
 
@@ -4808,13 +3745,13 @@ import org.springframework.stereotype.Component;
 public class RedisMessageReceiver {
     
     public void receiveMessage(String message) {
-        System.out.println("鏀跺埌娑堟伅: " + message);
-        // 澶勭悊涓氬姟閫昏緫
+        System.out.println("收到消息: " + message);
+        // 处理业务逻辑
     }
 }
 ```
 
-### 6.3 娑堟伅鍙戦€佹湇鍔?
+### 6.3 消息发送服务
 ```java
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -4828,12 +3765,12 @@ public class MessagePublisher {
     
     public void publish(String channel, String message) {
         redisTemplate.convertAndSend(channel, message);
-        System.out.println("娑堟伅宸插彂閫? " + message);
+        System.out.println("消息已发送: " + message);
     }
 }
 ```
 
-### 6.4 鎺у埗鍣?
+### 6.4 控制器
 ```java
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -4848,17 +3785,17 @@ public class PubSubController {
     @PostMapping("/publish")
     public String publish(@RequestParam String channel, @RequestParam String message) {
         publisher.publish(channel, message);
-        return "娑堟伅宸插彂閫? " + message;
+        return "消息已发送: " + message;
     }
 }
 ```
 
 
 
-## 涓冦€佷娇鐢ㄥ満鏅?
-### 7.1 瀹炴椂鑱婂ぉ绯荤粺
+## 七、使用场景
+### 7.1 实时聊天系统
 ```java
-// 棰戦亾璁捐锛歝hat:room:{roomId}
+// 频道设计：chat:room:{roomId}
 public class ChatService {
     
     public void sendMessage(Long roomId, String userId, String message) {
@@ -4869,9 +3806,9 @@ public class ChatService {
 }
 ```
 
-### 7.2 瀹炴椂閫氱煡绯荤粺
+### 7.2 实时通知系统
 ```java
-// 棰戦亾璁捐锛歯otify:user:{userId}
+// 频道设计：notify:user:{userId}
 public class NotificationService {
     
     public void sendNotification(Long userId, String content) {
@@ -4881,9 +3818,9 @@ public class NotificationService {
 }
 ```
 
-### 7.3 瀹炴椂鏁版嵁鎺ㄩ€?
+### 7.3 实时数据推送
 ```java
-// 棰戦亾璁捐锛歴tock:{code}
+// 频道设计：stock:{code}
 public class StockService {
     
     public void pushStockPrice(String stockCode, double price) {
@@ -4894,15 +3831,15 @@ public class StockService {
 }
 ```
 
-### 7.4 閰嶇疆涓績
+### 7.4 配置中心
 ```java
-// 棰戦亾璁捐锛歝onfig:update
+// 频道设计：config:update
 public class ConfigService {
     
     public void updateConfig(String key, String value) {
-        // 鏇存柊鏈湴閰嶇疆
+        // 更新本地配置
         updateLocalConfig(key, value);
-        // 骞挎挱閰嶇疆鍙樻洿
+        // 广播配置变更
         jedis.publish("config:update", key + "=" + value);
     }
 }
@@ -4910,25 +3847,25 @@ public class ConfigService {
 
 
 
-## 鍏€佹敞鎰忎簨椤逛笌闄愬埗
-### 8.1 闄愬埗
-| 闄愬埗椤?| 璇存槑 | 瑙ｅ喅鏂规 |
+## 八、注意事项与限制
+### 8.1 限制
+| 限制项 | 说明 | 解决方案 |
 | --- | --- | --- |
-| **娑堟伅涓嶆寔涔呭寲** | 璁㈤槄鑰呯绾挎椂娑堟伅涓㈠け | 浣跨敤 Stream 鏇夸唬 |
-| **鏃犳秷鎭‘璁?* | 鏃犳硶淇濊瘉娑堟伅琚鐞?| 浣跨敤 Stream + Consumer Group |
-| **鏃犳秷鎭洖婧?* | 鏃犳硶閲嶆斁鍘嗗彶娑堟伅 | 浣跨敤 Stream 鎴?List |
-| **缂撳啿鍖烘弧浼氭柇寮€** | 璁㈤槄鑰呭鐞嗘參浼氭柇寮€杩炴帴 | 浣跨敤涓撲笟鐨勬秷鎭槦鍒?|
-| **缃戠粶鏂紑涓㈡秷鎭?* | 缃戠粶鎭㈠鍚庝笉浼氶噸鍙?| 涓氬姟灞傚仛骞傜瓑澶勭悊 |
+| **消息不持久化** | 订阅者离线时消息丢失 | 使用 Stream 替代 |
+| **无消息确认** | 无法保证消息被处理 | 使用 Stream + Consumer Group |
+| **无消息回溯** | 无法重放历史消息 | 使用 Stream 或 List |
+| **缓冲区满会断开** | 订阅者处理慢会断开连接 | 使用专业的消息队列 |
+| **网络断开丢消息** | 网络恢复后不会重发 | 业务层做幂等处理 |
 
 
-### 8.2 鏈€浣冲疄璺?
-1. **璁㈤槄鑰呰蹇€熷鐞嗘秷鎭?*锛氶伩鍏嶉樆濉烇紝鍙紓姝ュ鐞?
-2. **澶勭悊杩炴帴鏂紑**锛氬疄鐜伴噸杩炴満鍒?
-3. **鐩戞帶璁㈤槄鑰呯姸鎬?*锛氬強鏃跺彂鐜伴棶棰?
-4. **鍚堢悊璁捐棰戦亾**锛氶伩鍏嶈繃澶氶閬?
-5. **浣跨敤杩炴帴姹?*锛氭彁楂樻€ц兘
+### 8.2 最佳实践
+1. **订阅者要快速处理消息**：避免阻塞，可异步处理
+2. **处理连接断开**：实现重连机制
+3. **监控订阅者状态**：及时发现问题
+4. **合理设计频道**：避免过多频道
+5. **使用连接池**：提高性能
 
-### 8.3 閲嶈繛绀轰緥
+### 8.3 重连示例
 ```java
 public class ReliableSubscriber {
     
@@ -4944,7 +3881,7 @@ public class ReliableSubscriber {
                     }
                 }, channels);
             } catch (Exception e) {
-                System.err.println("杩炴帴鏂紑锛?绉掑悗閲嶈瘯...");
+                System.err.println("连接断开，5秒后重试...");
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException ie) {
@@ -4956,9 +3893,9 @@ public class ReliableSubscriber {
     }
     
     private void handleMessage(String channel, String message) {
-        // 寮傛澶勭悊娑堟伅锛岄伩鍏嶉樆濉?
+        // 异步处理消息，避免阻塞
         executor.submit(() -> {
-            // 涓氬姟澶勭悊
+            // 业务处理
         });
     }
 }
@@ -4966,40 +3903,40 @@ public class ReliableSubscriber {
 
 
 
-## 涔濄€佹€荤粨
-### 9.1 鏍稿績瑕佺偣
-| 瑕佺偣 | 璇存槑 |
+## 九、总结
+### 9.1 核心要点
+| 要点 | 说明 |
 | --- | --- |
-| **鍗虫椂鎬?* | 娑堟伅瀹炴椂鎺ㄩ€侊紝寤惰繜鏋佷綆 |
-| **绠€鍗曟€?* | 鏃犲鏉傞厤缃紝寮€绠卞嵆鐢?|
-| **骞挎挱鎬?* | 澶╃劧鏀寔娑堟伅澶氭挱 |
-| **鏄撳け鎬?* | 娑堟伅涓嶆寔涔呭寲锛岀绾垮嵆涓㈠け |
-| **鏃犵‘璁?* | 鏃犳硶淇濊瘉娑堟伅涓€瀹氳澶勭悊 |
+| **即时性** | 消息实时推送，延迟极低 |
+| **简单性** | 无复杂配置，开箱即用 |
+| **广播性** | 天然支持消息多播 |
+| **易失性** | 消息不持久化，离线即丢失 |
+| **无确认** | 无法保证消息一定被处理 |
 
 
-### 9.2 浣曟椂浣跨敤 Pub/Sub
-| 鍦烘櫙 | 鏄惁鎺ㄨ崘 | 鍘熷洜 |
+### 9.2 何时使用 Pub/Sub
+| 场景 | 是否推荐 | 原因 |
 | --- | --- | --- |
-| 瀹炴椂鑱婂ぉ | 鉁?鎺ㄨ崘 | 瀹炴椂鎬ч珮锛屼涪娑堟伅褰卞搷灏?|
-| 瀹炴椂閫氱煡 | 鉁?鎺ㄨ崘 | 閫氱煡涓嶈姹?00%鍒拌揪 |
-| 瀹炴椂鏁版嵁鎺ㄩ€?| 鉁?鎺ㄨ崘 | 鎺ㄩ€佹渶鏂版暟鎹嵆鍙?|
-| 閰嶇疆鍙樻洿骞挎挱 | 鉁?鎺ㄨ崘 | 閰嶇疆鍙樻洿娆℃暟灏?|
-| 鍙潬娑堟伅澶勭悊 | 鉂?涓嶆帹鑽?| 闇€瑕?ACK 鍜屾寔涔呭寲 |
-| 浠诲姟闃熷垪 | 鉂?涓嶆帹鑽?| 闇€瑕佺珵浜夋秷璐?|
-| 娑堟伅鍥炴函 | 鉂?涓嶆帹鑽?| 鏃犳硶鍥炴函鍘嗗彶娑堟伅 |
+| 实时聊天 | ✅ 推荐 | 实时性高，丢消息影响小 |
+| 实时通知 | ✅ 推荐 | 通知不要求100%到达 |
+| 实时数据推送 | ✅ 推荐 | 推送最新数据即可 |
+| 配置变更广播 | ✅ 推荐 | 配置变更次数少 |
+| 可靠消息处理 | ❌ 不推荐 | 需要 ACK 和持久化 |
+| 任务队列 | ❌ 不推荐 | 需要竞争消费 |
+| 消息回溯 | ❌ 不推荐 | 无法回溯历史消息 |
 
 
-### 9.3 涓€鍙ヨ瘽鎬荤粨
-> **Redis Pub/Sub 閫傚悎瀹炴椂骞挎挱鍦烘櫙锛屼絾娑堟伅涓嶆寔涔呭寲銆佹棤纭鏈哄埗銆傞渶瑕佸彲闈犳秷鎭椂锛岃浣跨敤 Stream 鎴栦笓涓氭秷鎭槦鍒楋紙Kafka銆丷ocketMQ锛夈€?*
+### 9.3 一句话总结
+> **Redis Pub/Sub 适合实时广播场景，但消息不持久化、无确认机制。需要可靠消息时，请使用 Stream 或专业消息队列（Kafka、RocketMQ）。**
 >
 
-# Redis涓讳粠澶嶅埗鍝ㄥ叺妯″紡
-## 鐜閰嶇疆
+# Redis主从复制哨兵模式
+## 环境配置
 ```bash
-127.0.0.1:6379> info replication   # 鏌ョ湅褰撳墠搴撶殑淇℃伅
+127.0.0.1:6379> info replication   # 查看当前库的信息
 # Replication
-role:master    # 瑙掕壊  master 涓绘満
-connected_slaves:0   # 浠庢満 涓?
+role:master    # 角色  master 主机
+connected_slaves:0   # 从机 为0
 master_failover_state:no-failover
 master_replid:8172b06528011b399d97189a7b3ed05ed74968f2
 master_replid2:0000000000000000000000000000000000000000
@@ -5011,267 +3948,267 @@ repl_backlog_first_byte_offset:0
 repl_backlog_histlen:0
 ```
 
-澶嶅埗3涓厤缃枃浠讹紝鐒跺悗淇敼瀵瑰簲鐨勪俊鎭?
+复制3个配置文件，然后修改对应的信息
 
-+ 绔彛
-+ pid鍚嶅瓧
-+ log鏂囦欢鍚嶅瓧
-+ dump.rdb 鍚嶅瓧
++ 端口
++ pid名字
++ log文件名字
++ dump.rdb 名字
 
-鍚姩鏈嶅姟
+启动服务
 
 <img src="https://cdn.nlark.com/yuque/0/2026/png/54050922/1780838106195-1e09f663-e947-4044-a39a-bb88a5ab2bbb.png" width="628" title="" crop="0,0,1,1" id="uccebdadb" class="ne-image">
 
 
 
-## 涓€涓讳簩浠?
-榛樿鎯呭喌涓嬶紝姣忓彴Redis鏈嶅姟鍣ㄩ兘鏄富鑺傜偣锛氫竴鑸儏鍐典笅鍙渶瑕侀厤缃粠鏈哄氨鍙互浜?
+## 一主二从
+默认情况下，每台Redis服务器都是主节点：一般情况下只需要配置从机就可以了
 
 slaveof host 6379
 
 <img src="https://cdn.nlark.com/yuque/0/2026/png/54050922/1780838428764-dc3f7754-9da9-48fc-8866-2f64fdc62a98.png" width="564" title="" crop="0,0,1,1" id="u49766d5f" class="ne-image">
 
-涓绘満鏌ョ湅浠庢満淇℃伅
+主机查看从机信息
 
 <img src="https://cdn.nlark.com/yuque/0/2026/png/54050922/1780839186798-c16843e9-05d8-4850-a1ca-0e60d98d5372.png" width="581.6" title="" crop="0,0,1,1" id="u8cb20f22" class="ne-image">
 
-涔熷彲鍦ㄩ厤缃枃浠朵腑閰嶇疆
+也可在配置文件中配置
 
 ```bash
-# ===== 鍩虹閰嶇疆 =====
-# 绔彛锛堜粠鑺傜偣浣跨敤涓嶅悓绔彛锛?
+# ===== 基础配置 =====
+# 端口（从节点使用不同端口）
 port 6380
 
-# 瀹堟姢杩涚▼妯″紡
+# 守护进程模式
 daemonize yes
 
-# PID 鏂囦欢
+# PID 文件
 pidfile /var/run/redis_6380.pid
 
-# 鏃ュ織鏂囦欢
+# 日志文件
 logfile /var/log/redis/redis-6380.log
 
-# ===== 瀹夊叏閰嶇疆 =====
-# 浠庤妭鐐硅嚜宸辩殑瀵嗙爜锛堢敤浜庡鎴风杩炴帴锛?
+# ===== 安全配置 =====
+# 从节点自己的密码（用于客户端连接）
 requirepass 123456
 
-# ===== 涓讳粠澶嶅埗閰嶇疆锛堝叧閿紒锛?====
-# 鎸囧畾涓昏妭鐐?
+# ===== 主从复制配置（关键！）=====
+# 指定主节点
 replicaof 127.0.0.1 6379
 
-# 涓昏妭鐐圭殑瀵嗙爜锛堝繀椤婚厤缃紒锛?
+# 主节点的密码（必须配置！）
 masterauth 123456
 
-# 浠庤妭鐐瑰彧璇绘ā寮?
+# 从节点只读模式
 replica-read-only yes
 
-# ===== 鎸佷箙鍖栭厤缃?=====
-# RDB 閰嶇疆
+# ===== 持久化配置 =====
+# RDB 配置
 dbfilename dump-6380.rdb
 dir /var/lib/redis/
 
-# 浠庤妭鐐瑰缓璁叧闂?AOF锛堝彲閫夛級
+# 从节点建议关闭 AOF（可选）
 appendonly no
 
-# ===== 鎬ц兘閰嶇疆 =====
-# 鏈€澶у唴瀛橈紙鏍规嵁瀹為檯鎯呭喌璋冩暣锛?
+# ===== 性能配置 =====
+# 最大内存（根据实际情况调整）
 maxmemory 2gb
 
-# 鍐呭瓨娣樻卑绛栫暐
+# 内存淘汰策略
 maxmemory-policy allkeys-lru
 
-# 鏈€澶у鎴风杩炴帴鏁?
+# 最大客户端连接数
 maxclients 10000
 
-# ===== 澶嶅埗浼樺寲 =====
-# 澶嶅埗绉帇缂撳啿鍖哄ぇ灏?
+# ===== 复制优化 =====
+# 复制积压缓冲区大小
 repl-backlog-size 10mb
 
-# 澶嶅埗瓒呮椂鏃堕棿锛堢锛?
+# 复制超时时间（秒）
 repl-timeout 60
 
-# 浠庤妭鐐规槸鍚︽柇寮€杩炴帴鏃舵竻闄ょ紦鍐插尯
+# 从节点是否断开连接时清除缓冲区
 repl-diskless-sync yes
 ```
 
-涓绘満鍙互璇诲啓
+主机可以读写
 
-浠庢満鍙兘璇?
+从机只能读
 
-**<font style="color:rgb(15, 17, 21);">涓讳粠澶嶅埗鏄?Redis 楂樺彲鐢ㄧ殑鍩虹煶锛岄€氳繃 </font>**`**<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">replicaof</font>**`**<font style="color:rgb(15, 17, 21);"> 鍜?</font>**`**<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">masterauth</font>**`**<font style="color:rgb(15, 17, 21);"> 涓や釜閰嶇疆鍗冲彲鎼缓锛屼粠鑺傜偣鍙涓旀暟鎹紓姝ュ悓姝ャ€?/font>**
+**<font style="color:rgb(15, 17, 21);">主从复制是 Redis 高可用的基石，通过 </font>**`**<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">replicaof</font>**`**<font style="color:rgb(15, 17, 21);"> 和 </font>**`**<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">masterauth</font>**`**<font style="color:rgb(15, 17, 21);"> 两个配置即可搭建，从节点只读且数据异步同步。</font>**
 
-+ <font style="color:rgb(15, 17, 21);">鍏ㄩ噺澶嶅埗锛氫粠鑺傜偣绗竴娆￠摼鎺ヤ富鑺傜偣鏃朵細灏嗕富鑺傜偣鐨勫叏閮ㄦ暟鎹鍒跺埌浠庤妭鐐逛腑</font>
-+ <font style="color:rgb(15, 17, 21);">澧為噺澶嶅埗锛氫富鑺傜偣灏嗗悗缁墍鏈夌殑鍛戒护渚濇浼犵粰浠庤妭鐐?/font>
++ <font style="color:rgb(15, 17, 21);">全量复制：从节点第一次链接主节点时会将主节点的全部数据复制到从节点中</font>
++ <font style="color:rgb(15, 17, 21);">增量复制：主节点将后续所有的命令依次传给从节点</font>
 
-## 灞傚眰閾捐矾
-涓婁竴涓富鑺傜偣閾炬帴涓嬩竴涓粠鑺傜偣
+## 层层链路
+上一个主节点链接下一个从节点
 
 <img src="https://cdn.nlark.com/yuque/0/2026/png/54050922/1780840591689-192fe5c6-0992-4196-81ce-37327a4b0fe1.png" width="478.4" title="" crop="0,0,1,1" id="uc3a762e4" class="ne-image">
 
-褰撲富鏈烘柇寮€浜嗛摼鎺ワ紝鍙互浣跨敤slaveof no one 璁╄嚜宸卞彉鎴愪富鏈猴紝鍏朵粬鐨勮妭鐐规墜鍔ㄩ摼鎺ュ埌杩欎釜鑺傜偣
+当主机断开了链接，可以使用slaveof no one 让自己变成主机，其他的节点手动链接到这个节点
 
-## 鍝ㄥ叺妯″紡
-### 涓€銆佹杩?
-1.1 浠€涔堟槸鍝ㄥ叺妯″紡锛?
+## 哨兵模式
+### 一、概述
+1.1 什么是哨兵模式？
 
-鍝ㄥ叺锛圫entinel锛夋槸 Redis 瀹樻柟鎻愪緵鐨?*楂樺彲鐢ㄨВ鍐虫柟妗?*锛岀敤浜庣洃鎺т富浠庨泦缇や腑鐨?Master 鍜?Slave锛屽苟鍦?Master 鏁呴殰鏃惰嚜鍔ㄨ繘琛?*鏁呴殰杞Щ**锛屽皢鏌愪釜 Slave 鎻愬崌涓烘柊鐨?Master銆?
+哨兵（Sentinel）是 Redis 官方提供的**高可用解决方案**，用于监控主从集群中的 Master 和 Slave，并在 Master 故障时自动进行**故障转移**，将某个 Slave 提升为新的 Master。
 
-1.2 涓轰粈涔堥渶瑕佸摠鍏垫ā寮忥紵
+1.2 为什么需要哨兵模式？
 
-| 闂 | 鍝ㄥ叺瑙ｅ喅鏂规 |
+| 问题 | 哨兵解决方案 |
 | --- | --- |
-| 涓昏妭鐐瑰畷鏈猴紝鏈嶅姟涓嶅彲鐢?| 鑷姩鏁呴殰杞Щ锛岄€変妇鏂?Master |
-| 闇€瑕佷汉宸ュ共棰勫垏鎹?| 鑷姩瀹屾垚锛屾棤闇€浜哄伐 |
-| 瀹㈡埛绔笉鐭ラ亾鏂?Master 鍦板潃 | 鍝ㄥ叺閫氱煡瀹㈡埛绔柊鍦板潃 |
-| 浠庤妭鐐归渶瑕侀噸鏂版寚鍚戞柊 Master | 鍝ㄥ叺鑷姩閰嶇疆浠庤妭鐐?|
+| 主节点宕机，服务不可用 | 自动故障转移，选举新 Master |
+| 需要人工干预切换 | 自动完成，无需人工 |
+| 客户端不知道新 Master 地址 | 哨兵通知客户端新地址 |
+| 从节点需要重新指向新 Master | 哨兵自动配置从节点 |
 
 
-1.3 鍝ㄥ叺妯″紡鐨勬牳蹇冨姛鑳?
+1.3 哨兵模式的核心功能
 
-| 鍔熻兘 | 璇存槑 |
+| 功能 | 说明 |
 | --- | --- |
-| **鐩戞帶** | 鐩戞帶 Master 鍜?Slave 鏄惁姝ｅ父杩愯 |
-| **閫氱煡** | 褰撹妭鐐规晠闅滄椂锛岄€氳繃 API 閫氱煡绯荤粺绠＄悊鍛樻垨搴旂敤绋嬪簭 |
-| **鑷姩鏁呴殰杞Щ** | Master 鏁呴殰鏃讹紝灏?Slave 鎻愬崌涓?Master |
-| **閰嶇疆鎻愪緵** | 瀹㈡埛绔繛鎺ュ摠鍏佃幏鍙栧綋鍓?Master 鍦板潃 |
+| **监控** | 监控 Master 和 Slave 是否正常运行 |
+| **通知** | 当节点故障时，通过 API 通知系统管理员或应用程序 |
+| **自动故障转移** | Master 故障时，将 Slave 提升为 Master |
+| **配置提供** | 客户端连接哨兵获取当前 Master 地址 |
 
 
-1.4 鍝ㄥ叺妯″紡鐨勬灦鏋勫浘
+1.4 哨兵模式的架构图
 
 ```plain
-                    鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
-                    鈹?         鍝ㄥ叺闆嗙兢                鈹?
-                    鈹? 鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹?鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹?鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹?   鈹?
-                    鈹? 鈹傚摠鍏礢1鈹?鈹傚摠鍏礢2鈹?鈹傚摠鍏礢3鈹?   鈹?
-                    鈹? 鈹斺攢鈹€鈹攢鈹€鈹€鈹?鈹斺攢鈹€鈹攢鈹€鈹€鈹?鈹斺攢鈹€鈹攢鈹€鈹€鈹?   鈹?
-                    鈹斺攢鈹€鈹€鈹€鈹€鈹尖攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹尖攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹尖攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
-                          鈹?       鈹?       鈹?
-                          鈹?  鐩戞帶  鈹?  鐩戞帶  鈹?
-                          鈫?       鈫?       鈫?
-                    鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
-                    鈹?         Redis 涓讳粠闆嗙兢           鈹?
-                    鈹?                                 鈹?
-                    鈹?    鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?             鈹?
-                    鈹?    鈹? Master M1  鈹?鈫?涓昏妭鐐?    鈹?
-                    鈹?    鈹? (涓绘満A)    鈹?             鈹?
-                    鈹?    鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹攢鈹€鈹€鈹€鈹€鈹€鈹?             鈹?
-                    鈹?           鈹?澶嶅埗                 鈹?
-                    鈹?    鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹粹攢鈹€鈹€鈹€鈹€鈹€鈹?             鈹?
-                    鈹?    鈹?            鈹?             鈹?
-                    鈹?    鈫?            鈫?             鈹?
-                    鈹?鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹? 鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?       鈹?
-                    鈹?鈹?Slave S1鈹? 鈹?Slave S2鈹?       鈹?
-                    鈹?鈹?(涓绘満B) 鈹? 鈹?(涓绘満C) 鈹?       鈹?
-                    鈹?鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹? 鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?       鈹?
-                    鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+                    ┌─────────────────────────────────┐
+                    │          哨兵集群                │
+                    │  ┌──────┐ ┌──────┐ ┌──────┐    │
+                    │  │哨兵S1│ │哨兵S2│ │哨兵S3│    │
+                    │  └──┬───┘ └──┬───┘ └──┬───┘    │
+                    └─────┼────────┼────────┼────────┘
+                          │        │        │
+                          │   监控  │   监控  │
+                          ↓        ↓        ↓
+                    ┌─────────────────────────────────┐
+                    │          Redis 主从集群           │
+                    │                                  │
+                    │     ┌─────────────┐              │
+                    │     │  Master M1  │ ← 主节点     │
+                    │     │  (主机A)    │              │
+                    │     └──────┬──────┘              │
+                    │            │ 复制                 │
+                    │     ┌──────┴──────┐              │
+                    │     │             │              │
+                    │     ↓             ↓              │
+                    │ ┌─────────┐  ┌─────────┐        │
+                    │ │ Slave S1│  │ Slave S2│        │
+                    │ │ (主机B) │  │ (主机C) │        │
+                    │ └─────────┘  └─────────┘        │
+                    └─────────────────────────────────┘
 ```
 
 
 
-### 浜屻€佸摠鍏靛伐浣滃師鐞?
-2.1 涓変釜瀹氭椂鐩戞帶浠诲姟
+### 二、哨兵工作原理
+2.1 三个定时监控任务
 
-| 浠诲姟 | 璇存槑 | 鎵ц棰戠巼 |
+| 任务 | 说明 | 执行频率 |
 | --- | --- | --- |
-| **姣忕浠诲姟** | 姣忎釜鍝ㄥ叺鍚戞墍鏈夎妭鐐癸紙Master銆丼lave銆佸叾浠栧摠鍏碉級鍙戦€?PING 鍛戒护 | 姣忕1娆?|
-| **姣?0绉掍换鍔?* | 鍚?Master 鍜?Slave 鍙戦€?INFO 鍛戒护锛岃幏鍙栨嫇鎵戜俊鎭?| 姣?0绉?娆?|
-| **姣?绉掍换鍔?* | 鍝ㄥ叺閫氳繃 Master 鐨?`__sentinel__:hello` 棰戦亾鍙戝竷鑷繁鐨勪俊鎭?| 姣?绉?娆?|
+| **每秒任务** | 每个哨兵向所有节点（Master、Slave、其他哨兵）发送 PING 命令 | 每秒1次 |
+| **每10秒任务** | 向 Master 和 Slave 发送 INFO 命令，获取拓扑信息 | 每10秒1次 |
+| **每2秒任务** | 哨兵通过 Master 的 `__sentinel__:hello` 频道发布自己的信息 | 每2秒1次 |
 
 
-2.2 涓昏涓嬬嚎 vs 瀹㈣涓嬬嚎
+2.2 主观下线 vs 客观下线
 
 ```plain
-鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
-鈹?                    涓嬬嚎鍒ゆ柇娴佺▼                                 鈹?
-鈹溾攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
-鈹?                                                                鈹?
-鈹? 鍝ㄥ叺 S1 鈹€鈹€PING鈹€鈹€鈫?Master                                       鈹?
-鈹?      鈹?                       鈹?                               鈹?
-鈹?      鈹?                   鈹屸攢鈹€鈹€鈹粹攢鈹€鈹€鈹?                           鈹?
-鈹?      鈹?                   鈹傝秴鏃讹紵  鈹?                           鈹?
-鈹?      鈹?                   鈹斺攢鈹€鈹€鈹攢鈹€鈹€鈹?                           鈹?
-鈹?      鈹?                       鈹?                               鈹?
-鈹?      鈫?                       鈫?                               鈹?
-鈹? 鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?                      鈹?
-鈹? 鈹?        涓昏涓嬬嚎 (SDOWN)              鈹?                      鈹?
-鈹? 鈹? 鍗曚釜鍝ㄥ叺璁や负 Master 涓嶅彲鐢?          鈹?                      鈹?
-鈹? 鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?                      鈹?
-鈹?      鈹?                                                       鈹?
-鈹?      鈫?                                                       鈹?
-鈹? 璇㈤棶鍏朵粬鍝ㄥ叺锛歁aster 鏄惁鍙敤锛?                                鈹?
-鈹?      鈹?                                                       鈹?
-鈹?      鈫?                                                       鈹?
-鈹? 鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?                      鈹?
-鈹? 鈹?        瀹㈣涓嬬嚎 (ODOWN)              鈹?                      鈹?
-鈹? 鈹? 褰撳鏁板摠鍏碉紙quorum锛夐兘璁や负涓嶅彲鐢ㄦ椂   鈹?                      鈹?
-鈹? 鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?                      鈹?
-鈹?      鈹?                                                       鈹?
-鈹?      鈫?                                                       鈹?
-鈹? 寮€濮嬫晠闅滆浆绉?                                                  鈹?
-鈹?                                                                鈹?
-鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+┌─────────────────────────────────────────────────────────────────┐
+│                     下线判断流程                                 │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  哨兵 S1 ──PING──→ Master                                       │
+│       │                        │                                │
+│       │                    ┌───┴───┐                            │
+│       │                    │超时？  │                            │
+│       │                    └───┬───┘                            │
+│       │                        │                                │
+│       ↓                        ↓                                │
+│  ┌──────────────────────────────────────┐                       │
+│  │         主观下线 (SDOWN)              │                       │
+│  │  单个哨兵认为 Master 不可用           │                       │
+│  └──────────────────────────────────────┘                       │
+│       │                                                        │
+│       ↓                                                        │
+│  询问其他哨兵：Master 是否可用？                                 │
+│       │                                                        │
+│       ↓                                                        │
+│  ┌──────────────────────────────────────┐                       │
+│  │         客观下线 (ODOWN)              │                       │
+│  │  当多数哨兵（quorum）都认为不可用时   │                       │
+│  └──────────────────────────────────────┘                       │
+│       │                                                        │
+│       ↓                                                        │
+│  开始故障转移                                                   │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-| 鐘舵€?| 璇存槑 | 瑙﹀彂鏉′欢 |
+| 状态 | 说明 | 触发条件 |
 | --- | --- | --- |
-| **涓昏涓嬬嚎 (SDOWN)** | 鍗曚釜鍝ㄥ叺璁や负 Master 涓嶅彲鐢?| 杩炵画 `down-after-milliseconds` 姣鏈搷搴?|
-| **瀹㈣涓嬬嚎 (ODOWN)** | 澶氫釜鍝ㄥ叺閮借涓?Master 涓嶅彲鐢?| 杈惧埌 `quorum` 鏁伴噺鐨勫摠鍏靛悓鎰忎富瑙備笅绾?|
+| **主观下线 (SDOWN)** | 单个哨兵认为 Master 不可用 | 连续 `down-after-milliseconds` 毫秒未响应 |
+| **客观下线 (ODOWN)** | 多个哨兵都认为 Master 不可用 | 达到 `quorum` 数量的哨兵同意主观下线 |
 
 
-2.3 鏁呴殰杞Щ娴佺▼
+2.3 故障转移流程
 
 ```plain
-鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
-鈹?                    鏁呴殰杞Щ娴佺▼                                 鈹?
-鈹溾攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
-鈹?                                                                鈹?
-鈹? Step 1: 鍝ㄥ叺闆嗙兢杈炬垚瀹㈣涓嬬嚎                                    鈹?
-鈹?      鈹?                                                       鈹?
-鈹?      鈫?                                                       鈹?
-鈹? Step 2: 閫変妇棰嗗鑰呭摠鍏?                                        鈹?
-鈹?      鈹?                                                       鈹?
-鈹?      鈫?                                                       鈹?
-鈹? Step 3: 浠?Slave 涓€変妇鏂?Master                               鈹?
-鈹?      鈹?                                                       鈹?
-鈹?      鈫?                                                       鈹?
-鈹? Step 4: 灏嗘柊 Slave 鎻愬崌涓?Master                               鈹?
-鈹?      鈹?                                                       鈹?
-鈹?      鈫?                                                       鈹?
-鈹? Step 5: 淇敼鍏朵粬 Slave 鐨勫鍒剁洰鏍囷紙鎸囧悜鏂?Master锛?             鈹?
-鈹?      鈹?                                                       鈹?
-鈹?      鈫?                                                       鈹?
-鈹? Step 6: 鏃?Master 鎭㈠鍚庯紝闄嶇骇涓?Slave 鎸囧悜鏂?Master           鈹?
-鈹?                                                                鈹?
-鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+┌─────────────────────────────────────────────────────────────────┐
+│                     故障转移流程                                 │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  Step 1: 哨兵集群达成客观下线                                    │
+│       │                                                        │
+│       ↓                                                        │
+│  Step 2: 选举领导者哨兵                                         │
+│       │                                                        │
+│       ↓                                                        │
+│  Step 3: 从 Slave 中选举新 Master                               │
+│       │                                                        │
+│       ↓                                                        │
+│  Step 4: 将新 Slave 提升为 Master                               │
+│       │                                                        │
+│       ↓                                                        │
+│  Step 5: 修改其他 Slave 的复制目标（指向新 Master）              │
+│       │                                                        │
+│       ↓                                                        │
+│  Step 6: 旧 Master 恢复后，降级为 Slave 指向新 Master           │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-2.4 棰嗗鑰呭摠鍏甸€変妇锛圧aft 绠楁硶锛?
+2.4 领导者哨兵选举（Raft 算法）
 
-1. 鍙戠幇 Master 瀹㈣涓嬬嚎鍚庯紝鍝ㄥ叺鍚戝叾浠栧摠鍏靛彂閫佽姹傦紝瑕佹眰灏嗚嚜宸辫涓洪瀵艰€?
-2. 鏀跺埌璇锋眰鐨勫摠鍏靛鏋滄病鏈夊悓鎰忚繃鍏朵粬鍝ㄥ叺锛屽垯鍚屾剰璇ヨ姹?
-3. 褰撳摠鍏佃幏寰?*鍗婃暟浠ヤ笂**鐨勯€夌エ鏃讹紝鎴愪负棰嗗鑰?
-4. 濡傛灉娌℃湁閫夊嚭棰嗗鑰咃紝绛夊緟鍚庨噸璇?
+1. 发现 Master 客观下线后，哨兵向其他哨兵发送请求，要求将自己设为领导者
+2. 收到请求的哨兵如果没有同意过其他哨兵，则同意该请求
+3. 当哨兵获得**半数以上**的选票时，成为领导者
+4. 如果没有选出领导者，等待后重试
 
-2.5 鏂?Master 閫変妇瑙勫垯
+2.5 新 Master 选举规则
 
-| 浼樺厛绾?| 瑙勫垯 | 璇存槑 |
+| 优先级 | 规则 | 说明 |
 | --- | --- | --- |
-| 1 | **浼樺厛绾ф渶楂?* | `slave-priority`锛坮eplica-priority锛夊€艰秺灏忎紭鍏堢骇瓒婇珮 |
-| 2 | **澶嶅埗鍋忕Щ閲忔渶澶?* | 鏁版嵁鏈€鏂扮殑浠庤妭鐐?|
-| 3 | **runid 鏈€灏?* | 澶氫釜浠庤妭鐐逛紭鍏堢骇鐩稿悓鏃讹紝runid 鏈€灏忕殑褰撻€?|
+| 1 | **优先级最高** | `slave-priority`（replica-priority）值越小优先级越高 |
+| 2 | **复制偏移量最大** | 数据最新的从节点 |
+| 3 | **runid 最小** | 多个从节点优先级相同时，runid 最小的当选 |
 
 
-**閰嶇疆浠庤妭鐐逛紭鍏堢骇锛?*
+**配置从节点优先级：**
 
 ```nginx
 # redis.conf
 replica-priority 100
 ```
 
-### 涓夈€佸摠鍏垫ā寮忔惌寤?
-3.1 鐜瑙勫垝
+### 三、哨兵模式搭建
+3.1 环境规划
 
-| 鑺傜偣瑙掕壊 | IP | 绔彛 | 鍝ㄥ叺绔彛 |
+| 节点角色 | IP | 端口 | 哨兵端口 |
 | --- | --- | --- | --- |
 | Master | 127.0.0.1 | 6379 | - |
 | Slave-1 | 127.0.0.1 | 6380 | - |
@@ -5281,9 +4218,9 @@ replica-priority 100
 | Sentinel-3 | 127.0.0.1 | - | 26381 |
 
 
-3.2 涓讳粠鑺傜偣閰嶇疆
+3.2 主从节点配置
 
-**涓昏妭鐐归厤缃?(redis-6379.conf)**
+**主节点配置 (redis-6379.conf)**
 
 ```nginx
 port 6379
@@ -5297,7 +4234,7 @@ dbfilename dump-6379.rdb
 dir /var/lib/redis/
 ```
 
-**浠庤妭鐐?1 閰嶇疆 (redis-6380.conf)**
+**从节点-1 配置 (redis-6380.conf)**
 
 ```nginx
 port 6380
@@ -5312,7 +4249,7 @@ dbfilename dump-6380.rdb
 dir /var/lib/redis/
 ```
 
-**浠庤妭鐐?2 閰嶇疆 (redis-6381.conf)**
+**从节点-2 配置 (redis-6381.conf)**
 
 ```nginx
 port 6381
@@ -5327,59 +4264,59 @@ dbfilename dump-6381.rdb
 dir /var/lib/redis/
 ```
 
-3.3 鍝ㄥ叺閰嶇疆鏂囦欢璇﹁В
+3.3 哨兵配置文件详解
 
-**鍝ㄥ叺-1 閰嶇疆 (sentinel-26379.conf)**
+**哨兵-1 配置 (sentinel-26379.conf)**
 
 ```nginx
-# 绔彛
+# 端口
 port 26379
 
-# 瀹堟姢杩涚▼妯″紡
+# 守护进程模式
 daemonize yes
 
-# PID鏂囦欢
+# PID文件
 pidfile /var/run/sentinel_26379.pid
 
-# 鏃ュ織鏂囦欢
+# 日志文件
 logfile /var/log/redis/sentinel-26379.log
 
-# 鐩戞帶閰嶇疆
+# 监控配置
 # sentinel monitor <master-name> <ip> <port> <quorum>
 sentinel monitor mymaster 127.0.0.1 6379 2
 
-# Master 鑺傜偣瀵嗙爜
+# Master 节点密码
 sentinel auth-pass mymaster 123456
 
-# 鍒ゆ柇涓昏涓嬬嚎鐨勬椂闂达紙姣锛?
+# 判断主观下线的时间（毫秒）
 sentinel down-after-milliseconds mymaster 30000
 
-# 鏁呴殰杞Щ瓒呮椂鏃堕棿锛堟绉掞級
+# 故障转移超时时间（毫秒）
 sentinel failover-timeout mymaster 180000
 
-# 鍚屾椂杩涜鏁呴殰杞Щ鐨勪粠鑺傜偣鏁伴噺
+# 同时进行故障转移的从节点数量
 sentinel parallel-syncs mymaster 1
 
-# 閫氱煡鑴氭湰锛堝彲閫夛級
+# 通知脚本（可选）
 # sentinel notification-script mymaster /path/to/notify.sh
 
-# 閲嶆柊閰嶇疆鑴氭湰锛堝彲閫夛級
+# 重新配置脚本（可选）
 # sentinel client-reconfig-script mymaster /path/to/reconfig.sh
 ```
 
-**鍙傛暟璇存槑锛?*
+**参数说明：**
 
-| 鍙傛暟 | 璇存槑 | 榛樿鍊?| 寤鸿鍊?|
+| 参数 | 说明 | 默认值 | 建议值 |
 | --- | --- | --- | --- |
-| `port` | 鍝ㄥ叺绔彛 | 26379 | 26379+ |
-| `sentinel monitor` | 鐩戞帶鐨?Master | 鏃?| 蹇呭～ |
-| `sentinel auth-pass` | Master 瀵嗙爜 | 鏃?| 鏈夊瘑鐮佹椂蹇呭～ |
-| `down-after-milliseconds` | 涓昏涓嬬嚎鍒ゆ柇鏃堕棿 | 30000ms | 30000 |
-| `failover-timeout` | 鏁呴殰杞Щ瓒呮椂 | 180000ms | 180000 |
-| `parallel-syncs` | 鍚屾椂鍚屾鐨勪粠鑺傜偣鏁?| 1 | 1 |
+| `port` | 哨兵端口 | 26379 | 26379+ |
+| `sentinel monitor` | 监控的 Master | 无 | 必填 |
+| `sentinel auth-pass` | Master 密码 | 无 | 有密码时必填 |
+| `down-after-milliseconds` | 主观下线判断时间 | 30000ms | 30000 |
+| `failover-timeout` | 故障转移超时 | 180000ms | 180000 |
+| `parallel-syncs` | 同时同步的从节点数 | 1 | 1 |
 
 
-**鍝ㄥ叺-2 閰嶇疆 (sentinel-26380.conf)**
+**哨兵-2 配置 (sentinel-26380.conf)**
 
 ```nginx
 port 26380
@@ -5393,7 +4330,7 @@ sentinel failover-timeout mymaster 180000
 sentinel parallel-syncs mymaster 1
 ```
 
-**鍝ㄥ叺-3 閰嶇疆 (sentinel-26381.conf)**
+**哨兵-3 配置 (sentinel-26381.conf)**
 
 ```nginx
 port 26381
@@ -5407,86 +4344,86 @@ sentinel failover-timeout mymaster 180000
 sentinel parallel-syncs mymaster 1
 ```
 
-3.4 鍚姩鎵€鏈夎妭鐐?
+3.4 启动所有节点
 
 ```bash
-# 鍚姩 Redis 涓讳粠鑺傜偣
+# 启动 Redis 主从节点
 redis-server /etc/redis/redis-6379.conf
 redis-server /etc/redis/redis-6380.conf
 redis-server /etc/redis/redis-6381.conf
 
-# 鍚姩鍝ㄥ叺
+# 启动哨兵
 redis-sentinel /etc/redis/sentinel-26379.conf
 redis-sentinel /etc/redis/sentinel-26380.conf
 redis-sentinel /etc/redis/sentinel-26381.conf
 
-# 鎴栬€呬娇鐢?redis-server 鍚姩鍝ㄥ叺妯″紡
+# 或者使用 redis-server 启动哨兵模式
 redis-server /etc/redis/sentinel-26379.conf --sentinel
 ```
 
-3.5 楠岃瘉鍝ㄥ叺鐘舵€?
+3.5 验证哨兵状态
 
 ```bash
-# 鏌ョ湅鍝ㄥ叺淇℃伅
+# 查看哨兵信息
 redis-cli -p 26379 INFO sentinel
 
-# 鏌ョ湅鐩戞帶鐨?Master
+# 查看监控的 Master
 redis-cli -p 26379 SENTINEL masters
 
-# 鏌ョ湅鎸囧畾 Master 鐨勪粠鑺傜偣
+# 查看指定 Master 的从节点
 redis-cli -p 26379 SENTINEL slaves mymaster
 
-# 鏌ョ湅鎸囧畾 Master 鐨勫摠鍏靛垪琛?
+# 查看指定 Master 的哨兵列表
 redis-cli -p 26379 SENTINEL sentinels mymaster
 
-# 鑾峰彇褰撳墠 Master 鍦板潃
+# 获取当前 Master 地址
 redis-cli -p 26379 SENTINEL get-master-addr-by-name mymaster
 ```
 
-### 鍥涖€佸摠鍏靛父鐢ㄥ懡浠?
-4.1 鍝ㄥ叺鍛戒护姹囨€?
+### 四、哨兵常用命令
+4.1 哨兵命令汇总
 
-| 鍛戒护 | 璇存槑 | 绀轰緥 |
+| 命令 | 说明 | 示例 |
 | --- | --- | --- |
-| `SENTINEL masters` | 鏌ョ湅鎵€鏈?Master | `SENTINEL masters` |
-| `SENTINEL master <name>` | 鏌ョ湅鎸囧畾 Master 淇℃伅 | `SENTINEL master mymaster` |
-| `SENTINEL slaves <name>` | 鏌ョ湅鎸囧畾 Master 鐨勪粠鑺傜偣 | `SENTINEL slaves mymaster` |
-| `SENTINEL sentinels <name>` | 鏌ョ湅鍝ㄥ叺鍒楄〃 | `SENTINEL sentinels mymaster` |
-| `SENTINEL get-master-addr-by-name <name>` | 鑾峰彇 Master 鍦板潃 | `SENTINEL get-master-addr-by-name mymaster` |
-| `SENTINEL reset <pattern>` | 閲嶇疆鐩戞帶 | `SENTINEL reset mymaster` |
-| `SENTINEL failover <name>` | 鎵嬪姩鏁呴殰杞Щ | `SENTINEL failover mymaster` |
-| `SENTINEL ckquorum <name>` | 妫€鏌ュ摠鍏典徊瑁?| `SENTINEL ckquorum mymaster` |
-| `SENTINEL flushconfig` | 寮哄埗鍐欏叆閰嶇疆鏂囦欢 | `SENTINEL flushconfig` |
+| `SENTINEL masters` | 查看所有 Master | `SENTINEL masters` |
+| `SENTINEL master <name>` | 查看指定 Master 信息 | `SENTINEL master mymaster` |
+| `SENTINEL slaves <name>` | 查看指定 Master 的从节点 | `SENTINEL slaves mymaster` |
+| `SENTINEL sentinels <name>` | 查看哨兵列表 | `SENTINEL sentinels mymaster` |
+| `SENTINEL get-master-addr-by-name <name>` | 获取 Master 地址 | `SENTINEL get-master-addr-by-name mymaster` |
+| `SENTINEL reset <pattern>` | 重置监控 | `SENTINEL reset mymaster` |
+| `SENTINEL failover <name>` | 手动故障转移 | `SENTINEL failover mymaster` |
+| `SENTINEL ckquorum <name>` | 检查哨兵仲裁 | `SENTINEL ckquorum mymaster` |
+| `SENTINEL flushconfig` | 强制写入配置文件 | `SENTINEL flushconfig` |
 
 
-4.2 鎵嬪姩鏁呴殰杞Щ
+4.2 手动故障转移
 
 ```bash
-# 鎵嬪姩瑙﹀彂鏁呴殰杞Щ锛堝嵆浣?Master 姝ｅ父杩愯锛?
+# 手动触发故障转移（即使 Master 正常运行）
 redis-cli -p 26379 SENTINEL failover mymaster
 ```
 
-4.3 鏌ョ湅鍝ㄥ叺淇℃伅
+4.3 查看哨兵信息
 
 ```bash
-# 杩炴帴浠绘剰鍝ㄥ叺
+# 连接任意哨兵
 redis-cli -p 26379
 
-# 鏌ョ湅鍝ㄥ叺淇℃伅
+# 查看哨兵信息
 127.0.0.1:26379> INFO sentinel
 
-# 鏌ョ湅鎵€鏈?Master
+# 查看所有 Master
 127.0.0.1:26379> SENTINEL masters
 
-# 鏌ョ湅浠庤妭鐐?
+# 查看从节点
 127.0.0.1:26379> SENTINEL slaves mymaster
 
-# 鏌ョ湅鍝ㄥ叺鍒楄〃
+# 查看哨兵列表
 127.0.0.1:26379> SENTINEL sentinels mymaster
 ```
 
-### 浜斻€丣ava 鎿嶄綔鍝ㄥ叺妯″紡
-5.1 Jedis 杩炴帴鍝ㄥ叺
+### 五、Java 操作哨兵模式
+5.1 Jedis 连接哨兵
 
 ```java
 import redis.clients.jedis.Jedis;
@@ -5497,40 +4434,40 @@ import java.util.Set;
 
 public class JedisSentinelDemo {
     public static void main(String[] args) {
-        // 鍝ㄥ叺鍦板潃闆嗗悎
+        // 哨兵地址集合
         Set<String> sentinels = new HashSet<>();
         sentinels.add("127.0.0.1:26379");
         sentinels.add("127.0.0.1:26380");
         sentinels.add("127.0.0.1:26381");
         
-        // 鍒涘缓鍝ㄥ叺杩炴帴姹?
+        // 创建哨兵连接池
         JedisSentinelPool pool = new JedisSentinelPool(
-            "mymaster",           // Master 鍚嶇О锛堜笌鍝ㄥ叺閰嶇疆涓€鑷达級
-            sentinels,            // 鍝ㄥ叺鍦板潃闆嗗悎
-            "123456"              // Redis 瀵嗙爜
+            "mymaster",           // Master 名称（与哨兵配置一致）
+            sentinels,            // 哨兵地址集合
+            "123456"              // Redis 密码
         );
         
-        // 鑾峰彇杩炴帴
+        // 获取连接
         try (Jedis jedis = pool.getResource()) {
-            // 鍐欏叆鏁版嵁
+            // 写入数据
             jedis.set("key", "value");
-            System.out.println("鍐欏叆鎴愬姛");
+            System.out.println("写入成功");
             
-            // 璇诲彇鏁版嵁
+            // 读取数据
             String value = jedis.get("key");
-            System.out.println("璇诲彇鏁版嵁: " + value);
+            System.out.println("读取数据: " + value);
             
-            // 鏌ョ湅褰撳墠 Master 鍦板潃
-            System.out.println("褰撳墠 Master: " + pool.getCurrentHostMaster());
+            // 查看当前 Master 地址
+            System.out.println("当前 Master: " + pool.getCurrentHostMaster());
         }
         
-        // 鍏抽棴杩炴帴姹?
+        // 关闭连接池
         pool.close();
     }
 }
 ```
 
-5.2 Spring Boot 闆嗘垚鍝ㄥ叺
+5.2 Spring Boot 集成哨兵
 
 **application.yml**
 
@@ -5551,7 +4488,7 @@ spring:
         min-idle: 0
 ```
 
-**Java 閰嶇疆绫?*
+**Java 配置类**
 
 ```java
 import org.springframework.context.annotation.Bean;
@@ -5568,17 +4505,17 @@ public class RedisSentinelConfig {
     
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
-        // 鍝ㄥ叺閰嶇疆
+        // 哨兵配置
         RedisSentinelConfiguration sentinelConfig = new RedisSentinelConfiguration()
             .master("mymaster")
             .sentinel("127.0.0.1", 26379)
             .sentinel("127.0.0.1", 26380)
             .sentinel("127.0.0.1", 26381);
         
-        // 璁剧疆瀵嗙爜
+        // 设置密码
         sentinelConfig.setPassword("123456");
         
-        // 杩炴帴姹犻厤缃?
+        // 连接池配置
         JedisPoolConfig poolConfig = new JedisPoolConfig();
         poolConfig.setMaxTotal(8);
         poolConfig.setMaxIdle(8);
@@ -5598,159 +4535,1204 @@ public class RedisSentinelConfig {
 }
 ```
 
-### 鍏€佸摠鍏垫ā寮忔渶浣冲疄璺?
-6.1 鍝ㄥ叺閮ㄧ讲寤鸿
+### 六、哨兵模式最佳实践
+6.1 哨兵部署建议
 
-| 寤鸿 | 璇存槑 |
+| 建议 | 说明 |
 | --- | --- |
-| **鍝ㄥ叺鏁伴噺 鈮?3** | 閬垮厤鑴戣锛岀‘淇濋€変妇鑳借揪鎴愬鏁?|
-| **鍝ㄥ叺鏁伴噺涓哄鏁?* | 3銆?銆?... 渚夸簬閫変妇 |
-| **鍝ㄥ叺涓?Redis 鑺傜偣鍒嗙** | 閬垮厤鍚屾椂鏁呴殰 |
-| **quorum 閰嶇疆** | 寤鸿涓?`ceil(鍝ㄥ叺鏁伴噺/2)` |
-| **涓嶅悓鐗╃悊鏈?* | 鎻愰珮瀹圭伨鑳藉姏 |
+| **哨兵数量 ≥ 3** | 避免脑裂，确保选举能达成多数 |
+| **哨兵数量为奇数** | 3、5、7... 便于选举 |
+| **哨兵与 Redis 节点分离** | 避免同时故障 |
+| **quorum 配置** | 建议为 `ceil(哨兵数量/2)` |
+| **不同物理机** | 提高容灾能力 |
 
 
-6.2 quorum 閰嶇疆寤鸿
+6.2 quorum 配置建议
 
-| 鍝ㄥ叺鎬绘暟 | 寤鸿 quorum | 璇存槑 |
+| 哨兵总数 | 建议 quorum | 说明 |
 | --- | --- | --- |
-| 1 | 1 | 鍗曠偣椋庨櫓锛屼笉鎺ㄨ崘 |
-| 2 | 2 | 闇€瑕佷袱涓兘鍚屾剰锛屼笉鎺ㄨ崘 |
-| **3** | **2** | 鎺ㄨ崘閰嶇疆 |
-| 5 | 3 | 楂樺彲鐢ㄨ姹?|
-| 7 | 4 | 鏋侀珮鍙敤鎬?|
+| 1 | 1 | 单点风险，不推荐 |
+| 2 | 2 | 需要两个都同意，不推荐 |
+| **3** | **2** | 推荐配置 |
+| 5 | 3 | 高可用要求 |
+| 7 | 4 | 极高可用性 |
 
 
-6.3 鏁呴殰杞Щ瓒呮椂閰嶇疆
+6.3 故障转移超时配置
 
 ```nginx
-# 鏁呴殰杞Щ瓒呮椂鏃堕棿锛堟绉掞級
+# 故障转移超时时间（毫秒）
 sentinel failover-timeout mymaster 180000
 ```
 
-**failover-timeout 鐨勫惈涔夛細**
+**failover-timeout 的含义：**
 
-1. 瓒呰繃璇ユ椂闂存湭瀹屾垚鏁呴殰杞Щ锛岃涓哄け璐?
-2. 鏁呴殰杞Щ瀹屾垚鍚庯紝鏃?Master 闇€瑕佸湪璇ユ椂闂村唴鎭㈠骞舵垚涓?Slave
-3. 鑻ヨ秴鏃讹紝涓嬫鏁呴殰杞Щ鐨勭瓑寰呮椂闂存槸鍘熸潵鐨?2 鍊?
+1. 超过该时间未完成故障转移，视为失败
+2. 故障转移完成后，旧 Master 需要在该时间内恢复并成为 Slave
+3. 若超时，下次故障转移的等待时间是原来的 2 倍
 
-6.4 鍝ㄥ叺閰嶇疆鏂囦欢鑷姩閲嶅啓
+6.4 哨兵配置文件自动重写
 
-鍝ㄥ叺杩愯鏃讹紝浼?*鑷姩淇敼閰嶇疆鏂囦欢**锛岃褰曡繍琛岀姸鎬併€傞厤缃枃浠朵細琚噸鍐欙紝鍥犳锛?
+哨兵运行时，会**自动修改配置文件**，记录运行状态。配置文件会被重写，因此：
 
-+ 涓嶈鎵嬪姩缂栬緫閰嶇疆鏂囦欢锛岄櫎闈炲仠姝㈠摠鍏?
-+ 淇敼閰嶇疆寤鸿閫氳繃 `SENTINEL SET` 鍛戒护鍔ㄦ€佷慨鏀?
++ 不要手动编辑配置文件，除非停止哨兵
++ 修改配置建议通过 `SENTINEL SET` 命令动态修改
 
 ```bash
-# 鍔ㄦ€佷慨鏀归厤缃?
+# 动态修改配置
 redis-cli -p 26379 SENTINEL SET mymaster down-after-milliseconds 20000
 
-# 鏌ョ湅褰撳墠閰嶇疆
+# 查看当前配置
 redis-cli -p 26379 SENTINEL GET mymaster down-after-milliseconds
 ```
 
-### 涓冦€佹晠闅滆浆绉绘紨绀?
-7.1 妯℃嫙 Master 瀹曟満
+### 七、故障转移演示
+7.1 模拟 Master 宕机
 
 ```bash
-# 1. 鏌ョ湅褰撳墠 Master
+# 1. 查看当前 Master
 redis-cli -p 26379 SENTINEL get-master-addr-by-name mymaster
-# 杈撳嚭: 1) "127.0.0.1" 2) "6379"
+# 输出: 1) "127.0.0.1" 2) "6379"
 
-# 2. 鍋滄 Master 鑺傜偣
+# 2. 停止 Master 节点
 redis-cli -p 6379 -a 123456 SHUTDOWN
 
-# 3. 鏌ョ湅鍝ㄥ叺鏃ュ織
+# 3. 查看哨兵日志
 tail -f /var/log/redis/sentinel-26379.log
 
-# 4. 绛夊緟鏁呴殰杞Щ瀹屾垚锛堢害30绉掞級
+# 4. 等待故障转移完成（约30秒）
 
-# 5. 鏌ョ湅鏂?Master
+# 5. 查看新 Master
 redis-cli -p 26379 SENTINEL get-master-addr-by-name mymaster
-# 鏂?Master 鍙兘鏄?6380 鎴?6381
+# 新 Master 可能是 6380 或 6381
 ```
 
-7.2 鍝ㄥ叺鏃ュ織鍏抽敭淇℃伅
+7.2 哨兵日志关键信息
 
 ```plain
-# 涓昏涓嬬嚎
+# 主观下线
 +sdown master mymaster 127.0.0.1 6379
 
-# 瀹㈣涓嬬嚎
+# 客观下线
 +odown master mymaster 127.0.0.1 6379 #quorum 2/2
 
-# 寮€濮嬮€変妇
+# 开始选举
 +vote-for-leader <id> 1
 
-# 閫変妇鎴愬姛
+# 选举成功
 +config-update-from sentinel <id>
 
-# 鍒囨崲閰嶇疆
+# 切换配置
 +switch-master mymaster 127.0.0.1 6379 127.0.0.1 6380
 ```
 
-7.3 鎭㈠鏃?Master
+7.3 恢复旧 Master
 
 ```bash
-# 閲嶆柊鍚姩鏃?Master锛?379锛?
+# 重新启动旧 Master（6379）
 redis-server /etc/redis/redis-6379.conf
 
-# 鏌ョ湅鍝ㄥ叺鐘舵€?
+# 查看哨兵状态
 redis-cli -p 26379 SENTINEL slaves mymaster
-# 6379 浼氫互浠庤妭鐐硅韩浠藉姞鍏?
+# 6379 会以从节点身份加入
 ```
 
-### 鍏€佸父瑙侀棶棰樹笌瑙ｅ喅鏂规
-| 闂 | 鍘熷洜 | 瑙ｅ喅鏂规 |
+### 八、常见问题与解决方案
+| 问题 | 原因 | 解决方案 |
 | --- | --- | --- |
-| 鍝ㄥ叺鏃犳硶杩炴帴 Master | 缃戠粶闂鎴栧瘑鐮侀敊璇?| 妫€鏌?`sentinel auth-pass` |
-| 鏁呴殰杞Щ澶辫触 | 鍝ㄥ叺鏁伴噺涓嶈冻 | 纭繚鍝ㄥ叺鏁伴噺 鈮?3锛宷uorum 閰嶇疆鍚堢悊 |
-| 閫変妇鑴戣 | 缃戠粶鍒嗗尯 | 澧炲姞鍝ㄥ叺鏁伴噺锛岄厤缃悎鐞嗚秴鏃?|
-| 瀹㈡埛绔暱鏃堕棿鏃犳硶杩炴帴 | 鏈洿鏂?Master 鍦板潃 | 浣跨敤鍝ㄥ叺鑷姩鍙戠幇鏈哄埗 |
+| 哨兵无法连接 Master | 网络问题或密码错误 | 检查 `sentinel auth-pass` |
+| 故障转移失败 | 哨兵数量不足 | 确保哨兵数量 ≥ 3，quorum 配置合理 |
+| 选举脑裂 | 网络分区 | 增加哨兵数量，配置合理超时 |
+| 客户端长时间无法连接 | 未更新 Master 地址 | 使用哨兵自动发现机制 |
 
 
-### 涔濄€佹€荤粨
-鏍稿績瑕佺偣
+### 九、总结
+核心要点
 
-| 瑕佺偣 | 璇存槑 |
+| 要点 | 说明 |
 | --- | --- |
-| **浣滅敤** | 瀹炵幇 Redis 楂樺彲鐢紝鑷姩鏁呴殰杞Щ |
-| **閮ㄧ讲瑕佹眰** | 鑷冲皯 3 涓摠鍏碉紝濂囨暟涓?|
-| **鍏抽敭閰嶇疆** | `monitor`銆乣quorum`銆乣auth-pass` |
-| **鏁呴殰杞Щ** | 涓昏涓嬬嚎 鈫?瀹㈣涓嬬嚎 鈫?棰嗗鑰呴€変妇 鈫?鏂?Master 閫変妇 |
-| **瀹㈡埛绔繛鎺?* | 閫氳繃鍝ㄥ叺鑾峰彇 Master 鍦板潃 |
+| **作用** | 实现 Redis 高可用，自动故障转移 |
+| **部署要求** | 至少 3 个哨兵，奇数个 |
+| **关键配置** | `monitor`、`quorum`、`auth-pass` |
+| **故障转移** | 主观下线 → 客观下线 → 领导者选举 → 新 Master 选举 |
+| **客户端连接** | 通过哨兵获取 Master 地址 |
 
 
-**涓€鍙ヨ瘽鎬荤粨锛氬摠鍏垫ā寮忔槸 Redis 鐢熶骇鐜楂樺彲鐢ㄧ殑鏍囧噯鏂规锛岃嚦灏戦儴缃?3 涓摠鍏靛疄渚嬶紝鐩戞帶涓讳粠闆嗙兢锛屽疄鐜拌嚜鍔ㄦ晠闅滆浆绉汇€?*
-', NOW());
-SET @last_note_id = LAST_INSERT_ID();
+**一句话总结：哨兵模式是 Redis 生产环境高可用的标准方案，至少部署 3 个哨兵实例，监控主从集群，实现自动故障转移。**
+', 0, NOW());
 
-INSERT INTO 
-ote (uthor_id, 	itle, content, created_at)
-VALUES (1001, '集合框架', '# 闆嗗悎
-+ 姒傚康锛氬璞＄殑瀹瑰櫒锛屽疄鐜颁簡瀵瑰璞″父鐢ㄧ殑鎿嶄綔锛岀被浼兼暟缁勫姛鑳?
-+ 闆嗗悎鍜屾暟缁勭殑鍖哄埆
-    - 鏁扮粍闀垮害鍥哄畾锛岄泦鍚堥暱搴︿笉鍥哄畾
-    - 鏁扮粍鍙互瀛樺偍鍩烘湰绫诲瀷鍜屽紩鐢ㄧ被鍨嬶紝闆嗗悎鍙兘瀛樺偍寮曠敤绫诲瀷
-+ 浣嶇疆锛歫ava.util.*;
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+VALUES (4, 1001, 'javaSE', '## 常用快捷键
+Ctrl + D  ： 复制当前行到下一行
+
+ALT + INSERT ：自动生成构造器
+
+Ctrl + H：打开树结构
+
+Ctrl + Alt + T ：选择代码被包裹的类型
+
+## 搭建环境
+### 卸载JDK
++ 删除java的安装目录
++ 删除环境变量JAVA_HOME
++ 删除path项关于Java的目录
++ java -version
+
+### 安装JDK
++ 百度搜索JDK8，找到下载地址
++ 同意协议
++ 下载电脑对应的版本
++ 双击安装
++ 记住安装的路径
++ 配置环境变量
+    - 我的电脑-->右键-->属性
+    - 环境变量-->新建系统变量-->JAVA_HOME，安装路径
+    - 配置path变量
+        * %JAVA_HOME%\bin
+        * %JAVA_HOME%\jre\bin
++ java -version
+
+### HelloWorld
++ 创建一个放代码的文件夹
++ 创建一个以.java为后缀的文件
++ 编写代码
+
+```java
+public class Hello{
+    public static void main(String[], args){
+        System.out.print("Hello World！");
+    }
+}
+```
+
++ 编译：javac java文件，会生成一个class文件
++ 运行class文件S
+
+<img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1743765924281-0b39cd7e-0524-45e8-9f83-0f56a11ba992.png" width="397.4285888671875" title="" crop="0,0,1,1" id="ua426976d" class="ne-image">
+
+### 可能出现的问题
++ 每个单词的大小写不能出现问题，Java是大小写敏感的
++ 尽量使用英文
++ 文件名 和 类名必须保持一致，并且首字母大写
++ 符号必须使用英文
+
+
+
+## Java基础语法
+### 注释、标识符、关键字
+#### 注释
+注释并不会被执行，是给写代码给别人看的
+
+java中的注释有三种
+
++ 单行注释
+
+```java
+// 这是一个单行注释
+```
+
++ 多行注释
+
+```java
+/*
+    这是一个多行注释
+*/
+```
+
++ 文档注释
+
+```java
+//JavaDoc: 文档注释
+/**
+ *@bes
+ */
+```
+
+#### 标识符
+所有的标识符都是以字母（A-Z或a-z），美元符（$），或者下划线（_）开始
+
+首字母之后可以是字母（A-Z或a-z），美元符（$），下划线（_）或数字的任何字符组合
+
+标识符是大小写敏感的
+
+不能使用关键字作为变量名或方法名
+
+不建议使用中文名或拼音，很low
+
+#### 关键字
+<img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1743768836077-a6bb4d11-f8dd-4a6e-8d5a-92e9df83ec46.png" width="443.2857360839844" title="" crop="0,0,1,1" id="ufe692728" class="ne-image">
+
+java所有的组成部分都需要名字。类名，变量名以及方法名都被称为标识符
+
+### 数据类型
+强类型语言：要求变量的使用要严格符合规定，所有变量都必须先定义后才能使用
+
+#### 基本数据类型
+![画板](https://cdn.nlark.com/yuque/0/2025/jpeg/54050922/1743770818061-53510fd8-15e9-4553-877b-d26792d71910.jpeg)
+
+```java
+public class Demo2{
+    public static void main(String[] args){
+        //整数
+        int num1 = 10;
+        byte num2 = 20;
+        short num3 = 30;
+        long num4 = 30L; //Long类型要在数字后面加上L
+
+        //小数， 浮点数
+        float num5 = 5.1F; //float类型要在数字后面加上F
+        double num6 = 3.123436534;
+
+        //字符
+        char name = ''中'';
+        //字符串， String不是关键字， 类
+        String name2 = "好难过";
+
+        //布尔值
+        boolean flag = true;
+        boolean flag2 = false;
+    }
+}
+```
+
+#### 引用数据类型
+类
+
+接口
+
+数组
+
+#### 什么是字节
+位（bit）：是计算机内部数据存储的最小单位，11001100是一个8位二进制数
+
+字节（byte）：是计算机中数据处理的基本单位，习惯上用大写B来表示
+
+1B（byte，字节）= 8bit（位）
+
+字符：是指计算机中使用的字母，数字，字和符号
+
+#### 扩展
+1. 进制表示
+
+```java
+public class Demo2{
+    public static void main(String[] args){
+        //整数 扩展
+        int i3 = 0b100;   //二进制
+        int i = 10;       //十进制
+        int i1 = 010;     //八进制
+        int i2 = 0x10;    //十六进制
+
+    }
+}
+```
+
+2. 转义字符
++ \t：水平制表符
++ \n：换行符
++ \r：回车符
++ \b：规格符
++ \f：换页符
++ \\：反斜杠字符
++ \''：单引号字符
++ \"：双引号字符
++ \u：表示一个Unicode字符
++ \ddd：表示一个八进制字符
+
+### 类型转换
+不同类型的数据先转换为同一类型，然后进行运算
+
+低------------------------------------------------->高
+
+byte, short, char-->int-->long-->float-->double
+
+#### 强制类型转换
+数据类型 变量名1 =（变量名2）变量；  高-->低
+
+```java
+public class Demo{
+    public static void main(String[] args){
+        int i = 128;
+        byte b = (byte)i;
+        System.out.println(i);   //内存溢出
+        System.out.println(b);
+    }
+}
+```
+
+#### 自动类型转换
+数据类型 变量名 = 变量；   低-->高
+
+#### 注意
+1. 不能对布尔值进行类型转换
+2. 不能把对象类型转换为不相干的类型
+3. 在把高容量转换到低容量的时候，强制转换
+4. 转换的时候肯存在内存溢出，或者精度问题
+5. 操作数比较大的时候，注意溢出问题
+6. 数字之间可利用用下滑线分割   `int money = 10_0000_0000;`
+7.
+
+
+
+### 变量，常量，作用域
+#### 变量
+可以变化的量
+
+每个变量都必须事先声其类型
+
+变量是程序中最基本的存储单元，其要素包括变量名，变量类型和作用域
+
+`数据类型 变量名 = 值;`
+
+#####  注意事项
++ 每个变量都有类型，类型可以是基本类型，也可以是引用类型
++ 变量名必须是合法的标识符
++ 变量声明是一条完整的语句，因此每一个声明都必须以分号结束
+
+#### 作用域
+类变量
+
+实例变量
+
+局部变量
+
+```java
+public class Damo {
+    //属性 方法
+
+    // 类变量
+    static double salary = 2500;
+    
+    
+    //实例变量，从属于对象 
+    //如果不进行初始化，这个类型的默认值0  0.0 
+    //布尔值：默认值为false
+    //除了基本类型，其余的默认值都是null
+    String name;
+    int age;
+
+    
+    //main方法
+    public static void main(String[] args) {
+        //局部变量 必须声明和初始化值
+        int i = 10;
+        System.out.println(i);
+
+        Damo damo = new Damo();
+        damo.age;
+    }
+
+    //其他方法
+    
+}
+
+```
+
+#### 常量
+常量可以理解为一种特殊的变量，他的值被设定后，在程序执行过程中不允许被改变
+
+```java
+final 变量名 = 值;
+final double PI = 3.14;
+```
+
+常量名一般用大写字符
+
+修饰符，不存在先后顺序
+
+
+
+#### 变量名的命名规范
++ 所有变量，方法，类名：见名知意
++ 类成员变量：首字母小写和驼峰原则：monthSalary
++ 局部变量：首字母小写和驼峰原则
++ 常量：大写字母和下划线：MAX_VALUE
++ 类名：首字母大写和驼峰原则：Man，GoodMan
++ 方法名：首字母小写和驼峰原则：ran(); ranRan();
+
+### 运算符
+#### 基本运算符
++ 算数运算符：+, -, *, /, %, ++, --
++ 赋值运算符：=
++ 关系运算符：>, <, >=, <=, ==, !=, instanceof
++ 逻辑运算符：&&, ||， ！
++ 位运算符： &(与), |(或), ^(异或), ~(非),>>, <<, >>>(了解！！！)
+
+在计算机运算时效率最高
+
+`2<<1`=2*2
+
+`2<<2`=2*2*2
+
+`2>>1`=2/2
+
+`2>>2`=2/2/2
+
++ 条件运算符：？ ：
++ 扩展赋值运算符：+=， -=，*=， /=
+
+a+=b   //a = a+b
+
+a-=b   //a = a-b
+
+#### 一元运算符
+++   --
+
+++a：先赋值，再自增
+
+a++：先自增，再赋值
+
+
+
+#### Math工具类
+数据类型 变量名 = Math.数学函数();
+
+
+
+
+
+#### 字符串连接符
+```java
+System.out.println(""+a+b)
+>> ab 字符串
+System.out.println(a+b+"")
+>> a+b 运算后的值
+```
+
+#### 三元运算符   ？ ：
+x ? y : z
+
+如果x=true 返回 y
+
+如果x=false 返回 z
+
+`score < 60 ? "不及格" : "及格"`
+
+
+
+#### 优先级
+最高优先级(括号)
+
+后缀运算符 ++ --
+
+一元运算符 +(正号) -(负号) !(逻辑非) ~(位取反) ++(前缀递增) --(前缀递减)
+
+乘除运算符 * / %
+
+加减运算符 + -
+
+关系运算符 > >= < <= instanceof
+
+相等运算符 == !=
+
+位运算符 & | ^
+
+逻辑运算符 && ||
+
+三元运算符 ？ ：
+
+赋值运算符 = += -= .......
+
+最低级运算符 逗号运算符，
+
+#### 
+### 包机制  文件夹  package
+一般利用公司域名倒置作为包名  com.baidu.www
+
+package pkg1[.pkg2[.pkg3...]]
+
+为了能够使用某一个包的成员，需要再Java程序中明确导入该包，使用"import"语句了完成此功能
+
+import pkg1[.pkg2[.pkg3...].classname|*]
+
+通配符  导入所有文件.*
+
+### JavaDoc
+```java
+/**
+ *参数信息
+ *类注释
+ *@author 作者名 
+ *@version 版本号
+ *@since 指明需要最早使用的jdk版本号
+ *
+ *方法注释
+ *@param 参数名
+ *@return 返回值情况
+ *@thrwos 异常抛出情况
+ */
+```
+
+####  cmd命令
+javadoc -encoding UTF-8 -charser UTF-8 文件名.java
+
+## 流程控制
+凡是属于IO(输入输出)流的类如果不关闭会一直占用资源   **对象名.close();**
+
+### 用户交互Scanner
+`**java.util.Scanner**`**获取用户输入**
+
+**基本语法**`**Scanner s = new Scanner(System.in)**`** **
+
+**通过Scanner类的next()与next()方法获取输入的字符串，在读取前一般要使用hasNext()与hasNextLine()判断是否还有输入的数据**
+
++ next()以空格或回车作为结束符 即不能得到带有空格的字符串
++ nextLine()以回车符作为结束符 即获得回车符以前的所有字符
+
+```java
+public class damo {
+    public static void main(String[] args) {
+        Scanner scnner = new Scnner(System.in);
+        if(scnner.hasNext()) {
+            String str = scnner.next();
+            System.out.println("输出的内容为："+str);
+        }
+        if(scnner.hasNextLint()) {
+            String str = scnner.nextLine();
+            System.out.println("输出的内容为："+str);
+        }
+        scnner.close();
+    }
+}
+```
+
++ `scanner.nextInt()` 接收整数数据
++ `scanner.hasNextInt()` 是否是Int类型的数据
++ `scanner.nextFloat()` 接收小数数据
++ `equals()`判断字符串是否相等
+
+### 顺序结构
+Java程序是从上往下依次执行，是任意一个算法程序第基本结构
+
+### 选择结构
+#### if单选择结构
+```java
+if(布尔表达式) {
+    //如果布尔表达式为true将执行的语句
+}
+```
+
+#### if双选择结构
+```java
+if(布尔表达式) {
+    //如果布尔表达式的值true将执行的语句
+}else{
+    //如果布尔表达式的值为false将执行的代码
+}
+```
+
+#### if多选择结构
+```java
+if(布尔表达式1) {
+    //如果布尔表达式1的值true将执行的语句
+}else if(布尔表达式2){
+    //如果布尔表达式2的值为true将执行的代码
+}else if(布尔表达式3) {
+    //如果布尔表达式2的值为true将执行的代码
+}else {
+    //如果以上布尔表达式的值都为false将执行的代码
+}
+```
+
+#### 嵌套if结构
+```java
+if(布尔表达式1) {
+    //如果布尔表达式1的值true将执行的语句
+    if(布尔表达式2) {
+        //如果布尔表达式2的值true将执行的语句
+    }
+}
+```
+
+#### switch多选择结构
+switch 语句中的变量（value）类型可以是
+
++ byte  short Int char 或是 string
++ case 标签必须是字符串常量或字面量
++ 如果case后面不写break; 将会会输出匹配case和后面的全部内容
+
+```java
+switch(expression) {
+    case value:
+        //语句
+        break;  //可选
+    case vlue:
+        //语句
+        break; //可选
+    // 可以有任意数量的case语句
+    default :  //可选
+        //语句
+}
+```
+
+
+
+### 循环结构
+#### while循环
+```java
+while (布尔表达式){
+    // 循环内容
+}
+```
+
++ 只要表达式为true，循环就会一直执行下去
++ 大多数都要对循环结构进行停止操作的
++ 避免死循环   `while(true){}`
+
+#### do……while
+```java
+do {
+    //代码语句
+}while(布尔表达式);
+```
+
++ 先执行后判断
++ 总能保证循环体被执行一次
+
+#### for循环
+```java
+for(初始化; 布尔表达式; 更新){
+    //代码语句
+}
+```
+
++ for循环语句是支持迭代的一种通用结构，是最高效，最灵活的循环结构
+
+```java
+for(int i = 1; i <= 9; i++){
+    for(int j = 1; j <= i; j++){
+        System.out.print(i+"*"+j+"="+(i*j)+"\t");
+    }
+    System.out.println();
+}
+```
+
+#### 增强for循环
+```java
+for(声明语句: 表达式){
+    //代码句子
+}
+```
+
++ 声明语句：声明心得局部变量，该变量的类型必须和数组元素的类型匹配，其作用域限定在循环语句块，其值与此时数组元素的值相等
++ 表达式：表达式是要访问的数组名，或是返回值为数组的方法
+
+#### break continue
++ break：在任何循环语句的主体部分，均可用break控制循环的流程，break用于强行退出循环，不执行循环中剩余的语句（break语句也可在switch语句中使用）
++ continue：语句在循环语句体中，用于终止某次循环过程，即跳出循环体中尚未执行的语句，接着进行下一次是否执行循环的判定
++ goto关键字：
+
+## Java方法
+### 什么是方法
+方法是一个语句的集合
+
++ 方法是解决一类问题的步骤的有序组合
++ 方法包含于类 或对象中
++ 方法在程序中被创建，在其他地方被引用
++ 原子性：一个方法只完成1个功能，这样利于后期的扩展
+
+### 方法的定义及调用
+#### 方法的定义
+```java
+修饰符 返回值类型 方法名(参数类型 参数名){
+    方法体
+    return 返回值;
+}
+```
+
+#### 方法的调用
+`对象名.方法名(实例参数);`
+
+当方法返回一个值的时候，方法调用通常被当做一个值，
+
+`int larger = max(30, 40)`
+
+如果方法返回值是void，方法调用一定是一条语句
+
+`System.out.println("");`
+
+### 方法的重载
++ 在一个类中，有相同的函数名称，但形参不同的函数
++ 方法重载的规则
+    - 方法名称必须相同
+    - 参数列表必须不同（个数，参数类型，排列顺序 ）
+    - 方法的返回值类型可以相同也可不同
+    - 仅仅返回类型不同不注意称为方法的重载
+
+```java
+public  class Damo {
+    public static void main(String[] args){
+        int max = max(10, 20);
+    }
+
+    public static int max(int a, int b){......}
+
+    public static double max(double a, double b){......}
+}
+```
+
++ 方法名称相同时，编译器会根据调用方法的参数个数，参数类型等去逐个匹配，以选择对应的方法，如果匹配失败，则编译过程会报错
+
+### 命令行传参
+<img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1743924109005-9e929619-b460-460e-b745-2520502de860.png" width="887.2" title="" crop="0,0,1,1" id="u753ee053" class="ne-image">
+
+### 可变参数
++ 在方法声明中，在指定参数类型后加一个省略号(...)
++ 一个方法中只能指定一个可变参数，它必须是方法的最后一个参数，任何普通的参数必须在它之前声明
+
+```java
+public class Demo(){
+    public static void main(String[] args){
+        Demo demo = new Demo();
+        demo.test(1)
+    }
+
+    public void test(int... i){
+        System.out.println(i);
+    }
+}
+```
+
+### 递归
++ 递归头：什么时候不调用自身方法，如果没有递归头，将陷入死循环
++ 递归体：什么时候徐涛调用自身方法
+
+```java
+public static int f(ing n){
+    if(n == 1){
+        return 1;
+    }else{
+        return n*f(n-1);
+    }
+}
+```
+
+## 数组
+### 数组概述
++ 数组是相同类型数据的有序集合
++ 数组描述是相同类型的若干个数据，按照一定的的先后次序排列组合而成的
++ 其中，每一个数据操作一个数组元素，每个数组元素可以通过一个下标来访问它们
++ 数组的四个基本特点
+    - 其长度是固定的
+    - 元素类型必须是相同类型
+    - 数组的元素类型可以是任何数据类型，包括基本类型黑引用类型
+    - 数组对象本身是在堆中的
+
+### 数组的声明和创建
++ 首先必须声明数组变量，才能在程序中使用数组
+
+```java
+dataType[] arrayRefVar;   //首选方法
+
+dataType arrayRefVar[];  //效果相同，但不是首选方法
+
+```
+
++ **Java语言使用new操作符来创建数组**
+
+```java
+dataType[] arrayRefVar = new dataType[arraySize]
+```
+
++ 数组的元素是通过索引访问的，数组索引从0开始
++ 获取数组长度 `arrays.length`
+
+### 内存分析
++ 声明数组：获取一个栈
++ 创建数组：在堆中创建一个跟数组名一样的容量一样的区域
++ 给数组赋值：在每个小的区域给定一个值
++ 下标越界：获取数组值时，下标不能超过数组的容量大小
++ ArrayIndexOutOfBoundsExceptioin：数组下标越界异常
+
+### 数组的三种初始化
+静态初始化：
+
+```java
+int[] a = {1, 2, 3}
+Man[] man = {new Man(1, 1), new Man(2, 2)}
+```
+
+动态初始化
+
+```java
+int[] a = new int[2];
+a[0] = 1;
+a[1] = 2;
+```
+
+数组的默认初始化
+
+数组是引用类型，它的元素相当于类的实例变量，因此数组一经分配空间，每个元素也被按照实例辩相同的方式被隐式初始化
+
+### 数组的使用
+#### for-each循环
+```java
+public class ArrayDamo {
+    public static void main(String[] args) {
+        int[] arrays = {1, 2, 3, 4};
+
+        for (int array : arrays){
+            System.out.println(array);
+        }
+    }   
+}
+```
+
+#### 数组作方法入参
+```java
+public class ArrayDamo {
+    public static void main(String[] args) {
+        int[] arrays = {1, 2, 3, 4};
+        printArray(arrays);
+    }  
+
+    public static void printArray(int[] arrays){
+        for(int array : arrays){
+            System.out.println(array);
+        }
+    }
+}
+```
+
+#### 数组作为返回值
+```java
+public class ArrayDamo {
+    public static void main(String[] args) {
+        int[] arrays = {1, 2, 3, 4};
+        int[] reverses = reverse(arrays);
+        printArray(reveres);
+    }  
+    public static int[] revers(int[] arrays){
+        int[] reslts = new arrays[arrays.length]
+        // 反转数组
+        for (int i = 0, int j = arrays.length - 1; i < arrays.length; i++, j--){
+            reslts[j] = arrays[i];
+        }
+        return revers;
+    }
+}
+```
+
+### 多维数组
+多维数组可以看作是数组的数组
+
+二维数组
+
+`int a[][] = new arr[2][4];`
+
+以上数组可以看作是两行四列的数组
+
+二维数组可以根据索引遍历
+
+### Array 类
+API：`java.util.Array;`
+
+使用 Array.方法名();
+
+
+
+### 冒泡排序
+两层循环，外层冒泡轮数，里层依次比较
+
+```java
+int[] array = {5,4,3,2,1};
+int tmp = 0;
+for (int i = 0; i < array.length-1; i++){
+    for (j = 0; j < array.length-i; j++ ){
+        if{array[j+1]>arraj[j]}
+            tmp = array[j];
+            array[j] = array[j + 1];
+            array[j + 1] = tmp;
+    }
+}
+```
+
+### 稀疏数组
+#### 介绍
+当一个数组中大部分元素0，或者为同一值的数值时，可以使用稀疏数组来保存该数组
+
+稀疏数组的处理方式是 ：
+
++ 记录数组一共几行几列，有多少个不同值
++ 把具有不同指的元素和行列及记录在一个小规模的数组中，从而缩小程序的规模
+
+| 行 | 列 | 值 |
+| --- | --- | --- |
+| 行数 | 列数 | 数据个数 |
+| 数据1行坐标 | 数据1列坐标 | 数据1 |
+| 数据2行坐标 | 数据2列坐标 | 数据2 |
+
+
+## 面向对象编程（Object-Orientend Programming, OOP）
+### 初识面向对象
++ 面向对象编程的本质是：以类的方式组织代码，以对象的组织（封装）数据
++ 抽象
++ 三大特性 封装 继承 多态
++ 从认识论角度考虑是先有对象后有类，对象，具体的事物，类，是抽象的，是对对象的抽象
++ 从代码运行角度考虑是先有类后有对象，类是对象的模版
+
+
+
+### 类与对象的创建
+#### 类与对象的关系
++ 类是一种抽象的数据类型，它是对某一对事物整体描述/定义，但并不是代表某一个具体的事物
++ 对象是抽象概念的具体实例
+
+创建与初始化对象
+
++ 使用new关键字创建对象
++ 使用new关键字创建对象的时候，除了 分配内存空间之外，还会给创建好的对象进行默认的初始化，及对类中构造器的调用
++ 类中的构造器也称为构造方法，是在进行创建对象的时候必须调用的，并且构造器有以下两个特点：
+    - 必须和类的名字相同
+    - 必须没有返回类型，也不能写void
++ 构造器必须要掌握
+    - 使用new关键字，本质是调用构造器
+    - 用来初始化值
+    - 有参构造：一旦定义了有参构造，无参构造必须显示定义
+
+#### 构造器
++ 和类名相同
++ 没有返回值
+
+作用
+
++ new 本质在调用构造方法
++ 初识化对象的值
+
+注意点
+
++ 定义有参构造执之前，如果想使用无参构造，显示地定义一个无参构造
+
+ALT + INSTRL: 自动生成构造器
+
+### 封装
++ 高内聚，低耦合
+    - 高内聚：就是类的内部数据操作细节自己完成，不允许外部干涉
+    - 低耦合：仅暴露少量的方法给外部使用
++ 数据的隐藏：通常，应禁止直接访问一个对象中数据的实际表示，而应通过操作接口来访问
++ **属性私有， get/set**
+    - get：获得这个数据
+    - set：给这个数据设置值
+
+```java
+// 属性私有
+private String name;
+private int id;
+private char sex;
+```
+
++ 意义
+    - 提高程序的安全性，保护数据
+    - 隐藏代码的实现细节
+    - 统一接口
+    - 增加了系统的可维护性
+
+### 继承
+#### 继承基础
++ extends的意思是"扩展"，子类是父类的扩展
++ Java中类只有单继承，没有多继承
++ 继承是类和类的一种关系，类和类的关系还有依赖，组合，聚合等
++ 继承关系的两个类，一个为子类（派生类），一个为父类（基类），子类继承父类，使用关键字extends表示
++ 子类和父类之间，从意义上讲应该具有"is a" 的关系
++ 子类继承了父类，就会拥有父类的所有public方法
++ 在java中，所有的类都直接或间接继承Object类
+
+#### super：调用父类方法
++ super调用父类的构造方法，必须在构造方法的第一个
++ super 必须只能出现在子类的方法或者构造方法中
++ super和this不能同时调用
++ VS this
+    - 代表的对象不同
+        * this：本身调用者这个对象
+        * super：代表父类对象的应用
+    - 前提
+        * this：没有继承也可以使用
+        * super：只能在继承条件下才可以使用
+    - 构造方法
+        * this();   本类的构造
+        * super(); 父类的构造
+
+
+
+#### 方法重写：需要有继承关系，子类重写父类的方法
++ 方法名必须相同
++ 参数列表必须相同
++ 修饰符：范围可以扩大：  public-->Protected-->private
++ 抛出异常：范围，可以被缩小，但不能被扩大
++ 子类的方法和父类必须一致：方法体不同
++ 快捷键：Alt + Insert ：override；
+
+#### 不能重写的方法
++ static 方法，属于类，他不属于实例
++ final 常量
++ private 方法：私有方法
+
+### 多态
++ 多态是方法的多态，属性没有多态
++ 父类和子类 ，有联系 类型转换异常：ClassCastException!
++ 存在条件，继承关系，方法需要重写，父类引用只想子类对象！   Father f1 = new Son()
++ instanceof    (X instanceof Y)   判断X和Y是否存在父子关系
++ 类型转换
+    - 父类引用指向子类的对象
+    - 把子类转换为父类，向上转向
+    - 把父类转换为子类，向下转向，强制转换
+    - 方便方法的调用，减少重复的代码
+
+### static ：静态
++ 定义静态变量： private static int age；
++ 定义静态方法：public static viod go(){}
++ 匿名代码块：{ //代码块 }
++ 静态代码块： static  { // 代码块 }  //只执行一次
+
+### 抽象类 abstract
+```java
+// 定义抽象类
+public abstract class Action {
+    // 定义抽象方法
+    public abstract void toSomethng();
+}
+
+public class a extend Action{
+    @Override
+    public void toSomething{
+        
+    }
+}
+```
+
++ abstract 修饰符可以用来修饰方法也可以用来修饰类，抽象方法和抽象类
++ 抽象类中可以没有抽象方法，但抽象方法必须是在抽象类中
++ 抽象类，不能用new关键字来创造对象，他是用来让子类继承的
++ 抽象方法只有方法的声明，没有方法的实现
++ 子类继承抽象了，必须实现抽象类中的抽象方法，否则该子类也要声明为抽象类
+
+
+
+### 接口 interface
++ 作用：
+    - 约束
+    - 定义一些方法，让不同的人实现
+    - public abstract
+    - public static final
+    - 接口不能被实例化，接口没有构造方法
+    - implements可以实现多个接口
+    - 必须要重写接口中的方法
+
+### 内部类
+```java
+import Outher；
+//测试类
+public class Applicant{
+    public static void main(String[] args){
+        Outher outer = new Outer();
+        // 通过这个外部类来实例化内部类
+        Outer.Inner inner = outer.new Inner();
+        inner.in();
+        inner.getId();
+    }
+}
+
+// 创建外部类
+public class Outer{
+    private int id=10;
+    public void out(){
+        System.out.println("这是外部类的方法");
+    }
+
+    public class Inner {
+        public void in(){
+            System.out.println("这是一个内部类的方法");
+        }
+        
+        // 获得外部类的私有属性
+        public void getId(){
+            System.out.println(id);
+        }
+    }
+
+    
+}
+
+
+```
+
+## 异常机制 exception
+### 什么是异常
++ 异常是指程序运行中出现的不期而至的各种状况，如：文件找不到，网络连接失败，非法参数等
++ 异常发生在程序运行期间，它影响了正常的程序执行流程
++ 异常的简单分类
+    - 检查性异常：如用户错误或问题引起的异常，这是程序无法预见的
+    - 运行时异常：可能被程序员避免的异常
+    - 错误：脱离程序员控制的问题，如栈溢出
+
+### Error Exception
+![画板](https://cdn.nlark.com/yuque/0/2025/jpeg/54050922/1744009511106-ad39608f-dc1f-4e05-a67f-909ea0f62765.jpeg)
+
+#### Error
++ 由Java虚拟机生成并抛出，大多数错误与代码编写者所执行的操作无关
++ Java虚拟机运行错误（Virtual MachineError），当jvm不在由继续执行操作所需的内存资源时，将出现OutOfMemoryError。
++ 还有发生在虚拟机试图执行应用时，如类定义错误（NoClassDefFoundError），连接错误（LinkageError）。这些错误是不可查的，因为他们在应用程序的控制和处理能力之外，而且绝大多数程序运行时不允许出现的状况
+
+
+
+
+
+#### Exception
++ 在Exception分支中有一个重要的子类RuntimeException（运行异常）
+    - ArrayIndexOutOfBoundsException（数组下标越界）
+    - NullPointerException（空指针异常）
+    - ArithmeticException（算数异常）
+    - MissingResourceException（丢失资源）
+    - ClassNotFoundException（找不到类）等异常这些异常时不检查异常，程序中可以选择捕获处理，也可以不处理
++ 这些异常一般是由程序逻辑错误引起的，程序应该从逻辑角度尽可能避免这类异常的发生
++ Error和Exception的区别：Error通常是灾难性的致命的错误，是程序无法控制和处理的，当出现这些异常时，Java虚拟机（JVM）一般会选择终止线程；Exception通常情况下是可以被程序处理的，并且在程序中应该尽可能得去处理这些异常
+
+### 异常处理机制
+抛出异常
+
+捕获异常
+
+异常处理五个关键字
+
++ try-catch：用于捕获异常
++ finally：用于处理异常的善后工作
++ throw：在方法中抛出异常
++ throws：在方法上抛出异常
+
+### 自定义异常
+自定义异常类的步骤
+
++ 创建自定义异常类
++ 在方法中通过throw关键字抛出异常对象
++ 如果在当前抛出异常的方法中处理异常，可以使用try-catch语句捕获并处理；否则在方法的声明处通过throws关键字指明要抛出给方法调用者的异常，继续镜像下一步操作
++ 在出现异常方法的调用者中捕获并处理异常
+', 0, NOW());
+
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+VALUES (5, 1001, '集合框架', '# 集合
++ 概念：对象的容器，实现了对对象常用的操作，类似数组功能
++ 集合和数组的区别
+    - 数组长度固定，集合长度不固定
+    - 数组可以存储基本类型和引用类型，集合只能存储引用类型
++ 位置：java.util.*;
 + <img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1744806274150-7aba2622-05b5-45e1-86b0-16f8a3b98bdc.png" width="381.6" title="" crop="0,0,1,1" id="udf93c25d" class="ne-image">
 
-# Collection浣撶郴闆嗗悎
-## Collection鐖舵帴鍙?
-### 鍩烘湰淇℃伅鍜屾柟娉?
-+ 鐗圭偣锛氫唬琛ㄤ竴缁勪换鎰忕被鍨嬬殑瀵硅薄锛屾棤搴忥紝鏃犱笅鏍囷紝涓嶈兘閲嶅銆?
-+ 鏂规硶
-    - boolean add(Object obj) // 娣诲姞涓€涓璞?
-    - boolean addAll(Collection c) // 灏嗕竴涓泦鍚堜腑鐨勬墍鏈夊璞℃坊鍔犲埌姝ら泦鍚堜腑
-    - void clear() // 娓呯┖姝ら泦鍚堜腑鐨勬墍鏈夊璞?
-    - boolean contains(Object o) // 妫€鏌ユ闆嗗悎涓槸鍚﹀寘鍚玱瀵硅薄
-    - bollean equals(Object o) // 姣旇緝鏄惁涓庢寚瀹氬璞＄浉绛?
-    - boolean remove(Object o) //鍦ㄦ闆嗗悎涓Щ闄瀵硅薄
-    - int size(锛?/杩斿洖闆嗗悎涓殑鍏冪礌涓暟
-    - Object[] toArray() // 灏嗘闆嗗悎杞崲鎴愭暟缁勩€?
-    - Iterator<E> iterator()  //杩斿洖鍦ㄦcollection鐨勫厓绱犱笂杩涜杩唬鐨勮凯浠ｅ櫒
+# Collection体系集合
+## Collection父接口
+### 基本信息和方法
++ 特点：代表一组任意类型的对象，无序，无下标，不能重复。
++ 方法
+    - boolean add(Object obj) // 添加一个对象
+    - boolean addAll(Collection c) // 将一个集合中的所有对象添加到此集合中
+    - void clear() // 清空此集合中的所有对象
+    - boolean contains(Object o) // 检查此集合中是否包含o对象
+    - bollean equals(Object o) // 比较是否与指定对象相等
+    - boolean remove(Object o) //在此集合中移除o对象
+    - int size(）//返回集合中的元素个数
+    - Object[] toArray() // 将此集合转换成数组。
+    - Iterator<E> iterator()  //返回在此collection的元素上进行迭代的迭代器
 
-### 瀹炵幇1
+### 实现1
 ```java
 package com.jie.collection;
 
@@ -5758,30 +5740,30 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-// Collection 浣跨敤
+// Collection 使用
 public class MyCollection {
     public static void main(String[] args) {
-        // 鍒涘缓闆嗗悎
+        // 创建集合
         Collection collection = new ArrayList();
 
-        // 娣诲姞鍏冪礌
-        collection.add("鑻规灉");
-        collection.add("瑗跨摐");
-        collection.add("姒磋幉");
+        // 添加元素
+        collection.add("苹果");
+        collection.add("西瓜");
+        collection.add("榴莲");
         System.out.println(collection.size());
         System.out.println(collection);
 
-        // 鍒犻櫎鏁版嵁
-//        collection.remove("姒磋幉");
+        // 删除数据
+//        collection.remove("榴莲");
 ////        collection.clear();
-//        System.out.println("鍒犻櫎涔嬪悗"+collection.size());
+//        System.out.println("删除之后"+collection.size());
 
-        // 閬嶅巻鍏冪礌
-        // 浣跨敤澧炲己for
+        // 遍历元素
+        // 使用增强for
         for (Object o : collection) {
             System.out.println(o);
         }
-        // 浣跨敤杩唬鍣紙涓撻棬鐢ㄦ潵閬嶅巻闆嗗悎鐨勬柟寮忥級
+        // 使用迭代器（专门用来遍历集合的方式）
         Iterator iterator = collection.iterator();
         while (iterator.hasNext()) {
             String s = (String) iterator.next();
@@ -5790,17 +5772,17 @@ public class MyCollection {
             iterator.remove();
         }
 
-        // 鍒ゆ柇
-        // 鍒ゆ柇鏄惁瀛樺湪鏌愪釜瀵硅薄
-        System.out.println(collection.contains("瑗跨摐"));
-        // 鍒ゆ柇鏄惁涓虹┖
+        // 判断
+        // 判断是否存在某个对象
+        System.out.println(collection.contains("西瓜"));
+        // 判断是否为空
         System.out.println(collection.isEmpty());
     }
 }
 
 ```
 
-### 瀹炵幇2
+### 实现2
 ```java
 package com.jie.collection;
 
@@ -5810,22 +5792,22 @@ import java.util.Iterator;
 
 public class MyCollection02 {
     public static void main(String[] args) {
-        // 鏂板缓Collection瀵硅薄
+        // 新建Collection对象
         Collection collection = new ArrayList();
-        Student s1 = new Student("寮犱笁", 18);
-        Student s2 = new Student("鏉庡洓",20);
-        Student s3 = new Student("鐜嬩簲",22);
-        // 娣诲姞鍏冪礌
+        Student s1 = new Student("张三", 18);
+        Student s2 = new Student("李四",20);
+        Student s3 = new Student("王五",22);
+        // 添加元素
         collection.add(s1);
         collection.add(s2);
         collection.add(s3);
-        System.out.println("鍏冪礌涓暟: " + collection.size());
+        System.out.println("元素个数: " + collection.size());
         System.out.println(collection.toString());
-        //鍒犻櫎
+        //删除
 //        collection.remove(s1);
-//        collection.clear(); // 鍙槸鍒犻櫎闆嗗悎涓殑鏁版嵁锛屼笉浼氬垹闄ゅ璞?
-//        System.out.println("鍒犻櫎涔嬪悗闀垮害"+ collection.size());
-        // 閬嶅巻
+//        collection.clear(); // 只是删除集合中的数据，不会删除对象
+//        System.out.println("删除之后长度"+ collection.size());
+        // 遍历
         Iterator iterator = collection.iterator();
         while (iterator.hasNext()) {
             System.out.println(iterator.next());
@@ -5835,7 +5817,7 @@ public class MyCollection02 {
             System.out.println(s);
         }
 
-        //鍒ゆ柇
+        //判断
         System.out.println(collection.contains(s1));
         System.out.println(collection.isEmpty());
     }
@@ -5843,37 +5825,37 @@ public class MyCollection02 {
 
 ```
 
-## 杩唬鍣?Iterator
-+ 涓撻棬鐢ㄦ潵閬嶅巻闆嗗悎鐨勪竴绉嶆柟寮?
-    - 鏈変竴涓寚閽堟寚鍚憂ext
-    - hasNext()锛氭湁涓嬩竴涓厓绱犲悧锛熷鏋滄湁鍒欒繑鍥瀟rue锛屽惁鍒欒繑鍥瀎alse
-    - hasPrevious()锛氫粠闆嗗悎灏鹃儴寮€濮嬪垽鏂槸鍚﹀瓨鍦?
-    - next() 锛氳幏鍙栦笅涓€涓厓绱?
-    - remove()锛氬垹闄ゅ厓绱狅紝鍦ㄨ凯浠ｈ繃绋嬩腑涓嶈兘浣跨敤collection鍒犻櫎鏂规硶
+## 迭代器 Iterator
++ 专门用来遍历集合的一种方式
+    - 有一个指针指向next
+    - hasNext()：有下一个元素吗？如果有则返回true，否则返回false
+    - hasPrevious()：从集合尾部开始判断是否存在
+    - next() ：获取下一个元素
+    - remove()：删除元素，在迭代过程中不能使用collection删除方法
 
 ```java
-// 浣跨敤杩唬鍣紙涓撻棬鐢ㄦ潵閬嶅巻闆嗗悎鐨勬柟寮忥級
+// 使用迭代器（专门用来遍历集合的方式）
 Iterator iterator = collection.iterator();
 while (iterator.hasNext()) {
 // while (listIterator.hasPrevious()) {
     String s = (String) iterator.next();
     System.out.println(iterator.next());
-    // collection.remove(s);  //鍦ㄨ凯浠ｈ繃绋嬩腑涓嶈兘浣跨敤collection鍒犻櫎鏂规硶
+    // collection.remove(s);  //在迭代过程中不能使用collection删除方法
     it.remove();
 }
 ```
 
-## 鏋氫妇鍣?<font style="color:rgb(0, 0, 0);background-color:rgb(238, 238, 238);">IEnumerator</font>
-### 浠€涔堟槸鏋氫妇鍣?
-瀹炵幇IEnumerator鎺ュ彛鐨勭被灏辨槸鏋氫妇鍣ㄣ€?
+## 枚举器 <font style="color:rgb(0, 0, 0);background-color:rgb(238, 238, 238);">IEnumerator</font>
+### 什么是枚举器
+实现IEnumerator接口的类就是枚举器。
 
-### 鏋氫妇鍣ㄤ綔鐢?
-1銆佹灇涓惧櫒灏卞儚鏄簭鍒椾腑鐨勨€滄父鏍団€濇垨鈥滀功绛锯€濄€傚彲浠ユ湁澶氫釜鈥滀功绛锯€濓紝绉诲姩鍏朵腑浠讳綍涓€涓兘鍙互鏋氫妇闆嗗悎锛屼笌鍏朵粬鏋氫妇鍣ㄤ簰涓嶅奖鍝嶃€傜敤鏉ラ亶鍘嗘暟鎹粨鏋勶紙琛ㄩ摼銆佹暟缁勩€侀泦鍚堢被鎴愬憳绛夛級銆?
+### 枚举器作用
+1、枚举器就像是序列中的“游标”或“书签”。可以有多个“书签”，移动其中任何一个都可以枚举集合，与其他枚举器互不影响。用来遍历数据结构（表链、数组、集合类成员等）。
 
-2銆佷互涓嬫渚嬫暟缁勪綔涓哄唴閮ㄦ暟鎹粨鏋勶紝鍚庢湡涔熷彲浠ユ崲鎴愭暟缁勶紝閾捐〃锛屾爲锛屽浘绛夌瓑锛岃€屼娇鐢ㄨ€呭嵈涓嶇敤鍏冲績杩欎簺鍐呴儴鏁版嵁琛ㄧず锛岃繖灏辨槸杩唬鍣ㄧ殑濡欏鎵€鍦ㄣ€?
+2、以下案例数组作为内部数据结构，后期也可以换成数组，链表，树，图等等，而使用者却不用关心这些内部数据表示，这就是迭代器的妙处所在。
 
 ```java
-// 閬嶅巻 浣跨敤鏋氫妇鍣?
+// 遍历 使用枚举器
 Enumeration e = v.elements();
 while (e.hasMoreElements()) {
     String s = (String) e.nextElement();
@@ -5881,19 +5863,19 @@ while (e.hasMoreElements()) {
 }
 ```
 
-## 姣旇緝鍣?comparator
-+ 瀹炵幇瀹氬埗姣旇緝
+## 比较器 comparator
++ 实现定制比较
 
-## LIst瀛愭帴鍙?
-### 鍩烘湰淇℃伅
-+ 鐗圭偣锛氭湁搴忥紝鏈変笅鏍囷紝鍏冪礌鍙互閲嶅
-+ 鏂规硶
-    - void add(int index, Object o)  // 鍦╥ndex浣嶇疆鎻掑叆瀵硅薄o
-    - boolean addAll(int index锛孫bject o)  //灏嗕竴涓泦鍚堜腑鐨勪竴涓厓绱犳坊鍔犲埌姝ら泦鍚堜腑鐨刬ndex浣嶇疆
-    - Object get(int index) //杩斿洖闆嗗悎涓寚瀹氫綅缃殑鍏冪礌
-    - List subList(int formIndex, int toIndex)  //鍙戦偅浼歠ormIndex鍜宼oIndex涔嬮棿闆嗗悎鐨勫厓绱?
+## LIst子接口
+### 基本信息
++ 特点：有序，有下标，元素可以重复
++ 方法
+    - void add(int index, Object o)  // 在index位置插入对象o
+    - boolean addAll(int index，Object o)  //将一个集合中的一个元素添加到此集合中的index位置
+    - Object get(int index) //返回集合中指定位置的元素
+    - List subList(int formIndex, int toIndex)  //发那会formIndex和toIndex之间集合的元素
 
-### 鎺ュ彛瀹炵幇
+### 接口实现
 ```java
 package com.jie.collection;
 
@@ -5902,25 +5884,25 @@ import java.util.List;
 
 public class MyList {
     public static void main(String[] args) {
-        // 鍒涘缓闆嗗悎
+        // 创建集合
         List list = new ArrayList();
-        // 娣诲姞鏁版嵁
+        // 添加数据
         list.add(10);
         list.add(20);
         list.add(30);
         list.add(40);
         list.add(50);
-        System.out.println("鍏冪礌鏁版嵁"+list.size());
+        System.out.println("元素数据"+list.size());
         System.out.println(list.toString());
         
-        // 鍒犻櫎鎿嶄綔 鏍规嵁index锛堜笅鏍?绱㈠紩锛夊垹闄?
+        // 删除操作 根据index（下标/索引）删除
         list.remove(0);
-        // 杞崲涓篛bject绫诲瀷鍒犻櫎
+        // 转换为Object类型删除
         list.remove((Object) 20);
         System.out.println(list.size());
         System.out.println(list.toString());
         
-        // subList 鏂规硶 杩斿洖瀛愰泦鍚? 鍚ご涓嶅惈灏?
+        // subList 方法 返回子集合  含头不含尾
         list.subList(0, 2);
     }
 }
@@ -5928,18 +5910,18 @@ public class MyList {
 ```
 
 ## ArrayList
-### 鏁扮粍闆嗗悎
-+ 鏁扮粍缁撴瀯瀹炵幇锛屾煡璇㈠揩锛屽垹鍑忔參
-+ 杩愯鏁堢巼蹇紝绾跨▼涓嶅畨鍏?
-+ 瀛樺偍缁撴瀯锛氭暟缁?
+### 数组集合
++ 数组结构实现，查询快，删减慢
++ 运行效率快，线程不安全
++ 存储结构：数组
 
-### ArrayList浣跨敤
+### ArrayList使用
 ## Vector
-### 鏁扮粍缁撴瀯
-+ 鏁扮粍缁撴瀯瀹炵幇锛屾煡璇㈠揩锛屽垹鍑忔參
-+ 杩愯鏁堢巼鎱紝绾跨▼瀹夊叏
+### 数组结构
++ 数组结构实现，查询快，删减慢
++ 运行效率慢，线程安全
 
-### 瀹炵幇鏂规硶
+### 实现方法
 ```java
 package com.jie.collection;
 
@@ -5954,16 +5936,16 @@ public class MyVector {
         v.add("java");
         System.out.println(v.size());
         
-        // 閬嶅巻 浣跨敤鏋氫妇鍣?
+        // 遍历 使用枚举器
         Enumeration e = v.elements();
         while (e.hasMoreElements()) {
             String s = (String) e.nextElement();
             System.out.println(e.nextElement());
         }
         
-        // 鑾峰彇绗竴鍏冪礌
+        // 获取第一元素
         v.firstElement();
-        // 鑾峰彇鏈€鍚庝竴涓厓绱?
+        // 获取最后一个元素
         v.lastElement();
         System.out.println(v.firstElement());
         System.out.println(v.lastElement());
@@ -5973,11 +5955,11 @@ public class MyVector {
 ```
 
 ## LinkedList
-### 閾捐〃缁撴瀯瀹炵幇
-+ 澧炲垹蹇紝鏌ヨ鎱?
+### 链表结构实现
++ 增删快，查询慢
 +
 
-### 鍩烘湰瀹炵幇
+### 基本实现
 ```java
 package com.jie.collection;
 
@@ -5987,84 +5969,84 @@ import java.util.ListIterator;
 
 public class MyLinkedList {
     public static void main(String[] args) {
-        // 鍒涘缓闆嗗悎
+        // 创建集合
         LinkedList list = new LinkedList();
-        Student s1 = new Student("閮瘜鍩?, 20);
-        Student s2 = new Student("鍒樺痉鍗?, 20);
-        Student s3 = new Student("榛庢槑", 20);
-        // 娣诲姞鏁版嵁
+        Student s1 = new Student("郭富城", 20);
+        Student s2 = new Student("刘德华", 20);
+        Student s3 = new Student("黎明", 20);
+        // 添加数据
         list.add(s1);
         list.add(s2);
         list.add(s3);
         System.out.println(list.size());
 
-//        // 鍒犻櫎
+//        // 删除
 //        list.remove(s2);
 //        list.clear();
 //        System.out.println(list.size());
 
-        // 閬嶅巻
-        // for閬嶅巻
+        // 遍历
+        // for遍历
         for (int i = 0; i < list.size(); i++) {
             System.out.println(list.get(i));
         }
-        // 澧炲己for
+        // 增强for
         for ( Object o : list ) {
             Student s = (Student) o;
             System.out.println(o);
         }
-        // 杩唬鍣?Iterator
+        // 迭代器 Iterator
         Iterator iterator = list.iterator();
         while (iterator.hasNext()) {
             Student s = (Student) iterator.next();
             System.out.println(s);
         }
-        // List杩唬鍣?ListIterator
+        // List迭代器 ListIterator
         ListIterator listIterator = list.listIterator();
         while (listIterator.hasNext()) {
             Student s = (Student) listIterator.next();
             System.out.println(s);
         }
 
-        // 鍒ゆ柇鏄惁瀛樺湪锛屾槸鍚︿负绌?
+        // 判断是否存在，是否为空
         System.out.println(list.contains(s1));
         System.out.println(list.isEmpty());
 
-        // 鑾峰彇绱㈠紩
+        // 获取索引
         System.out.println(list.indexOf(s2));
     }
 }
 
 ```
 
-# 娉涘瀷
-## 绠€浠?
-+ 鏈川鏄弬鏁板寲绫诲瀷锛屾妸绫诲瀷浣滀负鍙傛暟浼犻€?
-+ 甯歌鐨勫舰寮忔湁娉涘瀷绫?锛屾硾鍨嬫帴鍙ｏ紝娉涘瀷鏂规硶
-+ 璇硶
-    - <T,.....> T绉颁负绫诲瀷鍗犱綅绗︼紝琛ㄧず寮曠敤鍨嬫暟鎹被鍨?
-+ 濂藉
-    - 鎻愰珮浠ｇ爜鐨勯噸鐢ㄦ€?
-    - 闃叉绫诲瀷杞崲寮傚父锛屾彁楂樹唬鐮佺殑瀹夊叏鎬?
+# 泛型
+## 简介
++ 本质是参数化类型，把类型作为参数传递
++ 常见的形式有泛型类 ，泛型接口，泛型方法
++ 语法
+    - <T,.....> T称为类型占位符，表示引用型数据类型
++ 好处
+    - 提高代码的重用性
+    - 防止类型转换异常，提高代码的安全性
 
-## 娉涘瀷绫?
-+ 璇硶锛氱被鍚?T>
-+ T 锛氱被鍨嬪崰浣嶇锛岃〃绀轰竴绉嶅紩鐢ㄧ被鍨嬶紝濡傛灉缂栧啓澶氫釜鐢ㄩ€楀彿闅斿紑
-+ 涓嶅悓娉涘瀷绫诲瀷瀵硅薄涔嬮棿涓嶈兘鐩镐簰璧嬪€?
+## 泛型类
++ 语法：类名<T>
++ T ：类型占位符，表示一种引用类型，如果编写多个用逗号隔开
++ 不同泛型类型对象之间不能相互赋值
 
 ```java
 package com.jie.generic;
-// 娉涘瀷绫?
+// 泛型类
 public class Damo01<T> {
-    // 浣跨敤娉涘瀷T 鍒涘缓鍙橀噺
+    // 使用泛型T 创建变量
     T t;
 
-    // 浣跨敤娉涘瀷浣滀负鏂规硶鐨勫弬鏁?
+    // 使用泛型作为方法的参数
     public void show(T t){
         System.out.println(t);
     }
 
-    // 浣跨敤娉涘瀷浣滀负鏂规硶鐨勮繑鍥炲€?
+    // 使用泛型作为方法的返回值
     public T getT(){
         return t;
     }
@@ -6084,16 +6066,16 @@ class Test {
 }
 ```
 
-## 娉涘瀷鎺ュ彛
-+ 璇硶 锛氭帴鍙ｅ悕<T>
-+ 涓嶈兘鍒涘缓娉涘瀷闈欐€佸父閲?
-+ 鍦ㄥ疄鐜版帴鍙ｆ椂鍙互鍏堢粰瀹氬弬鏁扮被鍨嬶紝涔熷彲浠ュ湪瀹炰緥鍖栫殑鏃跺€欑粰瀹氬弬鏁扮被鍨?
+## 泛型接口
++ 语法 ：接口名<T>
++ 不能创建泛型静态常量
++ 在实现接口时可以先给定参数类型，也可以在实例化的时候给定参数类型
 
 ```java
 package com.jie.generic;
 
 public interface Damo02<T>{
-    String name = "寮犱笁";
+    String name = "张三";
     T server(T t);
 }
 
@@ -6125,16 +6107,16 @@ class Test2<T> implements Damo02<T>{
 }
 ```
 
-## 娉涘瀷鏂规硶
-+ 璇硶 锛氭柟娉?, <T> 杩斿洖鍊肩被鍨?
-+ 鍙傛暟绫诲瀷鏍规嵁浼犲叆鍙傛暟鐨勭被鍨嬪喅瀹?
+## 泛型方法
++ 语法 ：方法 , <T> 返回值类型
++ 参数类型根据传入参数的类型决定
 
 ```java
 package com.jie.generic;
 
 public class Damo03 {
     public <T> T show(T t){
-        System.out.println("娉涘瀷鏂规硶"+t);
+        System.out.println("泛型方法"+t);
         return t;
     }
 }
@@ -6150,13 +6132,13 @@ class Test3{
 ```
 
 ## 
-# 娉涘瀷闆嗗悎
-## 鍩烘湰姒傚康
-+ 姒傚康 锛氬弬鏁板寲绫诲瀷锛岀被鍨嬪畨鍏ㄧ殑闆嗗悎锛屽己鍒堕泦鍚堝厓绱犵殑绫诲瀷蹇呴』涓€鑷?
-+ 鐗圭偣 锛?
-    - 缂栬瘧鏃跺嵆鍙鏌ワ紝鑰岄潪杩愯鏃舵姏鍑哄紓甯?
-    - 璁块棶鏃讹紝涓嶅繀绫诲瀷杞崲
-    - 涓嶅悓娉涘瀷涔嬮棿寮曠敤涓嶈兘鐩镐簰璧嬪€硷紝娉涘瀷涓嶅瓨鍦ㄥ鎬?
+# 泛型集合
+## 基本概念
++ 概念 ：参数化类型，类型安全的集合，强制集合元素的类型必须一致
++ 特点 ：
+    - 编译时即可检查，而非运行时抛出异常
+    - 访问时，不必类型转换
+    - 不同泛型之间引用不能相互赋值，泛型不存在多态
 
 ```java
 package com.jie.generic;
@@ -6177,9 +6159,9 @@ public class Demo04 {
         }
 
         ArrayList<Student> students = new ArrayList<>();
-        students.add(new Student("鍒樺痉鍗?, 20));
-        students.add(new Student("榛庢槑", 20));
-        students.add(new Student("閮瘜鍩?, 20));
+        students.add(new Student("刘德华", 20));
+        students.add(new Student("黎明", 20));
+        students.add(new Student("郭富城", 20));
 
         for (Student s : students) {
             System.out.println(s);
@@ -6189,12 +6171,12 @@ public class Demo04 {
 
 ```
 
-# set瀛愭帴鍙?
-## 鍩烘湰姒傚康
-+ 鐗圭偣 锛氭棤搴忥紝鏃犱笅鏍囷紝鍏冪礌涓嶅彲閲嶅
-+ 鏂规硶锛氬叏閮ㄧ户鎵胯嚜Collection涓殑鏂规硶
+# set子接口
+## 基本概念
++ 特点 ：无序，无下标，元素不可重复
++ 方法：全部继承自Collection中的方法
 
-## 鍩烘湰瀹炵幇
+## 基本实现
 ```java
 package com.jie.set;
 
@@ -6202,35 +6184,35 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-// 娴嬭瘯set鎺ュ彛鐨勪娇鐢?
+// 测试set接口的使用
 public class Damo01 {
     public static void main(String[] args) {
-        // 鍒涘缓闆嗗悎
+        // 创建集合
         Set<String> set = new HashSet<>();
 
-        // 娣诲姞鏁版嵁
-        set.add("鍗庝负");
+        // 添加数据
+        set.add("华为");
         set.add("1");
         set.add("2");
         System.out.println(set.size());
         System.out.println(set.toString());
 
-        // 鍒犻櫎鏁版嵁
+        // 删除数据
         set.remove("1");
         System.out.println(set.toString());
         
-        // 閬嶅巻
-        // 澧炲己for
+        // 遍历
+        // 增强for
         for (String s : set) {
             System.out.println(s);
         }
-        // 杩唬鍣?
+        // 迭代器
         Iterator<String> iterator = set.iterator();
         while (iterator.hasNext()) {
             System.out.println(iterator.next());
         }
         
-        // 鍒ゆ柇
+        // 判断
         System.out.println(set.contains("2"));
         System.out.println(set.isEmpty());
         
@@ -6239,13 +6221,13 @@ public class Damo01 {
 
 ```
 
-# HashSet绫?
-## 鍩烘湰姒傚康
-+ 鍩轰簬HashCode璁＄畻鍏冪礌瀛樻斁浣嶇疆
-+ 褰撳瓨鍏ユ暟鎹殑鍝堝笇鐮佺浉鍚屾椂锛屼細璋冪敤equals杩涜纭锛屽鏋滀负true锛屽垯鎷掔粷鍚庤€呭瓨鍏?
-+ 瀛樺偍缁撴瀯锛氬搱甯岃〃锛堟暟缁?閾捐〃+绾㈤粦鏍戯級
+# HashSet类
+## 基本概念
++ 基于HashCode计算元素存放位置
++ 当存入数据的哈希码相同时，会调用equals进行确认，如果为true，则拒绝后者存入
++ 存储结构：哈希表（数组+链表+红黑树）
 
-## 绠€鍗曞疄鐜?
+## 简单实现
 ```java
 package com.jie.set;
 
@@ -6253,35 +6235,35 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-// 娴嬭瘯set鎺ュ彛鐨勪娇鐢?
+// 测试set接口的使用
 public class Damo01 {
     public static void main(String[] args) {
-        // 鍒涘缓闆嗗悎
+        // 创建集合
         Set<String> set = new HashSet<>();
 
-        // 娣诲姞鏁版嵁
-        set.add("鍗庝负");
+        // 添加数据
+        set.add("华为");
         set.add("1");
         set.add("2");
         System.out.println(set.size());
         System.out.println(set.toString());
 
-        // 鍒犻櫎鏁版嵁
+        // 删除数据
         set.remove("1");
         System.out.println(set.toString());
         
-        // 閬嶅巻
-        // 澧炲己for
+        // 遍历
+        // 增强for
         for (String s : set) {
             System.out.println(s);
         }
-        // 杩唬鍣?
+        // 迭代器
         Iterator<String> iterator = set.iterator();
         while (iterator.hasNext()) {
             System.out.println(iterator.next());
         }
         
-        // 鍒ゆ柇
+        // 判断
         System.out.println(set.contains("2"));
         System.out.println(set.isEmpty());
         
@@ -6290,9 +6272,9 @@ public class Damo01 {
 
 ```
 
-## 瀛樺偍杩囩▼
-+ 鏍规嵁hashcode璁＄畻淇濆瓨鐨勪綅缃紝濡傛灉浣嶇疆涓虹┖锛屽垯鐩存帴淇濆瓨锛屽鏋?涓嶄负绌烘墽琛岀殑绗簩姝?
-+ 鍐嶆墽琛宔quals鏂规硶锛屽鏋渆quals鏂规硶涓簍rue锛屽垯璁や负鏄噸澶嶏紝鍚﹀垯鍒欏舰鎴愰摼琛?
+## 存储过程
++ 根据hashcode计算保存的位置，如果位置为空，则直接保存，如果 不为空执行的第二步
++ 再执行equals方法，如果equals方法为true，则认为是重复，否则则形成链表
 
 ```java
 package com.jie.set;
@@ -6302,9 +6284,9 @@ import java.util.Iterator;
 
 public class Demo03 {
     public static void main(String[] args) {
-        // 鍒涘缓闆嗗悎
+        // 创建集合
         HashSet<Person> set = new HashSet<>();
-        // 娣诲姞鏁版嵁
+        // 添加数据
         Person p1 = new Person("zhangsan", 18);
         Person p2 = new Person("lisi", 18);
         Person p3 = new Person("wangwu", 18);
@@ -6316,11 +6298,11 @@ public class Demo03 {
         System.out.println(set.size());
         System.out.println(set.toString());
 
-        // 鍒犻櫎
+        // 删除
         set.remove(new Person("lisi", 18););
         System.out.println(set.size());
 
-        // 閬嶅巻
+        // 遍历
         for (Person p : set) {
             System.out.println(p);
         }
@@ -6333,10 +6315,10 @@ public class Demo03 {
 }
 ```
 
-# TreeSet绫?
-+ 鍩轰簬鎺掑垪椤哄簭瀹炵幇鍏冪礌涓嶉噸澶?
-+ 瀹炵幇浜哠ortedSet鎺ュ彛锛屽闆嗗悎鍏冪礌鑷姩鎺掑簭
-+ 鍏冪礌瀵硅薄鐨勭被鍨嬪繀椤诲疄鐜癈omparable鎺ュ彛锛屾寚瀹氭帓搴忚鍒?
+# TreeSet类
++ 基于排列顺序实现元素不重复
++ 实现了SortedSet接口，对集合元素自动排序
++ 元素对象的类型必须实现Comparable接口，指定排序规则
 
 ```java
 package com.jie.set;
@@ -6347,22 +6329,22 @@ import java.util.TreeSet;
 //
 public class Damo05 {
     public static void main(String[] args) {
-        // 鍒涘缓闆嗗悎
+        // 创建集合
         TreeSet<Person> treeSet = new TreeSet<>();
         Person person = new Person("zhangsan", 18);
         Person person1 = new Person("lisi", 18);
         Person person2 = new Person("wangwu", 18);
-        // 娣诲姞鏁版嵁
+        // 添加数据
         treeSet.add(person);
         treeSet.add(person1);
         treeSet.add(person2);
-        System.out.println("鍏冪礌涓暟" + treeSet.size());
+        System.out.println("元素个数" + treeSet.size());
         System.out.println(treeSet.toString());
 
-        //鍒犻櫎鏁版嵁
+        //删除数据
         treeSet.remove(person);
 
-        // 閬嶅巻
+        // 遍历
         for (Person p : treeSet) {
             System.out.println(p);
         }
@@ -6378,20 +6360,20 @@ public class Damo05 {
 
 ```
 
-# Map闆嗗悎
-## 鐗圭偣
-+ 鐢ㄤ簬瀛樺偍浠绘剰閿€煎锛坘ey-value锛?
-+ 閿細鏃犲簭锛屾棤涓嬫爣锛屼笉鑳介噸澶?
-+ 鍊硷細鏃犲簭锛屾棤涓嬫爣锛屽厑璁搁噸澶?
+# Map集合
+## 特点
++ 用于存储任意键值对（key-value）
++ 键：无序，无下标，不能重复
++ 值：无序，无下标，允许重复
 
-## 甯哥敤鏂规硶
-+ V put(K key, V value)  //灏嗗璞″瓨鍏ュ埌闆嗗悎涓紝鍏宠仈閿€硷紝key閲嶅锛屽垯瑕嗙洊鍘熷€?
-+ Object get(Object key)  //鏍规嵁閿幏鍙栧搴旂殑鍊?
-+ entrySet<K> //杩斿洖鎵€鏈夌殑棰漦ey
-+ Collection<V> values()  //杩斿洖鎵€鏈夌殑鍊肩殑Collection闆嗗悎
-+ Set<Map.Entry<K, V>>  //閿€煎尮閰嶇殑Set闆嗗悎
+## 常用方法
++ V put(K key, V value)  //将对象存入到集合中，关联键值，key重复，则覆盖原值
++ Object get(Object key)  //根据键获取对应的值
++ entrySet<K> //返回所有的额key
++ Collection<V> values()  //返回所有的值的Collection集合
++ Set<Map.Entry<K, V>>  //键值匹配的Set集合
 
-## 鍩虹瀹炵幇
+## 基础实现
 ```java
 package com.jie.map;
 
@@ -6403,14 +6385,14 @@ import java.util.Set;
 public class MyMap {
     public static void main(String[] args) {
         Map<String, String> map = new HashMap<String, String>();
-        map.put("cn", "涓浗");
-        map.put("uk", "鑻卞浗 ");
-        map.put("usa", "缇庡浗");
+        map.put("cn", "中国");
+        map.put("uk", "英国 ");
+        map.put("usa", "美国");
 
         System.out.println(map.size());
 //        map.remove("cn");
-        // 閬嶅巻鏂规硶
-        // 鍏堟嬁鍒版墍鏈夌殑key鐨勯泦鍚堬紝鍐嶄娇鐢ㄨ凯浠ｅ櫒閬嶅巻
+        // 遍历方法
+        // 先拿到所有的key的集合，再使用迭代器遍历
         Set<String> set = map.keySet();
         Iterator<String> iterator = set.iterator();
         while (iterator.hasNext()) {
@@ -6418,7 +6400,7 @@ public class MyMap {
             String value = map.get(key);
             System.out.println(key + "=" + value);
         }
-        //浣跨敤entrySet() 鏂规硶
+        //使用entrySet() 方法
         Set<Map.Entry<String, String>> entrySet = map.entrySet();
         for (Map.Entry<String, String> entry : entrySet) {
             String key = entry.getKey();
@@ -6426,21 +6408,21 @@ public class MyMap {
             System.out.println(key + "=" + value);
         }
 
-        // 鍒ゆ柇鏄惁瀛樺湪key 鎴?value
+        // 判断是否存在key 或 value
         System.out.println(map.containsKey("cn"));
-        System.out.println(map.containsValue("涓浗"));
+        System.out.println(map.containsValue("中国"));
     }
 }
 
 ```
 
-# HashMap浣跨敤
-## 鐗圭偣
-+ 绾跨▼涓嶅畨鍏紝杩愯鏁堢巼蹇紝
-+ 鍏佽鐢╪ull浣滀负key鎴栨槸value
-+ 瀛樺偍缁撴瀯锛氬搱甯岃〃锛堟暟缁?閾捐〃+绾㈤粦鏍戯級
+# HashMap使用
+## 特点
++ 线程不安全，运行效率快，
++ 允许用null作为key或是value
++ 存储结构：哈希表（数组+链表+红黑树）
 
-## 鍩烘湰瀹炵幇
+## 基本实现
 ```java
 package com.jie.map;
 
@@ -6452,14 +6434,14 @@ import java.util.Set;
 public class MyMap {
     public static void main(String[] args) {
         Map<String, String> map = new HashMap<String, String>();
-        map.put("cn", "涓浗");
-        map.put("uk", "鑻卞浗 ");
-        map.put("usa", "缇庡浗");
+        map.put("cn", "中国");
+        map.put("uk", "英国 ");
+        map.put("usa", "美国");
 
         System.out.println(map.size());
 //        map.remove("cn");
-        // 閬嶅巻鏂规硶
-        // 鍏堟嬁鍒版墍鏈夌殑key鐨勯泦鍚堬紝鍐嶄娇鐢ㄨ凯浠ｅ櫒閬嶅巻
+        // 遍历方法
+        // 先拿到所有的key的集合，再使用迭代器遍历
         Set<String> set = map.keySet();
         Iterator<String> iterator = set.iterator();
         while (iterator.hasNext()) {
@@ -6467,7 +6449,7 @@ public class MyMap {
             String value = map.get(key);
             System.out.println(key + "=" + value);
         }
-        //浣跨敤entrySet() 鏂规硶
+        //使用entrySet() 方法
         Set<Map.Entry<String, String>> entrySet = map.entrySet();
         for (Map.Entry<String, String> entry : entrySet) {
             String key = entry.getKey();
@@ -6475,95 +6457,93 @@ public class MyMap {
             System.out.println(key + "=" + value);
         }
 
-        // 鍒ゆ柇鏄惁瀛樺湪key 鎴?value
+        // 判断是否存在key 或 value
         System.out.println(map.containsKey("cn"));
-        System.out.println(map.containsValue("涓浗"));
+        System.out.println(map.containsValue("中国"));
     }
 }
 
 ```
 
 # Hashtale
-绾跨▼瀹夊叏锛岃繍琛屾晥鐜囧揩锛屼笉鍏佽key鍜寁alue鍑虹幇null
+线程安全，运行效率快，不允许key和value出现null
 
 # TreeMap
-鍩烘湰鍜宼reeSet鐨勬柟娉曠浉鍚?
+基本和treeSet的方法相同
 
-# Collections宸ュ叿绫?
-collections.sort(list)锛氬闆嗗悎杩涜鎺掑簭
+# Collections工具类
+collections.sort(list)：对集合进行排序
 
-binarySearch(list, i)锛氫簩鍒嗘煡鎵?
+binarySearch(list, i)：二分查找
 
-copy(bast, list)锛氬皢list澶嶅埗鍒版妸bast涓紝涓よ€呯殑澶у皬闇€瑕佷竴鑷?
+copy(bast, list)：将list复制到把bast中，两者的大小需要一致
 
-reverse(list): 鍙嶈浆list鐨勪綅缃?
+reverse(list): 反转list的位置
 
-shuffle(list) 锛氭墦涔眑ist鐨勬暟鎹?
+shuffle(list) ：打乱list的数据
 
-list.toArray(): 灏唋ist杞负鏁扮粍
+list.toArray(): 将list转为数组
 
-Array.asList(array)锛氬皢鏁扮粍杞负list  //杞畬鍚庣殑鏁扮粍鏄彈闄愭暟缁勶紝涓嶈兘杩涜娣诲姞鍜屽垹闄?
-', NOW());
-SET @last_note_id = LAST_INSERT_ID();
+Array.asList(array)：将数组转为list  //转完后的数组是受限数组，不能进行添加和删除
+', 0, NOW());
 
-INSERT INTO 
-ote (uthor_id, 	itle, content, created_at)
-VALUES (1002, 'Django', '### URL缁勬垚
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+VALUES (6, 1002, 'Django', '### URL组成
 `scheme://host:port/path/?query-strint=xxx#anchor`
 
-+ scheme:浠ｈ〃鐨勬槸璁块棶鍗忚锛屼竴鑸负http鎴栬€卙ttps浠ュ強ftp绛?
-+ host锛氫富鏈哄悕锛屽煙鍚嶏紝姣斿`www.baidu.com`
-+ port: 绔彛鍙凤紝http鍗忚鏄?0绔彛锛宧ttps鏄?43绔彛
-+ path锛氭煡璇㈣矾寰勶紝`www.jianhu.com/trending/new`涓殑`/trending/new`鏄煡璇㈣矾寰?
-+ query-string锛氭煡璇㈠瓧绗︿覆锛屼紶鍙傦紝`www.baidu.com/s?wd=python`涓璥wd=python`鏄煡璇㈠瓧绗︿覆,wd鏄弬鏁板悕锛宲ython鏄弬鏁板€?
-+ anchor锛氶敋鐐癸紝鍚庡彴涓€鑸笉鐢ㄧ锛屽墠娈电敤鏉ュ仛椤甸潰瀹氫綅鐨?
++ scheme:代表的是访问协议，一般为http或者https以及ftp等
++ host：主机名，域名，比如`www.baidu.com`
++ port: 端口号，http协议是80端口，https是443端口
++ path：查询路径，`www.jianhu.com/trending/new`中的`/trending/new`是查询路径
++ query-string：查询字符串，传参，`www.baidu.com/s?wd=python`中`wd=python`是查询字符串,wd是参数名，python是参数值
++ anchor：锚点，后台一般不用管，前段用来做页面定位的
 
-娉ㄦ剰锛歶rl涓殑鎵€鏈夊瓧绗﹂兘鏄疉SCII瀛楃闆?
+注意：url中的所有字符都是ASCII字符集
 
-### 绗竴涓狣jango椤圭洰
-#### 1.鍒涘缓Django椤圭洰
-##### 鐢ㄥ懡浠よ鍒涘缓
-鍒涘缓椤圭洰锛氭墦寮€缁堢锛岃繘鍏jango椤圭洰鐨勬枃浠跺す涓娇鐢ㄥ懡浠django-admin startproject [椤圭洰鍚嶇О]`鍗冲彲鍒涘缓
+### 第一个Django项目
+#### 1.创建Django项目
+##### 用命令行创建
+创建项目：打开终端，进入Django项目的文件夹中使用命令`django-admin startproject [项目名称]`即可创建
 
-##### 鍦≒yCharm涓垱寤?
+##### 在PyCharm中创建
 <img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1741868609582-50072c03-99ca-47cf-8483-a9e12c9b7eed.png" width="398.5" title="" crop="0,0,1,1" id="ub9be461b" class="ne-image">
 
-#### 2.杩愯Django椤圭洰
-鐢ㄨ繃鍛戒护杩愯锛歱ython manage.py runserver
+#### 2.运行Django项目
+用过命令运行：python manage.py runserver
 
-閫氳繃pycharm杩愯锛氱洿鎺ョ偣鍑诲彸涓婅鐨勭豢鑹蹭笁瑙?
+通过pycharm运行：直接点击右上角的绿色三角
 
-#### 椤圭洰缁撴瀯浠嬬粛
-`manage.py`鍜岄」鐩氦浜掔殑鍩烘湰涓婇兘鏄熀浜庤繖涓枃浠剁殑
+#### 项目结构介绍
+`manage.py`和项目交互的基本上都是基于这个文件的
 
-`settigs.py`鏈」鐩殑璁剧疆椤?
+`settigs.py`本项目的设置项
 
-`urls.py`閰嶇疆URL璺敱
+`urls.py`配置URL路由
 
-`wsgl.py`椤圭洰璇勮WSGI鍗忚鍏煎鐨剋eb鏈嶅姟鍣ㄥ叆鍙ｏ紝閮ㄧ讲鐨勬椂鍊欑敤
+`wsgl.py`项目评语WSGI协议兼容的web服务器入口，部署的时候用
 
-#### project锛堥」鐩級鍜宎pp锛堟ā鍧楋級鐨勫叧绯?
-app鏄痙jango椤圭洰鐨勭粍鎴愰儴鍒嗭紝涓€涓狝PP浠ｈ〃椤圭洰涓殑涓€涓ā鍧楋紝鎵€鏈塽rl璇锋眰鐨勫搷搴旈兘鏄湁app鏉ュ鐞?
+#### project（项目）和app（模块）的关系
+app是django项目的组成部分，一个APP代表项目中的一个模块，所有url请求的响应都是有app来处理
 
-閫氳繃鍛戒护鍒涘缓app
+通过命令创建app
 
-`python manage.py startapp [app鍚峕`
+`python manage.py startapp [app名]`
 
-#### 瀹夎app
-鍦ㄩ」鐩殑settings.py鏂囦欢涓殑INSTALLEO_APPS涓姞鍏app鍚峕
+#### 安装app
+在项目的settings.py文件中的INSTALLEO_APPS中加入[app名]
 
 ```python
 INSTALLEO_APPS = [
-    鈥︹€︼紝
-    ''app鍚?
+    ……，
+    ''app名''
 ]
 ```
 
-#### url涓庤鍥惧嚱鏁扮殑鏄犲皠
+#### url与视图函数的映射
 ```python
 from django.shortcuts import HttpResponse
-#鍒涘缓涓€涓鍥惧嚱鏁拌鍥惧嚱鏁版帴鏀朵竴涓狧ttpRequest瀵硅薄
-#浣滀负鍙傛暟锛屽苟杩斿洖涓€涓狧ttpResponse瀵硅薄
+#创建一个视图函数视图函数接收一个HttpRequest对象
+#作为参数，并返回一个HttpResponse对象
 def index(request):
     return HttpRespons("hello world!")
 
@@ -6573,67 +6553,67 @@ urlpatterns = [
 ]
 ```
 
-#### url涓惡甯﹀弬鏁?
-1. 閫氳繃鏌ヨ瀛楃涓诧紙query string锛?https://www.baidu.com/s?wd=python&a=1
+#### url中携带参数
+1. 通过查询字符串（query string）:https://www.baidu.com/s?wd=python&a=1
 
 ```python
-#鍦╞ook鐨刟pp涓殑views.py鏂囦欢
+#在book的app中的views.py文件
 from django.shortcuts import render, HttpResponse
 
 def book_detail_query_string(request):
     book_id = request.GET.get(''id'')
     name = request.GET.get(''name'')
-    return HttpResponse(f"鍥句功id鏄細{book_id},鍚嶇О鏄細{name}")
+    return HttpResponse(f"图书id是：{book_id},名称是：{name}")
 
-#鍦ㄥ垱寤虹殑椤圭洰涓殑urls.py涓?
-from book views   #瀵煎叆[book]app鐨勮鍥炬枃浠秜iews.py
+#在创建的项目中的urls.py中
+from book views   #导入[book]app的视图文件views.py
 #http://127.0.0.1:8000/book?id=x&name=xx
 urlpatterns = [
     path(''book'', views.book_detil_query_string)
 ]
 ```
 
-2. 鍦╬ath涓惡甯︼細http://127.0.0.1:8000/book/2
+2. 在path中携带：http://127.0.0.1:8000/book/2
 
 ```python
-#鍦╞ook鐨刟pp涓殑views.py鏂囦欢
+#在book的app中的views.py文件
 from django.shortcuts import render, HttpResponse
 
 def book_detail_query_string(request, book_id):
-    return HttpResponse(f"鍥句功id鏄細{book_id}")
+    return HttpResponse(f"图书id是：{book_id}")
     
-#鍦ㄥ垱寤虹殑椤圭洰涓殑urls.py涓?
-from book views   #瀵煎叆[book]app鐨勮鍥炬枃浠秜iews.py
+#在创建的项目中的urls.py中
+from book views   #导入[book]app的视图文件views.py
 #http://127.0.0.1:8000/book/1
 urlpatterns = [
-    #鍦╞ook_id鍓嶆寚瀹氬弬鏁扮被鍨嬬敤涓ょ偣濂藉锛宨nt銆乻lug銆乽uid銆乸ath绛?
-    #1銆佷互鍚庡啀娴忚鍣ㄤ腑锛屽鏋渂ook_id鏄竴涓潪鏁村舰锛屼細鍑哄厛404閿欒
-    #2銆佸湪瑙嗗浘鍑芥暟涓殑鍒扮殑book_id鏄暣褰紝鍚﹀垯榛樿涓簊tr
+    #在book_id前指定参数类型用两点好处，int、slug、uuid、path等
+    #1、以后再浏览器中，如果book_id是一个非整形，会出先404错误
+    #2、在视图函数中的到的book_id是整形，否则默认为str
     path(''book/<int:book_id>'', views.book_detall_path)
 ]
 ```
 
-#### path鍑芥暟
-path鍑芥暟瀹氫箟涓猴細`path(route,view,name=None,kwargs=None)`
+#### path函数
+path函数定义为：`path(route,view,name=None,kwargs=None)`
 
-1. `route`鍙傛暟锛歶rl鐨勫尮閰嶈鍒欙紝杩欎釜鍙傛暟涓彲浠ユ寚瀹歶rl涓渶瑕佷紶閫掔殑鍙傛暟銆備紶閫掑弬鏁版槸鐢?>鏉ヨ繘琛屾寚瀹氱殑锛屽苟涓斿湪浼犻€掑弬鏁版椂鍙互鎸囧畾鍙傛暟绫诲瀷锛屽叾涓父鐢ㄧ殑绫诲瀷鏈変互涓嬪嚑绉嶏細
-    - `str`闈炵┖瀛楃涓诧紝榛樿鐨勮浆鎹㈠櫒锛屼絾涓嶈兘鍖呭惈鏂滄潬`/`
-    - `int`浠绘剰鐨勯浂鎴栨鏁扮殑鏁村舰锛屽埌瑙嗗浘鍑芥暟涓氨鏄竴涓猧nt绫诲瀷
-    - `slug`鐢辫嫳鏂囦腑鐨勬í鏉燻-`鎴栦笅鍒掔嚎`_`杩炴帴鐨勮嫳鏂囧瓧绗︽垨鑰呮暟瀛楄€屾垚鐨勫瓧绗︿覆锛屼緥濡俙abc-def-11-233`
-    - `uuid`鍖归厤`uuid`瀛楃涓?
-    - `path`鍖归厤鍒嗘帶鐨勮嫳鏂囧瓧绗︿覆锛屽彲浠ュ寘鍚枩鏉燻/`
-2. `view`鍙傛暟锛氬彲浠ヤ负涓€涓鍥惧嚱鏁版垨鑰呮槸`绫昏鍥?as_view()`鎴栬€呮槸`dango.urls.include()`鍑芥暟鐨勮繑鍥炲€?
-3. `name`鍙傛暟锛氳繖涓弬鏁版槸缁欒繖涓猽rl鍙栦釜鍚嶅瓧鐨勶紝鍦ㄩ」鐩瘮杈冨ぇ锛寀rl姣旇緝澶氱殑鏃跺€欑敤澶勫緢澶?
+1. `route`参数：url的匹配规则，这个参数中可以指定url中需要传递的参数。传递参数是用<>来进行指定的，并且在传递参数时可以指定参数类型，其中常用的类型有以下几种：
+    - `str`非空字符串，默认的转换器，但不能包含斜杠`/`
+    - `int`任意的零或正数的整形，到视图函数中就是一个int类型
+    - `slug`由英文中的横杠`-`或下划线`_`连接的英文字符或者数字而成的字符串，例如`abc-def-11-233`
+    - `uuid`匹配`uuid`字符串
+    - `path`匹配分控的英文字符串，可以包含斜杠`/`
+2. `view`参数：可以为一个视图函数或者是`类视图.as_view()`或者是`dango.urls.include()`函数的返回值
+3. `name`参数：这个参数是给这个url取个名字的，在项目比较大，url比较多的时候用处很大
 
-#### URL涓寘鍚彟澶栦竴涓猽rls妯″潡锛?
-鍦ㄩ」鐩腑涓嶅彲鑳藉彧鏈変竴涓猘pp锛屽鏋滄妸姣忎釜app鐨剉iews涓殑瑙嗗浘閮芥斁鍦╱rls.py涓繘琛屾槧灏勶紝鑲畾浼氳浠ｇ爜鏄惧緱闈炲父涔憋紝鍥犳django缁欐垜浠彁渚涗簡涓€涓柟娉曪紝鍙互鍦╝pp鍐呴儴鍖呭惈鑷繁鐨剈rl鍖归厤瑙勫垯锛岃€屽湪椤圭洰鐨剈rls.py涓啀缁熶竴鍖呭惈杩欎釜app鐨剈rls锛屼娇鐢ㄨ繖涓妧鏈渶瑕佸€熷姪`include`鍑芥暟
+#### URL中包含另外一个urls模块：
+在项目中不可能只有一个app，如果把每个app的views中的视图都放在urls.py中进行映射，肯定会让代码显得非常乱，因此django给我们提供了一个方法，可以在app内部包含自己的url匹配规则，而在项目的urls.py中再统一包含这个app的urls，使用这个技术需要借助`include`函数
 
 ```python
-#鍦紙movle锛塧pp涓垱寤虹殑urls.py涓殑浠ｇ爜
+#在（movle）app中创建的urls.py中的代码
 from diango.urls improt path
 from . import views
 
-#鎸囧畾搴旂敤鍚嶇О锛堝簲鐢ㄥ懡鍚嶇┖闂达級
+#指定应用名称（应用命名空间）
 app_name = "movle"
 
 urlpatterns = [
@@ -6641,16 +6621,16 @@ urlpatterns = [
     path(''detail/<int:movle_id>'', views.movle_detail, name=''movle_detail'')
 ]
 
-#鍦紙movle锛塧pp涓璿iews.py鐨勪唬鐮?
+#在（movle）app中views.py的代码
 from django.shortcuts import render,HttpResponse
 
 def movle_list(request):
-    return HttpResponse("鐢靛奖鍒楄〃")
+    return HttpResponse("电影列表")
 
 def movle_detail(request, movle_id):
-    return HttpResponse(f"鎮ㄨ幏鍙栫殑鐢靛奖id鏄細{movle_id}")
+    return HttpResponse(f"您获取的电影id是：{movle_id}")
 
-#鍦ㄩ」鐩腑鐨剈rls.py涓殑浠ｇ爜
+#在项目中的urls.py中的代码
 from django.urls import path,include
 
 
@@ -6660,7 +6640,7 @@ urlpatterns = [
 
 ```
 
-#### url鍙嶈浆
+#### url反转
 ```python
 from django.urls import reverse,path
 from django.shortcuts import HttpResponse
@@ -6671,40 +6651,40 @@ def index(request):
 
 ```
 
-鍙互閫氳繃reverse鏉ュ疄鐜版兂鍙嶈浆鐨剈rl
+可以通过reverse来实现想反转的url
 
 ```python
 reverse("list")
 > /book/list/
 ```
 
-濡傛灉鏈夊簲鐢ㄥ懡鍚嶇┖闂存垨鑰呮湁瀹炰緥鍛藉悕绌洪棿锛岄偅涔堝簲璇ュ湪鍙嶈浆鐨勬椂鍊欏姞涓婂懡鍚嶇┖闂?
+如果有应用命名空间或者有实例命名空间，那么应该在反转的时候加上命名空间
 
 ```python
 reverse(''book:list'')
 > /book/list/
 ```
 
-濡傛灉杩欎釜url涓渶瑕佷紶閫掑弬鏁帮紝閭ｄ箞鍙互浣跨敤kwargs鏉ヤ紶閫掑弬鏁?
+如果这个url中需要传递参数，那么可以使用kwargs来传递参数
 
 ```python
 reverse("book:detail", kwargs={"book_id":1})
 >/book/detail/1
 ```
 
-濡傛灉鎯宠娣诲姞鏌ヨ瀛楃涓茬殑鍙傛暟鍙兘鎵嬪姩娣诲姞
+如果想要添加查询字符串的参数只能手动添加
 
 ```python
 login_url = reverse(''login'') + "?next=/"
 ```
 
-### 妯＄増
-#### 妯＄増浠嬬粛
-##### DTL涓庢櫘閫氱殑HTML鏂囦欢鐨勫尯鍒?
-DTL妯＄増鏄竴绉嶅甫鏈夌壒娈婅娉曠殑HTML鏂囦欢锛岃繖涓狧TML鏂囦欢鍙互琚獶jango缂栬瘧锛屽彲浠ヤ紶閫掑弬鏁拌繘鍘伙紝瀹炵幇鏁版嵁鍔ㄦ€佸寲锛屽湪缂栬瘧瀹屾垚鍚庯紝鐢熸垚涓€涓櫘閫氱殑HTML鏂囦欢锛岀劧鍚庡彂閫佺粰瀹㈡埛绔?
+### 模版
+#### 模版介绍
+##### DTL与普通的HTML文件的区别
+DTL模版是一种带有特殊语法的HTML文件，这个HTML文件可以被Django编译，可以传递参数进去，实现数据动态化，在编译完成后，生成一个普通的HTML文件，然后发送给客户端
 
-##### 娓叉煋妯＄増
-`render_to_string`:鎵惧埌妯＄増锛岀劧鍚庡鏈彮缂栬瘧鍚庢覆鏌撴垚python鐨勫瓧绗︿覆鏍煎紡锛屾渶鍚庨€氳繃HttpResponse绫诲寘瑁呮垚涓€涓狧ttpResponse瀵硅薄杩斿洖鍥炲幓銆?
+##### 渲染模版
+`render_to_string`:找到模版，然后姜末班编译后渲染成python的字符串格式，最后通过HttpResponse类包装成一个HttpResponse对象返回回去、
 
 ```python
 from django.template.loader import render_to_string
@@ -6714,7 +6694,7 @@ def book_detail(request, book_id):
     return HttpResponse(html)
 ```
 
-鐩存帴灏嗘ā鐗堟覆鏌撴垚瀛楃涓插拰鍖呰鎴怘ttpResponse瀵硅薄涓€姝ュ埌浣嶅畬鎴?
+直接将模版渲染成字符串和包装成HttpResponse对象一步到位完成
 
 ```python
 from django.startcuts import render
@@ -6722,96 +6702,96 @@ def book_list(request):
     return render(request,''list.html'')
 ```
 
-##### 妯＄増鏌ユ壘璺緞閰嶇疆
-鍦ㄩ」鐩殑settings.py鏂囦欢涓€傛湁涓€涓猅EMPLATES閰嶇疆锛岃繖涓厤缃寘鍚簡妯℃澘寮曟搸鐨勯厤缃紝妯℃澘鏌ユ壘璺緞鐨勯厤缃紝妯℃澘涓婁笅鏂囩殑閰嶇疆绛?
+##### 模版查找路径配置
+在项目的settings.py文件中。有一个TEMPLATES配置，这个配置包含了模板引擎的配置，模板查找路径的配置，模板上下文的配置等
 
-+ `DIRS`:杩欐槸涓€涓垪琛紝鍦ㄨ繖涓垪琛ㄤ腑鍙互瀛樻斁鎵€鏈夌殑妯℃澘璺緞锛屼互鍚庡湪瑙嗗浘涓娇鐢╮ender鎴栬€卹ender_to_string娓叉煋妯℃澘鐨勬椂鍊欙紝浼氬湪杩欎釜鍒楄〃鐨勮矾寰勪腑鏌ユ壘妯℃澘銆?
-+ `APP_DIRS`:榛樿涓篢rue锛岃繖涓缃负True鍚庯紝浼氬湪INSTALLED_APPS鐨勫畨瑁呬簡鐨凙PP涓嬬殑templates鏂囦欢澶逛腑鏌ユ壘妯℃澘銆?
-+ 鏌ユ壘椤哄簭锛氭瘮濡備唬鐮乺ender(''1ist.htm1'')銆傚厛浼氬湪DIRS杩欎釜鍒楄〃涓緷娆℃煡鎵捐矾寰勪笅鏈夋病鏈夎繖涓ā鏉匡紝濡傛灉鏈夛紝灏辫繑鍥炪€傚鏋淒IRS鍒楄〃涓墍鏈夌殑璺緞閮芥病鏈夋壘鍒帮紝閭ｄ箞浼氬厛妫€鏌ュ綋鍓嶈繖涓鍥炬墍澶勭殑app鏄惁宸茬粡瀹夎锛屽鏋滃凡缁忓畨瑁呬簡锛岄偅涔堝氨鍏堝湪褰撳墠杩欎釜app涓嬬殑templates鏂囦欢澶逛腑鏌ユ壘妯℃澘锛屽鏋滄病鏈夋壘鍒帮紝閭ｄ箞浼氬湪鍏朵粬宸茬粡瀹夎浜嗙殑app涓煡鎵俱€傚鏋滄墍鏈夎矾寰勪笅閮芥病鏈夋壘鍒帮紝閭ｄ箞浼氭姏鍑轰竴涓猅emplateDoesNotExist鐨勫紓甯搞€?
++ `DIRS`:这是一个列表，在这个列表中可以存放所有的模板路径，以后在视图中使用render或者render_to_string渲染模板的时候，会在这个列表的路径中查找模板。
++ `APP_DIRS`:默认为True，这个设置为True后，会在INSTALLED_APPS的安装了的APP下的templates文件夹中查找模板。
++ 查找顺序：比如代码render(''1ist.htm1'')。先会在DIRS这个列表中依次查找路径下有没有这个模板，如果有，就返回。如果DIRS列表中所有的路径都没有找到，那么会先检查当前这个视图所处的app是否已经安装，如果已经安装了，那么就先在当前这个app下的templates文件夹中查找模板，如果没有找到，那么会在其他已经安装了的app中查找。如果所有路径下都没有找到，那么会抛出一个TemplateDoesNotExist的异常。
 
-#### DTL妯℃澘璇硶
-##### 鍙橀噺
-鍙橀噺鐨勫懡鍚嶈鑼冨拰python绫讳技锛屽彧鑳芥槸鑻辨枃瀛楁瘝锛岄樋鎷変集鏁板瓧鍜屼笅鍒掔嚎鐨勭粍鍚堬紝涓嶈兘鍑虹幇鏍囩偣绗﹀彿鍜岀壒娈婂瓧绗︺€傚彉閲忛渶瑕侀€氳繃瑙嗗浘鍑芥暟鐨勬覆鏌擄紝瑙嗗浘鍑芥暟鍦ㄤ娇鐢╮ender鎴杛ender_to_string鐨勬椂鍊欏彲浠ヤ紶閫掍竴涓猚ontext鐨勫弬鏁帮紝杩欎釜鍙傛暟鏄竴涓瓧鍏哥被鍨嬶紝浠ュ悗鍐嶆ā鐗堜腑鐨勫彉閲忓氨浠庤繖涓瓧鍏镐腑璇诲彇鍊肩殑
+#### DTL模板语法
+##### 变量
+变量的命名规范和python类似，只能是英文字母，阿拉伯数字和下划线的组合，不能出现标点符号和特殊字符。变量需要通过视图函数的渲染，视图函数在使用render或render_to_string的时候可以传递一个context的参数，这个参数是一个字典类型，以后再模版中的变量就从这个字典中读取值的
 
 ```python
-#profile.html妯℃澘浠ｇ爜
+#profile.html模板代码
 <p>{{ username }}</p>
-<p>鍥句功鍚嶇О锛歿{ book.name }}</p>
-<p>涓嬫爣涓?鍥句功鐨勫悕绉皗{ books.1.name }}</p>
-<p>濮撳悕涓猴細{{ person.realname }}</p>
+<p>图书名称：{{ book.name }}</p>
+<p>下标为1图书的名称{{ books.1.name }}</p>
+<p>姓名为：{{ person.realname }}</p>
 
-#views.py浠ｇ爜
+#views.py代码
 def profile(request):
-    #1銆佹櫘閫氬弬鏁?
-    username = ''鐭ヤ簡璇惧爞''
-    #2銆佸瓧鍏哥被鍨?
-    book = {''name'': "姘存祾浼?,''auther'': "鏂借€愬旱"}
-    #3銆佸垪琛?
+    #1、普通参数
+    username = ''知了课堂''
+    #2、字典类型
+    book = {''name'': "水浒传",''auther'': "施耐庵"}
+    #3、列表
     books = [
-        {''name'': "姘存祾浼?,''auther'': "鏂借€愬旱"},
-        {''name'': "涓夊浗婕斾箟",''auther'': "缃楄疮涓?}
+        {''name'': "水浒传",''auther'': "施耐庵"},
+        {''name'': "三国演义",''auther'': "罗贯中"}
     ]
-    #4銆佸璞?
-    class Person锛?
+    #4、对象
+    class Person：
         def __int__(self, realname):
             self.realname = realname
     context = {
-        ''username'': username锛?
+        ''username'': username，
         ''book'': book,
         ''books'': books,
-        ''person''锛汸erson("鐭ヤ簡璇惧爞")
+        ''person''；Person("知了课堂")
     }
     return render(request,''profile.html'', context=context)
 ```
 
-#### 甯哥敤鐨勬ā鐗堟爣绛?
-1. if鏍囩锛岀浉褰撲笌python涓殑if璇彞锛屾湁elif鍜宔lse鐩稿搴旓紝浣嗘墍鏈夌殑鏍囩閮介渶瑕佺敤鏍囩绗﹀彿{{%%}}杩涜鍖呰９锛宨f涓彲浠ヤ娇鐢?=锛?=锛?锛?=锛?锛?=锛宨n锛宯ot锛宨n锛宨s锛宨s not绛夊垽鏂繍绠楃
+#### 常用的模版标签
+1. if标签，相当与python中的if语句，有elif和else相对应，但所有的标签都需要用标签符号{{%%}}进行包裹，if中可以使用==，!=，<，<=，>，>=，in，not，in，is，is not等判断运算符
 
 ```python
-#views.py浠ｇ爜
+#views.py代码
 def if_view(request):
     age = 17 
     return render(request, ''if.html'', context={''age'':age})
 
-#if.html妯℃澘浠ｇ爜
+#if.html模板代码
 {% if age < 18 %}
-    <p>骞撮緞鏈弧18宀?/p>
+    <p>年龄未满18岁</p>
 {% elif age == 18 %}
-    <p>骞撮緞鍒氭弧18宀?/p>
+    <p>年龄刚满18岁</p>
 {% else %}
-    <p>骞撮緞宸叉弧18宀?/p>
+    <p>年龄已满18岁</p>
 {% endif %}    
 ```
 
-2. for...in...鏍囩锛歠or...in...绫讳技浜巔ython涓殑for...in...銆傚彲浠ラ亶鍘嗗垪琛紝鍏冪粍锛屽瓧鍏革紝瀛楃涓诧紝瀛楀吀绛変竴鍒囧彲浠ラ亶鍘嗙殑瀵硅薄
+2. for...in...标签：for...in...类似于python中的for...in...。可以遍历列表，元组，字典，字符串，字典等一切可以遍历的对象
 
 ```python
-#views.py浠ｇ爜
+#views.py代码
 def for_view(request):
-    #1銆佸垪琛?
+    #1、列表
     books = [
-        {''name'': "姘存祾浼?,''auther'': "鏂借€愬旱"},
-        {''name'': "涓夊浗婕斾箟",''auther'': "缃楄疮涓?}
+        {''name'': "水浒传",''auther'': "施耐庵"},
+        {''name'': "三国演义",''auther'': "罗贯中"}
     ]
-    #2銆佸瓧鍏?
+    #2、字典
     person = {
-        "realname":"鐭ヤ簡璇惧爞",
+        "realname":"知了课堂",
         "age":18,
         "height": 180
     }
     context = {
-        ''books''锛沚ooks,
+        ''books''；books,
         ''person'': person
     }
     return render(request, ''for.html'',context=context)
 
-#for.html妯℃澘浠ｇ爜  
+#for.html模板代码  
 <table>
     <thead>
         <tr>
-            <th>搴忓彿</th>
-            <th>鍚嶇О</th>
-            <th>浣滆€?/th>
+            <th>序号</th>
+            <th>名称</th>
+            <th>作者</th>
         </tr>
     </thead>
     <tbody>
@@ -6834,23 +6814,23 @@ def for_view(request):
          
 ```
 
-鍦╢or寰幆涓璂TL鎻愪緵浜嗕竴浜涘彉閲忓彲渚涗娇鐢?
+在for循环中DTL提供了一些变量可供使用
 
-    - forloop.counter:褰撳彉閲忓惊鐜殑涓嬫爣锛屼互1鍋氫负璧峰鍊?
-    - forloop.counter0:褰撳彉閲忓惊鐜殑涓嬫爣锛屼互0鍋氫负璧峰鍊?
-    - forloop.revcounter:褰撳墠寰幆鐨勫弽鍚戜笅鏍囧€硷紝姣斿鍒楄〃鏈?涓厓绱狅紝閭ｄ箞绗竴娆￠亶鍘嗚繖涓睘鎬ф槸绛変簬5锛岀浜屾鏄?锛屼緷娆＄被鎺紝浠?浣滀负缁撳熬
-    - forloop.revcounter0:涓巉orloop.revcounter绫讳技锛屼笉鍚岀殑鏄渶鍚庝竴涓笅鏍囨椂浠?寮€濮?
-    - forloop.first:鏄惁鏄涓€娆￠亶鍘?
-    - forlloop.last:鏄惁鏄渶鍚庝竴娆￠亶鍘?
-3. with鏍囩锛氬湪妯＄増涓畾涔夊彉閲忥紝鏈夋椂鍊欎竴涓彉閲忚闂殑鏃跺€欐瘮杈冨鏉傦紝閭ｄ箞鍙互鍏堟妸杩欎釜澶嶆潅鐨勫彉閲忕紦瀛樺埌涓€涓彉閲忎笂锛屼互鍚庡氨鍙互鐩存帴浣跨敤杩欎釜鍙橀噺
+    - forloop.counter:当变量循环的下标，以1做为起始值
+    - forloop.counter0:当变量循环的下标，以0做为起始值
+    - forloop.revcounter:当前循环的反向下标值，比如列表有5个元素，那么第一次遍历这个属性是等于5，第二次是4，依次类推，以1作为结尾
+    - forloop.revcounter0:与forloop.revcounter类似，不同的是最后一个下标时从0开始
+    - forloop.first:是否是第一次遍历
+    - forlloop.last:是否是最后一次遍历
+3. with标签：在模版中定义变量，有时候一个变量访问的时候比较复杂，那么可以先把这个复杂的变量缓存到一个变量上，以后就可以直接使用这个变量
 
 ```python
-#views.py浠ｇ爜
+#views.py代码
 def with_view(request): 
     context = {
-        "books"锛沎
-            {''name'': "姘存祾浼?,''auther'': "鏂借€愬旱"},
-            {''name'': "涓夊浗婕斾箟",''auther'': "缃楄疮涓?}
+        "books"；[
+            {''name'': "水浒传",''auther'': "施耐庵"},
+            {''name'': "三国演义",''auther'': "罗贯中"}
         ]
     }
     return render(request, ''with.html'', context=context)
@@ -6860,57 +6840,57 @@ def with_view(request):
 {% endwith %}
 ```
 
-4. url鏍囩锛氬湪鏍囩涓紝鎴戜滑缁忓父瑕佸啓涓€浜泆rl锛屾瘮濡傛煇涓猘鏍囩涓渶瑕佸畾涔塰ref灞炴€с€傚綋鐒跺鏋滈€氳繃纭紪鐮佺殑鏂瑰紡鐩存帴灏嗚繖涓猽rl鍐欐鍦ㄩ噷闈篃鏄彲浠ョ殑銆備絾鏄繖鏍峰浜庝互鍚庨」鐩淮鎶ゅ彲鑳戒笉鏄竴浠跺ソ浜嬨€傚洜姝ゅ缓璁娇鐢ㄨ繖绉嶅弽杞殑鏂瑰紡鏉ュ疄鐜帮紝绫讳技浜巇jango涓殑reverse涓€鏍?
+4. url标签：在标签中，我们经常要写一些url，比如某个a标签中需要定义href属性。当然如果通过硬编码的方式直接将这个url写死在里面也是可以的。但是这样对于以后项目维护可能不是一件好事。因此建议使用这种反转的方式来实现，类似于django中的reverse一样
 
 ```python
-#views.py浠ｇ爜
+#views.py代码
 def url_view(request):
     return render(request, ''url.html'', context=context)
 
-<a href="{% url ''baidu'' %}">鐧惧害</a>
+<a href="{% url ''baidu'' %}">百度</a>
 ```
 
-	濡傛灉url鍙嶈浆鐨勬椂鍊欓渶瑕佷紶閫掑弬鏁帮紝閭ｄ箞鍙互鍐嶅悗闈紶閫掞紝浣嗘槸鍙傛暟鍒嗕綅缃弬鏁板拰鍏抽敭瀛楀弬鏁帮紝涓よ€呬笉鑳藉悓鏃朵娇鐢?
+	如果url反转的时候需要传递参数，那么可以再后面传递，但是参数分位置参数和关键字参数，两者不能同时使用
 
 ```python
-#path閮ㄥ垎
+#path部分
 path(''detail/book_id/'', views.book_detail, name=''datail'')
 
-#url鍙嶈浆锛屼娇鐢ㄤ綅缃弬鏁?
+#url反转，使用位置参数
 </a href="{% url ''book:datail'' 1 %}"></a>
 
-#url鍙嶈浆锛屼娇鐢ㄥ叧閿瓧鍙傛暟
+#url反转，使用关键字参数
 </a href="{% url ''book:datail'' book_id=1 %}"></a>
 
-#濡傛灉瑕佷紶閫掓煡璇㈠瓧绗︿覆鍙傛暟锛屽彧鑳芥墜鍔ㄨ緭鍏?
+#如果要传递查询字符串参数，只能手动输入
 </a href="{% url ''book:datail'' 1 %}?page=1"></a>
 
-#濡傛灉闇€瑕佷紶閫掑涓弬鏁帮紝鍙傛暟闂寸敤绌烘牸杩涜鍒嗛殧
+#如果需要传递多个参数，参数间用空格进行分隔
 </a href="{% url ''book:datail'' book_id=1 page=2 %}"></a>
 ```
 
-#### 妯＄増甯哥敤杩囨护鍣?
+#### 模版常用过滤器
 1. add
 
-灏嗕紶杩涙潵鐨勫弬鏁版坊鍔犲埌鍘熸潵鐨勫€间笂闈€傝繖涓繃婊ゅ櫒浼氬皾璇曞皢鍊煎拰鍙傛暟杞崲鎴愭暣褰㈢劧鍚庤繘琛岀浉鍔犮€傚鏋滆浆鎹㈡垚鏁村舰杩囩▼涓け璐ヤ簡锛岄偅涔堜細灏嗗€煎拰鍙傛暟杩涜鎷兼帴銆傚鏋滄槸瀛楃涓诧紝閭ｄ箞浼氭嫾鎺ユ垚瀛楃涓诧紝濡傛灉鏄垪琛紝閭ｄ箞浼氭嫾鎺ユ垚涓€涓垪琛?
+将传进来的参数添加到原来的值上面。这个过滤器会尝试将值和参数转换成整形然后进行相加。如果转换成整形过程中失败了，那么会将值和参数进行拼接。如果是字符串，那么会拼接成字符串，如果是列表，那么会拼接成一个列表
 
 ```python
 {{ value|add:"2" }}
-#濡傛灉value鏄?锛岀粨鏋滃皢鏄?锛屽鏋渧alue鏄痑bc锛屽垯缁撴灉鏄痑bc2
+#如果value是4，结果将是6，如果value是abc，则结果是abc2
 ```
 
 2. cut
 
-绉婚櫎鍊间腑鎵€鏈夋寚瀹氱殑瀛楃涓?
+移除值中所有指定的字符串
 
 ```python
 {{ value|cat:" "}}
-#鍒囬櫎value涓墍鏈夌殑绌烘牸
+#切除value中所有的空格
 ```
 
 3. data
 
-灏嗕竴涓棩鏈熸寜鐓ф寚瀹氱殑鏍煎紡锛屾牸寮忓寲鎴愬瓧绗︿覆
+将一个日期按照指定的格式，格式化成字符串
 
 ```python
 context = {
@@ -6919,80 +6899,80 @@ context = {
 
 {{ birthday|data:"Y/m/d" }}
 
-#Y:鍥涗綅鏁板勾浠斤紝m:涓や綅鏁版湀浠斤紝n:鏈堜唤锛?-9鍓嶉潰娌℃湁0锛?
-#d:涓や綅鏁扮殑澶╋紝j:澶╋紙1-9鍓嶉潰娌℃湁0锛夛紝
-#h锛圚锛?12锛?4锛夊皬鏃舵牸寮忥紝g锛圙锛?12(24)灏忔椂锛?-9鍓嶉潰娌℃湁0锛?
-#i:鍒嗛挓锛?-9鍓嶉潰娌℃湁0锛夛紝s锛氱锛?-9鍓嶉潰娌℃湁0锛?
+#Y:四位数年份，m:两位数月份，n:月份（1-9前面没有0）
+#d:两位数的天，j:天（1-9前面没有0），
+#h（H）:12（24）小时格式，g（G）:12(24)小时（1-9前面没有0）
+#i:分钟（1-9前面没有0），s：秒（1-9前面没有0）
 ```
 
 4. default
 
-濡傛灉鍊艰璇勪及涓篎alse锛屾瘮濡俒], "", None, ()绛夎繖浜涘湪if鍒ゆ柇涓负False鐨勫€硷紝閮戒細浣跨敤default杩囨护鍣ㄦ彁渚涚殑榛樿鍊?
+如果值被评估为False，比如[], "", None, ()等这些在if判断中为False的值，都会使用default过滤器提供的默认值
 
 ```python
 {{ value|default:"nothing" }}
-#濡傛灉value鏄竴涓┖瀛楃涓诧紝浠ｇ爜灏变細杈撳嚭nothing
+#如果value是一个空字符串，代码就会输出nothing
 ```
 
 5. default_if_none
 
-濡傛灉鍊兼槸None锛岄偅涔堝皢浼氫娇鐢╠efault_if_none鎻愪緵鐨勯粯璁ゅ€?
+如果值是None，那么将会使用default_if_none提供的默认值
 
 ```python
 {{ value|default_if_none:"notshing" }}
-#濡傛灉value鏄竴涓┖瀛楃涓?",閭ｄ箞浼氳緭鍑虹┖瀛楃涓?
-#鍙湁value鐨勫€兼槸None鏃讹紝浠ヤ笂浠ｇ爜鎵嶄細杈撳嚭nothing
+#如果value是一个空字符串"",那么会输出空字符串
+#只有value的值是None时，以上代码才会输出nothing
 ```
 
 6. first
 
-杩斿洖鍒楄〃/鍏冪粍/瀛楃涓蹭腑鐨勭涓€涓厓绱?
+返回列表/元组/字符串中的第一个元素
 
 ```python
 {{ value|first }}
-#濡傛灉value绛変簬[''a'', ''b'', ''c''],閭ｄ箞杈撳嚭鐨勫€兼槸a
+#如果value等于[''a'', ''b'', ''c''],那么输出的值是a
 ```
 
 7. last
 
-杩斿洖鍒楄〃/鍏冪粍/瀛楃涓蹭腑鐨勬渶鍚庝竴涓厓绱?
+返回列表/元组/字符串中的最后一个元素
 
 ```python
 {{ value|last }}
-#濡傛灉value绛変簬[''a'', ''b'', ''c''],閭ｄ箞杈撳嚭鐨勫€兼槸c
+#如果value等于[''a'', ''b'', ''c''],那么输出的值是c
 ```
 
 8. floatformat
 
-浣跨敤鍥涜垗浜斿叆鐨勬柟寮忔牸寮忓寲涓€涓诞鐐圭被鍨?
+使用四舍五入的方式格式化一个浮点类型
 
 ```python
-{{ value|floatformat }}  #淇濈暀1浣嶅皬鏁?
-{{ value|floatformat:3 }}  #淇濈暀3浣嶅皬鏁?
+{{ value|floatformat }}  #保留1位小数
+{{ value|floatformat:3 }}  #保留3位小数
 
 ```
 
 9. join
 
-绫讳技浜巔ython涓殑join锛屽皢鍒楄〃/鍏冪粍/瀛楃涓茬敤鎸囧畾鐨勫瓧绗﹁繘琛屾嫾鎺?
+类似于python中的join，将列表/元组/字符串用指定的字符进行拼接
 
 ```python
 {{ value|join;"/"}}
-#濡傛灉value绛変簬[''a'', ''b'', ''c''],閭ｄ箞杈撳嚭鐨勫€兼槸a/b/c
+#如果value等于[''a'', ''b'', ''c''],那么输出的值是a/b/c
 ```
 
 10. length
 
-鑾峰彇涓€涓垪琛?鍏冪粍/瀛楃涓?瀛楀吀鐨勯暱搴?
+获取一个列表/元组/字符串/字典的长度
 
 ```python
 {{ value|length }}
-#濡傛灉value绛変簬[''a'', ''b'', ''c''],閭ｄ箞杈撳嚭鐨勬槸3锛屽鏋渧alue浣峃one锛岄偅涔堣繑鍥?
+#如果value等于[''a'', ''b'', ''c''],那么输出的是3，如果value位None，那么返回0
 ```
 
 11. lower
 
-灏嗗€间腑鎵€鏈夌殑瀛楃鍏ㄩ儴杞崲鎴愬皬鍐?
+将值中所有的字符全部转换成小写
 
 ```python
 {{ value|lower }}
@@ -7000,93 +6980,93 @@ context = {
 
 12. upper
 
-灏嗗€间腑鎵€鏈夌殑瀛楃鍏ㄩ儴杞崲鎴愬ぇ鍐?
+将值中所有的字符全部转换成大写
 
 13. random
 
-鍦ㄨ琚殑鍒楄〃/瀛楃涓?鍏冪粍涓殢鏈洪€夋嫨涓€涓€?
+在被被的列表/字符串/元组中随机选择一个值
 
 ```python
 {{ value|random }}
-#濡傛灉value绛変簬[''a'', ''b'', ''c''],閭ｄ箞杈撳嚭缁撴灉鏄垪琛ㄤ腑鐨勯殢鏈轰竴涓?
+#如果value等于[''a'', ''b'', ''c''],那么输出结果是列表中的随机一个
 ```
 
 14. safe
 
-鏍囪涓€涓瓧绗︿覆鏄畨鍏ㄧ殑锛屼篃鍗充細鍏虫帀杩欎釜瀛楃涓茬殑鑷姩杞箟
+标记一个字符串是安全的，也即会关掉这个字符串的自动转义
 
 ```python
 {{ value|safe }}
-#濡傛灉value鏄?<h2>Hello World</h2>"
-#鍦ㄨ繃婊ゅ墠鐩存帴灏?<h2>Hello World</h2>"浠ュ瓧绗︿覆鐨勬柟寮忚緭鍑?
-#鍦ㄨ繃婊ゅ悗浼氫互浜岀骇鏍囬鐨勬柟寮忚緭鍑?
+#如果value是"<h2>Hello World</h2>"
+#在过滤前直接将"<h2>Hello World</h2>"以字符串的方式输出
+#在过滤后会以二级标题的方式输出
 ```
 
 15. slice
 
-绫讳技浜巔ython涓殑鍒囩墖鎿嶄綔
+类似于python中的切片操作
 
 ```python
 {{ some_list|slice:"2:"}}
-#灏嗗垪琛ㄤ粠2寮€濮嬪仛鍒囩墖鎿嶄綔
+#将列表从2开始做切片操作
 ```
 
 16. striptags
 
-鍒犻櫎瀛楃涓蹭腑鎵€鏈夌殑HTML鏍囩
+删除字符串中所有的HTML标签
 
 ```python
 {{ value|striptags }}
-#濡傛灉value鏄?<h2>Hello World</h2>"
-#閭ｄ箞灏嗙洿鎺ヨ緭鍑篐ello World
+#如果value是"<h2>Hello World</h2>"
+#那么将直接输出Hello World
 ```
 
 17. truncatechars
 
-濡傛灉缁欏畾鐨勫瓧绗︿覆鐨勯暱搴﹁秴杩囦簡杩囨护鍣ㄦ寚瀹氱殑闀垮害锛岄偅涔堝氨浼氳繘琛屽垏鍓诧紝骞朵笖浼氱敤涓変釜鐐规潵鎷兼帴鍋氫负鐪佺暐鍙?
+如果给定的字符串的长度超过了过滤器指定的长度，那么就会进行切割，并且会用三个点来拼接做为省略号
 
 ```python
-{{ value|truncatechars锛? }}
-#濡傛灉value鏄寳浜杩庢偍锛岃緭鍑虹粨鏋滄槸鍖椾含...
-#鍥犱负...浼氬崰鐢?涓瓧绗?
+{{ value|truncatechars：5 }}
+#如果value是北京欢迎您，输出结果是北京...
+#因为...会占用3个字符
 ```
 
 18. truncatechars_html
 
-绫讳技浜巘runcatechars锛屽彧涓嶈繃涓嶄細鍒囧壊html鏍囩
+类似于truncatechars，只不过不会切割html标签
 
 ```python
-{{ value|truncatechars锛? }}
-#濡傛灉value鏄?<p>鍖椾含娆㈣繋鎮?/p>
-#杈撳嚭缁撴灉鏄?</p>鍖椾含...</p>
+{{ value|truncatechars：5 }}
+#如果value是:<p>北京欢迎您</p>
+#输出结果是:</p>北京...</p>
 ```
 
-#### 妯＄増缁撴瀯
-##### include妯＄増
-鏈夋椂鍊欎竴浜涗唬鐮佹槸鍦ㄨ澶氭ā鐗堜腑閮界敤鍒扮殑锛屽鏋滄垜浠瘡娆￠兘閲嶅鐨勫幓鎷疯礉浠ｇ爜閭ｈ偗瀹氭槸涓嶇鍚堥」鐩殑瑙勮寖锛屼竴鑸垜浠彲浠ユ妸杩欎簺閲嶅鐨勪唬鐮佹彁鍙栧嚭鏉ワ紝灏卞拰python涓殑鍑芥暟涓€鏍凤紝浠ュ悗鎯宠浣跨敤杩欎簺浠ｇ爜鐨勬椂鍊欙紝灏遍€氳繃include鍖呭惈杩涙潵杩欒偂鏍囩鏄痠nclude
+#### 模版结构
+##### include模版
+有时候一些代码是在许多模版中都用到的，如果我们每次都重复的去拷贝代码那肯定是不符合项目的规范，一般我们可以把这些重复的代码提取出来，就和python中的函数一样，以后想要使用这些代码的时候，就通过include包含进来这股标签是include
 
 ```python
 #header.html
-<p>鎴戞槸header</p>
+<p>我是header</p>
 
 #footer.html
-<p>鎴戞槸foorter</p>
+<p>我是foorter</p>
 
 #main.html
 {% include ''header.html'' %}
-<p>鎴戞槸main鍐呭</p>
+<p>我是main内容</p>
 {% include ''footer.html'' %}
 ```
 
-includ鏍囩瀵绘壘璺緞鐨勬柟寮忥紝涔熻窡render娓叉煋妯＄増鐨勫嚱鏁版槸涓€鏍风殑
+includ标签寻找路径的方式，也跟render渲染模版的函数是一样的
 
-榛樿include鏍囩鍖呭惈妯＄増锛屼細鑷姩浣跨敤涓绘ā鐗堜笅鐨勬鏂囷紝涔熷彲浠ヨ嚜鍔ㄤ娇鐢ㄤ富妯＄増涓殑鍙橀噺
+默认include标签包含模版，会自动使用主模版下的正文，也可以自动使用主模版中的变量
 
 ```python
 #views.py
 context = {"articles":[
-    ''灏忕背U7'',
-    ''ChatGPT 5 鍙戝竷''
+    ''小米U7'',
+    ''ChatGPT 5 发布''
 ]}
 return render(request, ''main.html'', context=context)
 
@@ -7099,22 +7079,22 @@ return render(request, ''main.html'', context=context)
 {% include ''header.html'' %}
 ```
 
-##### 妯＄増缁ф壙
-鍦ㄥ墠绔〉闈㈠紑鍙戜腑銆傛湁浜涗唬鐮佹槸闇€瑕侀噸澶嶄娇鐢ㄧ殑銆傝繖绉嶆儏鍐靛彲浠ヤ娇鐢╥nclude鏍囩鏉ュ疄鐜般€備篃鍙互浣跨敤鍙﹀涓€涓瘮杈冨己澶х殑鏂瑰紡鏉ュ疄鐜?閭ｅ氨鏄ā鐗堢户鎵匡紝妯＄増缁ф壙绫讳技浜巔ython涓殑绫伙紝鍦ㄧ埗绫讳腑鍙互鍏堝畾涔夊ソ涓€浜涘彉閲忓拰鏂规硶锛岀劧鍚庡湪瀛愮被涓疄鐜般€傛ā鐗堢户鎵夸篃鍙互鍦ㄧ埗妯＄増涓厛瀹氫箟濂戒竴浜涘瓙妯＄増闇€瑕佺敤鍒扮殑浠ｇ爜锛岀劧鍚庡瓙妯増鐩存帴缁ф壙灏卞彲浠ヤ簡锛屽苟涓斿洜涓哄瓙妯＄増鑲畾鏈夎嚜宸辩殑涓嶅悓浠ｇ爜锛屽洜姝ゅ彲浠ュ湪鐖舵í鐗堜腑瀹氫箟涓€涓猙lock鎺ュ彛锛岀劧鍚庡瓙妯＄増鍐嶅幓瀹炵幇锛屼互涓嬫槸鐖舵ā鐗堢殑浠ｇ爜:
+##### 模版继承
+在前端页面开发中。有些代码是需要重复使用的。这种情况可以使用include标签来实现。也可以使用另外一个比较强大的方式来实现,那就是模版继承，模版继承类似于python中的类，在父类中可以先定义好一些变量和方法，然后在子类中实现。模版继承也可以在父模版中先定义好一些子模版需要用到的代码，然后子横版直接继承就可以了，并且因为子模版肯定有自己的不同代码，因此可以在父横版中定义一个block接口，然后子模版再去实现，以下是父模版的代码:
 
 ```html
 <!DOCTYPE html>
 <html>
 <hand>
   <link rel="stylesheet" href="{% static ''style.css'' %}" />
-  <title>{% block title %}鎴戞槸绔欑偣{% endblock %}</title>
+  <title>{% block title %}我是站点{% endblock %}</title>
 </hand>
 <body>
   <div id="sidebar">
     {% block sidbar %}
       <ul>
-        <li><a href="/">棣栭〉</a></li>
-        <li><a bref="/blog/">鍗氬</a></li>
+        <li><a href="/">首页</a></li>
+        <li><a bref="/blog/">博客</a></li>
       </ul>
     {% endblock %}
   </div>
@@ -7126,12 +7106,12 @@ return render(request, ''main.html'', context=context)
 </html>
 ```
 
-鍦ㄧ埗妯＄増涓畾涔変簡涓や釜鎺ュ彛锛屽瓙妯＄増閫氳繃extends鏍囩鏉ュ疄鐜?
+在父模版中定义了两个接口，子模版通过extends标签来实现
 
 ```html
 {% extends "baase.html" %}
 
-{% block title %}鍗氬鍒楄〃{% endblock %}
+{% block title %}博客列表{% endblock %}
 
 {% block content %}
   {% for entry in blog_entries %}
@@ -7141,24 +7121,24 @@ return render(request, ''main.html'', context=context)
 {% endblock %}
 ```
 
-闇€瑕佹敞鎰忕殑鏄細extends鏍囩蹇呴』鏀惧湪妯＄増鐨勭涓€琛岋紝瀛愭ā鐗堜腑鐨勪唬鐮佸繀椤绘斁鍦╞lock涓紝鍚﹀垯涓嶄細琚覆鏌?
+需要注意的是：extends标签必须放在模版的第一行，子模版中的代码必须放在block中，否则不会被渲染
 
-濡傛灉鍦ㄦ煇涓猙lock涓渶瑕佷娇鐢ㄧ埗妯＄増鐨勫唴瀹癸紝閭ｄ箞鍙互浣跨敤{{block.super}}鏉ョ户鎵匡紝姣斿涓婁緥锛寋%b1ock title%)锛屽鏋滄兂瑕佷娇鐢ㄧ埗妯＄増鐨則itle锛岄偅涔堝彲浠ュ湪瀛愭ā鐗堢殑tit1e block涓娇鐢▄{b1ock.super }} 鏉ュ疄鐜般€?
+如果在某个block中需要使用父模版的内容，那么可以使用{{block.super}}来继承，比如上例，{%b1ock title%)，如果想要使用父模版的title，那么可以在子模版的tit1e block中使用{{b1ock.super }} 来实现。
 
-鍦ㄥ畾涔塨lock鐨勬椂鍊欙紝闄や簡鍦╞lock寮€濮嬬殑鍦版柟瀹氫箟杩欎釜block鐨勫悕瀛楋紝杩樺彲浠ュ湪b1ock缁撴潫鐨勬椂鍊欏畾涔夊悕瀛椼€傛瘮濡倇% block title %}{% endblock title %}杩欏湪澶у瀷妯＄増涓樉寰楀挨鍏舵湁鐢紝鑳借浣犲揩閫熺殑鐪嬪埌b1ock鍖呭惈鍦ㄥ摢閲?
+在定义block的时候，除了在block开始的地方定义这个block的名字，还可以在b1ock结束的时候定义名字。比如{% block title %}{% endblock title %}这在大型模版中显得尤其有用，能让你快速的看到b1ock包含在哪里
 
-#### 鍔犺浇闈欐€佹枃浠?
-鍦ㄤ竴涓綉椤典腑锛屼笉浠呬粎鍙湁涓€涓猦tml楠ㄦ灦锛岃繕闇€瑕乧ss鏍峰紡鏂囦欢锛宩s鎵ц鏂囦欢浠ュ強涓€浜涘浘鐗囩瓑銆傚洜姝ゅ湪DTL涓姞杞介潤鎬佹枃浠舵槸涓€涓繀椤昏瑙ｅ喅鐨勯棶棰樸€傚湪DTL涓紝浣跨敤static鏍囩鏉ュ姞杞介潤鎬佹枃浠躲€傝浣跨敤static鏍囩锛岄鍏堥渶瑕?%1oad static %)銆傚姞杞介潤鎬佹枃浠剁殑姝ラ濡備笅:
+#### 加载静态文件
+在一个网页中，不仅仅只有一个html骨架，还需要css样式文件，js执行文件以及一些图片等。因此在DTL中加载静态文件是一个必须要解决的问题。在DTL中，使用static标签来加载静态文件。要使用static标签，首先需要(%1oad static %)。加载静态文件的步骤如下:
 
-1. 棣栧厛纭繚django.contrib.staticfiles宸茬粡娣诲姞鍒皊ettings.INSTALLEO_APPS涓?
-2. 纭繚鍦?settings.py 涓缃簡 STATIC_URL 銆?
+1. 首先确保django.contrib.staticfiles已经添加到settings.INSTALLEO_APPS中
+2. 确保在 settings.py 中设置了 STATIC_URL 。
 
 ```python
 STATIC_URL = ''static/''  
 ```
 
-3. 鍦ㄥ凡缁忓畨瑁呬簡鐨?app 涓嬪垱寤轰竴涓枃浠跺す鍙仛 static 锛岀劧鍚庡啀鍦ㄨ繖涓?static 鏂囦欢澶逛笅鍒涘缓涓€涓綋鍓?app 鐨勫悕瀛楃殑鏂囦欢澶癸紝鍐嶆妸闈欐€佹枃浠舵斁鍒拌繖涓枃浠跺す涓嬨€備緥濡備綘鐨?浠跺彨鍋?app 鍙仛 book 锛屾湁涓€涓潤鎬佹枃 zhiliao.jpg 锛岄偅涔堣矾寰勪负 book/static/book/zhiliao.jpg 銆傦紙涓轰粈涔堝湪 app 涓嬪垱寤轰竴 涓猻tatic鏂囦欢澶癸紝杩橀渶瑕佸湪杩欎釜 static 涓嬪垱寤轰竴涓悓 app 鍚嶅瓧鐨勬枃浠跺す鍛紵鍘熷洜鏄鏋滅洿鎺ユ妸闈?鎬佹枃浠舵斁鍦?static 鏂囦欢澶逛笅锛岄偅涔堝湪妯＄増鍔犺浇闈欐€佹枃浠剁殑鏃跺€欏氨鏄娇鐢?涓猘pp涔嬮棿鏈夊悓鍚嶇殑闈欐€佹枃浠讹紝杩欐椂鍊欏彲鑳藉氨浼氫骇鐢熸贩娣嗐€傝€屽湪 app 鏂囦欢澶癸紝鍦ㄦā鐗堜腑鍔犺浇鐨勬椂鍊欏氨鏄娇鐢?zhiliao.jpg 锛屽鏋滃湪澶?static 鏂囦欢澶逛笅鍔犱簡涓€涓悓鍚?app/zhiliao.jpg 锛岃繖鏍峰氨鍙互閬垮厤浜х敓娣锋穯銆傦級
-4. 濡傛灉鏈変竴浜涢潤鎬佹枃浠舵槸涓嶅拰浠讳綍 app 鎸傞挬鐨勩€傞偅涔堝彲浠ュ湪 settings.py 涓坊鍔?STATICFILES_DIRS 锛屼互鍚?DTL 灏变細鍦ㄨ繖涓垪琛ㄧ殑璺緞涓煡鎵鹃潤鎬佹枃浠?
+3. 在已经安装了的 app 下创建一个文件夹叫做 static ，然后再在这个 static 文件夹下创建一个当前 app 的名字的文件夹，再把静态文件放到这个文件夹下。例如你的 件叫做 app 叫做 book ，有一个静态文 zhiliao.jpg ，那么路径为 book/static/book/zhiliao.jpg 。（为什么在 app 下创建一 个static文件夹，还需要在这个 static 下创建一个同 app 名字的文件夹呢？原因是如果直接把静 态文件放在 static 文件夹下，那么在模版加载静态文件的时候就是使用 个app之间有同名的静态文件，这时候可能就会产生混淆。而在 app 文件夹，在模版中加载的时候就是使用 zhiliao.jpg ，如果在多 static 文件夹下加了一个同名 app/zhiliao.jpg ，这样就可以避免产生混淆。）
+4. 如果有一些静态文件是不和任何 app 挂钩的。那么可以在 settings.py 中添加 STATICFILES_DIRS ，以后 DTL 就会在这个列表的路径中查找静态文件
 
 ```python
 STATICFILES_DIRS = [
@@ -7167,7 +7147,7 @@ STATICFILES_DIRS = [
 ]
 ```
 
-5.  鍦ㄦā鐗堜腑浣跨敤 load 鏍囩鍔犺浇`static`鏍囩銆傛瘮濡傝鍔犺浇鍦ㄩ」鐩殑 鏂囦欢銆傞偅涔堢ず渚嬩唬鐮佸涓?
+5.  在模版中使用 load 标签加载`static`标签。比如要加载在项目的 文件。那么示例代码如下
 
 ```html
 {% load static %}
@@ -7175,7 +7155,7 @@ STATICFILES_DIRS = [
 <script src="{% static ''js/index.js'' %}"></script>
 ```
 
-6.  濡傛灉涓嶆兂姣忔鍦ㄦā鐗堜腑鍔犺浇闈欐€佹枃浠堕兘浣跨敤`load`鍔犺浇`static`鏍囩锛岄偅涔堝彲浠ュ湪`style.css`鐨刞TEMPLATES/OPTIONS`娣诲姞`settings.py`涓璥''builtins'':[''django.templatetags.static'']`锛岃繖鏍蜂互鍚庡湪妯＄増 涓氨鍙互鐩存帴浣跨敤`static`鏍囩锛岃€屼笉鐢ㄦ墜鍔ㄧ殑`load`浜嗐€?
+6.  如果不想每次在模版中加载静态文件都使用`load`加载`static`标签，那么可以在`style.css`的`TEMPLATES/OPTIONS`添加`settings.py`中`''builtins'':[''django.templatetags.static'']`，这样以后在模版 中就可以直接使用`static`标签，而不用手动的`load`了。
 
 ```python
 TEMPLATES = [
@@ -7191,14 +7171,14 @@ TEMPLATES = [
             ''django.contrib.auth.context_processors.auth'',
             ''django.contrib.messages.context_processors.messages'',
         ],
-        # 杩欓噷鍔犺浇
+        # 这里加载
         ''builtins'':[''django.templatetags.static'']
         },
     },
 ]
 ```
 
-7.  濡傛灉娌℃湁鍦╜settings.INSTALLED_APPS`涓坊鍔燻django.contrib.staticfiles`銆傞偅涔堟垜浠氨闇€瑕?鎵嬪姩鐨勫皢璇锋眰闈欐€佹枃浠剁殑`url`涓庨潤鎬佹枃浠剁殑璺緞杩涜鏄犲皠浜嗭紝杩欎釜鎿嶄綔閫氬父鐢ㄦ潵鍔犺浇濯掍綋鏂囦欢锛堜笂 浼犵殑鏂囦欢锛夈€傜ず渚嬩唬鐮佸涓嬶細
+7.  如果没有在`settings.INSTALLED_APPS`中添加`django.contrib.staticfiles`。那么我们就需要 手动的将请求静态文件的`url`与静态文件的路径进行映射了，这个操作通常用来加载媒体文件（上 传的文件）。示例代码如下：
 
 ```python
 from django.conf import settings
@@ -7209,39 +7189,39 @@ path(''admin/'', admin.site.urls),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 ```
 
-鍦╜settings.py`涓殑`MEDIA_URL`鍜宍MEDIA_ROOT`鐨勯厤缃涓?
+在`settings.py`中的`MEDIA_URL`和`MEDIA_ROOT`的配置如下
 
 ```python
 MEDIA_ROOT = BASE_DIR / ''media''
 MEDIA_URL= ''/media/''
 ```
 
-** 娉ㄦ剰锛氶潤鎬佹枃浠跺拰濯掍綋鏂囦欢锛屾渶濂介兘鏄€氳繃Nginx绛変笓涓氱殑web鏈嶅姟鍣ㄦ潵閮ㄧ讲锛屼互涓婃柟寮忎粎鍦ㄥ紑鍙戦樁娈?浣跨敤銆?*
+** 注意：静态文件和媒体文件，最好都是通过Nginx等专业的web服务器来部署，以上方式仅在开发阶段 使用。**
 
-### 鏁版嵁搴撴搷浣?
-#### Django閰嶇疆杩炴帴鏁版嵁搴擄細
-鍦ㄦ搷浣滄暟鎹簱涔嬪墠锛岄鍏堝厛瑕佽繛鎺ユ暟鎹簱銆侱jango 杩炴帴鏁版嵁搴擄紝涓?闇€瑕佸崟鐙殑鍒涘缓涓€涓繛鎺ュ璞°€傚彧闇€瑕佸湪`settings.py`鏂囦欢涓仛濂芥暟鎹簱鐩稿叧鐨勯厤缃氨鍙互浜嗐€傜ず渚嬩唬 鐮佸涓嬶細
+### 数据库操作
+#### Django配置连接数据库：
+在操作数据库之前，首先先要连接数据库。Django 连接数据库，不 需要单独的创建一个连接对象。只需要在`settings.py`文件中做好数据库相关的配置就可以了。示例代 码如下：
 
 ```python
 DATABASES = {
     ''default'': {
-        # 鏁版嵁搴撳紩鎿?MySQL
+        # 数据库引擎 MySQL
         ''ENGINE'': ''django.db.backends.mysql'',
-        # 鏁版嵁搴撳悕绉?
+        # 数据库名称
         ''NAME'': BASE_DIR / ''book'',
-        # 杩炴帴鏁版嵁搴撶殑鐢ㄦ埛鍚?
+        # 连接数据库的用户名
         ''USER'': ''root'',
-        # 杩炴帴MySQL鐨勫瘑鐮?
+        # 连接MySQL的密码
         ''PASSWORD'': ''@Root1234'',
-        # MySQL涓绘満鍦板潃
+        # MySQL主机地址
         ''HOST'': ''192.168.3.33'',
-        # MySQL鏁版嵁搴撶殑绔彛鍙?
+        # MySQL数据库的端口号
         ''PORT'': ''3306'',
     }
 }
 ```
 
-鍏朵腑engine鐨勯€夋嫨杩樻湁浠ヤ笅锛?
+其中engine的选择还有以下：
 
 `''django.db.backends.postgresql''`
 
@@ -7251,281 +7231,281 @@ DATABASES = {
 
 `''django.db.backends.oracle''`
 
-#### 鍦╠jango涓搷浣滄暟鎹簱
-1.浣跨敤鍘熺敓鐨凷QL璇彞
+#### 在django中操作数据库
+1.使用原生的SQL语句
 
-鍦―jango涓娇鐢ㄥ師鐢焋sql`璇彞鎿嶄綔銆乣python db api`鐨勬帴鍙ｆ潵鎿嶄綔銆傚鏋滀綘鐨刞mysql`椹卞姩 浣跨敤鐨勬槸`pymysql`锛岄偅涔堜綘灏辨槸浣跨敤`pymysql`鏉ユ搷浣滅殑锛屽彧涓嶈繃django灏嗘暟鎹簱杩炴帴鐨勮繖涓€閮ㄥ垎灏佽濂戒簡锛屾垜浠彧瑕佸湪 `Django`濂戒簡,鎴戜滑鍙鍦╜settings.py`涓厤缃ソ浜嗘暟鎹簱杩炴帴淇℃伅鍚庣洿鎺ヤ娇鐢╜Django`灏佽濂界殑鎺ュ彛灏卞彲浠ユ搷浣滀簡銆傜ず渚嬩唬鐮佸涓?
+在Django中使用原生`sql`语句操作、`python db api`的接口来操作。如果你的`mysql`驱动 使用的是`pymysql`，那么你就是使用`pymysql`来操作的，只不过django将数据库连接的这一部分封装好了，我们只要在 `Django`好了,我们只要在`settings.py`中配置好了数据库连接信息后直接使用`Django`封装好的接口就可以操作了。示例代码如下
 
 ```python
-# 浣跨敤django灏佽濂界殑connection瀵硅薄锛屼細鑷姩璇诲彇settings.py涓暟鎹簱鐨勯厤缃俊鎭?
+# 使用django封装好的connection对象，会自动读取settings.py中数据库的配置信息
 from django.db import connection
-# 鑾峰彇娓告爣瀵硅薄
+# 获取游标对象
 cursor = connection.cursor()
-# 鎷垮埌娓告爣瀵硅薄鍚庢墽琛宻ql璇彞
+# 拿到游标对象后执行sql语句
 cursor.execute("select * from book")
-# 鑾峰彇鎵€鏈夌殑鏁版嵁
+# 获取所有的数据
 rows = cursor.fetchall()
-# 閬嶅巻鏌ヨ鍒扮殑鏁版嵁
+# 遍历查询到的数据
 for row in rows:
  print(row)
 ```
 
-浠ヤ笂鐨刞execute`浠ュ強`fetchall`鏂规硶閮芥槸`Python DB API`瑙勮寖涓畾涔夊ソ鐨勩€備换浣曚娇鐢≒ython鏉ユ搷浣淢ySQL鐨勯┍鍔ㄧ▼搴忛兘搴旇閬靛惊杩欎釜瑙勮寖銆傛墍浠ヤ笉绠℃槸浣跨敤`pymysql `鎴栬€呮槸`mysqlclient`鎴栬€呮槸`mysqldb`锛屼粬浠殑鎺ュ彛閮芥槸涓€鏍风殑銆傛洿澶氳鑼冭鍙傝€?https://www.python.org/dev/peps/pep-024 9/ 銆?
+以上的`execute`以及`fetchall`方法都是`Python DB API`规范中定义好的。任何使用Python来操作MySQL的驱动程序都应该遵循这个规范。所以不管是使用`pymysql `或者是`mysqlclient`或者是`mysqldb`，他们的接口都是一样的。更多规范请参考:https://www.python.org/dev/peps/pep-024 9/ 。
 
-#### python DB API涓嬭鑼冧笅cursor瀵硅薄甯哥敤鎺ュ彛锛?
-1.`description`锛氬鏋?cursor 鎵ц浜嗘煡璇㈢殑 sql 浠ｇ爜銆傞偅涔堣鍙?cursor.description 灞炴€х殑鏃?鍊欙紝灏嗚繑鍥炰竴涓垪琛紝杩欎釜鍒楄〃涓鐨勬槸鍏冪粍锛屽厓缁勪腑瑁呯殑鍒嗗埆鏄痐(name,type_code,display_size,internal_size,precision,scale,null_ok)`锛屽叾涓?琛ㄧ殑鏄煡鎵惧嚭鏉ョ殑鏁版嵁鐨勫瓧娈靛悕绉帮紝鍏朵粬鍙傛暟鏆傛椂鐢ㄥ涓嶅ぇ銆?
+#### python DB API下规范下cursor对象常用接口：
+1.`description`：如果 cursor 执行了查询的 sql 代码。那么读取 cursor.description 属性的时 候，将返回一个列表，这个列表中装的是元组，元组中装的分别是`(name,type_code,display_size,internal_size,precision,scale,null_ok)`，其中 表的是查找出来的数据的字段名称，其他参数暂时用处不大。
 
-2.`rowcount`锛氫唬琛ㄧ殑鏄湪鎵ц浜?sql 璇彞鍚庡彈褰卞搷鐨勮鏁般€?
+2.`rowcount`：代表的是在执行了 sql 语句后受影响的行数。
 
-3.`close`锛氬叧闂父鏍囥€傚叧闂父鏍囦互鍚庡氨鍐嶄篃涓嶈兘浣跨敤浜嗭紝鍚﹀垯浼氭姏鍑哄紓甯搞€?
+3.`close`：关闭游标。关闭游标以后就再也不能使用了，否则会抛出异常。
 
-4.`execute(sql[,parameters])`锛氭墽琛屾煇涓?sql 璇彞銆傚鏋滃湪鎵ц name 浠?sql 璇彞鐨勬椂鍊欒繕闇€瑕佷紶閫掑弬 鏁帮紝閭ｄ箞鍙互浼犵粰 parameters 鍙傛暟銆傜ず渚嬩唬鐮佸涓嬶細
+4.`execute(sql[,parameters])`：执行某个 sql 语句。如果在执行 name 代 sql 语句的时候还需要传递参 数，那么可以传给 parameters 参数。示例代码如下：
 
 ```python
 cursor.execute("select * from article where id=%s",(1,))
 ```
 
-5.` fetchone`锛氬湪鎵ц浜嗘煡璇㈡搷浣滀互鍚庯紝鑾峰彇绗竴鏉℃暟鎹€?
+5.` fetchone`：在执行了查询操作以后，获取第一条数据。
 
-6.`fetchmany(size)`锛氬湪鎵ц鏌ヨ鎿嶄綔浠ュ悗锛岃幏鍙栧鏉℃暟鎹€傚叿浣撴槸澶氬皯鏉¤鐪嬩紶鐨?鏋滀笉浼爏ize鍙傛暟锛岄偅涔堥粯璁ゆ槸鑾峰彇绗竴鏉℃暟鎹€?
+6.`fetchmany(size)`：在执行查询操作以后，获取多条数据。具体是多少条要看传的 果不传size参数，那么默认是获取第一条数据。
 
-7. `fetchall`锛氳幏鍙栨墍鏈夋弧瓒?sql 璇彞鐨勬暟鎹€?
+7. `fetchall`：获取所有满足 sql 语句的数据。
 
-#### ORM妯″瀷浠嬬粛
-##### ORM妯″瀷浠嬬粛
-ORM鍏ㄧОObject Relational Mapping锛屼腑鏂囧彨鍋氬璞″叧绯绘槧灏勶紝閫氳繃 ORM 鎴戜滑鍙互閫氳繃绫荤殑鏂瑰紡鍘绘搷浣滄暟鎹簱锛岄€氳繃鎶婅〃鏄犲皠鎴愮被锛屾妸琛屼綔瀹炰緥锛屾妸瀛楁浣滀负灞炴€с€?
+#### ORM模型介绍
+##### ORM模型介绍
+ORM全称Object Relational Mapping，中文叫做对象关系映射，通过 ORM 我们可以通过类的方式去操作数据库，通过把表映射成类，把行作实例，把字段作为属性。
 
-##### 鍒涘缓ORM妯″瀷锛?
-ORM妯″瀷涓€鑸兘鏄斁鍦ㄦ兂瑕佹槧灏勫埌鏁版嵁搴撲腑锛岄偅涔堣繖涓猘pp鐨?`models.py`鏂囦欢涓€傛瘡涓猘pp閮藉彲浠ユ嫢鏈夎嚜宸辩殑妯″瀷銆傚苟涓斿鏋滆繖涓ā鍨媋pp蹇呴』瑕佹斁鍦╜settings.py`鐨刞INSTALLED_APP`涓繘琛屽畨瑁呫€備互涓嬫槸 鍐欎竴涓畝鍗曠殑涔︾睄ORM妯″瀷
+##### 创建ORM模型：
+ORM模型一般都是放在想要映射到数据库中，那么这个app的 `models.py`文件中。每个app都可以拥有自己的模型。并且如果这个模型app必须要放在`settings.py`的`INSTALLED_APP`中进行安装。以下是 写一个简单的书籍ORM模型
 
 ```python
 from django.db import models
 class Book(models.Model):
     name = models.CharField(max_length=20,null=False)
     author = models.CharField(max_length=20,null=False)
-    # 鑷姩鑾峰彇寰楀埌鍙傛暟鐨勬椂闂?
+    # 自动获取得到参数的时间
     pub_time = models.DateTimeField(auto_now_add=True)
     price = models.FloatField(default=0)
 ```
 
-##### 鏄犲皠妯″瀷鍒版暟鎹簱涓?
-1. 鍦╜settings.py`涓紝閰嶇疆濂絗DATABASES`锛屽仛濂芥暟鎹簱鐩稿叧鐨勯厤缃€?
+##### 映射模型到数据库中
+1. 在`settings.py`中，配置好`DATABASES`，做好数据库相关的配置。
 
-2. 鍦╝pp涓殑`models.py`涓畾涔夊ソ妯″瀷锛岃繖涓ā鍨嬪繀椤荤户鎵胯嚜`django.db.models `
+2. 在app中的`models.py`中定义好模型，这个模型必须继承自`django.db.models `
 
-3. 灏嗚繖涓?app 娣诲姞鍒癭settings.py`鐨刞INSTALLED_APP`涓€?
+3. 将这个 app 添加到`settings.py`的`INSTALLED_APP`中。
 
-4. 鍦ㄥ懡浠よ缁堢锛岃繘鍏ュ埌椤圭洰鎵€鍦ㄧ殑璺緞锛岀劧鍚庢墽琛屽懡浠?python `manage.py makemigrations`鏉ョ敓鎴愯縼绉昏剼鏈枃浠躲€?
+4. 在命令行终端，进入到项目所在的路径，然后执行命令 python `manage.py makemigrations`来生成迁移脚本文件。
 
-5. 鍚屾牱鍦ㄥ懡浠よ涓紝鎵ц鍛戒护`python manage.py migrate`鏉ュ皢杩佺Щ鑴氭湰鏂囦欢鏄犲皠鍒版暟鎹簱涓€?
+5. 同样在命令行中，执行命令`python manage.py migrate`来将迁移脚本文件映射到数据库中。
 
-#### CRUD鎿嶄綔
-##### 娣诲姞鏁版嵁
+#### CRUD操作
+##### 添加数据
 ```python
 from django.http import HttpResponse
 from .models import Book
 
 def add_book(request):
-    book = Book(name="涓夊浗婕斾箟", author="缃楄疮涓?,price=100)
+    book = Book(name="三国演义", author="罗贯中",price=100)
     book.save()
-    return HttpResponse("鍒涘缓鎴愬姛")
+    return HttpResponse("创建成功")
 ```
 
-##### 鏌ユ壘鏁版嵁
-鏌ユ壘鏁版嵁閮芥槸閫氳繃objects瀵硅薄鏉ュ疄鐜扮殑
+##### 查找数据
+查找数据都是通过objects对象来实现的
 
-1. 鏌ユ壘鎵€鏈夋暟鎹?
+1. 查找所有数据
 
 ```python
 books = Book.objects.all()
     for book in books:
         print(book.id, book.name, book.author,book.pub_time, book.price)
-    return HttpResponse("鏌ユ壘鎴愬姛")
+    return HttpResponse("查找成功")
 ```
 
-2. 鏁版嵁杩囨护
+2. 数据过滤
 
-鍦ㄦ煡鎵炬暟鎹殑鏃跺€欙紝鏈夋椂鍊欓渶瑕佸涓€浜涙暟鎹繘琛岃繃婊わ紝浣跨敤`objects`鐨刞filter`鏂规硶
+在查找数据的时候，有时候需要对一些数据进行过滤，使用`objects`的`filter`方法
 
 ```python
-books = Book.objects.filter(name="涓夊浗婕斾箟")
+books = Book.objects.filter(name="三国演义")
     for book in books:
         print(book.id, book.name, book.author,book.pub_time, book.price)
-    return HttpResponse("鏌ユ壘鎴愬姛")
+    return HttpResponse("查找成功")
 ```
 
-3. 鑾峰彇鍗曚釜瀵硅薄
+3. 获取单个对象
 
-浣跨敤`filter`杩斿洖鐨勬槸鎵€鏈夋弧瓒虫潯浠剁殑缁撴灉闆嗐€傛湁鏃跺€欏鏋滃彧闇€瑕佽繑鍥炵涓€涓弧瓒虫潯浠剁殑瀵硅薄銆傞偅涔堝彲浠?浣跨敤get鏂规硶
+使用`filter`返回的是所有满足条件的结果集。有时候如果只需要返回第一个满足条件的对象。那么可以 使用get方法
 
 ```python
     try:
-        book = Book.objects.get(name="涓夊浗婕斾箟")
+        book = Book.objects.get(name="三国演义")
         print(book.name)
     except Book.DoesNotExist:
-        print("鍥句功涓嶅瓨鍦?)
+        print("图书不存在")
 ```
 
-4. 鏁版嵁鎺掑簭
+4. 数据排序
 
-鏍规嵁鏌愪釜瀛楁鏉ヨ繘琛屾帓搴忎娇鐢╜order_by`鏂规硶鏉ュ疄鐜帮紝榛樿浠庡皬鍒板ぇ鎺掑簭锛屽彲鍦ㄥ瓧娈靛墠鍔犱笂璐熷彿`-`鏉ュ疄鐜板€掑簭
+根据某个字段来进行排序使用`order_by`方法来实现，默认从小到大排序，可在字段前加上负号`-`来实现倒序
 
 ```python
 def order_view(request):
     books = Book.objects.order_by("-pub_time")
     for book in books:
         print(book.id, book.name, book.author,book.pub_time, book.price)
-    return HttpResponse("鎺掑簭鎴愬姛")
+    return HttpResponse("排序成功")
 ```
 
-##### 淇敼鏁版嵁
-鍦ㄦ煡鎵惧埌鏁版嵁鍚庯紝渚垮彲浠ヨ繘琛屼慨鏀逛簡銆備慨鏀圭殑鏂瑰紡闈炲父绠€鍗曪紝鍙渶瑕佸皢鏌ユ壘鍑烘潵鐨勫璞＄殑鏌愪釜灞炴€ц繘琛?淇敼锛岀劧鍚庡啀璋冪敤杩欎釜瀵硅薄鐨?save 鏂规硶渚垮彲浠ヨ繘琛屼慨鏀?
+##### 修改数据
+在查找到数据后，便可以进行修改了。修改的方式非常简单，只需要将查找出来的对象的某个属性进行 修改，然后再调用这个对象的 save 方法便可以进行修改
 
 ```python
 def updata_view(request):
     book = Book.objects.first()
-    book.name = "瑗挎父璁?
+    book.name = "西游记"
     book.save()
-    return HttpResponse("淇敼鎴愬姛")
+    return HttpResponse("修改成功")
 ```
 
-##### 鍒犻櫎鏁版嵁
-鍦ㄦ煡鎵惧埌鏁版嵁鍚庯紝渚垮彲浠ヨ繘琛屽垹闄や簡锛屼娇鐢ㄧ殑鏄痐delete`鏂规硶
+##### 删除数据
+在查找到数据后，便可以进行删除了，使用的是`delete`方法
 
 ```python
 ef delete_view(request):
-    book = Book.objects.filter(name="瑗挎父璁?)
+    book = Book.objects.filter(name="西游记")
     book.delete()
-    return HttpResponse("鍒犻櫎鎴愬姛")
+    return HttpResponse("删除成功")
 ```
 
-#### 妯″瀷甯哥敤鐨凢ield鍜屽弬鏁?
-##### 甯哥敤瀛楁
-1. AutoField锛?
+#### 模型常用的Field和参数
+##### 常用字段
+1. AutoField：
 
-鏄犲皠鍒版暟鎹簱涓槸`int`绫诲瀷锛屽彲浠ユ湁鑷姩澧為暱鐨勭壒鎬с€備竴鑸笉闇€瑕佷娇鐢ㄨ繖涓被鍨嬶紝濡傛灉涓嶆寚瀹氫富閿紝閭ｄ箞妯″瀷浼氳嚜鍔ㄧ殑鐢熸垚涓€涓彨鍋歚id`鐨勮嚜鍔ㄥ闀跨殑涓婚敭銆傚鏋滀綘鎯虫寚瀹氫竴涓叾浠栧悕瀛楃殑骞朵笖鍏锋湁鑷姩澧為暱鐨勪富閿紝浣跨敤`AutoField`涔熸槸鍙互鐨勩€?
+映射到数据库中是`int`类型，可以有自动增长的特性。一般不需要使用这个类型，如果不指定主键，那么模型会自动的生成一个叫做`id`的自动增长的主键。如果你想指定一个其他名字的并且具有自动增长的主键，使用`AutoField`也是可以的。
 
 2. BigAutoField:
 
-64浣嶇殑鏁村舰锛岀被浼间簬AutoField锛岃寖鍥存槸`1- 9223372036854775807`
+64位的整形，类似于AutoField，范围是`1- 9223372036854775807`
 
 3. BooleanField:
 
-鍦ㄦā鍨嬪眰闈㈡帴鏀剁殑鏄痐True/False`  銆傚湪鏁版嵁搴撳眰闈㈡槸`tinyint`绫诲瀷锛屽鏋滄病鏈夋寚瀹氶粯璁ゅ€硷紝鍒欓粯璁ゅ€兼槸None
+在模型层面接收的是`True/False`  。在数据库层面是`tinyint`类型，如果没有指定默认值，则默认值是None
 
-4. CharField锛?
+4. CharField；
 
-鍦ㄦ暟鎹簱灞傞潰鏄?varchar 绫诲瀷銆傞粯璁ゅ€兼槸 Python 灞傞潰灏辨槸鏅€氱殑瀛楃涓层€傝繖涓被鍨嬪湪浣跨敤鐨勬椂鍊欏繀椤昏鎸囧畾鏈€澶х殑闀垮害锛屼篃鍗冲繀椤昏浼犻€抈 `max_length`杩欎釜鍏抽敭瀛楀弬鏁拌繘鍘汇€?
+在数据库层面是 varchar 类型。默认值是 Python 层面就是普通的字符串。这个类型在使用的时候必须要指定最大的长度，也即必须要传递` `max_length`这个关键字参数进去。
 
 5. DataField:
 
-鏃ユ湡绫诲瀷銆傚湪Python涓槸`datetime.date`绫诲瀷锛屽彲浠ヨ褰曞勾鏈堟棩銆傚湪鏄犲皠鍒版暟鎹簱涓篃鏄娇鐢ㄨ繖涓狥ield`鍙互浼犻€掍互涓嬪嚑涓弬鏁帮細
+日期类型。在Python中是`datetime.date`类型，可以记录年月日。在映射到数据库中也是使用这个Field`可以传递以下几个参数：
 
-1. date 绫诲瀷銆俙auto_now`锛氬湪姣忔杩欎釜鏁版嵁淇濆瓨鐨勬椂鍊欙紝閮戒娇鐢ㄥ綋鍓嶇殑鏃堕棿銆傛瘮濡備綔涓轰竴涓褰曚慨鏀规棩鏈熺殑瀛楁锛屽彲浠ュ皢杩欎釜灞炴€ц缃负`True`銆?
+1. date 类型。`auto_now`：在每次这个数据保存的时候，都使用当前的时间。比如作为一个记录修改日期的字段，可以将这个属性设置为`True`。
 
-2.`auto_now_add`锛氬湪姣忔鏁版嵁绗竴娆¤娣诲姞杩涘幓鐨勬椂鍊欙紝閮戒娇鐢ㄥ綋鍓嶇殑鏃堕棿銆傛瘮濡備綔涓轰竴涓褰曠涓€娆″叆搴撶殑瀛楁锛屽彲浠ュ皢杩欎釜灞炴€ц缃负`True` 銆?
+2.`auto_now_add`：在每次数据第一次被添加进去的时候，都使用当前的时间。比如作为一个记录第一次入库的字段，可以将这个属性设置为`True` 。
 
 6. DataTimeField:
 
-鏃ユ湡鏃堕棿绫诲瀷锛岀被浼间簬DateField銆備笉浠呬粎鍙互瀛樺偍鏃ユ湡锛岃繕鍙互瀛樺偍鏃堕棿銆傛槧灏勫埌鏁版嵁搴撲腑鏄痙atetime绫诲瀷銆傝繖涓?Field 涔熷彲浠ヤ娇鐢╜auto_now`鍜宍auto_now_add`涓や釜灞炴€с€?
+日期时间类型，类似于DateField。不仅仅可以存储日期，还可以存储时间。映射到数据库中是datetime类型。这个 Field 也可以使用`auto_now`和`auto_now_add`两个属性。
 
 7. TiemField:
 
-鏃堕棿绫诲瀷銆傚湪鏁版嵁搴撲腑鏄痐time`绫诲瀷銆侾ython涓槸`datetime.time`绫诲瀷
+时间类型。在数据库中是`time`类型。Python中是`datetime.time`类型
 
 8. EmailField:
 
-绫讳技浜?CharField 銆傚湪鏁版嵁搴撳簳灞備篃鏄竴涓?`varchar`,鏈€澶ч暱搴︿负254涓瓧绗?
+类似于 CharField 。在数据库底层也是一个 `varchar`,最大长度为254个字符
 
-9. FileField锛?
+9. FileField：
 
-鐢ㄦ潵瀛樺偍鏂囦欢鐨勩€傝繖涓鍙傝€冨悗闈㈢殑鏂囦欢涓婁紶绔犺妭閮ㄥ垎銆?
+用来存储文件的。这个请参考后面的文件上传章节部分。
 
 10. ImageField:
 
-鐢ㄦ潵瀛樺偍鍥剧墖鏂囦欢鐨勩€傝繖涓鍙傝€冨悗闈㈢殑鍥剧墖涓婁紶绔犺妭閮ㄥ垎銆?
+用来存储图片文件的。这个请参考后面的图片上传章节部分。
 
 11. FloatField:
 
-娴偣绫诲瀷銆傛槧灏勫埌鏁版嵁搴撲腑鏄?float 绫诲瀷銆?
+浮点类型。映射到数据库中是 float 类型。
 
 12. IntegerField:
 
-鏁村舰銆傚€肩殑鍖洪棿鏄?2147483648鈥斺€?147483647 銆?
+整形。值的区间是-2147483648——2147483647 。
 
 13. BigIntegerField:
 
-澶ф暣褰€傚€肩殑鍖洪棿鏄痐-9223372036854775808鈥斺€?223372036854775807`銆?
+大整形。值的区间是`-9223372036854775808——9223372036854775807`。
 
 14. PositiveIntegerField:
 
-姝ｆ暣褰€傚€肩殑鍖洪棿鏄痐0-2147483647`
+正整形。值的区间是`0-2147483647`
 
-15. SamllIntegerField锛?
+15. SamllIntegerField：
 
-灏忔暣褰€傚€肩殑鍖洪棿鏄痐-32768鈥斺€?2767`銆?
+小整形。值的区间是`-32768——32767`。
 
 16. PositiveSmallIntegerField:
 
-姝ｅ皬鏁村舰銆傚€肩殑鍖洪棿鏄痐0-32767`銆?
+正小整形。值的区间是`0-32767`。
 
 17. TextField:
 
-澶ч噺鐨勬枃鏈被鍨嬨€傛槧灏勫埌鏁版嵁搴撲腑鏄痐longtext`绫诲瀷銆?
+大量的文本类型。映射到数据库中是`longtext`类型。
 
 18. UUIDField:
 
-鍙兘瀛樺偍 uuid 鏍煎紡鐨勫瓧绗︿覆.uuid 鏄竴涓?2浣嶇殑鍏ㄧ悆鍞竴鐨勫瓧绗︿覆锛屼竴鑸敤鏉ヤ綔涓轰富閿€?
+只能存储 uuid 格式的字符串.uuid 是一个32位的全球唯一的字符串，一般用来作为主键。
 
-19. URLFIeld锛?
+19. URLFIeld：
 
-绫讳技浜?CharField 锛屽彧涓嶈繃鍙兘鐢ㄦ潵瀛樺偍url鏍煎紡鐨勫瓧绗︿覆銆傚苟涓旈粯璁ょ殑 `max_length`鏄?00
+类似于 CharField ，只不过只能用来存储url格式的字符串。并且默认的 `max_length`是200
 
 
 
-##### field鐨勫父鐢ㄥ弬鏁?
+##### field的常用参数
 1. null
 
-濡傛灉璁剧疆涓篳True`锛孌jango灏嗕細鍦ㄦ槧灏勮〃鐨勬椂鍊欐寚瀹氭槸鍚︿负绌恒€傞粯璁ゆ槸涓篳False`銆傚湪浣跨敤瀛楃涓茬浉鍏崇殑`Field``锛圕harField/TextField锛塦鐨勬椂鍊欙紝瀹樻柟鎺ㄨ崘灏介噺涓嶈浣跨敤杩欎釜鍙傛暟锛屼篃灏辨槸淇濇寔榛樿鍊糮False`鍥犱负Django鍦ㄥ鐞嗗瓧绗︿覆鐩稿叧鐨刞Field`鐨勬椂鍊欙紝鍗充娇杩欎釜`Field`鐨?`null=True`锛屽鏋滀綘娌℃湁缁欒繖涓猔Field`浼犻€掍换浣曞€硷紝Django涔熶細浣跨敤涓€涓┖鐨勫瓧绗︿覆`""`鏉ヤ綔涓洪粯璁ゅ€煎瓨鍌ㄨ繘鍘汇€傚洜姝ゅ鏋滃啀浣跨敤`null=True`,Django浼氫骇鐢熶袱绉嶇┖鍊肩殑鎯呭舰锛圢ULL鎴栬€呯┖瀛楃涓诧級銆傚鏋滄兂瑕佸湪琛ㄥ崟楠岃瘉鐨勬椂鍊欏厑璁歌繖涓瓧绗︿覆涓虹┖锛岄偅涔堝缓璁娇鐢╜blank=True`銆侻odelForm濡傛灉浣犵殑`Field`鏄痐BooleanField`锛岄偅涔堝搴旂殑鍙┖鐨勫瓧娈靛垯涓?`NullBooleanField`銆?
+如果设置为`True`，Django将会在映射表的时候指定是否为空。默认是为`False`。在使用字符串相关的`Field``（CharField/TextField）`的时候，官方推荐尽量不要使用这个参数，也就是保持默认值`False`因为Django在处理字符串相关的`Field`的时候，即使这个`Field`的 `null=True`，如果你没有给这个`Field`传递任何值，Django也会使用一个空的字符串`""`来作为默认值存储进去。因此如果再使用`null=True`,Django会产生两种空值的情形（NULL或者空字符串）。如果想要在表单验证的时候允许这个字符串为空，那么建议使用`blank=True`。ModelForm如果你的`Field`是`BooleanField`，那么对应的可空的字段则为 `NullBooleanField`。
 
 2. blank
 
-鏍囪瘑杩欎釜瀛楁鍦ㄨ〃鍗曢獙璇佺殑鏃跺€欐槸鍚﹀彲浠ヤ负绌恒€傞粯璁ゆ槸`False`杩欎釜鍜宍null`鏄湁鍖哄埆鐨?, `null`鏄竴涓函鏁版嵁搴撶骇鍒殑銆傝€宍blank`鏄〃鍗曢獙璇佺骇鍒殑銆?
+标识这个字段在表单验证的时候是否可以为空。默认是`False`这个和`null`是有区别的 , `null`是一个纯数据库级别的。而`blank`是表单验证级别的。
 
 3. db_column
 
-杩欎釜瀛楁鍦ㄦ暟鎹簱涓殑鍚嶅瓧銆傚鏋滄病鏈夎缃繖涓弬鏁帮紝閭ｄ箞灏嗕細浣跨敤妯″瀷涓睘鎬х殑鍚嶅瓧銆?
+这个字段在数据库中的名字。如果没有设置这个参数，那么将会使用模型中属性的名字。
 
 4. default
 
-榛樿鍊笺€傚彲浠ヤ负涓€涓€硷紝鎴栬€呮槸涓€涓嚱鏁帮紝浣嗘槸涓嶆敮鎸乣lambda`琛ㄨ揪寮忋€傚苟涓斾笉鏀寔鍒楄〃/瀛楀吀/闆嗗悎绛夊彲鍙樼殑鏁版嵁缁撴瀯銆?
+默认值。可以为一个值，或者是一个函数，但是不支持`lambda`表达式。并且不支持列表/字典/集合等可变的数据结构。
 
 5. primary_key
 
-鏄惁涓轰富閿紝榛樿涓篳Fales`
+是否为主键，默认为`Fales`
 
 6. unique:
 
-鍦ㄨ〃涓繖涓瓧娈电殑鍊兼槸鍚﹀敮涓€锛屼竴鑸槸璁剧疆鎵嬫満鍙风爜/閭绛?
+在表中这个字段的值是否唯一，一般是设置手机号码/邮箱等
 
-鏇村Field鍙傛暟璇峰弬鑰冨畼鏂规枃妗ｏ細[ https://docs.djangoproject.com/zh-hans/5.0/ref/models/fields/  ](https://docs.djangoproject.com/zh-hans/5.0/ref/models/fields/%20)
+更多Field参数请参考官方文档：[ https://docs.djangoproject.com/zh-hans/5.0/ref/models/fields/  ](https://docs.djangoproject.com/zh-hans/5.0/ref/models/fields/%20)
 
-##### 妯″瀷涓璏eta閰嶇疆
-瀵逛簬涓€浜涙ā鍨嬬骇鍒殑閰嶇疆銆傛垜浠彲浠ュ湪妯″瀷涓畾涔変竴涓被锛屽彨鍋?Meta 銆傜劧鍚庡湪杩欎釜绫讳腑娣诲姞涓€浜涚被灞炴€?鏉ユ帶鍒舵ā鍨嬬殑浣滅敤銆傛瘮濡傛垜浠兂瑕佸湪鏁版嵁搴撴槧灏勭殑鏃跺€欎娇鐢ㄨ嚜宸辨寚瀹氱殑琛ㄥ悕锛岃€屼笉鏄娇鐢ㄦā鍨嬬殑鍚嶇О銆?閭ｄ箞鎴戜滑鍙互鍦?Meta 绫讳腑娣诲姞涓€涓?db_table 鐨勫睘鎬с€?
+##### 模型中Meta配置
+对于一些模型级别的配置。我们可以在模型中定义一个类，叫做 Meta 。然后在这个类中添加一些类属性 来控制模型的作用。比如我们想要在数据库映射的时候使用自己指定的表名，而不是使用模型的名称。 那么我们可以在 Meta 类中添加一个 db_table 的属性。
 
 1. db_table
 
-杩欎釜妯″瀷鏄犲皠鍒版暟鎹簱涓殑琛ㄥ悕銆傚鏋滄病鏈夋寚瀹氳繖涓弬鏁帮紝閭ｄ箞鍦ㄦ槧灏勭殑鏃跺€欏皢浼氫娇鐢ㄦā鍨嬪悕鏉ヤ綔涓洪粯璁ょ殑琛ㄥ悕銆?
+这个模型映射到数据库中的表名。如果没有指定这个参数，那么在映射的时候将会使用模型名来作为默认的表名。
 
 2. ordering
 
-璁剧疆鍦ㄦ彁鍙栨暟鎹殑鎺掑簭鏂瑰紡銆傚悗闈㈢珷鑺備細璁插埌濡備綍鏌ユ壘鏁版嵁銆傛瘮濡傛垜鎯冲湪鏌ユ壘鏁版嵁鐨勬椂鍊欐牴鎹坊鍔犵殑鏃堕棿鎺掑簭
+设置在提取数据的排序方式。后面章节会讲到如何查找数据。比如我想在查找数据的时候根据添加的时间排序
 
 ```python
 class Book(models.Model):
     name = models.CharField(max_length=100)
     author = models.CharField(max_length=100)
-    # 鑾峰彇鏃堕棿
+    # 获取时间
     pub_time = models.DateTimeField(auto_now_add=True)
     price = models.FloatField(default=0)
 
@@ -7536,11 +7516,11 @@ class Book(models.Model):
 
 
 
-#### 澶栭敭鍜岃〃鍏崇郴
-##### 澶栭敭
-鍦∕ySQL涓紝琛ㄦ湁涓ょ寮曟搸锛屼竴绉嶆槸`InnoDB`锛屽彟澶栦竴绉嶆槸`myisam`銆傚鏋滀娇鐢ㄧ殑鏄痐InnoDB`寮曟搸锛屾槸鏀寔澶栭敭绾︽潫鐨勩€傚閿殑瀛樺湪浣垮緱`ORM` 妗嗘灦鍦ㄥ鐞嗚〃鍏崇郴鐨勬椂鍊欏紓甯哥殑寮哄ぇ銆傚洜姝よ繖閲屾垜浠鍏堟潵浠嬬粛涓嬪閿湪`Django`涓殑浣跨敤銆?
+#### 外键和表关系
+##### 外键
+在MySQL中，表有两种引擎，一种是`InnoDB`，另外一种是`myisam`。如果使用的是`InnoDB`引擎，是支持外键约束的。外键的存在使得`ORM` 框架在处理表关系的时候异常的强大。因此这里我们首先来介绍下外键在`Django`中的使用。
 
-绫诲畾涔変负`class ForeignKey(to,on_delete,**options)`銆傜涓€涓弬鏁版槸寮曠敤鐨勬槸鍝釜妯″瀷锛岀浜屼釜鍙傛暟鏄湪浣跨敤澶栭敭寮曠敤鐨勬ā鍨嬫暟鎹鍒犻櫎浜嗭紝杩欎釜瀛楁璇ュ浣曞鐞嗭紝姣斿鏈塦CASCADE`銆乣SET_NULL`绛夈€傝繖閲屼互涓€涓疄闄呮渚嬫潵璇存槑銆傛瘮濡傛湁涓€涓猔User`鍜屼竴涓猔Article`涓や釜妯″瀷銆備竴涓猔User`鍙互鍙戣〃澶氱瘒鏂囩珷锛屼竴涓猔Article`鍙兘鏈変竴涓猔Author`锛屽苟涓旈€氳繃澶栭敭杩涜寮曠敤
+类定义为`class ForeignKey(to,on_delete,**options)`。第一个参数是引用的是哪个模型，第二个参数是在使用外键引用的模型数据被删除了，这个字段该如何处理，比如有`CASCADE`、`SET_NULL`等。这里以一个实际案例来说明。比如有一个`User`和一个`Article`两个模型。一个`User`可以发表多篇文章，一个`Article`只能有一个`Author`，并且通过外键进行引用
 
 ```python
 class User(models.Model):
@@ -7554,29 +7534,29 @@ class Article(models.Model):
     author = models.ForeignKey("User",on_delete=models.CASCADE)
 ```
 
-浠ヤ笂浣跨敤`ForeignKey`鏉ュ畾涔夋ā鍨嬩箣闂寸殑鍏崇郴銆傚嵆鍦╜Article`鐨勫疄渚嬩腑鍙互閫氳繃`author`鏁板鏉ユ搷浣滃搴旂殑`User`妯″瀷銆傝繖鏍蜂娇鐢ㄨ捣鏉ラ潪甯哥殑鏂逛究
+以上使用`ForeignKey`来定义模型之间的关系。即在`Article`的实例中可以通过`author`数学来操作对应的`User`模型。这样使用起来非常的方便
 
 ```python
 article = Article(title=''abc'',content=''123'')
-author = User(username=''寮犱笁'',password=''111111'')
+author = User(username=''张三'',password=''111111'')
 article.author = author
 article.save()
 
-# 淇敼article.author涓婄殑鍊?
-article.author.username = ''鏉庡洓''
+# 修改article.author上的值
+article.author.username = ''李四''
 article.save()
 ```
 
-鍦ㄥ簳灞傦紝`Django`涓篳Article`琛ㄦ坊鍔犱簡涓€涓猔灞炴€у悕_id`鐨勫瓧娈碉紙姣斿`author`鐨勫瓧娈靛悕绉版槸`author_id`锛夛紝杩欎釜瀛楁鏄竴涓閿紝璁板綍鐫€瀵瑰簲鐨勪綔鑰呯殑涓婚敭銆備互鍚庨€氳繃`article.author`璁块棶鐨勬椂鍊欙紝瀹為檯涓婃槸鍏堥€氳繃`author_id`鎵惧埌瀵瑰簲鐨勬暟鎹紝鐒跺悗鍐嶆彁鍙朻User`琛ㄤ腑鐨勮繖鏉℃暟鎹紝褰㈡垚涓€涓ā鍨嬨€?
+在底层，`Django`为`Article`表添加了一个`属性名_id`的字段（比如`author`的字段名称是`author_id`），这个字段是一个外键，记录着对应的作者的主键。以后通过`article.author`访问的时候，实际上是先通过`author_id`找到对应的数据，然后再提取`User`表中的这条数据，形成一个模型。
 
-濡傛灉鎯宠寮曠敤鍙﹀涓€涓猔app`鐨勬ā鍨嬶紝閭ｄ箞搴旇鍦ㄤ紶閫抈to`鍙傛暟鐨勬椂鍊欙紝浣跨敤`app.model_name`杩涜鎸囧畾銆備互涓婁緥涓轰緥锛屽鏋渀User`鍜宍Article`涓嶆槸鍦ㄥ悓涓€涓猘pp涓紝閭ｄ箞鍦ㄥ紩鐢ㄧ殑鏃跺€欑殑绀轰緥浠ｇ爜濡備笅锛?
+如果想要引用另外一个`app`的模型，那么应该在传递`to`参数的时候，使用`app.model_name`进行指定。以上例为例，如果`User`和`Article`不是在同一个app中，那么在引用的时候的示例代码如下：
 
 ```python
-# User妯″瀷鍦╱ser杩欎釜app涓?
+# User模型在user这个app中
 class User(models.Model):
     username = models.CharField(max_length=20)
     password = models.CharField(max_length=100)
-# Article妯″瀷鍦╝rticle杩欎釜app涓?
+# Article模型在article这个app中
 class Article(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
@@ -7584,40 +7564,40 @@ class Article(models.Model):
     author = models.ForeignKey("user.User",on_delete=models.CASCADE
 ```
 
-濡傛灉妯″瀷鐨勫閿紩鐢ㄧ殑鏄湰韬嚜宸辫繖涓ā鍨嬶紝閭ｄ箞to鍙傛暟鍙互涓篳''self''`锛屾垨鑰呮槸杩欎釜妯″瀷鐨勫悕瀛椼€傚湪璁哄潧寮€鍙戜腑锛屼竴鑸瘎璁洪兘鍙互杩涜浜岀骇璇勮锛屽嵆鍙互閽堝鍙﹀涓€涓瘎璁鸿繘琛岃瘎璁猴紝閭ｄ箞鍦ㄥ畾涔夋ā鍨嬬殑鏃跺€欏氨闇€瑕佷娇鐢ㄥ閿潵寮曠敤鑷韩
+如果模型的外键引用的是本身自己这个模型，那么to参数可以为`''self''`，或者是这个模型的名字。在论坛开发中，一般评论都可以进行二级评论，即可以针对另外一个评论进行评论，那么在定义模型的时候就需要使用外键来引用自身
 
 ```python
 class Comment(models.Model):
     content = models.TextField()
     origin_comment = models.ForeignKey(''self'',on_delete=models.CASCADE,null=True)
-    # 鎴栬€?
+    # 或者
     # origin_comment = 
 
 models.ForeignKey(''Comment'',on_delete=models.CASCADE,null=True)
 ```
 
-##### 澶栭敭鍒犻櫎鎿嶄綔
-濡傛灉涓€涓ā鍨嬩娇鐢ㄤ簡澶栭敭銆傞偅涔堝湪瀵规柟閭ｄ釜妯″瀷琚垹鎺夊悗锛岃杩涜浠€涔堟牱鐨勬搷浣溿€傚彲浠ラ€氳繃`on_delete`鏉ユ寚瀹氾紝鍙寚瀹氱殑绫诲瀷濡備笅
+##### 外键删除操作
+如果一个模型使用了外键。那么在对方那个模型被删掉后，该进行什么样的操作。可以通过`on_delete`来指定，可指定的类型如下
 
-1. CASCADE锛?绾ц仈鎿嶄綔銆傚鏋滃閿搴旂殑閭ｆ潯鏁版嵁琚垹闄や簡锛岄偅涔堣繖鏉℃暟鎹篃浼氳鍒犻櫎銆?
-2. PROTECT锛?锛氬彈淇濇姢銆傚嵆鍙杩欐潯鏁版嵁寮曠敤浜嗗閿殑閭ｆ潯鏁版嵁锛岄偅涔堝氨涓嶈兘鍒犻櫎澶栭敭鐨勯偅鏉℃暟鎹€?
-3. SET_NULL锛?璁剧疆涓虹┖銆傚鏋滃閿殑閭ｆ潯鏁版嵁琚垹闄や簡锛岄偅涔堝湪鏈潯鏁版嵁涓婂氨灏嗚繖涓瓧娈佃缃负绌恒€傚鏋滆缃繖涓€夐」锛屽墠鎻愭槸瑕佹寚瀹氳繖涓瓧娈靛彲浠ヤ负绌恒€?
-4. SET_DEFAULL锛?璁剧疆榛樿鍊笺€傚鏋滃閿殑閭ｆ潯鏁版嵁琚垹闄や簡锛岄偅涔堟湰鏉℃暟鎹笂灏卞皢杩欎釜瀛楁璁剧疆涓?榛樿鍊笺€傚鏋滆缃繖涓€夐」锛屽墠鎻愭槸瑕佹寚瀹氳繖涓瓧娈典竴涓粯璁ゅ€笺€?
-5. SET()锛?濡傛灉澶栭敭鐨勯偅鏉℃暟鎹鍒犻櫎浜嗐€傞偅涔堝皢浼氳幏鍙?SET 鍑芥暟涓殑鍊兼潵浣滀负杩欎釜澶栭敭鐨勫€笺€?SET 鍑芥暟鍙互鎺ユ敹涓€涓彲浠ヨ皟鐢ㄧ殑瀵硅薄锛堟瘮濡傚嚱鏁版垨鑰呮柟娉曪級锛屽鏋滄槸鍙互璋冪敤鐨勫璞★紝閭ｄ箞浼氬皢杩欎釜 瀵硅薄璋冪敤鍚庣殑缁撴灉浣滀负鍊艰繑鍥炲洖鍘汇€?
-6. DO_NOTHING锛?涓嶉噰鍙栦换浣曡涓恒€備竴鍒囧叏鐪嬫暟鎹簱绾у埆鐨勭害鏉熴€?
+1. CASCADE： 级联操作。如果外键对应的那条数据被删除了，那么这条数据也会被删除。
+2. PROTECT： ：受保护。即只要这条数据引用了外键的那条数据，那么就不能删除外键的那条数据。
+3. SET_NULL： 设置为空。如果外键的那条数据被删除了，那么在本条数据上就将这个字段设置为空。如果设置这个选项，前提是要指定这个字段可以为空。
+4. SET_DEFAULL： 设置默认值。如果外键的那条数据被删除了，那么本条数据上就将这个字段设置为 默认值。如果设置这个选项，前提是要指定这个字段一个默认值。
+5. SET()： 如果外键的那条数据被删除了。那么将会获取 SET 函数中的值来作为这个外键的值。 SET 函数可以接收一个可以调用的对象（比如函数或者方法），如果是可以调用的对象，那么会将这个 对象调用后的结果作为值返回回去。
+6. DO_NOTHING： 不采取任何行为。一切全看数据库级别的约束。
 
-** 浠ヤ笂杩欎簺閫夐」鍙槸Django绾у埆鐨勶紝鏁版嵁绾у埆渚濇棫鏄疪ESTRICT锛?**
+** 以上这些选项只是Django级别的，数据级别依旧是RESTRICT！ **
 
 
 
-##### 琛ㄥ叧绯?
-琛ㄤ箣闂寸殑鍏崇郴閮芥槸閫氳繃澶栭敭鏉ヨ繘琛屽叧鑱旂殑銆傝€岃〃涔嬮棿鐨勫叧绯伙紝鏃犻潪灏辨槸涓夌鍏崇郴锛氫竴瀵逛竴銆佷竴瀵瑰锛堝 瀵逛竴锛夈€佸瀵瑰
+##### 表关系
+表之间的关系都是通过外键来进行关联的。而表之间的关系，无非就是三种关系：一对一、一对多（多 对一）、多对多
 
-1. 涓€瀵瑰
+1. 一对多
 
-搴旂敤鍦烘櫙锛氭瘮濡傛枃绔犲拰浣滆€呬箣闂寸殑鍏崇郴銆備竴涓枃绔犲彧鑳界敱涓€涓綔鑰呯紪鍐欙紝浣嗘槸涓€涓綔鑰呭彲浠ュ啓澶氱瘒 鏂囩珷銆傛枃绔犲拰浣滆€呬箣闂寸殑鍏崇郴灏辨槸鍏稿瀷鐨勫瀵逛竴鐨勫叧绯汇€?
+应用场景：比如文章和作者之间的关系。一个文章只能由一个作者编写，但是一个作者可以写多篇 文章。文章和作者之间的关系就是典型的多对一的关系。
 
-瀹炵幇鏂瑰紡锛?涓€瀵瑰鎴栬€呭瀵逛竴锛岄兘鏄€氳繃`ForeignKey`鏉ュ疄鐜扮殑銆傝繕鏄互鏂囩珷鍜屼綔鑰呯殑妗堜緥杩涜璁茶В
+实现方式： 一对多或者多对一，都是通过`ForeignKey`来实现的。还是以文章和作者的案例进行讲解
 
 ```python
 class User(models.Model):
@@ -7630,7 +7610,7 @@ class Article(models.Model):
     author = models.ForeignKey("User",on_delete=models.CASCADE)
 ```
 
-閭ｄ箞浠ュ悗鍐嶇粰Article瀵硅薄鎸囧畾author锛屽氨鍙互浣跨敤涓嬮潰浠ｇ爜鏉ュ疄鐜帮紝 骞朵笖浠ュ悗濡傛灉鎯宠鑾峰彇鏌愪釜鐢ㄦ埛涓嬫墍鏈夌殑鏂囩珷锛屽彲浠ラ€氳繃`article_set`鏉ュ疄鐜?
+那么以后再给Article对象指定author，就可以使用下面代码来实现， 并且以后如果想要获取某个用户下所有的文章，可以通过`article_set`来实现
 
 ```python
 def one_to_many(request):
@@ -7638,14 +7618,14 @@ def one_to_many(request):
     articles = user.article_set.filter(title__contains=''Chat'').all()
     for article in articles:
         print(article.title)
-    return HttpResponse("鎴愬姛锛侊紒")
+    return HttpResponse("成功！！")
 ```
 
-2. 涓€瀵逛竴
+2. 一对一
 
-搴旂敤鍦烘櫙锛氭瘮濡備竴涓敤鎴疯〃鍜屼竴涓敤鎴蜂俊鎭〃銆傚湪瀹為檯缃戠珯涓紝鍙兘闇€瑕佷繚瀛樼敤鎴风殑璁稿淇℃伅锛屼絾鏄湁浜涗俊鎭槸涓嶇粡甯哥敤鐨勩€傚鏋滄妸鎵€鏈変俊鎭兘瀛樻斁鍒颁竴寮犺〃涓彲鑳戒細褰卞搷鏌ヨ鏁堢巼锛屽洜姝ゅ彲浠ユ妸鐢ㄦ埛鐨勪竴浜涗笉甯哥敤鐨勪俊鎭瓨鏀惧埌鍙﹀涓€寮犺〃涓垜浠彨鍋歚UserExtension`銆備絾鏄敤鎴疯〃`User`鍜岀敤鎴锋伅琛╜UserExtension`灏辨槸鍏稿瀷鐨勪竴瀵逛竴浜嗐€?
+应用场景：比如一个用户表和一个用户信息表。在实际网站中，可能需要保存用户的许多信息，但是有些信息是不经常用的。如果把所有信息都存放到一张表中可能会影响查询效率，因此可以把用户的一些不常用的信息存放到另外一张表中我们叫做`UserExtension`。但是用户表`User`和用户息表`UserExtension`就是典型的一对一了。
 
-瀹炵幇鏂瑰紡锛歚Django`涓轰竴瀵逛竴鎻愪緵浜嗕竴涓笓闂ㄧ殑`Field`鍙仛`OneToOneField`鏉ュ疄鐜颁竴瀵逛竴鎿嶄綔銆?
+实现方式：`Django`为一对一提供了一个专门的`Field`叫做`OneToOneField`来实现一对一操作。
 
 ```python
 class User(models.Model):
@@ -7658,13 +7638,13 @@ class UserExtension(models.Model):
     user = models.OneToOneField("User", on_delete=models.CASCADE)
 ```
 
-鍦╜UserExtension`妯″瀷涓婂鍔犱簡涓€涓竴瀵逛竴鐨勫叧绯绘槧灏勩€傚叾瀹炲簳灞傛槸鍦?`UserExtension`澧炲姞浜嗕竴涓猔user_id`锛屾潵鍜宍user`琛ㄨ繘琛屽叧鑱旓紝骞朵笖杩欎釜澶栭敭鏁版嵁鍦ㄨ〃涓繀椤绘槸鍞竴鐨勶紝鏉ヤ繚璇佷竴瀵逛竴銆?
+在`UserExtension`模型上增加了一个一对一的关系映射。其实底层是在 `UserExtension`增加了一个`user_id`，来和`user`表进行关联，并且这个外键数据在表中必须是唯一的，来保证一对一。
 
-3. 澶氬澶?
+3. 多对多
 
-搴旂敤鍦烘櫙锛氭瘮濡傛枃绔犲拰鏍囩鐨勫叧绯汇€備竴绡囨枃绔犲彲浠ユ湁澶氫釜鏍囩锛屼竴涓爣绛惧彲浠ヨ澶氫釜鏂囩珷鎵€寮曠敤銆?鍥犳鏍囩鍜屾枃绔犵殑鍏崇郴鏄吀鍨嬬殑澶氬澶氱殑鍏崇郴銆?
+应用场景：比如文章和标签的关系。一篇文章可以有多个标签，一个标签可以被多个文章所引用。 因此标签和文章的关系是典型的多对多的关系。
 
-瀹炵幇鏂瑰紡锛歚Django`涓鸿繖绉嶅瀵瑰鐨勫疄鐜版彁渚涗簡涓撻棬鐨刞Field`鍙仛 `ManyToManyField`杩樻槸鎷挎枃绔犲拰鏍囩涓轰緥琛岃瑙ｃ€傜ず渚嬩唬鐮佸涓嬶細
+实现方式：`Django`为这种多对多的实现提供了专门的`Field`叫做 `ManyToManyField`还是拿文章和标签为例行讲解。示例代码如下：
 
 ```python
 class Article(models.Model):
@@ -7676,22 +7656,22 @@ class Tag(models.Model):
     name = models.CharField(max_length=50)
 ```
 
-鍦ㄦ暟鎹簱灞傞潰锛屽疄闄呬笂`Django`鏄负杩欑澶氬澶氱殑鍏崇郴寤虹珛浜嗕竴涓腑闂磋〃銆傝繖涓腑闂磋〃鍒嗗埆瀹氫箟浜嗕袱涓閿紝寮曠敤鍒癭article`鍜宍tag`涓ゅ紶琛ㄧ殑涓婚敭銆?
+在数据库层面，实际上`Django`是为这种多对多的关系建立了一个中间表。这个中间表分别定义了两个外键，引用到`article`和`tag`两张表的主键。
 
-#### 鏌ヨ鎿嶄綔
-鏌ユ壘鏄暟鎹簱鎿嶄綔涓竴涓潪甯搁噸瑕佺殑鎶€鏈€傛煡璇竴鑸氨鏄娇鐢╜filter`銆乣exclude`浠ュ強`get`涓変釜鏂规硶瀹炵幇銆傛垜浠彲浠ュ湪璋冪敤杩欎簺鏂规硶鐨勬椂鍊欎紶閫掍笉鍚岀殑鍙傛暟鏉ュ疄鐜版煡璇㈤渶姹傘€傚湪鏉ORM`灞傞潰锛岃繖浜涙煡璇㈡潯浠堕兘鏄娇鐢╜field`+`__`+`condition`鐨勬柟寮忔潵浣跨敤鐨勩€備互涓嬪皢閭ｄ簺甯哥敤鐨勬煡璇㈡潯浠舵潵涓€涓€瑙ｉ噴銆?
+#### 查询操作
+查找是数据库操作中一个非常重要的技术。查询一般就是使用`filter`、`exclude`以及`get`三个方法实现。我们可以在调用这些方法的时候传递不同的参数来实现查询需求。在来`ORM`层面，这些查询条件都是使用`field`+`__`+`condition`的方式来使用的。以下将那些常用的查询条件来一一解释。
 
-##### 鏌ヨ鏉′欢
+##### 查询条件
 1. exact
 
-浣跨敤绮剧‘鐨刞=`杩涜鏌ユ壘銆傚鏋滄彁渚涚殑鏄竴涓猔None`锛岄偅涔堝湪`SQL`灞傞潰灏辨槸琚В閲婁负`NULL`
+使用精确的`=`进行查找。如果提供的是一个`None`，那么在`SQL`层面就是被解释为`NULL`
 
 ```python
 article = Article.objects.get(id__exact=14)
 article = Article.objects.get(id__exact=None)
 ```
 
-浠ヤ笂鐨勪袱涓煡鎵惧湪缈昏瘧涓篳SQL`璇彞涓哄涓嬶細
+以上的两个查找在翻译为`SQL`语句为如下：
 
 ```sql
 select ... from article where id=14;
@@ -7700,45 +7680,45 @@ select ... from article where id IS NULL;
 
 2. iexact
 
-浣跨敤`like`杩涜鏌ユ壘锛屼笌`exact`鐩告瘮蹇界暐澶у皬鍐?
+使用`like`进行查找，与`exact`相比忽略大小写
 
 ```python
 article = Article.objicts.filter(title__iexact=''hello world'')
 ```
 
-`SQL`灞傞潰浠ｇ爜濡備笅
+`SQL`层面代码如下
 
 ```sql
 select * from article where title like ''hello wordl''
 ```
 
-娉ㄦ剰涓婇潰杩欎釜`sql`璇彞锛屽洜涓哄湪`MySQL`涓紝娌℃湁涓€涓彨鍋歚ilike`鐨勩€傛墍浠ヤ笂灏辨槸`LIKE`鍜宍=`鐨勫尯鍒紝鍦ㄥぇ閮ㄥ垎`exact`鍜宍iexact`鐨勫尯鍒疄闄卄collation=utf8_general_ci`鎯呭喌涓嬮兘鏄竴鏍风殑锛坄collation`鏄敤鏉ュ瀛楃涓叉瘮杈冪殑锛夈€?
+注意上面这个`sql`语句，因为在`MySQL`中，没有一个叫做`ilike`的。所以上就是`LIKE`和`=`的区别，在大部分`exact`和`iexact`的区别实际`collation=utf8_general_ci`情况下都是一样的（`collation`是用来对字符串比较的）。
 
 3.  contains
 
-澶у皬鍐欐晱鎰燂紝鍒ゆ柇鏌愪釜瀛楁鏄惁鍖呭惈浜嗘煇涓暟鎹€?
+大小写敏感，判断某个字段是否包含了某个数据。
 
 ```python
 articles = Article.objects.filter(title__contains=''hello'')
 ```
 
-鍦ㄧ炕璇戞垚SQL璇彞涓哄涓嬶細
+在翻译成SQL语句为如下：
 
 ```sql
 select ... where title like binary ''%hello%'';
 ```
 
-瑕佹敞鎰忕殑鏄紝鍦ㄤ娇鐢╜contains`鐨勬椂鍊欙紝缈昏瘧鎴愮殑`sql`璇彞宸﹀彸涓よ竟鏄湁鐧惧垎鍙风殑锛屾剰鍛崇潃浣跨敤鐨勬槸妯＄硦鏌ヨ銆傝€宍exact`缈昏瘧鎴恅sql`璇彞宸﹀彸涓よ竟鏄病鏈夌櫨鍒嗗彿鐨勶紝鎰忓懗鐫€浣跨敤鐨勬槸绮剧‘鐨勬煡璇€?
+要注意的是，在使用`contains`的时候，翻译成的`sql`语句左右两边是有百分号的，意味着使用的是模糊查询。而`exact`翻译成`sql`语句左右两边是没有百分号的，意味着使用的是精确的查询。
 
 4. icontains
 
-澶у皬鍐欎笉鏁忔劅鐨勫尮閰嶆煡璇€傜ず渚嬩唬鐮佸涓?
+大小写不敏感的匹配查询。示例代码如下
 
 ```python
 articles = Article.objects.filter(title__icontains=''hello'')
 ```
 
-鍦ㄧ炕璇戞垚`SQL`璇彞涓哄涓?
+在翻译成`SQL`语句为如下
 
 ```sql
 select ... where title like ''%hello%'';
@@ -7746,61 +7726,61 @@ select ... where title like ''%hello%'';
 
 5. in
 
-鎻愬彇閭ｄ簺缁欏畾鐨刞field`鐨勫€兼槸鍚﹀湪缁欏畾鐨勫鍣ㄤ腑銆傚鍣ㄥ彲浠ヤ负`list`銆乣tuple`鎴栬€呬换浣曚竴涓彲浠ヨ凯浠ｇ殑瀵硅薄锛屽寘 `QuerySet`瀵硅薄銆傜ず渚嬩唬鐮佸涓嬶細
+提取那些给定的`field`的值是否在给定的容器中。容器可以为`list`、`tuple`或者任何一个可以迭代的对象，包 `QuerySet`对象。示例代码如下：
 
 ```python
 articles = Article.objects.filter(id__in=[1,2,3])
 ```
 
-缈昏瘧鎴恅sql`璇彞濡備笅
+翻译成`sql`语句如下
 
 ```sql
 select ... where id in (1,3,4)
 ```
 
-褰撶劧涔熷彲浠ヤ紶閫掍竴涓猔QuerySet`瀵硅薄杩涘幓銆?
+当然也可以传递一个`QuerySet`对象进去。
 
 ```python
 inner_qs = Article.objects.filter(title__contains=''hello'')
 categories = Category.objects.filter(article__in=inner_qs)
 ```
 
-浠ヤ笂浠ｇ爜鐨勬剰鎬濇槸鑾峰彇閭ｄ簺鏂囩珷鏍囬鍖呭惈`hello`鐨勬墍鏈夊垎绫汇€?
+以上代码的意思是获取那些文章标题包含`hello`的所有分类。
 
-灏嗙炕璇戞垚浠ヤ笅`SQL`璇彞
+将翻译成以下`SQL`语句
 
 ```sql
 select ...from category where article.id in (select id from article where title 
 like ''%hello%'');
 ```
 
-6. gt(澶т簬)锛実te(澶т簬绛変簬)锛宭t(灏忎簬)锛宭te(灏忎簬绛変簬)
+6. gt(大于)，gte(大于等于)，lt(小于)，lte(小于等于)
 
 ```python
 articles = Article.objects.filter(id__gt=4)
 ```
 
-浠ヤ笂浠ｇ爜鐨勬剰鎬濇槸灏嗘墍鏈塦id`澶т簬4鐨勬枃绔犲叏閮ㄦ壘鍑烘潵
+以上代码的意思是将所有`id`大于4的文章全部找出来
 
-灏嗙炕璇戞垚浠ヤ笅鐨刞sql`璇彞
+将翻译成以下的`sql`语句
 
 ```sql
 select ... where id > 4;
 ```
 
-7. startswith锛宨startswith
+7. startswith，istartswith
 
-鍒ゆ柇鏌愪釜瀛楁鐨勫€兼槸鍚︿簨瀹滄煇涓€煎紑濮嬬殑锛?
+判断某个字段的值是否事宜某个值开始的，
 
-`startswith`:澶у皬鍐欐晱鎰?
+`startswith`:大小写敏感
 
-`istartswith`:澶у皬鍐欎笉鏁忔劅
+`istartswith`:大小写不敏感
 
 ```python
 articles = Article.objects.filter(title__startswith=''hello'')
 ```
 
-浠ヤ笂浠ｇ爜鐨勬剰鎬濇槸鎻愬彇鎵€鏈夋爣棰樹互`hello`瀛楃涓插紑澶寸殑鏂囩珷銆傚皢缈昏瘧鎴愪互涓媊SQL`璇彞锛?
+以上代码的意思是提取所有标题以`hello`字符串开头的文章。将翻译成以下`SQL`语句：
 
 ```sql
 select ... where title like ''hello%''
@@ -7808,17 +7788,17 @@ select ... where title like ''hello%''
 
 8. endswith,iendswith
 
-鍒ゆ柇鏌愪釜瀛楁鐨勫€兼槸鍚︿互鏌愪釜鍊肩粨鏉?
+判断某个字段的值是否以某个值结束
 
-`endswith`澶у皬鍐欐晱鎰?
+`endswith`大小写敏感
 
-`iendswith`澶у皬鍐欎笉鏁忔劅
+`iendswith`大小写不敏感
 
 ```python
 articles = Article.objects.filter(title__endswith=''world'')
 ```
 
-浠ヤ笂浠ｇ爜鐨勬剰鎬濇槸鎻愬彇鎵€鏈夋爣棰樹互`world`缁撳熬鐨勬枃绔犮€?灏嗙炕璇戞垚浠ヤ笅`SQL`璇彞
+以上代码的意思是提取所有标题以`world`结尾的文章。 将翻译成以下`SQL`语句
 
 ```sql
 select ... where title like ''%world'';
@@ -7826,7 +7806,7 @@ select ... where title like ''%world'';
 
 9. range
 
-鍒ゆ柇鏌愪釜 field 鐨勫€兼槸鍚﹀湪缁欏畾鐨勫尯闂翠腑
+判断某个 field 的值是否在给定的区间中
 
 ```python
 from django.utils.timezone import make_aware
@@ -7837,21 +7817,21 @@ end_date = make_aware(datetime(year=2018,month=3,day=29,hour=16))
 articles = Article.objects.filter(pub_date__range=(start_date,end_date))
 ```
 
-浠ヤ笂浠ｇ爜鐨勬剰鎬濇槸鎻愬彇鎵€鏈夊彂甯冩椂闂村湪`2018/1/1`鍒癭2018/12/12`涔嬮棿鐨勬枃绔犮€傚皢缈昏瘧鎴愪互涓嬬殑`SQL`璇彞
+以上代码的意思是提取所有发布时间在`2018/1/1`到`2018/12/12`之间的文章。将翻译成以下的`SQL`语句
 
 ```sql
- select ... from article where pub_time between ''2018-01-01'' and ''2018-12-12''銆?
+ select ... from article where pub_time between ''2018-01-01'' and ''2018-12-12''。
 ```
 
 10.  data
 
-閽堝鏌愪簺`date`鎴栬€卄datetime`绫诲瀷鐨勫瓧娈点€傚彲浠ユ寚瀹歚date`鐨勮寖鍥淬€傚苟涓旇繖涓椂闂磋繃婊わ紝杩樺彲浠ヤ娇鐢ㄩ摼寮忚皟鐢ㄣ€傜ず渚嬩唬鐮佸涓?
+针对某些`date`或者`datetime`类型的字段。可以指定`date`的范围。并且这个时间过滤，还可以使用链式调用。示例代码如下
 
 ```python
 articles = Article.objects.filter(pub_date__date=date(2018,3,29))
 ```
 
-浠ヤ笂浠ｇ爜鐨勬剰鎬濇槸鏌ユ壘鏃堕棿涓篳2018/3/29`杩欎竴澶╁彂琛ㄧ殑鎵€鏈夋枃绔犮€傚皢缈昏瘧鎴愪互涓嬬殑`sql`璇彞锛?
+以上代码的意思是查找时间为`2018/3/29`这一天发表的所有文章。将翻译成以下的`sql`语句：
 
 ```sql
 select ... WHERE DATE(CONVERT_TZ(`front_article`.`pub_date`, ''UTC'', 
@@ -7860,14 +7840,14 @@ select ... WHERE DATE(CONVERT_TZ(`front_article`.`pub_date`, ''UTC'',
 
 11. year,month,day,week_day
 
-鏍规嵁骞达紝鏈堬紝鏃ワ紝鏄熸湡(1锛氬懆澶╋紝2锛氬懆涓€锛屸€︹€?鏌ユ壘
+根据年，月，日，星期(1：周天，2：周一，……)查找
 
 ```python
 articles = Article.objects.filter(pub_date__year=2018)
 articles = Article.objects.filter(pub_date__year__gte=2017)
 ```
 
-浠ヤ笂鐨勪唬鐮佸湪缈昏瘧鎴恅SQL`璇彞涓哄涓?
+以上的代码在翻译成`SQL`语句为如下
 
 ```sql
 select ... where pub_date between ''2018-01-01'' and ''2018-12-31'';
@@ -7876,72 +7856,72 @@ select ... where pub_date >= ''2017-01-01'';
 
 12. time
 
-鏍规嵁鏃堕棿杩涜鏌ユ壘
+根据时间进行查找
 
 ```python
 articles = Article.objects.filter(pub_date__time=datetime.time(12,12,12));
 ```
 
-浠ヤ笂浠ｇ爜鏄幏鍙栨瘡涓€澶╀腑12鐐?2鍒?2绉掑彂甯冪殑鎵€鏈夋枃绔?
+以上代码是获取每一天中12点12分12秒发布的所有文章
 
 13. isnull
 
-鏍规嵁鍊兼槸鍚︿负绌鸿繘琛屾煡鎵?
+根据值是否为空进行查找
 
 ```python
 articles = Article.objects.filter(pub_date__isnull=False)
 ```
 
-浠ヤ笂鐨勪唬鐮佺殑鎰忔€濇槸鑾峰彇鎵€鏈夊彂甯冩棩鏈熶笉涓虹┖鐨勬枃绔犮€?灏嗙炕璇戞垚SQL璇彞濡備笅锛?
+以上的代码的意思是获取所有发布日期不为空的文章。 将翻译成SQL语句如下：
 
 ```sql
 select ... where pub_date is not null
 ```
 
-14. regex鍜宨regex
+14. regex和iregex
 
-澶у皬鍐欐晱鎰熷拰澶у皬鍐欎笉鏁忔劅鐨勬鍒欒〃杈惧紡
+大小写敏感和大小写不敏感的正则表达式
 
 ```python
 articles = Article.objects.filter(title__regex=r''^hello'')
 ```
 
-浠ヤ笂浠ｇ爜鐨勬剰鎬濇槸鎻愬彇鎵€鏈夋爣棰樹互`hello`瀛楃涓插紑澶寸殑鏂囩珷銆?灏嗙炕璇戞垚浠ヤ笅鐨刞SQL`璇彞锛?
+以上代码的意思是提取所有标题以`hello`字符串开头的文章。 将翻译成以下的`SQL`语句：
 
 ```sql
 select ... where title regexp binary ''^hello'';
 ```
 
-15. 鏍规嵁鍏宠仈鐨勮〃杩涜鏌ヨ
+15. 根据关联的表进行查询
 
-鍋囧鐜板湪鏈変袱涓猔ORM`妯″瀷锛屼竴涓槸`Article`锛屼竴涓槸`Category`銆備唬鐮佸涓嬶細
+假如现在有两个`ORM`模型，一个是`Article`，一个是`Category`。代码如下：
 
 ```python
 class Category(models.Model):
-    """鏂囩珷鍒嗙被琛?""
+    """文章分类表"""
     name = models.CharField(max_length=100)
 
 class Article(models.Model):
-    """鏂囩珷琛?""
+    """文章表"""
     title = models.CharField(max_length=100,null=True)
     category = models.ForeignKey("Category",on_delete=models.CASCADE)
 ```
 
-姣斿鎯宠鑾峰彇鏂囩珷鏍囬涓寘鍚?hello"鐨勬墍鏈夌殑鍒嗙被銆傞偅涔堝彲浠ラ€氳繃浠ヤ笅浠ｇ爜鏉ュ疄鐜帮細
+比如想要获取文章标题中包含"hello"的所有的分类。那么可以通过以下代码来实现：
 
 ```python
 categories = Category.object.filter(article__title__contains("hello"))
 ```
 
-##### 鑱氬悎鍑芥暟
-濡傛灉浣犵敤鍘熺敓`SQL`锛屽垯鍙互浣跨敤鑱氬悎鍑芥暟鏉ユ彁鍙栨暟鎹€傛瘮濡傛彁鍙栨煇涓晢鍝侀攢鍞殑鏁伴噺锛岄偅涔堝彲浠ヤ娇鐢╜Count`锛屽鏋滄兂瑕佺煡閬撳晢鍝侀攢鍞殑骞冲潎浠锋牸锛岄偅涔堝彲浠ヤ娇鐢╜Avg`銆?
+##### 聚合函数
+如果你用原生`SQL`，则可以使用聚合函数来提取数据。比如提取某个商品销售的数量，那么可以使用`Count`，如果想要知道商品销售的平均价格，那么可以使用`Avg`。
 
-鑱氬悎鍑芥暟鏄€氳繃`aggregate`鏂规硶鏉ュ疄鐜扮殑銆傚湪璁茶В杩欎簺鑱氬悎鍑芥暟鐨勭敤娉曠殑鏃跺€欙紝閮芥槸鍩轰簬浠ヤ笅鐨勬ā鍨嬪 璞℃潵瀹炵幇鐨?
+聚合函数是通过`aggregate`方法来实现的。在讲解这些聚合函数的用法的时候，都是基于以下的模型对 象来实现的
 
 ```python
 from django.db import models
 class Author(models.Model):
-    """浣滆€呮ā鍨?""
+    """作者模型"""
     name = models.CharField(max_length=100)
     age = models.IntegerField()
     email = models.EmailField()
@@ -7950,14 +7930,14 @@ class Author(models.Model):
         db_table = ''author''
 
 class Publisher(models.Model):
-    """鍑虹増绀炬ā鍨?""
+    """出版社模型"""
     name = models.CharField(max_length=300)
 
     class Meta:
         db_table = ''publisher''
  
 class Book(models.Model):	
-    """鍥句功妯″瀷"""
+    """图书模型"""
     name = models.CharField(max_length=300)
     pages = models.IntegerField()
     price = models.FloatField()
@@ -7969,7 +7949,7 @@ class Book(models.Model):
          db_table = ''book''
 
 class BookOrder(models.Model):
-    """鍥句功璁㈠崟妯″瀷"""
+    """图书订单模型"""
     book = models.ForeignKey("Book",on_delete=models.CASCADE)
     price = models.FloatField()
     
@@ -7977,9 +7957,9 @@ class BookOrder(models.Model):
         db_table = ''book_order''
 ```
 
-1. Avg锛氭眰骞冲潎鍊?
+1. Avg：求平均值
 
-姣斿鎯宠鑾峰彇鎵€鏈夊浘涔︾殑浠锋牸骞冲潎鍊笺€傞偅涔堝彲浠ヤ娇鐢ㄤ互涓嬩唬鐮佸疄鐜般€?
+比如想要获取所有图书的价格平均值。那么可以使用以下代码实现。
 
 ```python
 from django.db.models import Avg
@@ -7987,7 +7967,7 @@ result = Book.objects.aggregate(Avg(''price''))
 print(result)
 ```
 
-鍏朵腑`price__avg`鐨勭粨鏋勬槸鏍规嵁`field__avg`瑙勫垯鏋勬垚鐨勩€傚鏋滄兂瑕佷慨鏀归粯璁ょ殑鍚嶅瓧锛岄偅涔堝彲浠ュ皢`Avg`璧嬪€肩粰涓€涓叧閿瓧鍙傛暟
+其中`price__avg`的结构是根据`field__avg`规则构成的。如果想要修改默认的名字，那么可以将`Avg`赋值给一个关键字参数
 
 ```python
 from django.db.models import Avg
@@ -7995,113 +7975,113 @@ result = Book.objects.aggregate(my_avg=Avg(''price''))
 print(result)
 ```
 
-2. Count锛氳幏鍙栨寚瀹氬璞＄殑涓暟
+2. Count：获取指定对象的个数
 
 ```python
 from django.db.models import Count
 result = Book.objects.aggregate(book_num=Count(''id''))
 ```
 
-浠ヤ笂鐨刞result`灏嗚繑鍥瀈Book`琛ㄤ腑鎬诲叡鏈夊灏戞湰鍥句功
+以上的`result`将返回`Book`表中总共有多少本图书
 
-`Count`绫讳腑锛岃繕鏈夊彟澶栦竴涓弬鏁板彨鍋歚distinct`锛岄粯璁ゆ槸绛変簬`False`锛屽鏋滄槸绛変簬`True`锛岄偅涔堝皢鍘绘帀閭ｄ簺閲嶅鐨勫€笺€傛瘮濡傝鑾峰彇浣滆€呰〃涓墍鏈夌殑涓嶉噸澶嶇殑閭鎬诲叡鏈夊灏戜釜锛岄偅涔堝彲浠ラ€氳繃浠ヤ笅浠ｇ爜鏉ュ疄鐜帮細
+`Count`类中，还有另外一个参数叫做`distinct`，默认是等于`False`，如果是等于`True`，那么将去掉那些重复的值。比如要获取作者表中所有的不重复的邮箱总共有多少个，那么可以通过以下代码来实现：
 
 ```python
 from djang.db.models import Count
 result = Author.objects.aggregate(count=Count(''email'',distinct=True))
 ```
 
-3. Max鍜孧in锛氳幏鍙栨寚瀹氬璞＄殑鏈€澶у€煎拰鏈€灏忓€?
+3. Max和Min：获取指定对象的最大值和最小值
 
-姣斿鎯宠鑾峰彇`Author`琛ㄤ腑锛屾渶澶х殑骞撮緞鍜屾渶灏忕殑骞撮緞鍒嗗埆鏄灏戙€傞偅涔堝彲浠ラ€氳繃浠ヤ笅浠ｇ爜鏉ュ疄鐜帮細
+比如想要获取`Author`表中，最大的年龄和最小的年龄分别是多少。那么可以通过以下代码来实现：
 
 ```python
 from django.db.models import Max,Min
 result = Author.objects.aggregate(Max(''age''),Min(''age''))
 ```
 
-4. Sum锛氭眰鎸囧畾瀵硅薄鐨勬€诲拰
+4. Sum：求指定对象的总和
 
-姣斿瑕佹眰鍥句功鐨勯攢鍞€婚
+比如要求图书的销售总额
 
 ```python
 from djang.db.models import Sum
 result = Book.objects.annotate(total=Sum("bookstore__price")).values("name","total")
 ```
 
-浠ヤ笂鐨勪唬鐮乣annotate`鐨勬剰鎬濇槸缁檂Book`琛ㄥ湪鏌ヨ鐨勬椂鍊欐坊鍔犱竴涓瓧娈靛彨鍋歚total`锛岃繖涓瓧娈电殑鏁版嵁鏉ユ簮鏄粠`BookStore`妯″瀷鐨刞price`鐨勬€诲拰鑰屾潵銆俙values`鏂规硶鏄彧鎻愬彇`name`鍜宍total`涓や釜瀛楁鐨勫€笺€?
+以上的代码`annotate`的意思是给`Book`表在查询的时候添加一个字段叫做`total`，这个字段的数据来源是从`BookStore`模型的`price`的总和而来。`values`方法是只提取`name`和`total`两个字段的值。
 
-鏇村鐨勮仛鍚堝嚱鏁拌鍙傝€冨畼鏂规枃妗?
+更多的聚合函数请参考官方文档
 
-##### aggregate鍜宎nnotate鐨勫尯鍒?
+##### aggregate和annotate的区别
 + `aggregate`
 
-杩斿洖浣跨敤鑱氬悎鍑芥暟鍚庣殑瀛楁鍜屽€笺€?
+返回使用聚合函数后的字段和值。
 
 + `annotate`
 
-鍦ㄥ師鏉ユā鍨嬪瓧娈电殑鍩虹涔嬩笂娣诲姞涓€涓娇鐢ㄤ簡鑱氬悎鍑芥暟鐨勫瓧娈碉紝骞朵笖鍦ㄤ娇鐢ㄨ仛鍚堝嚱鏁扮殑 鏃跺€欙紝浼氫娇鐢ㄥ綋鍓嶈繖涓ā鍨嬬殑涓婚敭杩涜鍒嗙粍锛坓roup by锛?
+在原来模型字段的基础之上添加一个使用了聚合函数的字段，并且在使用聚合函数的 时候，会使用当前这个模型的主键进行分组（group by）
 
-##### F琛ㄨ揪寮忓拰Q琛ㄨ揪寮?
-1. F琛ㄨ揪寮?
+##### F表达式和Q表达式
+1. F表达式
 
-F琛ㄨ揪寮忔槸鐢ㄦ潵浼樺寲 ORM 鎿嶄綔鏁版嵁搴撶殑
+F表达式是用来优化 ORM 操作数据库的
 
 ```python
 from djang.db.models import F
-# 姣斿灏咮ook妯″瀷涓殑''price''瀛楁鐨勫€奸兘+10锛?
-# 鍙娇鐢‵琛ㄨ揪鏄潵浼樺寲浠ｇ爜
+# 比如将Book模型中的''price''字段的值都+10，
+# 可使用F表达是来优化代码
 Book.object.update(price=F("price")+10)
 ```
 
-F琛ㄨ揪寮忓苟涓嶄細椹笂浠庢暟鎹簱涓幏鍙栨暟鎹紝鑰屾槸鍦ㄧ敓鎴恅SQL`璇彞鐨勬椂鍊欙紝鍔ㄦ€佺殑鑾峰彇浼犵粰F琛ㄨ揪寮忕殑鍊笺€?
+F表达式并不会马上从数据库中获取数据，而是在生成`SQL`语句的时候，动态的获取传给F表达式的值。
 
 ```python
 from django.db.models import F
-# 鑾峰彇Author妯″瀷涓璶ame鍜宔mail鐩稿悓鐨勬暟鎹?
+# 获取Author模型中name和email相同的数据
 authors = Author.objects.filter(name=F("email"))
 ```
 
-2. Q琛ㄨ揪寮?
+2. Q表达式
 
-Q琛ㄨ揪寮忓彲浠ヨ繘琛屾垨锛坄|`锛夈€佷笖锛坄&`锛夈€侀潪锛坄~`锛夎繍绠?
+Q表达式可以进行或（`|`）、且（`&`）、非（`~`）运算
 
 ```python
 from django.db.models import Q
-# 鑾峰彇id绛変簬3鐨勫浘涔?
+# 获取id等于3的图书
 books = Book.objects.filter(Q(id=3))
-# 鑾峰彇id绛変簬3锛屾垨鑰呭悕瀛椾腑鍖呭惈鏂囧瓧"璁?鐨勫浘涔?
-books = Book.objects.filter(Q(id=3)|Q(name__contains("璁?)))
-# 鑾峰彇浠锋牸澶т簬100锛屽苟涓斾功鍚嶄腑鍖呭惈"璁?鐨勫浘涔?
-books = Book.objects.filter(Q(price__gte=100)&Q(name__contains("璁?)))
-# 鑾峰彇涔﹀悕鍖呭惈鈥滆鈥濓紝浣嗘槸id涓嶇瓑浜?鐨勫浘涔?
-books = Book.objects.filter(Q(name__contains=''璁?) & ~Q(id=3))
+# 获取id等于3，或者名字中包含文字"记"的图书
+books = Book.objects.filter(Q(id=3)|Q(name__contains("记")))
+# 获取价格大于100，并且书名中包含"记"的图书
+books = Book.objects.filter(Q(price__gte=100)&Q(name__contains("记")))
+# 获取书名包含“记”，但是id不等于3的图书
+books = Book.objects.filter(Q(name__contains=''记'') & ~Q(id=3))
 ```
 
-#### 琛ㄥ崟
-##### HTML涓殑琛ㄥ崟
-鍗曠函浠庡墠绔殑`html`鏉ヨ锛岃〃鍗曟槸鐢ㄦ潵鎻愪氦鏁版嵁缁欐湇鍔″櫒鐨?涓嶇鍚庡彴鐨勬湇鍔″櫒鐢ㄧ殑鏄痐Django`杩樻槸`PHP`璇█杩樻槸鍏朵粬璇█銆傚彧瑕佹妸`input`鏍囩鏀惧湪`form`鏍囩涓紝鐒跺悗鍐嶆坊鍔犱竴涓彁浜ゆ寜閽紝閭ｄ箞浠ュ悗鐐瑰嚮鎻愪氦鎸夐挳锛屽氨鍙互灏哷input`鏍囩涓搴旂殑鍊兼彁浜ょ粰鏈嶅姟鍣ㄤ簡
+#### 表单
+##### HTML中的表单
+单纯从前端的`html`来说，表单是用来提交数据给服务器的,不管后台的服务器用的是`Django`还是`PHP`语言还是其他语言。只要把`input`标签放在`form`标签中，然后再添加一个提交按钮，那么以后点击提交按钮，就可以将`input`标签中对应的值提交给服务器了
 
-##### Django涓殑琛ㄥ崟
-`Django`涓殑琛ㄥ崟涓板瘜浜嗕紶缁熺殑`HTML`璇█涓殑琛ㄥ崟銆傚湪`Django`涓殑琛ㄥ崟涓昏鍋氫互涓嬩袱浠朵簨
+##### Django中的表单
+`Django`中的表单丰富了传统的`HTML`语言中的表单。在`Django`中的表单主要做以下两件事
 
-1. 娓叉煋琛ㄥ崟妯℃澘銆?
+1. 渲染表单模板。
 
-2. 琛ㄥ崟楠岃瘉鏁版嵁鏄惁鍚堟硶銆?
+2. 表单验证数据是否合法。
 
-##### Django涓〃鍗曚娇鐢ㄦ祦绋?
-鍦ㄨ瑙Django`琛ㄥ崟鐨勫叿浣撴瘡閮ㄥ垎鐨勭粏鑺備箣鍓嶃€傛垜浠鍏堝厛鏉ョ湅涓嬫暣浣撶殑浣跨敤娴佺▼銆傝繖閲屼互涓€涓仛涓€涓暀瑷€鏉夸负渚嬨€傞鍏堟垜浠湪鍚庡彴鏈嶅姟鍣ㄥ畾涔変竴涓〃鍗曠被锛岀户鎵胯嚜 `django.forms.Form`銆?
+##### Django中表单使用流程
+在讲解`Django`表单的具体每部分的细节之前。我们首先先来看下整体的使用流程。这里以一个做一个留言板为例。首先我们在后台服务器定义一个表单类，继承自 `django.forms.Form`。
 
 ```python
 # forms.py
 class MessageBoardForm(forms.Form):
-    title = forms.CharField(max_length=3,label=''鏍囬'',min_length=2,error_messages={"min_length":''鏍囬瀛楃娈典笉绗﹀悎瑕佹眰锛?})
-    content = forms.CharField(widget=forms.Textarea,label=''鍐呭'')
-    email = forms.EmailField(label=''閭'')
-    reply = forms.BooleanField(required=False,label=''鍥炲'')
+    title = forms.CharField(max_length=3,label=''标题'',min_length=2,error_messages={"min_length":''标题字符段不符合要求！''})
+    content = forms.CharField(widget=forms.Textarea,label=''内容'')
+    email = forms.EmailField(label=''邮箱'')
+    reply = forms.BooleanField(required=False,label=''回复'')
 ```
 
-鐒跺悗鍦ㄨ鍥句腑锛屾牴鎹槸`GET`杩樻槸`POST`璇锋眰鏉ュ仛鐩稿簲鐨勬搷浣溿€傚鏋滄槸`GET`璇锋眰锛岄偅涔堣繑鍥炰竴涓┖鐨勮〃鍗曪紝 濡傛灉鏄痐POST`璇锋眰锛岄偅涔堝皢鎻愪氦涓婃潵鐨勬暟鎹繘琛屾牎楠屻€傜ず渚嬩唬鐮佸涓?
+然后在视图中，根据是`GET`还是`POST`请求来做相应的操作。如果是`GET`请求，那么返回一个空的表单， 如果是`POST`请求，那么将提交上来的数据进行校验。示例代码如下
 
 ```python
 # views.py
@@ -8122,116 +8102,116 @@ class IndexView(View):
             return HttpResponse(''fail'')
 ```
 
-鍦ㄤ娇鐢╜GET`璇锋眰鐨勬椂鍊欙紝鎴戜滑浼犱簡涓€涓猔form`缁欐ā鏉匡紝閭ｄ箞浠ュ悗妯℃澘灏卞彲浠ヤ娇鐢╜form`鏉ョ敓鎴愪竴涓〃鍗曠殑`html`浠ｇ爜銆傚湪浣跨敤`POST`璇锋眰鐨勬椂鍊欙紝鎴戜滑鏍规嵁鍓嶇涓婁紶涓婃潵鐨勬暟鎹紝鏋勫缓涓€涓柊鐨勮〃鍗曪紝杩欎釜琛ㄥ崟鏄敤鏉ラ獙璇佹暟鎹槸鍚﹀悎娉曠殑锛屽鏋滄暟鎹兘楠岃瘉閫氳繃浜嗭紝閭ｄ箞鎴戜滑鍙互閫氳繃`cleaned_data`鏉ヨ幏鍙栫浉搴旂殑鏁版嵁 鍦ㄦā鏉夸腑娓叉煋琛ㄥ崟鐨刞HTML`浠ｇ爜濡備笅
+在使用`GET`请求的时候，我们传了一个`form`给模板，那么以后模板就可以使用`form`来生成一个表单的`html`代码。在使用`POST`请求的时候，我们根据前端上传上来的数据，构建一个新的表单，这个表单是用来验证数据是否合法的，如果数据都验证通过了，那么我们可以通过`cleaned_data`来获取相应的数据 在模板中渲染表单的`HTML`代码如下
 
 ```html
 <form action="" method="post">
   <table>
     <tr>
       <td></td>
-      <td><input type="submit" value="鎻愪氦"></td>
+      <td><input type="submit" value="提交"></td>
     </tr>
   </table>
 </form>
 ```
 
-鎴戜滑鍦ㄦ渶澶栭潰缁欎簡涓€涓猔form`鏍囩锛岀劧鍚庡湪閲岄潰浣跨敤浜哷table`鏍囩鏉ヨ繘琛岀編鍖栵紝鍦ㄤ娇鐢╜form`瀵硅薄娓叉煋鐨勬椂鍊欙紝浣跨敤鐨勬槸`table`鐨勬柟寮忥紝褰撶劧杩樺彲浠ヤ娇鐢╜ul`鐨勬柟寮忥紙`as_ul`)锛屼篃鍙互浣跨敤p鏍囩鐨勬柟寮忥紙`as_p`锛夛紝骞朵笖鍦ㄥ悗闈㈡垜浠繕鍔犱笂浜嗕竴涓彁浜ゆ寜閽€傝繖鏍峰氨鍙互鐢熸垚涓€涓〃鍗曚簡銆?
+我们在最外面给了一个`form`标签，然后在里面使用了`table`标签来进行美化，在使用`form`对象渲染的时候，使用的是`table`的方式，当然还可以使用`ul`的方式（`as_ul`)，也可以使用p标签的方式（`as_p`），并且在后面我们还加上了一个提交按钮。这样就可以生成一个表单了。
 
-#### 琛ㄥ崟楠岃瘉
-##### 甯哥敤鐨凢ield
-浣跨敤`Field`鍙互鏄鏁版嵁楠岃瘉鐨勭涓€姝ャ€備綘鏈熸湜杩欎釜鎻愪氦涓婃潵鐨勬暟鎹槸浠€涔堢被鍨嬶紝閭ｄ箞灏变娇鐢ㄤ粈涔堢被鍨嬬殑`Field`銆?
+#### 表单验证
+##### 常用的Field
+使用`Field`可以是对数据验证的第一步。你期望这个提交上来的数据是什么类型，那么就使用什么类型的`Field`。
 
 1. CharField
 
-鐢ㄦ潵鎺ュ彈鏂囨湰
+用来接受文本
 
-鍙傛暟锛?
+参数：
 
-`max_length`锛氳繖涓瓧娈靛€肩殑鏈€澶ч暱搴︺€?
+`max_length`：这个字段值的最大长度。
 
-`min_length`锛氳繖涓瓧娈靛€肩殑鏈€灏忛暱搴︺€?
+`min_length`：这个字段值的最小长度。
 
-`required`锛氳繖涓瓧娈垫槸鍚︽槸蹇呴』鐨勩€傞粯璁ゆ槸蹇呴』鐨勩€?
+`required`：这个字段是否是必须的。默认是必须的。
 
-`error_messages`锛氬湪鏌愪釜鏉′欢楠岃瘉澶辫触鐨勬椂鍊欙紝缁欏嚭閿欒淇℃伅銆?
+`error_messages`：在某个条件验证失败的时候，给出错误信息。
 
 2. EmailField
 
-鐢ㄦ潵鎺ユ敹閭欢锛屼細鑷姩楠岃瘉閭欢鏄惁鍚堟硶銆?
+用来接收邮件，会自动验证邮件是否合法。
 
-閿欒淇℃伅鐨刞key`锛歚required`銆乣invalid`
+错误信息的`key`：`required`、`invalid`
 
 3. FloatField
 
-鐢ㄦ潵鎺ユ敹娴偣绫诲瀷锛屽苟涓斿鏋滈獙璇侀€氳繃鍚庯紝浼氬皢杩欎釜瀛楁鐨勫€艰浆鎹负娴偣绫诲瀷銆?鍙傛暟锛?
+用来接收浮点类型，并且如果验证通过后，会将这个字段的值转换为浮点类型。 参数：
 
-`max_value`:鏈€澶х殑鍊?
+`max_value`:最大的值
 
-`min_value`:鏈€灏忕殑鍊?
+`min_value`:最小的值
 
-閿欒淇℃伅鐨刞key`锛歚required`銆乣invalid` 銆乣max_value`銆乣min-value`
+错误信息的`key`：`required`、`invalid` 、`max_value`、`min-value`
 
 4. IntegerField
 
-鐢ㄦ潵鎺ユ敹鏁村舰锛屽苟涓旈獙璇侀€氳繃鍚庯紝浼氬皢杩欎釜瀛楁鐨勫€艰浆鎹负鏁村舰銆?鍙傛暟锛?
+用来接收整形，并且验证通过后，会将这个字段的值转换为整形。 参数：
 
-`max_value`:鏈€澶х殑鍊?
+`max_value`:最大的值
 
-`min_value`:鏈€灏忕殑鍊?
+`min_value`:最小的值
 
-閿欒淇℃伅鐨刞key`锛歚required`銆乣invalid` 銆乣max_value`銆乣min-value`
+错误信息的`key`：`required`、`invalid` 、`max_value`、`min-value`
 
 5. URLField
 
-鐢ㄦ潵鎺ユ敹`url`鏍煎紡鐨勫瓧绗︿覆銆?
+用来接收`url`格式的字符串。
 
-閿欒淇℃伅鐨刞key`锛歚required`銆乣invalid`銆?
+错误信息的`key`：`required`、`invalid`。
 
-##### 甯哥敤鐨勯獙璇佸櫒
-鍦ㄩ獙璇佹煇涓瓧娈电殑鏃跺€欙紝鍙互浼犻€掍竴涓猔validators`鍙傛暟鐢ㄦ潵鎸囧畾楠岃瘉鍣紝杩涗竴姝ュ鏁版嵁杩涜杩囨护銆傞獙璇佸櫒鏈夊緢澶氾紝浣嗘槸寰堝楠岃瘉鍣ㄦ垜浠叾瀹炲凡缁忛€氳繃杩欎釜`Field`鎴栬€呬竴浜涘弬鏁板氨鍙互鎸囧畾浜嗐€傛瘮濡俙EmailValidator`锛屾垜浠彲浠ラ€氳繃`EmailField`鏉ユ寚瀹氾紝姣斿`MaxValueValidator`锛屾垜浠彲浠ラ€氳繃`max_value`鍙傛暟鏉ユ寚瀹氾紝浠ヤ笅鏄竴浜涘父鐢ㄧ殑楠岃瘉鍣?
+##### 常用的验证器
+在验证某个字段的时候，可以传递一个`validators`参数用来指定验证器，进一步对数据进行过滤。验证器有很多，但是很多验证器我们其实已经通过这个`Field`或者一些参数就可以指定了。比如`EmailValidator`，我们可以通过`EmailField`来指定，比如`MaxValueValidator`，我们可以通过`max_value`参数来指定，以下是一些常用的验证器
 
-1.`EmailField`锛氶獙璇佹渶澶у€笺€?
+1.`EmailField`：验证最大值。
 
-2.`MinValueValidator`锛氶獙璇佹渶灏忓€笺€?
+2.`MinValueValidator`：验证最小值。
 
-3.`MinLengthValidator`锛氶獙璇佹渶灏忛暱搴︺€?
+3.`MinLengthValidator`：验证最小长度。
 
-4.`MaxLengthValidator`锛氶獙璇佹渶澶ч暱搴︺€?
+4.`MaxLengthValidator`：验证最大长度。
 
-5.`EmailValidator`锛氶獙璇佹槸鍚︽槸閭鏍煎紡銆?
+5.`EmailValidator`：验证是否是邮箱格式。
 
-6.`URLValidator`锛氶獙璇佹槸鍚︽槸 URL 鏍煎紡銆?
+6.`URLValidator`：验证是否是 URL 格式。
 
-7. `RegexValidotro`锛氬鏋滆繕闇€瑕佹洿鍔犲鏉傜殑楠岃瘉锛岄偅涔堟垜浠彲浠ラ€氳繃姝ｅ垯琛ㄨ揪寮忕殑楠岃瘉鍣╜RegexValidator`銆傛瘮濡傜幇鍦ㄨ楠岃瘉鎵嬫満鍙风爜鏄惁鍚堟牸锛岄偅涔堟垜浠彲浠ラ€氳繃浠ヤ笅浠ｇ爜瀹炵幇
+7. `RegexValidotro`：如果还需要更加复杂的验证，那么我们可以通过正则表达式的验证器`RegexValidator`。比如现在要验证手机号码是否合格，那么我们可以通过以下代码实现
 
 ```python
 class MyForm(forms.Form):
     telephone = forms.CharField(
         validators=[validators.RegexValidator("1[345678]\d{9}",
-        message=''璇疯緭鍏ユ纭牸寮忕殑鎵嬫満鍙风爜锛?)])
+        message=''请输入正确格式的手机号码！'')])
 ```
 
-##### 鑷畾涔夐獙璇?
-鏈夋椂鍊欏涓€涓瓧娈甸獙璇侊紝涓嶆槸涓€涓暱搴︼紝涓€涓鍒欒〃杈惧紡鑳藉鍐欐竻妤氱殑锛岃繕闇€瑕佷竴浜涘叾浠栧鏉傜殑閫昏緫锛岄偅涔堟垜浠彲浠ュ鏌愪釜瀛楁锛岃繘琛岃嚜瀹氫箟鐨勯獙璇併€傛瘮濡傚湪娉ㄥ唽鐨勮〃鍗曢獙璇佷腑锛屾垜浠兂瑕侀獙璇佹墜鏈哄彿鐮佹槸鍚﹀凡缁忚娉ㄥ唽杩囦簡锛岄偅涔堣繖鏃跺€欏氨闇€瑕佸湪鏁版嵁搴撲腑杩涜鍒ゆ柇鎵嶇煡閬撱€傚鏌愪釜瀛楁杩涜鑷畾涔夌殑楠岃瘉鏂瑰紡鏄紝瀹氫箟涓€涓柟娉曪紝杩欎釜鏂规硶鐨勫悕瀛楀畾涔夎鍒欐槸锛?`clean_fieldname`銆傚鏋滈獙璇佸け璐ワ紝閭ｄ箞灏辨姏鍑轰竴涓?楠岃瘉閿欒銆傛瘮濡傝楠岃瘉鐢ㄦ埛琛ㄤ腑鎵嬫満鍙风爜涔嬪墠鏄惁鍦ㄦ暟鎹簱涓瓨鍦紝閭ｄ箞鍙互閫氳繃浠ヤ笅浠ｇ爜瀹炵幇锛?
+##### 自定义验证
+有时候对一个字段验证，不是一个长度，一个正则表达式能够写清楚的，还需要一些其他复杂的逻辑，那么我们可以对某个字段，进行自定义的验证。比如在注册的表单验证中，我们想要验证手机号码是否已经被注册过了，那么这时候就需要在数据库中进行判断才知道。对某个字段进行自定义的验证方式是，定义一个方法，这个方法的名字定义规则是： `clean_fieldname`。如果验证失败，那么就抛出一个 验证错误。比如要验证用户表中手机号码之前是否在数据库中存在，那么可以通过以下代码实现：
 
 ```python
 class MyForm(forms.Form):
     telephone = forms.CharField(validators=
-    [validators.RegexValidator("1[345678]\d{9}",message=''璇疯緭鍏ユ纭牸寮忕殑鎵嬫満鍙风爜锛?)])
+    [validators.RegexValidator("1[345678]\d{9}",message=''请输入正确格式的手机号码！'')])
     def clean_telephone(self):
         telephone = self.cleaned_data.get(''telephone'')
         exists = User.objects.filter(telephone=telephone).exists()
         if exists:
-            raise forms.ValidationError("鎵嬫満鍙风爜宸茬粡瀛樺湪锛?)
+            raise forms.ValidationError("手机号码已经存在！")
         return telephone
 ```
 
-浠ヤ笂鏄鏌愪釜瀛楁杩涜楠岃瘉锛屽鏋滈獙璇佹暟鎹殑鏃跺€欙紝闇€瑕侀拡瀵瑰涓瓧娈佃繘琛岄獙璇侊紝閭ｄ箞鍙互閲嶅啓鏂规硶`clean`銆傛瘮濡傝鍦ㄦ敞鍐岀殑鏃跺€欙紝瑕佸垽鏂彁浜ょ殑涓や釜瀵嗙爜鏄惁鐩哥瓑銆傞偅涔堝彲浠ヤ娇鐢ㄤ互涓嬩唬鐮佹潵瀹屾垚锛?
+以上是对某个字段进行验证，如果验证数据的时候，需要针对多个字段进行验证，那么可以重写方法`clean`。比如要在注册的时候，要判断提交的两个密码是否相等。那么可以使用以下代码来完成：
 
 ```python
 class MyForm(forms.Form):
     telephone = forms.CharField(validators=
-    [validators.RegexValidator("1[345678]\d{9}",message=''璇疯緭鍏ユ纭牸寮忕殑鎵嬫満鍙风爜锛?)])
+    [validators.RegexValidator("1[345678]\d{9}",message=''请输入正确格式的手机号码！'')])
     pwd1 = forms.CharField(max_length=12)
     pwd2 = forms.CharField(max_length=12)
     
@@ -8240,16 +8220,16 @@ class MyForm(forms.Form):
         pwd1 = cleaned_data.get(''pwd1'')
         pwd2 = cleaned_data.get(''pwd2'')
         if pwd1 != pwd2:
-        raise forms.ValidationError(''涓や釜瀵嗙爜涓嶄竴鑷达紒'')
+        raise forms.ValidationError(''两个密码不一致！'')
 ```
 
-##### 鎻愬彇閿欒淇℃伅
-濡傛灉楠岃瘉澶辫触浜嗭紝閭ｄ箞鏈変竴浜涢敊璇俊鎭槸鎴戜滑闇€瑕佷紶缁欏墠绔殑銆傝繖鏃跺€欐垜浠彲浠ラ€氳繃浠ヤ笅灞炴€ф潵鑾峰彇
+##### 提取错误信息
+如果验证失败了，那么有一些错误信息是我们需要传给前端的。这时候我们可以通过以下属性来获取
 
-1. `form.errors` 杩欎釜灞炴€ц幏鍙栫殑閿欒淇℃伅鏄竴涓寘鍚簡`html`鏍囩鐨勯敊璇俊鎭€?
-2. `form.errors.get_json_data()`杩欎釜鏂规硶鑾峰彇鍒扮殑鏄竴涓瓧鍏哥被鍨嬬殑閿欒淇℃伅锛屽皢鏌愪釜瀛楁鐨勫悕瀛椾綔涓篳key`閿欒淇℃伅浣滀负鍊肩殑涓€涓瓧鍏?
-3. `form.errorsd.as_json()`  杩欎釜鏂规硶鏄皢`form.get_json_data()`杩斿洖鐨勫瓧鍏竊dump`鎴恅json`鏍煎紡鐨勫瓧绗︿覆锛屾柟渚胯繘琛屼紶杈撱€?
-4.  涓婅堪鏂规硶鑾峰彇鐨勫瓧娈电殑閿欒鍊硷紝閮芥槸涓€涓瘮杈冨鏉傜殑鏁版嵁銆傛瘮濡備互涓嬶細
+1. `form.errors` 这个属性获取的错误信息是一个包含了`html`标签的错误信息。
+2. `form.errors.get_json_data()`这个方法获取到的是一个字典类型的错误信息，将某个字段的名字作为`key`错误信息作为值的一个字典
+3. `form.errorsd.as_json()`  这个方法是将`form.get_json_data()`返回的字典`dump`成`json`格式的字符串，方便进行传输。
+4.  上述方法获取的字段的错误值，都是一个比较复杂的数据。比如以下：
 
 ```python
 {''username'': [{''message'': ''Enter a valid URL.'', ''code'': ''invalid''}, {''message'': 
@@ -8257,7 +8237,7 @@ class MyForm(forms.Form):
 ''max_length''}]}
 ```
 
-閭ｄ箞濡傛灉鎴戝彧鎯虫妸閿欒淇℃伅鏀惧湪涓€涓垪琛ㄤ腑锛岃€屼笉瑕佸啀鏀惧湪涓€涓瓧鍏镐腑銆傝繖鏃跺€欐垜浠彲浠ュ畾涔変竴涓柟 娉曪紝鎶婅繖涓暟鎹噸鏂版暣鐞嗕竴浠姐€傚疄渚嬩唬鐮佸涓嬶細
+那么如果我只想把错误信息放在一个列表中，而不要再放在一个字典中。这时候我们可以定义一个方 法，把这个数据重新整理一份。实例代码如下：
 
 ```python
 class MyForm(forms.Form):
@@ -8274,13 +8254,13 @@ class MyForm(forms.Form):
         return new_errors
 ```
 
-杩欐牱灏卞彲浠ユ妸鏌愪釜瀛楁鎵€鏈夌殑閿欒淇℃伅鐩存帴鏀惧湪杩欎釜鍒楄〃涓€?
+这样就可以把某个字段所有的错误信息直接放在这个列表中。
 
 #### ModelForm
-##### 鍩烘湰浣跨敤
-澶у鍦ㄥ啓琛ㄥ崟鐨勬椂鍊欙紝浼氬彂鐜拌〃鍗曚腑鐨刞Field`鍜屾ā鍨嬩腑鐨刞Field`鍩烘湰涓婃槸涓€妯′竴鏍风殑锛岃€屼笖琛ㄥ崟涓渶瑕侀獙璇佺殑鏁版嵁锛屼篃灏辨槸鎴戜滑妯″瀷涓渶瑕佷繚瀛樼殑銆傞偅涔堣繖鏃跺€欐垜浠氨鍙互灏嗘ā鍨嬩腑鐨勫瓧娈靛拰琛ㄥ崟涓殑瀛楁杩涜缁戝畾銆?
+##### 基本使用
+大家在写表单的时候，会发现表单中的`Field`和模型中的`Field`基本上是一模一样的，而且表单中需要验证的数据，也就是我们模型中需要保存的。那么这时候我们就可以将模型中的字段和表单中的字段进行绑定。
 
-姣斿鐜板湪鏈変釜`Article`鐨勬ā鍨?
+比如现在有个`Article`的模型
 
 ```python
 from django.db import models
@@ -8294,7 +8274,7 @@ class Article(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
 ```
 
-閭ｄ箞鍦ㄥ啓琛ㄥ崟鐨勬椂鍊欙紝灏变笉闇€瑕佹妸`Article`妯″瀷涓墍鏈夌殑瀛楁閮戒竴涓釜閲嶅鍐欎竴閬嶄簡
+那么在写表单的时候，就不需要把`Article`模型中所有的字段都一个个重复写一遍了
 
 ```python
 from django import forms
@@ -8304,7 +8284,7 @@ class MyForm(forms.ModelForm):
         fields = "__all__"
 ```
 
-`MyForm`鏄户鎵胯嚜`forms.ModelForm`锛岀劧鍚庡湪琛ㄥ崟涓畾涔変簡涓€涓猔Meta`绫伙紝鍦╜Meta`绫讳腑鎸囧畾浜哷model=Article`锛屼互鍙奰fields="__all__"`锛岃繖鏍峰氨鍙互灏哷Article`妯″瀷涓墍鏈夌殑瀛楁閮藉鍒惰繃鏉ワ紝杩涜楠岃瘉銆傚鏋滃彧鎯抽拡瀵瑰叾涓嚑涓瓧娈佃繘琛岄獙璇侊紝閭ｄ箞鍙互缁檂fields`鎸囧畾涓€涓垪琛紝灏嗛渶瑕佺殑瀛楁鍐欒繘鍘汇€傛瘮濡傚彧鎯抽獙璇乣title`鍜宍content`锛岄偅涔堝彲浠ヤ娇鐢ㄤ互涓嬩唬鐮佸疄鐜帮細
+`MyForm`是继承自`forms.ModelForm`，然后在表单中定义了一个`Meta`类，在`Meta`类中指定了`model=Article`，以及`fields="__all__"`，这样就可以将`Article`模型中所有的字段都复制过来，进行验证。如果只想针对其中几个字段进行验证，那么可以给`fields`指定一个列表，将需要的字段写进去。比如只想验证`title`和`content`，那么可以使用以下代码实现：
 
 ```python
 from django import forms
@@ -8314,7 +8294,7 @@ class MyForm(forms.ModelForm):
         fields = [''title'',''content'']
 ```
 
-濡傛灉瑕侀獙璇佺殑瀛楁姣旇緝澶氾紝鍙槸闄や簡灏戞暟鍑犱釜瀛楁涓嶉渶瑕侀獙璇侊紝閭ｄ箞鍙互浣跨敤`exclued`鏉ヤ唬鏇縛fields`銆傛瘮濡傛垜涓嶆兂楠岃瘉`category`锛岄偅涔堢ず渚嬩唬鐮佸涓嬶細
+如果要验证的字段比较多，只是除了少数几个字段不需要验证，那么可以使用`exclued`来代替`fields`。比如我不想验证`category`，那么示例代码如下：
 
 ```python
 class MyForm(forms.ModelForm):
@@ -8323,8 +8303,8 @@ class MyForm(forms.ModelForm):
         exclude = [''category'']
 ```
 
-##### 鑷畾涔夐敊璇秷鎭?
-浣跨敤`ModelForm`锛屽洜涓哄瓧娈甸兘涓嶆槸鍦ㄨ〃鍗曚腑瀹氫箟鐨勶紝鑰屾槸鍦ㄦā鍨嬩腑瀹氫箟鐨勶紝鍥犳涓€浜涢敊璇秷鎭棤娉曞湪瀛楁涓畾涔夈€傞偅涔堣繖鏃跺€欏彲浠ュ湪`Meta`绫讳腑锛屽畾涔塦error_messages`锛岀劧鍚庢妸鐩稿簲鐨勯敊璇秷鎭啓鍒伴噷闈㈠幓銆?绀轰緥浠ｇ爜濡備笅锛?
+##### 自定义错误消息
+使用`ModelForm`，因为字段都不是在表单中定义的，而是在模型中定义的，因此一些错误消息无法在字段中定义。那么这时候可以在`Meta`类中，定义`error_messages`，然后把相应的错误消息写到里面去。 示例代码如下：
 
 ```python
 class MyForm(forms.ModelForm):
@@ -8333,17 +8313,17 @@ class MyForm(forms.ModelForm):
         exclude = [''category'']
         error_messages  ={
             ''title'':{
-            ''max_length'': ''鏈€澶氫笉鑳借秴杩?0涓瓧绗︼紒'',
-            ''min_length'': ''鏈€灏戜笉鑳藉皯浜?涓瓧绗︼紒''
+            ''max_length'': ''最多不能超过10个字符！'',
+            ''min_length'': ''最少不能少于3个字符！''
             },
             ''content'': {
-            ''required'': ''蹇呴』杈撳叆content锛?,
+            ''required'': ''必须输入content！'',
             }
         }
 ```
 
-##### save鏂规硶
-`ModelForm`杩樻湁`save`鏂规硶锛屽彲浠ュ湪楠岃瘉瀹屾垚涔嬪悗鐩存帴璋冪敤`save`鏂规硶锛屽氨鍙互灏嗚繖涓暟鎹繚瀛樺埌鏁版嵁搴撲腑浜嗭紝绀轰緥浠ｇ爜濡備笅
+##### save方法
+`ModelForm`还有`save`方法，可以在验证完成之后直接调用`save`方法，就可以将这个数据保存到数据库中了，示例代码如下
 
 ```python
 form = MyForm(request.POST)
@@ -8355,7 +8335,7 @@ form = MyForm(request.POST)
         return HttpResponse(''fail'')
 ```
 
-杩欎釜鏂规硶蹇呴』瑕佸湪`clean`娌℃湁闂鍚庢墠鑳戒娇鐢紝濡傛灉鍦╜clean`涔嬪墠浣跨敤锛屼細鎶涘嚭寮傚父銆傚彟澶栵紝鎴戜滑鍦ㄨ皟鐢╜save`鏂规硶鐨勬椂鍊欙紝濡傛灉浼犲叆涓€涓猔commit=False`锛岄偅涔堝彧浼氱敓鎴愯繖涓ā鍨嬬殑瀵硅薄锛岃€屼笉浼氭妸杩欎釜瀵硅薄鐪熸鐨勬彃鍏ュ埌鏁版嵁搴撲腑銆傛瘮濡傝〃鍗曚笂楠岃瘉鐨勫瓧娈垫病鏈夊寘鍚ā鍨嬩腑鎵€鏈夌殑瀛楁锛岃繖鏃跺€欏氨鍙互鍏堝垱寤哄璞★紝鍐嶆牴鎹～鍏呭叾浠栧瓧娈碉紝鎶婃墍鏈夊瓧娈电殑鍊奸兘琛ュ厖瀹屾垚鍚庯紝鍐嶄繚瀛樺埌鏁版嵁搴撲腑銆傜ず渚嬩唬鐮佸涓嬶細
+这个方法必须要在`clean`没有问题后才能使用，如果在`clean`之前使用，会抛出异常。另外，我们在调用`save`方法的时候，如果传入一个`commit=False`，那么只会生成这个模型的对象，而不会把这个对象真正的插入到数据库中。比如表单上验证的字段没有包含模型中所有的字段，这时候就可以先创建对象，再根据填充其他字段，把所有字段的值都补充完成后，再保存到数据库中。示例代码如下：
 
 ```python
 form = MyForm(request.POST)
@@ -8370,34 +8350,34 @@ else:
 ```
 
 ##### 
-#### cookie鍜宻ession銆?
-##### Cookie浠嬬粛
-1. cookie锛氬湪缃戠珯涓紝`http`璇锋眰鏄棤鐘舵€佺殑銆備篃灏辨槸璇村嵆浣跨涓€娆″拰鏈嶅姟鍣ㄨ繛鎺ュ悗骞朵笖鐧诲綍鎴愬姛鍚庯紝 绗簩娆¤姹傛湇鍔″櫒渚濈劧涓嶈兘鐭ラ亾褰撳墠璇锋眰鏄摢涓敤鎴枫€俙cookie`鐨勫嚭鐜板氨鏄负浜嗚В鍐宠繖涓棶棰橈紝绗?涓€娆＄櫥褰曞悗鏈嶅姟鍣ㄨ繑鍥炰竴浜涙暟鎹紙cookie锛夌粰娴忚鍣紝鐒跺悗娴忚鍣ㄤ繚瀛樺湪鏈湴锛屽綋璇ョ敤鎴峰彂閫佺浜屾璇锋眰鐨勬椂鍊欙紝灏变細鑷姩鐨勬妸涓婃璇锋眰瀛樺偍鐨刞cookie`鏁版嵁鑷姩鐨勬惡甯︾粰鏈嶅姟鍣紝鏈嶅姟鍣ㄩ€氳繃娴忚鍣ㄦ惡甯︾殑鏁版嵁灏辫兘鍒ゆ柇褰撳墠鐢ㄦ埛鏄摢涓簡銆俙cookie`瀛樺偍鐨勬暟鎹噺鏈夐檺锛屼笉鍚岀殑娴忚鍣ㄦ湁涓嶅悓鐨勫瓨鍌ㄥぇ灏忥紝浣嗕竴鑸笉瓒呰繃4KB銆傚洜姝や娇鐢╟ookie鍙兘瀛樺偍涓€浜涘皬閲忕殑鏁版嵁銆?
-2. session锛?`session`鍜宍cookie`鐨勪綔鐢ㄦ湁鐐圭被浼硷紝閮芥槸涓轰簡瀛樺偍鐢ㄦ埛鐩稿叧鐨勪俊鎭€備笉鍚岀殑鏄紝`cookie`鏄瓨鍌ㄥ湪鏈湴娴忚鍣紝session鏄竴涓€濊矾銆佷竴涓蹇点€佷竴涓湇鍔″櫒瀛樺偍鎺堟潈淇℃伅鐨勮В鍐虫柟妗堬紝涓嶅悓鐨勬湇鍔″櫒锛屼笉鍚岀殑妗嗘灦锛屼笉鍚岀殑璇█鏈変笉鍚岀殑瀹炵幇銆傝櫧鐒跺疄鐜颁笉涓€鏍凤紝浣嗘槸浠栦滑鐨勭洰鐨勯兘鏄湇鍔″櫒涓轰簡鏂逛究瀛樺偍鏁版嵁鐨勩€俙session`鐨勫嚭鐜帮紝鏄负浜嗚В鍐砢cookie`瀛樺偍鏁版嵁涓嶅畨鍏ㄧ殑闂鐨勩€?
-3. `cookie`鍜宍session`浣跨敤锛歸eb寮€鍙戝彂灞曡嚦浠婏紝`cookie`鍜宍session`鐨勪娇鐢ㄥ凡缁忓嚭鐜颁簡涓€浜涢潪甯告垚鐔熺殑鏂规銆傚湪濡備粖鐨勫競鍦烘垨鑰呬紒涓氶噷锛屼竴鑸湁涓ょ瀛樺偍鏂瑰紡锛?
-    -  瀛樺偍鍦ㄦ湇鍔＄锛氶€氳繃`cookie`瀛樺偍涓€涓猔sessionid`锛岀劧鍚庡叿浣撶殑鏁版嵁鍒欐槸淇濆瓨鍦╜session`涓€傚鏋滅敤鎴峰凡缁忕櫥褰曪紝鍒欐湇鍔″櫒浼氬湪`cookie`涓繚瀛樹竴涓猔sessionid`锛屼笅娆″啀娆¤姹傜殑鏃跺€欙紝浼氭妸璇sessionid`鎼哄甫涓婃潵锛屾湇鍔″櫒鏍规嵁`sessionid`鍦╜session`搴撲腑鑾峰彇鐢ㄦ埛鐨刞session`鏁版嵁銆傚氨鑳界煡閬撹鐢ㄦ埛鍒板簳鏄皝锛屼互鍙婁箣鍓嶄繚瀛樼殑涓€浜涚姸鎬佷俊鎭€傝繖绉嶄笓涓氭湳璇彨鍋歚server side session` 銆俙Django`鎶奰session`淇℃伅榛樿瀛樺偍鍒版暟鎹簱涓紝褰撶劧涔熷彲浠ュ瓨鍌ㄥ埌鍏朵粬鍦版柟锛屾瘮濡傜紦瀛樹腑锛屾枃浠剁郴缁熶腑绛夈€傚瓨鍌ㄥ湪鏈嶅姟鍣ㄧ殑鏁版嵁浼氭洿鍔犵殑瀹夊叏锛屼笉瀹规槗琚獌鍙栥€?浣嗗瓨鍌ㄥ湪鏈嶅姟鍣ㄤ篃鏈変竴瀹氱殑寮婄锛屽氨鏄細鍗犵敤鏈嶅姟鍣ㄧ殑璧勬簮锛屼絾鐜板湪鏈嶅姟鍣ㄥ凡缁忓彂灞曡嚦浠婏紝涓€浜沗session`淇℃伅杩樻槸缁扮话鏈変綑鐨勩€?
-    -   灏哷session`鏁版嵁鍔犲瘑锛岀劧鍚庡瓨鍌ㄥ湪`cookie`涓€傝繖绉嶄笓涓氭湳璇彨鍋歚client side session`銆俙flask`妗嗘灦榛樿閲囩敤鐨勫氨鏄繖绉嶆柟寮忥紝浣嗘槸涔熷彲浠ユ浛鎹㈡垚鍏朵粬褰㈠紡銆?
+#### cookie和session、
+##### Cookie介绍
+1. cookie：在网站中，`http`请求是无状态的。也就是说即使第一次和服务器连接后并且登录成功后， 第二次请求服务器依然不能知道当前请求是哪个用户。`cookie`的出现就是为了解决这个问题，第 一次登录后服务器返回一些数据（cookie）给浏览器，然后浏览器保存在本地，当该用户发送第二次请求的时候，就会自动的把上次请求存储的`cookie`数据自动的携带给服务器，服务器通过浏览器携带的数据就能判断当前用户是哪个了。`cookie`存储的数据量有限，不同的浏览器有不同的存储大小，但一般不超过4KB。因此使用cookie只能存储一些小量的数据。
+2. session： `session`和`cookie`的作用有点类似，都是为了存储用户相关的信息。不同的是，`cookie`是存储在本地浏览器，session是一个思路、一个概念、一个服务器存储授权信息的解决方案，不同的服务器，不同的框架，不同的语言有不同的实现。虽然实现不一样，但是他们的目的都是服务器为了方便存储数据的。`session`的出现，是为了解决`cookie`存储数据不安全的问题的。
+3. `cookie`和`session`使用：web开发发展至今，`cookie`和`session`的使用已经出现了一些非常成熟的方案。在如今的市场或者企业里，一般有两种存储方式：
+    -  存储在服务端：通过`cookie`存储一个`sessionid`，然后具体的数据则是保存在`session`中。如果用户已经登录，则服务器会在`cookie`中保存一个`sessionid`，下次再次请求的时候，会把该`sessionid`携带上来，服务器根据`sessionid`在`session`库中获取用户的`session`数据。就能知道该用户到底是谁，以及之前保存的一些状态信息。这种专业术语叫做`server side session` 。`Django`把`session`信息默认存储到数据库中，当然也可以存储到其他地方，比如缓存中，文件系统中等。存储在服务器的数据会更加的安全，不容易被窃取。 但存储在服务器也有一定的弊端，就是会占用服务器的资源，但现在服务器已经发展至今，一些`session`信息还是绰绰有余的。
+    -   将`session`数据加密，然后存储在`cookie`中。这种专业术语叫做`client side session`。`flask`框架默认采用的就是这种方式，但是也可以替换成其他形式。
 
-##### 鍦―jango涓搷浣渃ookie
-1. **璁剧疆cookie**
+##### 在Django中操作cookie
+1. **设置cookie**
 
-璁剧疆`cookie`鏄缃€肩粰娴忚鍣ㄧ殑銆傚洜姝ゆ垜浠渶瑕侀€氳繃`respose`鐨勫璞℃潵璁剧疆锛岃缃甡cookie`鍙互閫氳繃`response.set_cookie`鏉ヨ缃紝杩欎釜鏂规硶鐨勭浉鍏冲弬鏁板涓?
+设置`cookie`是设置值给浏览器的。因此我们需要通过`respose`的对象来设置，设置`cookie`可以通过`response.set_cookie`来设置，这个方法的相关参数如下
 
-    1. `key`锛氳繖涓猔cookie`鐨刞key`
-    2. `ualue`:杩欎釜`cookie`鐨刞value`
-    3. `max_age`锛氭渶闀跨殑鐢熷懡鍛ㄦ湡
-    4. `expires`锛?杩囨湡鏃堕棿銆傝窡`max_age`鏄被浼肩殑锛屽彧涓嶈繃杩欎釜鍙傛暟闇€瑕佷紶閫掍竴涓叿浣撶殑鏃ユ湡锛屾瘮濡俙datetime`鎴栬€呮槸绗﹀悎鏃ユ湡鏍煎紡鐨勫瓧绗︿覆銆傚鏋滃悓鏃惰缃簡`expires`鍜宍max_age`锛岄偅涔堝皢浼氫娇鐢╜expires`鐨勫€间綔涓鸿繃鏈熸椂闂淬€? 
-    5. `path`锛氬鍩熷悕涓嬪摢涓矾寰勬湁鏁堛€傞粯璁ゆ槸瀵瑰煙鍚嶄笅鎵€鏈夎矾寰勯兘鏈夋晥
-    6. `domain`锛氶拡瀵瑰摢涓煙鍚嶆湁鏁堛€傞粯璁ゆ槸鐪熷涓诲煙鍚嶄笅閮芥湁鏁堬紝濡傛灉鍊兼湁閽堝鏌愪釜瀛愬煙鍚嶆墠鏈夋晥锛岄偅涔堝彲浠ヨ缃繖涓睘鎬?
-    7. `secure`锛氭槸鍚︽槸瀹夊叏鐨勶紝濡傛灉璁剧疆涓篳True`閭ｄ箞鍙兘鍦╜https`鍗忚涓嬫墠鍙敤
-    8. `httponly`锛氶粯璁ゅ€间负`False`濡傛灉涓篳True`锛岄偅涔堝湪瀹㈡埛绔笉鑳介€氳繃`JavaScript`杩涜鎿嶄綔
-2. **鍒犻櫎cookie**
+    1. `key`：这个`cookie`的`key`
+    2. `ualue`:这个`cookie`的`value`
+    3. `max_age`：最长的生命周期
+    4. `expires`： 过期时间。跟`max_age`是类似的，只不过这个参数需要传递一个具体的日期，比如`datetime`或者是符合日期格式的字符串。如果同时设置了`expires`和`max_age`，那么将会使用`expires`的值作为过期时间。  
+    5. `path`：对域名下哪个路径有效。默认是对域名下所有路径都有效
+    6. `domain`：针对哪个域名有效。默认是真多主域名下都有效，如果值有针对某个子域名才有效，那么可以设置这个属性
+    7. `secure`：是否是安全的，如果设置为`True`那么只能在`https`协议下才可用
+    8. `httponly`：默认值为`False`如果为`True`，那么在客户端不能通过`JavaScript`进行操作
+2. **删除cookie**
 
-閫氳繃`delete_cookie`鍗冲彲鍒犻櫎`cookie`銆傚疄闄呬笂鍒犻櫎`cookie`灏辨槸灏嗘寚瀹氱殑`cookie`鐨勫€艰缃负绌虹殑瀛楃涓诧紝鐒跺悗浣跨敤灏嗕粬鐨勮繃鏈熸椂闂磋缃负0锛屼篃灏辨槸娴忚鍣ㄥ叧闂悗灏辫繃鏈熴€?
+通过`delete_cookie`即可删除`cookie`。实际上删除`cookie`就是将指定的`cookie`的值设置为空的字符串，然后使用将他的过期时间设置为0，也就是浏览器关闭后就过期。
 
-3. **鑾峰彇cookie**
+3. **获取cookie**
 
-鑾峰彇娴忚鍣ㄥ彂閫佽繃鏉ョ殑`cookie`淇℃伅銆傚彲浠ラ€氳繃`request.COOKIES`鏉ユ垨鑰呫€傝繖涓璞℃槸涓€涓瓧鍏哥被鍨嬨€?姣斿鑾峰彇鎵€鏈夌殑`cookie`锛岄偅涔堢ず渚嬩唬鐮佸涓嬶細
+获取浏览器发送过来的`cookie`信息。可以通过`request.COOKIES`来或者。这个对象是一个字典类型。 比如获取所有的`cookie`，那么示例代码如下：
 
 
 
@@ -8407,8 +8387,8 @@ for cookie_key,cookie_value in cookies.items():
     print(cookie_key,cookie_value)
 ```
 
-##### 鍦―jango涓搷浣渟ession
-`django`涓殑`session`榛樿鎯呭喌涓嬫槸瀛樺偍鍦ㄦ湇鍔″櫒鐨勬暟鎹簱涓殑锛屽湪琛ㄤ腑浼氭牴鎹甡sessionid`鏉ユ彁鍙栨寚瀹氱殑`session`鏁版嵁锛岀劧鍚庡啀鎶婅繖涓猔sessionid`鏀惧埌`cookie`涓彂閫佺粰娴忚鍣ㄥ瓨鍌紝娴忚鍣ㄤ笅娆″湪鍚戞湇鍔″櫒 鍙戦€佽姹傜殑鏃跺€欎細鑷姩鐨勬妸鎵€鏈塦cookie`淇℃伅閮藉彂閫佺粰鏈嶅姟鍣紝鏈嶅姟鍣ㄥ啀浠巂cookie`涓幏鍙朻sessionid`锛?鐒跺悗鍐嶄粠鏁版嵁搴撲腑鑾峰彇`session`鏁版嵁銆備絾鏄垜浠湪鎿嶄綔`session`鐨勬椂鍊欙紝杩欎簺缁嗚妭鍘嬫牴灏变笉鐢ㄧ銆傛垜浠彧闇€瑕侀€氳繃`request.session`鍗冲彲鎿嶄綔銆傜ず渚嬩唬鐮佸涓嬶細
+##### 在Django中操作session
+`django`中的`session`默认情况下是存储在服务器的数据库中的，在表中会根据`sessionid`来提取指定的`session`数据，然后再把这个`sessionid`放到`cookie`中发送给浏览器存储，浏览器下次在向服务器 发送请求的时候会自动的把所有`cookie`信息都发送给服务器，服务器再从`cookie`中获取`sessionid`， 然后再从数据库中获取`session`数据。但是我们在操作`session`的时候，这些细节压根就不用管。我们只需要通过`request.session`即可操作。示例代码如下：
 
 ```python
 def index(resquest):
@@ -8416,31 +8396,31 @@ def index(resquest):
     return HttpResponse(''index'')
 ```
 
-`session`甯哥敤鐨勬柟娉曞涓?
+`session`常用的方法如下
 
-1. `get`锛氱敤鏉ヤ粠`session`涓幏鍙栨寚瀹氬€笺€?
-2. `pop`锛氫粠`session`涓垹闄や竴涓€笺€?
-3. `keys`锛氫粠`session`涓幏鍙栨墍鏈夌殑閿€?
-4. `items`锛氫粠`session`涓幏鍙栨墍鏈夌殑鍊笺€?
-5. `clear`锛氭竻闄ゅ綋鍓嶈繖涓敤鎴风殑`session`鏁版嵁銆?
-6. `flush`锛氬垹闄session`骞朵笖鍒犻櫎鍦ㄦ祻瑙堝櫒涓瓨鍌ㄧ殑`session_id`锛屼竴鑸湪娉ㄩ攢鐨勬椂鍊欑敤寰楁瘮杈冨銆?
-7. `set_expiry(value)`锛氳缃繃鏈熸椂闂淬€?
-    - 鏁村舰锛氫唬琛ㄧ鏁帮紝琛ㄧず澶氬皯绉掑悗杩囨湡銆?
-    - 0锛氫唬琛ㄥ彧瑕佹祻瑙堝櫒鍏抽棴锛宍session`灏变細杩囨湡銆?
-    - None锛氫細浣跨敤鍏ㄥ眬鐨刞session`閰嶇疆銆傚湪`settings.py`涓彲浠ヨ缃甡SESSION_COOKIE_AGE`鏉ラ厤缃叏灞€鐨勮繃鏈熸椂闂淬€傞粯璁ゆ槸1209600绉掞紝涔熷氨鏄?鍛ㄧ殑鏃堕棿銆?
-8. `clear_expired`锛氭竻闄よ繃鏈熺殑`session`銆俙Django`骞朵笉浼氭竻闄よ繃鏈熺殑`session`锛岄渶瑕佸畾鏈熸墜鍔ㄧ殑娓呯悊锛屾垨鑰呮槸鍦ㄧ粓绔紝浣跨敤鍛戒护琛宍python manage.py clearsessions`鏉ユ竻闄よ繃鏈熺殑`session`銆?
+1. `get`：用来从`session`中获取指定值。
+2. `pop`：从`session`中删除一个值。
+3. `keys`：从`session`中获取所有的键。
+4. `items`：从`session`中获取所有的值。
+5. `clear`：清除当前这个用户的`session`数据。
+6. `flush`：删除`session`并且删除在浏览器中存储的`session_id`，一般在注销的时候用得比较多。
+7. `set_expiry(value)`：设置过期时间。
+    - 整形：代表秒数，表示多少秒后过期。
+    - 0：代表只要浏览器关闭，`session`就会过期。
+    - None：会使用全局的`session`配置。在`settings.py`中可以设置`SESSION_COOKIE_AGE`来配置全局的过期时间。默认是1209600秒，也就是2周的时间。
+8. `clear_expired`：清除过期的`session`。`Django`并不会清除过期的`session`，需要定期手动的清理，或者是在终端，使用命令行`python manage.py clearsessions`来清除过期的`session`。
 
-##### 淇敼session鐨勫偍瀛樻満鍒?
-榛樿鎯呭喌涓嬶紝`session`鏁版嵁鏄瓨鍌ㄥ埌鏁版嵁搴撲腑鐨勩€傚綋鐒朵篃鍙互灏哷session`鏁版嵁瀛樺偍鍒板叾浠栧湴鏂广€傚彲浠ラ€?杩囪缃甡SESSION_ENGINE`鏉ユ洿鏀筦session`鐨勫瓨鍌ㄤ綅缃紝杩欎釜鍙互閰嶇疆涓轰互涓嬪嚑绉嶆柟妗堬細
+##### 修改session的储存机制
+默认情况下，`session`数据是存储到数据库中的。当然也可以将`session`数据存储到其他地方。可以通 过设置`SESSION_ENGINE`来更改`session`的存储位置，这个可以配置为以下几种方案：
 
-1. `django.contrib.sessions.backends.db`锛氫娇鐢ㄦ暟鎹簱銆傞粯璁ゅ氨鏄繖绉嶆柟妗堛€?
-2. `django.contrib.sessions.backends.file`锛氫娇鐢ㄦ枃浠舵潵瀛樺偍`session`銆?
-3. `django.contrib.sessions.backends.cache`锛氫娇鐢ㄧ紦瀛樻潵瀛樺偍`session`銆傛兂瑕佸皢鏁版嵁瀛樺偍鍒扮紦瀛樹腑锛屽墠鎻愭槸浣犲繀椤昏鍦╜settings.py`涓厤缃ソ`CACHES`锛屽苟涓旀槸闇€瑕佷娇鐢╜Memcached`锛岃€屼笉鑳戒娇鐢ㄧ函鍐呭瓨浣滀负缂撳瓨銆?
-4. `django.contrib.sessions.backends.cached_db `锛氬湪瀛樺偍鏁版嵁鐨勬椂鍊欙紝浼氬皢鏁版嵁鍏堝瓨鍒扮紦瀛樹腑锛屽啀瀛樺埌鏁版嵁搴撲腑銆傝繖鏍峰氨鍙互淇濊瘉涓囦竴缂撳瓨绯荤粺鍑虹幇闂锛宍session`鏁版嵁涔熶笉浼氫涪澶便€傚湪鑾峰彇鏁版嵁鐨勬椂鍊欙紝浼氬厛浠庣紦瀛樹腑鑾峰彇锛屽鏋滅紦瀛樹腑娌℃湁锛岄偅涔堝氨浼氫粠鏁版嵁搴撲腑鑾峰彇銆?
-5. `django.contrib.sessions.backends.signed_cookies`锛氬皢`session`淇℃伅鍔犲瘑鍚庡瓨鍌ㄥ埌娴忚鍣ㄧ殑`cookie`涓€傝繖绉嶆柟寮忚娉ㄦ剰瀹夊叏锛屽缓璁缃甡SESSION_COOKIE_HTTPONLY=True`锛岄偅涔堝湪娴忚鍣?涓笉鑳介€氳繃js鏉ユ搷浣渀session`鏁版嵁锛屽苟涓旇繕闇€瑕佸`settings.py`涓殑`SECRET_KEY`杩涜淇濆瘑锛屽洜涓轰竴鏃﹀埆浜虹煡閬撹繖涓猔SECRET_KEY`閭ｄ箞灏卞彲浠ヨ繘琛岃В瀵嗐€傚彟澶栬繕鏈夊氨鏄湪`cookie`涓紝瀛樺偍鐨勬暟鎹笉鑳借秴杩?k銆?
+1. `django.contrib.sessions.backends.db`：使用数据库。默认就是这种方案。
+2. `django.contrib.sessions.backends.file`：使用文件来存储`session`。
+3. `django.contrib.sessions.backends.cache`：使用缓存来存储`session`。想要将数据存储到缓存中，前提是你必须要在`settings.py`中配置好`CACHES`，并且是需要使用`Memcached`，而不能使用纯内存作为缓存。
+4. `django.contrib.sessions.backends.cached_db `：在存储数据的时候，会将数据先存到缓存中，再存到数据库中。这样就可以保证万一缓存系统出现问题，`session`数据也不会丢失。在获取数据的时候，会先从缓存中获取，如果缓存中没有，那么就会从数据库中获取。
+5. `django.contrib.sessions.backends.signed_cookies`：将`session`信息加密后存储到浏览器的`cookie`中。这种方式要注意安全，建议设置`SESSION_COOKIE_HTTPONLY=True`，那么在浏览器 中不能通过js来操作`session`数据，并且还需要对`settings.py`中的`SECRET_KEY`进行保密，因为一旦别人知道这个`SECRET_KEY`那么就可以进行解密。另外还有就是在`cookie`中，存储的数据不能超过4k。
 
-#### 闃插尽CSRF鏀诲嚮
-鏈嶅姟鍣ㄤ唬鐮?
+#### 防御CSRF攻击
+服务器代码
 
 ```python
 MIDDLEWARE = [
@@ -8448,191 +8428,189 @@ MIDDLEWARE = [
 ]
 ```
 
-妯＄増浠ｇ爜
+模版代码
 
 ```html
 <input type="hidden" name="csrfmiddlewaretoken" value={{ csrf_token }}
 ```
 
-鎴栬€呮槸鐩存帴浣跨敤csrf_token鏍囩锛屽湪鑷姩鐢熸垚涓€涓甫鏈塩srf_token鐨刬nput鏍囩
+或者是直接使用csrf_token标签，在自动生成一个带有csrf_token的input标签
 
 /bg
-', NOW());
-SET @last_note_id = LAST_INSERT_ID();
+', 0, NOW());
 
-INSERT INTO 
-ote (uthor_id, 	itle, content, created_at)
-VALUES (1002, 'MySql', '# 鍩烘湰鍛戒护
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+VALUES (7, 1002, 'MySql', '# 基本命令
 ```sql
-show databases;  #鏌ョ湅鎵€鏈夋暟鎹簱
+show databases;  #查看所有数据库
 
-use mysql;   # 鍒囨崲鏁版嵁搴?
+use mysql;   # 切换数据库
 
-show tables;   # 鏌ョ湅鏁版嵁搴撲腑鎵€鏈夌殑琛?
+show tables;   # 查看数据库中所有的表
 
-describe student;  # 鏌ョ湅琛ㄧ殑淇℃伅
+describe student;  # 查看表的信息
 
-create database newdb;  # 鍒涘缓鏁版嵁搴?
+create database newdb;  # 创建数据库
 
-exit;   # 鏂紑杩炴帴
+exit;   # 断开连接
 ```
 
-# 鎿嶄綔鏁版嵁搴?
-+ 鍒涘缓鏁版嵁搴?
+# 操作数据库
++ 创建数据库
     - create database [if not exists] new_db;
-+ 鍒犻櫎鏁版嵁搴?
++ 删除数据库
     - drop database [if exists] new_db;
-+ 浣跨敤鏁版嵁搴?
++ 使用数据库
     - use new_db;
-+ 鏌ョ湅鎵€鏈夋暟鎹簱
++ 查看所有数据库
     - show databases;
 
-# 鏁版嵁搴撹〃鎿嶄綔
-## 鍒楃被鍨?
-+ 鏁板€?
-    - tinyint  鍗佸垎灏忕殑鏁版嵁   1涓瓧鑺?
-    - smallint  杈冨皬鐨勬暟鎹? 2涓瓧鑺?
-    - mediumint  涓瓑澶у皬鐨勬暟鎹?  3涓瓧鑺?
-    - **int   鏍囧噯鐨勬暣鏁?      4涓瓧鑺?*
-    - big  杈冨ぇ鐨勬暟鎹?    8涓瓧鑺?
-    - float   娴偣鏁?   4涓瓧鑺?
-    - double  娴偣鏁? 8涓瓧鑺?
-    - decimal  瀛楃涓插舰寮忕殑娴偣鏁? 閲戣瀺璁＄畻鐨勪娇鐢紝涓€鑸娇鐢?
-+ 瀛楃涓?
-    - char 瀛楃涓插浐瀹氬ぇ灏?  0~255
-    - **varchar 鍙彉闀垮瓧绗︿覆  0~65535**
-    - tinytext  寰瀷鏂囨湰  2^8 - 1
-    - text  鏂囨湰涓?     2^16 - 1    淇濆瓨澶ф枃鏈?
-+ 鏃堕棿鏃ユ湡
+# 数据库表操作
+## 列类型
++ 数值
+    - tinyint  十分小的数据   1个字节
+    - smallint  较小的数据  2个字节
+    - mediumint  中等大小的数据   3个字节
+    - **int   标准的整数       4个字节**
+    - big  较大的数据     8个字节
+    - float   浮点数    4个字节
+    - double  浮点数  8个字节
+    - decimal  字符串形式的浮点数  金融计算的使用，一般使用
++ 字符串
+    - char 字符串固定大小   0~255
+    - **varchar 可变长字符串  0~65535**
+    - tinytext  微型文本  2^8 - 1
+    - text  文本串      2^16 - 1    保存大文本
++ 时间日期
     - java.util.Date
-    - date   YYY-MM-DD 鏃ユ湡鏍煎紡
-    - time   HH: mm: ss  鏃堕棿鏍煎紡
-    - **datetime  YYY-MM-DD HH: mm: ss  鏈€甯哥敤**
-    - **timestamp  鏃堕棿鎴?  姣旇緝甯哥敤锛?*
-    - year  骞翠唤琛ㄧず
+    - date   YYY-MM-DD 日期格式
+    - time   HH: mm: ss  时间格式
+    - **datetime  YYY-MM-DD HH: mm: ss  最常用**
+    - **timestamp  时间戳   比较常用！**
+    - year  年份表示
 + null
-    - 娌℃湁鍊硷紝鏈煡
-    - 涓嶈浣跨敤NULL杩涜杩愮畻锛岀粨鏋滀竴瀹氫负NULL
+    - 没有值，未知
+    - 不要使用NULL进行运算，结果一定为NULL
 
-## 瀛楁灞炴€?
-+ Unsigned锛?
-    - 鏃犵鍙风殑鏁存暟
-    - 澹版槑浜嗚鍒椾笉鑳藉０鏄庝负璐熸暟
-+ zerofill锛?
-    - 0濉厖鐨?
-    - 涓嶈冻鐨勪綅鏁帮紝浣跨敤0鏉ュ～鍏?  int锛堬級锛?5  ....  005
-+ 鑷
-    - 閫氬父鐞嗚В涓鸿嚜澧烇紝鑷姩瀛椾竴鏉¤褰曠殑鍩虹涓?1锛堥粯璁わ級
-    - 閫氬父鐢ㄦ潵璁捐鍞竴鐨勪富閿畘  index锛?蹇呴』鏄暣鏁扮被鍨?
-    - 鍙互鑷畾涔夎璁′富閿嚜澧炵殑璧峰鍊煎拰姝ラ暱
-+ 闈炵┖
-    - 鍋囪璁剧疆涓?not null , 濡傛灉涓嶇粰浠栬祴鍊硷紝灏变細鎶ラ敊
-    - NULL锛屽鏋滀笉濉啓鍊硷紝榛樿灏辨槸null锛?
-+ 榛樿锛?
-    - 璁剧疆榛樿鐨勫€硷紒
+## 字段属性
++ Unsigned：
+    - 无符号的整数
+    - 声明了该列不能声明为负数
++ zerofill：
+    - 0填充的
+    - 不足的位数，使用0来填充   int（）， 5  ....  005
++ 自增
+    - 通常理解为自增，自动字一条记录的基础上+1（默认）
+    - 通常用来设计唯一的主键~  index， 必须是整数类型
+    - 可以自定义设计主键自增的起始值和步长
++ 非空
+    - 假设设置为 not null , 如果不给他赋值，就会报错
+    - NULL，如果不填写值，默认就是null！
++ 默认：
+    - 设置默认的值！
     -
 
-## 鍒涘缓鏁版嵁搴撹〃
-auto_increment 鑷
+## 创建数据库表
+auto_increment 自增
 
-瀛楃涓蹭娇鐢?鍗曞紩鍙锋嫭璧锋潵
+字符串使用 单引号括起来
 
-鎵€鏈夌殑璇彞鍚庨潰鍔犻€楀彿
+所有的语句后面加逗号
 
-primary key 涓婚敭
+primary key 主键
 
 ```sql
 create table if not exists `student`(
-  `id` int(4) not null auto_increment comment ''瀛﹀彿'',
-  `name` varchar(30) not null default ''鍖垮悕'' comment ''濮撳悕'',
-  `pwd` varchar(20) not null default ''123456'' comment ''瀵嗙爜'',
-  `sex` varchar(2) not null default ''濂? comment ''鎬у埆'',
-  `birthday` datetime default null comment ''鐢熸棩'',
-  `address` varchar(100) default null comment ''瀹跺涵鍦板潃'',
-  `email` varchar(50) default null comment ''閭'',
+  `id` int(4) not null auto_increment comment ''学号'',
+  `name` varchar(30) not null default ''匿名'' comment ''姓名'',
+  `pwd` varchar(20) not null default ''123456'' comment ''密码'',
+  `sex` varchar(2) not null default ''女'' comment ''性别'',
+  `birthday` datetime default null comment ''生日'',
+  `address` varchar(100) default null comment ''家庭地址'',
+  `email` varchar(50) default null comment ''邮箱'',
   primary key(`id`)
 )engine=innoob default charset=utf8;
 ```
 
-鏍煎紡
+格式
 
 ```sql
-create table [if not exists] `琛ㄥ悕`(
-  `瀛楁鍚峘 鍒楃被鍨?灞炴€?绱㈠紩 娉ㄩ噴锛?
-  `瀛楁鍚峘 鍒楃被鍨?灞炴€?绱㈠紩 娉ㄩ噴锛?
+create table [if not exists] `表名`(
+  `字段名` 列类型 属性 索引 注释，
+  `字段名` 列类型 属性 索引 注释，
   .......
-  `瀛楁鍚峘 鍒楃被鍨?灞炴€?绱㈠紩 娉ㄩ噴锛?
-)[琛ㄧ被鍨媇[瀛楃闆嗚缃甝[娉ㄩ噴]
+  `字段名` 列类型 属性 索引 注释，
+)[表类型][字符集设置][注释]
 ```
 
-+ show create database ''鏁版嵁搴?
-    - 鏌ョ湅鍒涘缓鏁版嵁搴撶殑鍛戒护
-+ show create table ''琛ㄥ悕''
-    - 鏌ョ湅鍒涘缓琛ㄧ殑璇彞
-+ desc ''琛ㄥ悕''
-    - 鏄剧ず琛ㄧ殑缁撴瀯
++ show create database ''数据库''
+    - 查看创建数据库的命令
++ show create table ''表名''
+    - 查看创建表的语句
++ desc ''表名''
+    - 显示表的结构
 
-## 淇敼鍒犻櫎琛?
-+ 淇敼琛ㄥ悕
-    - ALTER TABLE  鍘熸姤鍚?rename 鏂拌〃鍚?
-+ 澧炲姞琛ㄧ殑瀛楁
-    - ALTER TABLE 琛ㄥ悕 add 瀛楁 绫诲瀷
-+ 淇敼琛ㄧ殑瀛楁
-    - ALTER TABLE 琛ㄥ悕 modify 瀛楁 绫诲瀷
-        * 淇敼绾︽潫
-    - ALTER TABLE 琛ㄥ悕 change 鍘熷瓧娈?鏂板瓧娈?绫诲瀷
-        * 閲嶅懡鍚嶅瓧娈?
-+ 鍒犻櫎琛ㄧ殑瀛楁
-    - ALTER TABLE 琛ㄥ悕 DROP 瀛楁
-+ 鍒犻櫎琛?
-    - DROP TABLE [if exists] 琛ㄥ悕
+## 修改删除表
++ 修改表名
+    - ALTER TABLE  原报名 rename 新表名
++ 增加表的字段
+    - ALTER TABLE 表名 add 字段 类型
++ 修改表的字段
+    - ALTER TABLE 表名 modify 字段 类型
+        * 修改约束
+    - ALTER TABLE 表名 change 原字段 新字段 类型
+        * 重命名字段
++ 删除表的字段
+    - ALTER TABLE 表名 DROP 字段
++ 删除表
+    - DROP TABLE [if exists] 表名
 
 
 
-# MySQL鏁版嵁搴撶鐞?
-## 澶栭敭
-+ 鏂瑰紡涓€锛屽湪鍒涘缓琛ㄧ殑鏃跺€欐坊鍔犲閿?
+# MySQL数据库管理
+## 外键
++ 方式一，在创建表的时候添加外键
 
 ```sql
 key `fk_gradeid` (`gradeid`),
 constranint `FK_gradeid` 
 foreign key(`gradeid`)
-references `grade`(`gradeid`)銆?
+references `grade`(`gradeid`)。
 ```
 
-+ 鏂瑰紡浜岋紝鍦ㄥ垱寤哄畬琛ㄥ悗娣诲姞澶栭敭
++ 方式二，在创建完表后添加外键
 
 ```sql
 ALTER TABLE `student`
-add constranint `FK_gradeid`  # 绾︽潫
-foreign key(`gradeid`)        # 浣滀负澶栭敭鐨勫垪
-references `grade`(`gradeid`) # 鍝釜琛ㄧ殑鍝釜瀛楁
+add constranint `FK_gradeid`  # 约束
+foreign key(`gradeid`)        # 作为外键的列
+references `grade`(`gradeid`) # 哪个表的哪个字段
 ```
 
-## DML璇█
-+ 鎻掑叆
-    - insert into 琛ㄥ悕锛堝瓧娈?锛屽瓧娈?锛屽瓧娈?锛塿alues (''鍊?'', ''鍊?'', ''鍊?'')
+## DML语言
++ 插入
+    - insert into 表名（字段1，字段2，字段3）values (''值1'', ''值2'', ''值3'')
 
 ```sql
 insert into student(`id`, `name`, `sex`, `age`)
-values(''1'', ''zhangsan'', ''鐢?, ''18''),
-(''2'', ''lisi'', ''鐢?, ''18'');
+values(''1'', ''zhangsan'', ''男'', ''18''),
+(''2'', ''lisi'', ''男'', ''18'');
 ```
 
-+ 淇敼
-    - update 琛ㄥ悕 set  瀛楁=value  where 鏉′欢
-    - 涓嶆坊鍔犳潯浠剁殑璇濅細鏀瑰姩琛ㄧ殑鎵€鏈夋暟鎹?
-    - value鍙互鏄€?涔熷彲浠ユ槸鍙橀噺
-    - 澶氫釜璁剧疆鐨勫睘鎬т箣闂达紝浣跨敤鑻辨枃閫楀彿闅斿紑
++ 修改
+    - update 表名 set  字段=value  where 条件
+    - 不添加条件的话会改动表的所有数据
+    - value可以是值 也可以是变量
+    - 多个设置的属性之间，使用英文逗号隔开
 
 ```sql
-update `student` set `name`=''寮犱笁'' where `id`=''1'' and `id`=''3'';
+update `student` set `name`=''张三'' where `id`=''1'' and `id`=''3'';
 ```
 
-+ 鍒犻櫎
-    - delete from 琛ㄥ悕 where 鏉′欢
-    - truncate 鍛戒护 鍒犻櫎琛ㄤ腑鐨勫叏閮ㄦ暟鎹紝浣嗚〃缁撴瀯鍜岀储寮曠害鏉熶笉浼氬彉
-        * delete 涓嶄細鍒犻櫎鑷   truncate 浼氫娇鑷褰掗浂
++ 删除
+    - delete from 表名 where 条件
+    - truncate 命令 删除表中的全部数据，但表结构和索引约束不会变
+        * delete 不会删除自增   truncate 会使自增归零
 
 ```sql
 delete from `student` where `id`=''1'';
@@ -8640,68 +8618,68 @@ delete from `student` where `id`=''1'';
 
     - 
 
-# DQL鏌ヨ鏁版嵁
-## select瀹屾暣璇硶
+# DQL查询数据
+## select完整语法
 <img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1747035055729-d45778a6-7a78-4c38-a123-427fc863e4d6.png" width="570.6666666666666" title="" crop="0,0,1,1" id="u729b1fbf" class="ne-image">
 
-## 鎸囧畾鏌ヨ瀛楁
-璇硶锛?select 瀛楁...  from  琛ㄥ悕
+## 指定查询字段
+语法： select 字段...  from  表名
 
 ```sql
--- 鏌ヨ鍏ㄩ儴瀛楁 
+-- 查询全部字段 
 select * from student
 
--- 鏌ヨ鎸囧畾瀛楁
+-- 查询指定字段
 select id,name from student;
 
--- 鍒悕
-select id as 瀛﹀彿, name as 濮撳悕, from student as s;
+-- 别名
+select id as 学号, name as 姓名, from student as s;
 
--- 鍑芥暟 concat(a, b) 杩炴帴瀛楃涓?
-select concat(''濮撳悕锛?, name) as 濮撳悕 from student;
+-- 函数 concat(a, b) 连接字符串
+select concat(''姓名：'', name) as 姓名 from student;
 ```
 
-鏁版嵁搴撶殑鍒楋紙琛ㄨ揪寮忥級
+数据库的列（表达式）
 
 ```sql
-select VERSION()  -- 鏌ヨ绯荤粺鐗堟湰锛堝嚱鏁帮級
-select 100*3-1 as 璁＄畻楗ョ粨鏋? -- 鐢ㄦ潵璁＄畻锛堣〃杈惧紡锛?
-select @@auto_increment_increment -- 鏌ヨ鑷鐨勬闀匡紙鍙橀噺锛?
+select VERSION()  -- 查询系统版本（函数）
+select 100*3-1 as 计算饥结果  -- 用来计算（表达式）
+select @@auto_increment_increment -- 查询自增的步长（变量）
 
--- 鏄煡璇㈢粨鏋?1
-select 	`studentNO`, `studnetResult`+1 as ''鎻愬垎鍚? from result
+-- 是查询结果+1
+select 	`studentNO`, `studnetResult`+1 as ''提分后'' from result
 ```
 
-鏁版嵁搴撲腑鐨勮〃杈惧紡锛氭枃鏈€硷紝鍒楋紝null锛?鍑芥暟锛岃绠楄〃杈惧紡锛?绯荤粺鍙橀噺...
+数据库中的表达式：文本值，列，null， 函数，计算表达式， 系统变量...
 
-select 琛ㄨ揪寮?from 琛ㄥ悕
+select 表达式 from 表名
 
-## where瀛愬彞
-浣滅敤锛氭绱㈡暟鎹腑绗﹀悎鏉′欢鐨勫€?
+## where子句
+作用：检索数据中符合条件的值
 
-鎼滅储鐨勬潯浠剁敱涓€涓垨澶氫釜琛ㄨ揪寮忕粍鎴愶紒缁撴灉 甯冨皵鍊?
+搜索的条件由一个或多个表达式组成！结果 布尔值
 
 ---
 
-閫昏緫杩愮畻绗?
+逻辑运算符
 
-| 杩愮畻绗?| 璇硶 | 鎻忚堪 |
+| 运算符 | 语法 | 描述 |
 | --- | --- | --- |
-| and && | a and b      a&&b | 閫昏緫涓庯紝涓や釜閮戒负鐪燂紝缁撴灉涓虹湡 |
-| or || | a or b         a||b | 閫昏緫鎴栵紝鍏朵腑涓€涓负鐪燂紝缁撴灉涓虹湡 |
-| not ! | not a        !a | 閫昏緫闈烇紝鐪熶负鍋囷紝鍋囦负鐪?|
+| and && | a and b      a&&b | 逻辑与，两个都为真，结果为真 |
+| or || | a or b         a||b | 逻辑或，其中一个为真，结果为真 |
+| not ! | not a        !a | 逻辑非，真为假，假为真 |
 
 
 ```sql
--- 鏌ヨ鑰冭瘯鎴愮哗鍦?5~100 涔嬮棿鐨?
+-- 查询考试成绩在95~100 之间的
 select id, result from result
 where result>=95 and result<=100;
 
--- 妯＄硦鏌ヨ锛堝尯闂达級
+-- 模糊查询（区间）
 select id, result from result
 where between 95 and 100;
 
--- 鎴愮哗涓嶇瓑浜?5鐨?
+-- 成绩不等于95的
 select id, result from result
 where not result=95;
 -- where result!=95;
@@ -8709,47 +8687,47 @@ where not result=95;
 
 ---
 
-妯＄硦鏌ヨ: 姣旇緝杩愮畻绗?
+模糊查询: 比较运算符
 
-| 杩愮畻绗?| 璇硶 | 鎻忚堪 |
+| 运算符 | 语法 | 描述 |
 | --- | --- | --- |
-| IS NULL | a is null | 濡傛灉鎿嶄綔绗︿负null锛岀粨鏋滀负鐪?|
-| IS NOT NULL | a is not null | 濡傛灉鎿嶄綔绗︿负not null锛岀粨鏋滀负鐪?|
-| between | a between b and c | 鑻鍦╞鍜宑涔嬮棿锛屽垯缁撴灉涓虹湡 |
-| LIKE | a like b | SQL鍖归厤锛屽鏋渁鍖归厤b锛屽垯缁撴灉涓虹湡 |
-| IN | a in (a1, a2,a3...) | 鍋囪a鏄痑1锛宎2... 涓殑涓€涓紝鍒欑粨鏋滀负鐪?|
+| IS NULL | a is null | 如果操作符为null，结果为真 |
+| IS NOT NULL | a is not null | 如果操作符为not null，结果为真 |
+| between | a between b and c | 若a在b和c之间，则结果为真 |
+| LIKE | a like b | SQL匹配，如果a匹配b，则结果为真 |
+| IN | a in (a1, a2,a3...) | 假设a是a1，a2... 中的一个，则结果为真 |
 
 
 ```sql
--- 鏌ヨ濮撳垬鐨勫悓瀛?
--- LIKE缁撳悎 %(0涓瓧绗﹀埌浠绘剰涓瓧绗? _(涓€涓瓧绗?
+-- 查询姓刘的同学
+-- LIKE结合 %(0个字符到任意个字符) _(一个字符)
 select id, name from student
-where name like ''鍒?''
--- where name like ''鍒榑'';
--- where name like ''鍒榑_'';
+where name like ''刘%''
+-- where name like ''刘_'';
+-- where name like ''刘__'';
 
--- 鏌ヨ鍚嶅瓧涓甫鏈?浣?瀛楃殑鍚屽
+-- 查询名字中带有 佳 字的同学
 select id, name from student 
-where name like ''%浣?'';
+where name like ''%佳%'';
 
--- ==========in锛堝叿浣撶殑鍊硷級=========
--- 鏌ヨ
+-- ==========in（具体的值）=========
+-- 查询
 select * from student
 where id in(1001, 1002, 1003);
 
 -- =======null  not null======
--- 鏌ヨ娌℃湁鍑虹敓鏃ユ湡鐨勫悓瀛? 涓虹┖ 
+-- 查询没有出生日期的同学  为空 
 select * from student
 where birthday is null;
--- 鏌ヨ鏈夊嚭鐢熸棩鏈熺殑鍚屽  涓嶄负绌?
+-- 查询有出生日期的同学  不为空
 select * from student
 where birthday is not null;
 ```
 
-## 鑱旇〃鏌ヨ join on
-璇硶锛?join 杩炴帴鐨勮〃 on 鏉′欢
+## 联表查询 join on
+语法： join 连接的表 on 条件
 
-join 瀵规瘮
+join 对比
 
 ```sql
 -- inner join 
@@ -8771,16 +8749,16 @@ left join
 on s.id=r.id
 ```
 
-| 鎿嶄綔 | 鎻忚堪 |
+| 操作 | 描述 |
 | --- | --- |
-| inner join | 濡傛灉鑷冲皯鏈変竴涓尮閰嶏紝灏辫繑鍥炶 |
-| left join | 浼氫粠宸﹁〃杩斿洖鎵€鏈夌殑鍊硷紝鍗充娇鍙宠〃娌℃湁鍖归厤 |
-| right join | 浼氫粠鍙宠〃杩斿洖鎵€鏈夌殑鍊硷紝鍗充娇宸﹁〃娌℃湁鍖归厤 |
+| inner join | 如果至少有一个匹配，就返回行 |
+| left join | 会从左表返回所有的值，即使右表没有匹配 |
+| right join | 会从右表返回所有的值，即使左表没有匹配 |
 
 
 ```sql
--- 鏌ヨ瀛﹀彿锛坰tudent锛? 濮撳悕锛坰tudent锛?瀛︾锛坰ubject锛?
--- 鎴愮哗锛坮esult锛?
+-- 查询学号（student）  姓名（student） 学科（subject）
+-- 成绩（result）
 select s.id, s.name, subjectName, result
 from student s
 right join result r
@@ -8789,33 +8767,33 @@ inner join subject sub
 on r.subjectId = sub.subjectId
 ```
 
-鎬濊矾
+思路
 
-+ 瑕佹煡璇㈢殑鍝簺鏁版嵁  select ......
-+ 浠庡摢鍑犱釜琛ㄤ腑鏌ヨ from 琛? xxx join 杩炴帴鐨勮〃 on 浜ゅ弶鏉′欢
-+ 鍋囪瀛樺湪澶氬琛ㄦ煡璇紝鍏堜粠涓ゅ紶琛ㄥ紑濮嬫煡璇?
++ 要查询的哪些数据  select ......
++ 从哪几个表中查询 from 表  xxx join 连接的表 on 交叉条件
++ 假设存在多多表查询，先从两张表开始查询
 
 ---
 
-**鑷繛鎺?*
+**自连接**
 
-鑷繁鐨勮〃鍜岃嚜宸辩殑琛ㄨ繛鎺ワ紝
+自己的表和自己的表连接，
 
 ```sql
--- 鏌ヨ鐖跺瓙淇℃伅锛?鎶婁竴寮犺〃鐪嬩负涓ゅ紶涓€妯′竴鏍风殑琛?
+-- 查询父子信息： 把一张表看为两张一模一样的表
 
 select a.categoryName, b.categoryName 
 from category a, category b
 where a.categoryid=b.pid
 ```
 
-## 鍒嗛〉鍜屾帓搴?
-**order by  鎺掑簭**
+## 分页和排序
+**order by  排序**
 
-璇硶锛歰rder by 鎺掑簭瀛楁 鎺掑簭鏂规硶
+语法：order by 排序字段 排序方法
 
-+ desc 闄嶅簭
-+ asc  鍗囧簭
++ desc 降序
++ asc  升序
 
 ```sql
 select s.id, s.name, sub.subName, r.result
@@ -8824,19 +8802,19 @@ inner join result r
 on s.id=r.id
 inner join subject sub
 on r.name = sub.name
-where sub.name=''鏁版嵁搴?
+where sub.name=''数据库''
 order by r.result asc/desc
 ```
 
 ---
 
-**鍒嗛〉**
+**分页**
 
-璇硶 limit 璧峰鍊硷紝椤甸潰鐨勫ぇ灏?
+语法 limit 起始值，页面的大小
 
-+ pageSize: 椤甸潰澶у皬
-+ 锛坣-1锛?pageSize 锛氬綋鍓嶉〉璧峰鍊?
-+ n 涓哄綋鍓嶉〉
++ pageSize: 页面大小
++ （n-1）*pageSize ：当前页起始值
++ n 为当前页
 
 ```sql
 select s.id, s.name, sub.subName, r.result
@@ -8845,345 +8823,345 @@ inner join result r
 on s.id=r.id
 inner join subject sub
 on r.name = sub.name
-where sub.name=''鏁版嵁搴?
+where sub.name=''数据库''
 order by r.result asc/desc
 limit 0,5;
 ```
 
-## 瀛愭煡璇?
+## 子查询
 ```sql
--- 鏌ヨ 瀛︾敓id锛宯ame  鎴愮哗澶т簬80  绉戠洰鏄珮绛夋暟瀛?
+-- 查询 学生id，name  成绩大于80  科目是高等数学
 select id,name from student where id in(
   select id from result where result>80 and subjectId =(
-    select subjectId from subject where subjectName=''楂樼瓑鏁板''
+    select subjectId from subject where subjectName=''高等数学''
   )
 )
 ```
 
-## 鍒嗙粍鍜岃繃婊?
+## 分组和过滤
 ```sql
 select 
- avg(result) as 骞冲潎鍒?
- max(result) as 鏈€楂樺垎
- min(result) as 鏈€浣庡垎
- subjectName as 璇剧▼鍚?
+ avg(result) as 平均分,
+ max(result) as 最高分
+ min(result) as 最低分
+ subjectName as 课程名
 From result r
 inner join subject sub
 on sub.subjectid = r.subjectid 
 group by sub.subjectName
-having 骞冲潎 >= 80
+having 平均 >= 80
 ```
 
-# MySQL鍑芥暟
-## 甯哥敤鍑芥暟
-鏁板杩愮畻
+# MySQL函数
+## 常用函数
+数学运算
 
-+ abs(-8)   缁濆鍊?
-+ celing(9.4)  鍚戜笂鍙栨暣
-+ floor(9.6)   鍚戜笅鍙栨暣
-+ rand()   杩斿洖涓€涓?~1涔嬮棿鐨勯殢鏈烘暟
-+ sign(-10)  杩斿洖涓€涓暟鐨勭鍙?  璐熸暟 杩斿洖-1  姝ｆ暟杩斿洖1
++ abs(-8)   绝对值
++ celing(9.4)  向上取整
++ floor(9.6)   向下取整
++ rand()   返回一个0~1之间的随机数
++ sign(-10)  返回一个数的符号   负数 返回-1  正数返回1
 
-瀛楃涓插嚱鏁?
+字符串函数
 
-+ char_length(''abcdefghijk'')    瀛楃涓茬殑闀垮害
-+ concat(''5'',''2'',''0'')   鎷兼帴瀛楃涓?
-+ insert(''1314'',1,2 ,''14'')     鎻掑叆鏇挎崲 浠?寮€濮嬬殑2涓暱搴︽浛鎹负14
-+ lower(''KuangShen'')   鍏ㄩ儴杞负灏忓啓
-+ upper(''KuangShen'')    鍏ㄩ儴杞负澶у啓
-+ instr(''kuangshen'', ''h'')    杩斿洖绗竴娆″嚭鐜扮殑浣嶇疆
-+ replace(''1314'', ''13'', ''14'')   鏇挎崲鍑虹幇鐨勬寚瀹氬瓧绗︿覆
-+ substr(''鎴彇瀛楃涓?, 2, 3)   浠庝綅缃?寮€濮嬫埅鍙栭暱搴︿负3鐨勫瓧绗︿覆
-+ reverse(''鍙嶈浆瀛楃涓?)   鍙嶈浆瀛楃涓?
++ char_length(''abcdefghijk'')    字符串的长度
++ concat(''5'',''2'',''0'')   拼接字符串
++ insert(''1314'',1,2 ,''14'')     插入替换 从1开始的2个长度替换为14
++ lower(''KuangShen'')   全部转为小写
++ upper(''KuangShen'')    全部转为大写
++ instr(''kuangshen'', ''h'')    返回第一次出现的位置
++ replace(''1314'', ''13'', ''14'')   替换出现的指定字符串
++ substr(''截取字符串'', 2, 3)   从位置2开始截取长度为3的字符串
++ reverse(''反转字符串'')   反转字符串
 
-鏃堕棿鍜屾棩鏈熷嚱鏁?
+时间和日期函数
 
-+ current_date()   鑾峰彇褰撳墠鏃ユ湡
-+ curday()    鑾峰彇褰撳墠鏃ユ湡
-+ now()   鑾峰彇褰撳墠鏃堕棿
-+ localtime()  鏈湴鏃堕棿
-+ sysdate()   绯荤粺鏃堕棿
-+ year(now())    骞?
-+ month(now())  鏈?
-+ day(now())  鏃?
-+ hour(now())  鏃?
-+ minute(now()) 鍒?
-+ second(now())  绉?
++ current_date()   获取当前日期
++ curday()    获取当前日期
++ now()   获取当前时间
++ localtime()  本地时间
++ sysdate()   系统时间
++ year(now())    年
++ month(now())  月
++ day(now())  日
++ hour(now())  时
++ minute(now()) 分
++ second(now())  秒
 
-绯荤粺
+系统
 
-+ systeem_user()  绯荤粺鐢ㄦ埛鍚?
-+ version()   鐗堟湰
++ systeem_user()  系统用户名
++ version()   版本
 
-## 鑱氬悎鍑芥暟
-count()     璁℃暟
+## 聚合函数
+count()     计数
 
-sum()   姹傚拰
+sum()   求和
 
-avg()    骞冲潎鏁?
+avg()    平均数
 
-max()   鏈€澶у€?
+max()   最大值
 
-min()   鏈€灏忓€?
+min()   最小值
 
 ```sql
-select count(name) from student;   -- 鎸囧畾鍒? 浼氬拷鐣?null 鍊?
-select count(*) from student;  -- 涓嶄細蹇界暐 null 鍊?
+select count(name) from student;   -- 指定列  会忽略 null 值
+select count(*) from student;  -- 不会忽略 null 值
 select count(1) from student;
 
-select sum(result) as 鎬诲悎 From result
-select avg(result) as 骞冲潎 From result
-select max(result) as 鏈€澶у€?From result
-select min(result) as 鏈€灏忓€?from result
+select sum(result) as 总合 From result
+select avg(result) as 平均 From result
+select max(result) as 最大值 From result
+select min(result) as 最小值 from result
 
 select 
- avg(result) as 骞冲潎鍒?
- max(result) as 鏈€楂樺垎
- min(result) as 鏈€浣庡垎
- subjectName as 璇剧▼鍚?
+ avg(result) as 平均分,
+ max(result) as 最高分
+ min(result) as 最低分
+ subjectName as 课程名
 From result r
 inner join subject sub
 on sub.subjectid = r.subjectid 
 group by sub.subjectName
-having 骞冲潎 >= 80
+having 平均 >= 80
 ```
 
-## 鏁版嵁搴撶骇鍒殑md5鍔犲瘑
-# 浜嬪姟
-## 浜嬪姟ACID鍘熷垯
-+ 鍘熷瓙鎬?
-    - 瑕佷箞閮芥垚鍔燂紝瑕佷箞閮藉け璐?
-+ 涓€鑷存€?
-    - 浜嬪姟鍓嶅悗鐨勬暟鎹畬鏁存€т繚璇佷竴鑷?
-+ 鎸佺画鎬?
-    - 浜嬪姟涓€鏃︽彁浜ゅ氨涓嶅彲閫嗭紝琚寔涔呭寲鍒版暟鎹簱涓?
-+ 闅旂鎬?
-    - 浜嬪姟鐨勯殧绂绘€ф槸澶氫釜鐢ㄦ埛骞跺彂璁块棶鏁版嵁搴撴椂锛屾暟鎹簱涓烘瘡涓敤鎴峰紑鍚殑浜嬬墿锛屼笉鑳借鍏朵粬浜嬪姟鐨勬搷浣滄暟鎹墍灞炰簬鐨勪簨鐗╀箣闂磋鐩镐簰闅旂
-+ 闅旂鎵€瀵艰嚧鐨勯棶棰?
-    - 鑴忚
-    - 涓嶅彲閲嶅璇?
-    - 铏氳(骞昏)
+## 数据库级别的md5加密
+# 事务
+## 事务ACID原则
++ 原子性
+    - 要么都成功，要么都失败
++ 一致性
+    - 事务前后的数据完整性保证一致
++ 持续性
+    - 事务一旦提交就不可逆，被持久化到数据库中
++ 隔离性
+    - 事务的隔离性是多个用户并发访问数据库时，数据库为每个用户开启的事物，不能被其他事务的操作数据所属于的事物之间要相互隔离
++ 隔离所导致的问题
+    - 脏读
+    - 不可重复读
+    - 虚读(幻读)
 
-## MySQL灞傞潰鐨勪簨鐗?
+## MySQL层面的事物
 ```sql
--- MySQL鏄粯璁ゅ紑鍚簨鍔¤嚜鍔ㄦ彁浜ょ殑
-set autocommit = 0   -- 鍏抽棴
-set autocommit = 1   -- 寮€鍚?
+-- MySQL是默认开启事务自动提交的
+set autocommit = 0   -- 关闭
+set autocommit = 1   -- 开启
 
--- 鎵嬪姩澶勭悊浜嬪姟
-set autocommit = 0  -- 鍏抽棴鑷姩鎻愪氦
+-- 手动处理事务
+set autocommit = 0  -- 关闭自动提交
 
--- 浜嬪姟寮€鍚?
-start transaction -- 鏍囪涓€涓簨鍔＄殑寮€濮嬶紝浠庤繖涓箣鍚庣殑sql閮藉湪鍚屼竴涓簨鍔″唴
+-- 事务开启
+start transaction -- 标记一个事务的开始，从这个之后的sql都在同一个事务内
 insert xx
 insert xx
 
--- 鎻愪氦锛氭寔涔呭寲
+-- 提交：持久化
 commit
--- 鍥炴粴锛氬洖鍒颁簨鍔′箣鍓嶇殑鏍峰瓙
+-- 回滚：回到事务之前的样子
 rollback
 
--- 浜嬪姟缁撴潫
-set autocommit = 1  -- 寮€鍚嚜鍔ㄦ彁浜?
+-- 事务结束
+set autocommit = 1  -- 开启自动提交
 
--- 浜嗚В
-savepoint 淇濆瓨鐐瑰悕  -- 璁剧疆涓€涓簨鍔＄殑淇濆瓨鐐?
-rollback to savepoint 淇濆瓨鐐瑰悕   -- 鍥炴粴鍒颁繚瀛樼偣
-release savepoint 淇濆瓨鐐瑰悕  -- 鎾ら攢淇濆瓨鐐?
+-- 了解
+savepoint 保存点名  -- 设置一个事务的保存点
+rollback to savepoint 保存点名   -- 回滚到保存点
+release savepoint 保存点名  -- 撤销保存点
 ```
 
-# 绱㈠紩
-## 绱㈠紩鐨勫垎绫?
-MySQL瀹樻柟瀵圭储寮曠殑瀹氫箟涓猴細绱㈠紩锛坕ndex锛夋槸甯姪MySQL楂樻晥鑾峰彇鏁版嵁鐨勬暟鎹粨鏋勶紝鎻愬彇鍙ュ瓙鐨勪富骞诧紝灏卞彲浠ュ緱鍒扮储寮曠殑鏈川锛氱储寮曟槸鏁版嵁缁撴瀯
+# 索引
+## 索引的分类
+MySQL官方对索引的定义为：索引（index）是帮助MySQL高效获取数据的数据结构，提取句子的主干，就可以得到索引的本质：索引是数据结构
 
-+ 涓婚敭绱㈠紩   primary key
-    - 鍞竴鐨勬爣璇嗭紝涓嶅彲閲嶅锛屽彧鑳芥湁涓€涓垪浣滀负绱㈠紩
-+ 鍞竴绱㈠紩  unique  key
-    - 閬垮厤閲嶅鍑虹幇鐨勫垪锛屽敮涓€鎵€寮曞彲浠ラ噸澶嶏紝澶氫釜鍒楅兘鍙互鏍囪瘑浣?鍞竴绱㈠紩
-+ 甯歌绱㈠紩  key/index
-    - 榛樿鐨勶紝 index锛?key鍏抽敭瀛楁潵璁剧疆
-+ 鍏ㄦ枃绱㈠紩  FullText
-    - 鍦ㄧ壒瀹氱殑鏁版嵁搴撳紩鎿庝笅鎵嶆湁
-    - 蹇€熷畾浣嶆暟鎹?
++ 主键索引   primary key
+    - 唯一的标识，不可重复，只能有一个列作为索引
++ 唯一索引  unique  key
+    - 避免重复出现的列，唯一所引可以重复，多个列都可以标识位 唯一索引
++ 常规索引  key/index
+    - 默认的， index， key关键字来设置
++ 全文索引  FullText
+    - 在特定的数据库引擎下才有
+    - 快速定位数据
 
 ```sql
--- 鏄剧ず鎵€鏈夌储寮曚俊鎭?
+-- 显示所有索引信息
 show index from student
 
--- 澧炲姞涓€涓储寮?
+-- 增加一个索引
 alter TABLE student add fulltext studentname(studentname)
 
--- explain 鍒嗘瀽sql鎵ц鐨勭姸鎬?
-explain select * From student; -- 闈炲叏鏂囩储寮?
-select * From student where match(studentname) against(''鍒?)锛?
+-- explain 分析sql执行的状态
+explain select * From student; -- 非全文索引
+select * From student where match(studentname) against(''刘'')；
 ```
 
-## 鍒涘缓绱㈠紩
+## 创建索引
 ```sql
--- id_琛ㄥ悕_瀛楁鍚?
--- create index 绱㈠紩鍚?on 琛ㄥ悕(瀛楁)
+-- id_表名_字段名
+-- create index 索引名 on 表名(字段)
 create index id_student_name on student(name);
 ```
 
-鏁版嵁鍦ㄥ皬鏁版嵁鐨勬椂鍊欙紝鐢ㄥ涓嶅ぇ锛屼絾鍦ㄦ暟鎹噺澶х殑鏃跺€欙紝鏁堟灉姣旇緝鏄庢樉
+数据在小数据的时候，用处不大，但在数据量大的时候，效果比较明显
 
-## 绱㈠紩瑙勫垯
-+ 绱㈠紩涓嶆槸瓒婂瓒婂ソ
-+ 涓嶈瀵圭粡甯稿彉鍔ㄧ殑鏁版嵁鍔犵储寮?
-+ 灏忔暟鎹噺鐨勮〃涓嶇敤娣诲姞绱㈠紩
-+ 绱㈠紩涓€鑸姞鍦ㄥ父鐢ㄦ潵鏌ヨ鐨勫瓧娈典笂
+## 索引规则
++ 索引不是越多越好
++ 不要对经常变动的数据加索引
++ 小数据量的表不用添加索引
++ 索引一般加在常用来查询的字段上
 
-绱㈠紩鐨勬暟鎹粨鏋?
+索引的数据结构
 
-Hash绫诲瀷鐨勭储寮?
+Hash类型的索引
 
-btree锛歩nnoDB鐨勯粯璁ゆ暟鎹粨鏋?
+btree：innoDB的默认数据结构
 
-# 鏉冮檺绠＄悊鍜屽浠?
-## 鐢ㄦ埛绠＄悊
+# 权限管理和备份
+## 用户管理
 ```sql
--- 鍒涘缓鐢ㄦ埛
--- create user 鐢ㄦ埛鍚?identified by ''瀵嗙爜''
+-- 创建用户
+-- create user 用户名 identified by ''密码''
 create user kuangshen identified by ''123456''
 
--- 淇敼瀵嗙爜 锛堜慨鏀瑰綋鍓嶇敤鎴风殑瀵嗙爜锛?
+-- 修改密码 （修改当前用户的密码）
 set password = password(''1111111'')
--- 淇敼瀵嗙爜 锛堜慨鏀规寚瀹氱敤鎴峰瘑鐮侊級
+-- 修改密码 （修改指定用户密码）
 set password for kuangshen = password(''111111'')
 
--- 閲嶅懡鍚?
--- rename user 鍘熷悕 to 鏂板悕瀛?
+-- 重命名 
+-- rename user 原名 to 新名字
 rename user kuangshen to kuangshen2
 
--- 鐢ㄦ埛鏉冮檺 
--- grant all privileges on 鍏ㄩ儴鐨勬潈闄?to 搴?琛?
--- all privileges 涓嶈兘缁欏埆浜烘巿鏉冿紝鍏朵粬鏉冮檺閮芥湁
+-- 用户权限 
+-- grant all privileges on 全部的权限 to 库.表
+-- all privileges 不能给别人授权，其他权限都有
 grant all privileges on *.* to kuangshen2
 
--- 鏌ョ湅鏉冮檺
-show grants for kuangshen2  -- 鏌ョ湅鎸囧畾鐢ㄦ埛鐨勬潈闄?
+-- 查看权限
+show grants for kuangshen2  -- 查看指定用户的权限
 show greats for root@localhost
 
--- 鎾ら攢鏉冮檺
--- revoke 鍝簺鏉冮檺锛屽湪鍝釜搴撴挙閿€锛岀粰璋佹挙閿€
+-- 撤销权限
+-- revoke 哪些权限，在哪个库撤销，给谁撤销
 revoke all privileges on *.*  from kuangshen2
 ```
 
-## 澶囦唤
-+ 淇濊瘉閲嶈鐨勬暟鎹笉涓㈠け
-+ 鏁版嵁杞Щ
+## 备份
++ 保证重要的数据不丢失
++ 数据转移
 
-MySQL澶囦唤鐨勬柟寮?
+MySQL备份的方式
 
-+ 鐩存帴鎷疯礉鐗╃悊鏂囦欢
-+ 鍦ㄥ彲瑙嗗寲宸ュ叿涓墜鍔ㄥ鍑?
-+ 浣跨敤鍛戒护琛屽鍑?mysqldump
++ 直接拷贝物理文件
++ 在可视化工具中手动导出
++ 使用命令行导出 mysqldump
     - mysqldump -hlocalhost -uroot -p123456 school student >D:/a.sql
-    - mysqldump -h涓绘満 -u鐢ㄦ埛鍚?-p瀵嗙爜 鏁版嵁搴?[琛ㄥ悕1 琛ㄥ悕2] >鐗╃悊鍦板潃
-+ 鍛戒护琛屽鍏ユ暟鎹?
-    - 鐧诲綍鐨勬儏鍐典笅锛屽垏鎹㈠埌鎸囧畾鏁版嵁搴?
-    - source 鐗╃悊鍦板潃
+    - mysqldump -h主机 -u用户名 -p密码 数据库 [表名1 表名2] >物理地址
++ 命令行导入数据
+    - 登录的情况下，切换到指定数据库
+    - source 物理地址
 
-# 瑙勮寖鏁版嵁搴撹璁?
-## 璁捐鏁版嵁搴?
-**绯熺硶鐨勬暟鎹簱**
+# 规范数据库设计
+## 设计数据库
+**糟糕的数据库**
 
-+ 鏁版嵁鍐椾綑锛屾氮璐圭┖闂?
-+ 鏁版嵁搴撴彃鍏ュ拰鍒犻櫎閮戒細楹荤儲锛屽紓甯搞€愬睆钄戒娇鐢ㄧ墿鐞嗗閿€?
-+ 绋嬪簭鐨勬€ц兘宸?
++ 数据冗余，浪费空间
++ 数据库插入和删除都会麻烦，异常【屏蔽使用物理外键】
++ 程序的性能差
 
-**鑹ソ鐨勬暟鎹簱**
+**良好的数据库**
 
-+ 鑺傜渷鏁版嵁绌洪棿
-+ 淇濊瘉鏁版嵁搴撶殑瀹屾暣鎬?
-+ 鏂逛究鎴戜滑寮€鍙戠郴缁?
++ 节省数据空间
++ 保证数据库的完整性
++ 方便我们开发系统
 
-杞欢鍗℃硶涓紝鍏充簬鏁版嵁搴撹璁?
+软件卡法中，关于数据库设计
 
-+ 鍒嗘瀽闇€姹傦細鍒嗘瀽涓氬姟鍜岄渶瑕佸鐞嗙殑鏁版嵁搴撶殑闇€姹?
-+ 姒傝璁捐锛氳璁″叧绯诲浘E-R鍥?
++ 分析需求：分析业务和需要处理的数据库的需求
++ 概要设计：设计关系图E-R图
 
-**璁捐鏁版嵁搴撶殑姝ラ锛堜釜浜哄崥瀹級**
+**设计数据库的步骤（个人博客）**
 
-+ 鏀堕泦鏁版嵁锛岄渶姹傚垎鏋?
-    - 鐢ㄦ埛琛紙鐢ㄦ埛鐧诲綍淇℃伅锛岀敤鎴风殑涓汉淇℃伅锛屽啓鍗氬锛屽垱寤哄垎绫伙級
-    - 鍒嗙被琛紙鏂囩珷鍒嗙被锛岃皝鍒涘缓鐨勶級
-    - 鏂囩珷琛紙鏂囩珷鐨勪俊鎭級
-    - 璇勮琛?
-    - 鍙嬭仈琛紙鍙嬮摼淇℃伅锛?
-    - 鑷畾涔夎〃锛堢郴缁熶俊鎭紝鏌愪釜鍏抽敭鐨勫瓧锛屾垨鑰呬竴浜涗富瀛楁锛?key锛歷alue
-+ 鏍囪瘑瀹炰綋锛堟妸闇€姹傝惤鍦板埌姣忎釜瀛楁锛?
-+ 鏍囪瘑瀹炰綋涔嬮棿鐨勫叧绯?
-    - 鍐欏崥瀹細user -> blog
-    - 鍒涘缓鍒嗙被锛歶ser -> category
-    - 鍏虫敞锛歶ser -> user
-    - 鍙嬮摼锛?links
-    - 璇勮锛歶ser -> user -> blog
++ 收集数据，需求分析
+    - 用户表（用户登录信息，用户的个人信息，写博客，创建分类）
+    - 分类表（文章分类，谁创建的）
+    - 文章表（文章的信息）
+    - 评论表
+    - 友联表（友链信息）
+    - 自定义表（系统信息，某个关键的字，或者一些主字段） key：value
++ 标识实体（把需求落地到每个字段）
++ 标识实体之间的关系
+    - 写博客：user -> blog
+    - 创建分类：user -> category
+    - 关注：user -> user
+    - 友链： links
+    - 评论：user -> user -> blog
 
-## 涓夊ぇ鑼冨紡
-+ 绗竴鑼冨紡锛?NF锛?
-    - 淇濊瘉鍘熷瓙鎬?
-    - 鎵€鏈夊垪閮芥槸涓嶅彲鍐嶅垎鐨?
-+ 绗簩鑼冨紡锛?NF锛?
-    - 蹇呴』婊¤冻绗竴鑼冨紡
-    - 姣忓紶琛ㄥ彧鎻忚堪涓€浠朵簨鎯?
-+ 绗笁鑼冨紡锛?NF锛?
-    - 蹇呴』婊¤冻绗簩鑼冨紡
-    - 鏁版嵁琛ㄤ腑鐨勬瘡涓€鍒楁暟鎹兘鍜屼富閿洿鎺ョ浉鍏筹紝鑰屼笉鏄棿鎺ョ浉鍏?
+## 三大范式
++ 第一范式（1NF）
+    - 保证原子性
+    - 所有列都是不可再分的
++ 第二范式（2NF）
+    - 必须满足第一范式
+    - 每张表只描述一件事情
++ 第三范式（3NF）
+    - 必须满足第二范式
+    - 数据表中的每一列数据都和主键直接相关，而不是间接相关
 
-瑙勮寖鎬у拰鎬ц兘
+规范性和性能
 
-+ 鍏宠仈鏌ヨ鐨勮〃涓嶈兘瓒呰繃3寮犺〃
-    - 鍟嗕笟鍖栫殑闇€姹傚拰鐩爣锛岋紙鎴愭湰锛岀敤鎴蜂綋楠岋級鏁版嵁搴撶殑鎬ц兘鏇村姞閲嶈
-    - 鍦ㄨ鑼冩€ц兘鐨勯棶棰樼殑鏃跺€欙紝闇€瑕侀€傚綋鐨勮€冭檻涓€涓嬭鑼冩€?
-    - 鏁呮剰缁欐煇浜涜〃澧炲姞涓€浜涘啑浣欑殑瀛楁锛岋紙浠庡琛ㄦ煡璇腑鍙樹负鍗曡〃鏌ヨ锛?
-    - 鏁呮剰澧炲姞涓€浜涜绠楀垪锛堜粠澶ф暟鎹噺闄嶄綆涓哄皬鏁版嵁閲忕殑鏌ヨ锛氱储寮曪級
++ 关联查询的表不能超过3张表
+    - 商业化的需求和目标，（成本，用户体验）数据库的性能更加重要
+    - 在规范性能的问题的时候，需要适当的考虑一下规范性
+    - 故意给某些表增加一些冗余的字段，（从多表查询中变为单表查询）
+    - 故意增加一些计算列（从大数据量降低为小数据量的查询：索引）
 
 # JDBC
-## 鏁版嵁搴撻┍鍔?
-瀵煎叆涓€涓猰ysql鐨勬暟鎹簱椹卞姩鍖?
+## 数据库驱动
+导入一个mysql的数据库驱动包
 
-+ 鍒涘缓涓€涓櫘閫氱殑java椤圭洰
-+ 鍒涘缓lib鏂囦欢澶?
-+ 瀵煎叆涓€涓暟鎹簱椹卞姩鍖?mysql-connector-java-鐗堟湰鍙?jar
++ 创建一个普通的java项目
++ 创建lib文件夹
++ 导入一个数据库驱动包 mysql-connector-java-版本号.jar
 
-## 绗竴涓猨dbc绋嬪簭
-娴佺▼
+## 第一个jdbc程序
+流程
 
-+ 鍔犺浇椹卞姩
-+ 杩炴帴鏁版嵁搴? DriverManager
-+ 鑾峰緱鎵цsql鐨勫璞?  Statement
-+ 鑾峰緱杩斿洖鐨勭粨鏋滈泦
-+ 閲婃斁杩炴帴
++ 加载驱动
++ 连接数据库  DriverManager
++ 获得执行sql的对象   Statement
++ 获得返回的结果集
++ 释放连接
 
 ```sql
 package jie.com.damo;
 
 import java.sql.*;
 
-// 绗竴涓猨dbc绋嬪簭
+// 第一个jdbc程序
 public class JdbcTest {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        // 1. 鍔犺浇椹卞姩
-        Class.forName("com.mysql.jdbc.Driver");  // 鍥哄畾鍐欐硶锛屽姞杞介┍鍔?
+        // 1. 加载驱动
+        Class.forName("com.mysql.jdbc.Driver");  // 固定写法，加载驱动
 
-        // 2. 鐢ㄦ埛淇℃伅
-        // useUnicode=true  鏀寔涓枃缂栫爜
-        // characterEncoding=utf8  璁剧疆涓枃缂栫爜utf8
-        // useSSL=false  浣跨敤瀹夊叏杩炴帴
+        // 2. 用户信息
+        // useUnicode=true  支持中文编码
+        // characterEncoding=utf8  设置中文编码utf8
+        // useSSL=false  使用安全连接
         String url = "jdbc:mysql://192.168.204.131:3306/jdbcStudy?useUnicode=true&characterEncoding=utf8&useSSL=false";
         String username = "root";
         String password = "@Root1234";
 
-        //3. 杩炴帴鎴愬姛,鏁版嵁搴撳璞?Connection 浠ｈ〃鏁版嵁搴?
+        //3. 连接成功,数据库对象 Connection 代表数据库
         Connection connection = DriverManager.getConnection(url, username, password);
 
-        //4. 鎵цsql璇彞
+        //4. 执行sql语句
         Statement statement = connection.createStatement();
 
-        //5. 鎵цsql鐨勫璞?鍘绘墽琛宻ql锛屽彲鑳藉瓨鍦ㄧ粨鏋滐紝鏌ョ湅杩斿洖缁撴灉
+        //5. 执行sql的对象 去执行sql，可能存在结果，查看返回结果
         String sql = "select * from usera;";
-        ResultSet resultSet = statement.executeQuery(sql);  // 杩斿洖鐨勬暟鎹泦
+        ResultSet resultSet = statement.executeQuery(sql);  // 返回的数据集
 
         while (resultSet.next()) {
             System.out.println("id="+resultSet.getObject("id"));
@@ -9194,7 +9172,7 @@ public class JdbcTest {
             System.out.println("====================================================");
         }
 
-        //6, 閲婃斁杩炴帴
+        //6, 释放连接
         resultSet.close();
         statement.close();
         connection.close();
@@ -9203,12 +9181,12 @@ public class JdbcTest {
 
 ```
 
-## jdbc涓殑瀵硅薄
-+ 鍔犺浇椹卞姩  DriverManager
+## jdbc中的对象
++ 加载驱动  DriverManager
 
 ```java
-// DriverManager.registerDriver(new com.mysql.jdbc.Driver());   // 鍘熺敓鏂规硶
-Class.forName("com.mysql.jdbc.Driver");     // 寤鸿浣跨敤
+// DriverManager.registerDriver(new com.mysql.jdbc.Driver());   // 原生方法
+Class.forName("com.mysql.jdbc.Driver");     // 建议使用
 
 ```
 
@@ -9223,52 +9201,52 @@ String password = "@Root1234";
 // oracle:1521
 ```
 
-+ 杩炴帴鏁版嵁搴?
++ 连接数据库
 
 ```java
 Connection connection = DriverManager.getConnection(url, username, password);
-// connection 浠ｈ〃鏁版嵁搴?
-// 鏁版嵁搴撹缃嚜鍔ㄦ彁浜?
-// 浜嬪姟鎻愪氦
-// 浜嬪姟鍥炴粴
-connection.rollback();  // 璁剧疆鍙
-connection.commit();   // 鎻愪氦
-connection.setAutoCommit(false);  // 鑷姩鎻愪氦
+// connection 代表数据库
+// 数据库设置自动提交
+// 事务提交
+// 事务回滚
+connection.rollback();  // 设置只读
+connection.commit();   // 提交
+connection.setAutoCommit(false);  // 自动提交
 ```
 
-+ Statement 鎵цSQL 鐨勫璞? PreparedStatement 鎵цsql鐨勫璞?
++ Statement 执行SQL 的对象  PreparedStatement 执行sql的对象
 
 ```java
-// 缂栧啓sql
+// 编写sql
 String sql = "select * from usera";
 
-statement.executeQuery();  // 鏌ヨ鎿嶄綔杩斿洖 resultSet
-statement.execute();  // 鎵ц浠讳綍sql
-statement.executeUpdate() // 鏇存柊锛屾彃鍏ワ紝鍒犻櫎锛岃繑鍥炰竴涓彈褰卞搷鐨勮鏁?
+statement.executeQuery();  // 查询操作返回 resultSet
+statement.execute();  // 执行任何sql
+statement.executeUpdate() // 更新，插入，删除，返回一个受影响的行数
 ```
 
-+ ResultSet 鏌ヨ鐨勭粨鏋滈泦锛氬皝瑁呬簡鎵€鏈夌殑鏌ヨ缁撴灉
++ ResultSet 查询的结果集：封装了所有的查询结果
 
 ```java
-// 鑾峰彇鏁版嵁鐨勬暟鎹被鍨?
+// 获取数据的数据类型
 resultSet.getString();
 resultSet.getInt();
 resultSet.getFloat();
 resultSet.getDate();
 resultSet.getObject()
 
-// 绉诲姩鍏夋爣
-resultSet.beforeFirst();  // 绉诲姩鍒版渶鍓嶉潰
-resultSet.afterLast();   // 绉诲姩鍒版渶鍚庨潰
-resultSet.next();  // 绉诲姩鍒颁笅涓€涓?
-resultSet.previous();  // 绉诲姩鍒颁笅涓€琛?
-resultSet.absolute()  // 绉诲姩鍒版寚瀹氳
+// 移动光标
+resultSet.beforeFirst();  // 移动到最前面
+resultSet.afterLast();   // 移动到最后面
+resultSet.next();  // 移动到下一个
+resultSet.previous();  // 移动到下一行
+resultSet.absolute()  // 移动到指定行
 ```
 
-+ 閲婃斁璧勬簮
++ 释放资源
 
 ```java
-//6, 閲婃斁杩炴帴
+//6, 释放连接
 resultSet.close();
 statement.close();
 connection.close();
@@ -9276,8 +9254,8 @@ connection.close();
 
 
 
-## 浣跨敤宸ュ叿绫荤殑姝ラ
-+ 閰嶇疆鏂囦欢锛孧aven椤圭洰鏀惧湪resources鏂囦欢涓紝鏅€氶」鐩斁鍦╯rc鐩綍涓?
+## 使用工具类的步骤
++ 配置文件，Maven项目放在resources文件中，普通项目放在src目录下
 
 ```java
 driver=com.mysql.jdbc.Driver
@@ -9286,7 +9264,7 @@ username=root
 password=@Root1234
 ```
 
-+ 缂栧啓宸ュ叿绫?
++ 编写工具类
 
 ```java
 package jie.com.damo02.utils;
@@ -9310,7 +9288,7 @@ public class JdbcUtils {
             prop.load(in);
 
             if (in == null) {
-                System.out.println("娌¤鍙栧埌鏂囦欢");
+                System.out.println("没读取到文件");
             }
 
             driver = prop.getProperty("driver");
@@ -9318,7 +9296,7 @@ public class JdbcUtils {
             username = prop.getProperty("username");
             password = prop.getProperty("password");
 
-            // 椹卞姩鍙敤鍔犺浇涓€娆?
+            // 驱动只用加载一次
             Class.forName(driver);
 
         } catch (Exception e){
@@ -9327,12 +9305,12 @@ public class JdbcUtils {
 
     }
 
-    // 鑾峰彇杩炴帴
+    // 获取连接
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(url, username, password);
     }
 
-    // 閲婃斁杩炴帴璧勬簮
+    // 释放连接资源
     public static void release(Connection conn, Statement stmt, ResultSet rs) {
         if (rs != null) {
             try {
@@ -9361,7 +9339,7 @@ public class JdbcUtils {
 
 ```
 
-+ 娴嬭瘯鏂囦欢
++ 测试文件
 
 ```java
 package jie.com.damo02;
@@ -9382,8 +9360,8 @@ public class TestInsert {
 
 
         try {
-            conn = JdbcUtils.getConnection();   // 鑾峰彇鏁版嵁搴撹繛鎺?
-            stmt = conn.createStatement();      // 鑾峰緱sql鐨勬墽琛屽璞?
+            conn = JdbcUtils.getConnection();   // 获取数据库连接
+            stmt = conn.createStatement();      // 获得sql的执行对象
 
             //String sql = "insert into usera(id, name, password, email, birthday) values(4, ''zhaoliu'',''123456'',''al@qq.com'',''2004-11-10'')";
             String sql = "update usera set name=''kuangshen'' where id=4";
@@ -9400,7 +9378,7 @@ public class TestInsert {
 //            }
             int i = stmt.executeUpdate(sql);
             if(i > 0){
-                System.out.println(i+"鏇存敼鎴愬姛");
+                System.out.println(i+"更改成功");
             }
 
         } catch (SQLException e) {
@@ -9415,8 +9393,8 @@ public class TestInsert {
 
 +
 
-## SQL娉ㄥ叆闂
-sql瀛樺湪婕忔礊锛屼細琚敾鍑诲鑷存暟鎹硠闇诧紝
+## SQL注入问题
+sql存在漏洞，会被攻击导致数据泄露，
 
 ```java
 package jie.com.damo02;
@@ -9428,10 +9406,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Sql娉ㄥ叆 {
+public class Sql注入 {
     public static void main(String[] args) {
 
-        login(" ''or'' 1=1", "''or'' 2=2");  // 娉ㄥ叆sql浠ｇ爜
+        login(" ''or'' 1=1", "''or'' 2=2");  // 注入sql代码
 
     }
 
@@ -9442,8 +9420,8 @@ public class Sql娉ㄥ叆 {
         ResultSet rs = null;
 
         try {
-            conn = JdbcUtils.getConnection();   // 鑾峰彇鏁版嵁搴撹繛鎺?
-            stmt = conn.createStatement();      // 鑾峰緱sql鐨勬墽琛屽璞?
+            conn = JdbcUtils.getConnection();   // 获取数据库连接
+            stmt = conn.createStatement();      // 获得sql的执行对象
 
 
             String sql = "select name, password from usera where name= ''"+username+"''  and password = ''"+password+"''";
@@ -9465,12 +9443,12 @@ public class Sql娉ㄥ叆 {
 
 ```
 
-## PreparedStatement瀵硅薄闃叉sql娉ㄥ叆
-鍙互闃叉sql娉ㄥ叆锛屽垏鏁堢巼鏇撮珮
+## PreparedStatement对象防止sql注入
+可以防止sql注入，切效率更高
 
-鏈川锛氬皢浼犻€掕繘鏉ョ殑鍙傛暟褰撳仛瀛楃
+本质：将传递进来的参数当做字符
 
-鍋囪鍏朵腑瀛樺湪杞箟瀛楃浼氱洿鎺ュ拷鐣ユ帀
+假设其中存在转义字符会直接忽略掉
 
 ```java
 package jie.com.damo03;
@@ -9488,13 +9466,13 @@ public class TestInsert {
         try{
             conn = JdbcUtils.getConnection();
 
-            // 浣跨敤锛?鍗犱綅绗︿唬鏇垮弬鏁?
+            // 使用？ 占位符代替参数
             String sql = "insert into usera(id, name, password, email, birthday) values(?,?,?,?,?)";
 
-            // 棰勭紪璇?
+            // 预编译 
             pst = conn.prepareStatement(sql);
 
-            // 鎵嬪姩缁欏弬鏁拌祴鍊?
+            // 手动给参数赋值
 
             pst.setInt(1, 5); // id
             pst.setString(2, "suibian");
@@ -9505,7 +9483,7 @@ public class TestInsert {
 
             int i = pst.executeUpdate();
             if(i > 0){
-                System.out.println("鎻掑叆鎴愬姛");
+                System.out.println("插入成功");
             }
 
             // rs = pst.executeQuery();
@@ -9521,25 +9499,25 @@ public class TestInsert {
 
 ```
 
-## 浜嬪姟
-ACID鍘熷垯
+## 事务
+ACID原则
 
-+ 鍘熷垯鎬э細瑕佷箞鍏ㄩ儴瀹屾垚锛岃涔堥兘涓嶅畬鎴?
-+ 涓€鑷存€э細鎬绘暟涓嶅彉
-+ 闅旂鎬э細澶氫釜杩涚▼浜掍笉骞叉壈
-+ 鎸佷箙鎬э細涓€鏃︽彁浜わ紝鎸佷箙鍖栧埌鏁版嵁搴?
++ 原则性：要么全部完成，要么都不完成
++ 一致性：总数不变
++ 隔离性：多个进程互不干扰
++ 持久性：一旦提交，持久化到数据库
 
-闅旂鎬х殑闂
+隔离性的问题
 
-+ 鑴忚锛氫竴涓簨鍔¤鍙栦簡鍙︿竴涓病鏈夋彁浜ょ殑浜嬪姟
-+ 涓嶅彲閲嶅搴︼細鍦ㄥ悓涓€涓簨鍔″唴锛岄噸澶嶈鍙栬〃涓殑鏁版嵁锛岃〃鏁版嵁鍙戠敓浜嗘敼鍙?
-+ 铏氬害锛堝够璇伙級锛氬湪涓€涓簨鍔″唴锛岃鍙栧埌浜嗗埆浜烘彃鍏ョ殑鏁版嵁锛屽鑷村墠鍚庤鍑烘潵鐨勭粨鏋滀笉涓€鑷?
++ 脏读：一个事务读取了另一个没有提交的事务
++ 不可重复度：在同一个事务内，重复读取表中的数据，表数据发生了改变
++ 虚度（幻读）：在一个事务内，读取到了别人插入的数据，导致前后读出来的结果不一致
 
-浠ｇ爜瀹炵幇
+代码实现
 
-+ 寮€鍚簨鍔? conn.setAutoCommit(false)
-+ 涓€缁勪笟鍔℃墽琛屽畬姣曪紝鎻愪氦浜嬪姟
-+ 鍙互鍦╟atch璇彞涓樉绀哄畾涔夊洖婊氳鍙ワ紝榛樿澶辫触鑷姩鍥炴粴
++ 开启事务  conn.setAutoCommit(false)
++ 一组业务执行完毕，提交事务
++ 可以在catch语句中显示定义回滚语句，默认失败自动回滚
 
 ```java
 package jie.com.damo04;
@@ -9559,8 +9537,8 @@ public class TestTransaction1 {
 
         try {
             conn = JdbcUtils.getConnection();
-            // 鍏抽棴鏁版嵁搴撶殑鑷姩鎻愪氦锛岃嚜鍔ㄥ紑鍚簨鍔?
-            conn.setAutoCommit(false);  // 寮€鍚簨鍔?
+            // 关闭数据库的自动提交，自动开启事务
+            conn.setAutoCommit(false);  // 开启事务
 
             String sql = "UPDATE money set money = money-100 where name = ''A''";
             pst = conn.prepareStatement(sql);
@@ -9572,14 +9550,14 @@ public class TestTransaction1 {
             pst = conn.prepareStatement(sql2);
             pst.executeUpdate();
 
-            // 涓氬姟瀹屾瘯锛屾彁浜や簨鍔?
+            // 业务完毕，提交事务
             conn.commit();
-            System.out.println("鎴愬姛锛?);
+            System.out.println("成功！");
 
         } catch (SQLException e) {
-            // 濡傛灉澶辫触锛岃嚜鍔ㄥ洖婊?
+            // 如果失败，自动回滚
 
-            // 杩欐槸鎵嬪姩娣诲姞鍥炴粴
+            // 这是手动添加回滚
             try {
                 conn.rollback();
             } catch (SQLException ex) {
@@ -9595,952 +9573,55 @@ public class TestTransaction1 {
 
 ```
 
-## 鏁版嵁搴撹繛鎺ユ睜
-#### 姹犲寲鎶€鏈?
-鏁版嵁搴撹繛鎺?--鎵ц瀹屾瘯--閲婃斁璧勬簮   杩炴帴--閲婃斁   鍗佸垎娴垂绯荤粺璧勬簮
+## 数据库连接池
+#### 池化技术
+数据库连接 --执行完毕--释放资源   连接--释放   十分浪费系统资源
 
-姹犲寲鎶€鏈細鍑嗗涓€浜涢鍏堢殑璧勬簮锛岃繃鏉ュ氨杩炴帴棰勫厛鍑嗗濂界殑
+池化技术：准备一些预先的资源，过来就连接预先准备好的
 
-甯哥敤杩炴帴鏁帮細100   鍗虫渶灏忚繛鎺ユ暟100
+常用连接数：100   即最小连接数100
 
-鏈€澶ц繛鎺ユ暟锛氫笟鍔℃渶楂樻壙杞戒笂闄?
+最大连接数：业务最高承载上限
 
-鎺掗槦绛夊緟
+排队等待
 
-绛夊緟瓒呮椂
+等待超时
 
-缂栧啓杩炴帴姹狅細瀹炵幇涓€涓帴鍙ｏ紝DataSource
+编写连接池：实现一个接口，DataSource
 
-#### 寮€婧愮殑鏁版嵁瀹炵幇
-寮€婧愭暟鎹疄鐜?
+#### 开源的数据实现
+开源数据实现
 
 DBCP
 
 C3P0
 
-Druld锛氶樋閲屽反宸?
+Druld：阿里巴巴
 
-浣跨敤杩炴帴姹犱箣鍚庯紝鍦ㄩ」鐩紑鍙戜腑灏变笉闇€瑕佺紪鍐欒繛鎺ユ暟鎹簱鐨勪唬鐮佷簡
+使用连接池之后，在项目开发中就不需要编写连接数据库的代码了
 
 #### DBCP
-闇€瑕佺殑jar鍖?
+需要的jar包
 
-commons-dpcp-鐗堟湰鍙?jar
+commons-dpcp-版本号.jar
 
-commons-pool-鐗堟湰鍙?jar
+commons-pool-版本号.jar
 
-閰嶇疆鏂囦欢
+配置文件
 
 #### C3P0
-闇€瑕佺殑jar鍖?
+需要的jar包
 
-c3p0-鐗堟湰鍙?jar
+c3p0-版本号.jar
 
-mchange-commons-java-鐗堟湰鍙?jar
+mchange-commons-java-版本号.jar
 
-閰嶇疆鏂囦欢
-', NOW());
-SET @last_note_id = LAST_INSERT_ID();
+配置文件
+', 0, NOW());
 
-INSERT INTO 
-ote (uthor_id, 	itle, content, created_at)
-VALUES (1002, 'python基础', '### 鏁版嵁绫诲瀷
-int:鏁存暟锛?23锛沠loat锛氬皬鏁帮紝1.2锛宑omplex锛氬鏁?1+2i锛泂tr锛氬瓧绗︿覆锛屸€渁bc鈥濓紱list锛氬垪琛紝[1,''ok];tuple锛氬厓绁栵紝(1,3,''ok'');bool锛氬竷灏旓紝True.False;dict锛氬瓧鍏革紝{"tom":20,"jack":30};set锛氶泦鍚? {"tom".16,20}
-
-### 杈撳叆杈撳嚭
-```python
-#涓嶆崲琛岃緭鍑猴細end=""
-print(1, 2, 3, end="")
-print("ok")
-#杈撳叆 
-x = input(y)
-```
-
-鍗犱綅绗︼細%s(瀛楃涓?锛?d(鏁存暟)锛?f(灏忔暟)锛?.nf(淇濈暀n浣嶇殑灏忔暟)
-
-### 杩愮畻绗?
-绠楁暟杩愮畻绗︼細 +(鍔?,-(鍑?, *(涔?, /(闄?float), %(鍙栨ā), //(姹傚晢,int), **(姹傚箓) 浼樺厛绾?1锛?*锛?锛?, /, //, %锛?) + -
-
-鍏崇郴杩愮畻绗?==  !=  >  <  >=  <=
-
-閫昏緫杩愮畻绗︼細and   or    not     浼樺厛绾?not>and>or
-
-bool绫诲瀷锛?True, False
-
-### 鏉′欢鍒嗘敮璇彞
-`if` 閫昏緫琛ㄨ揪寮?锛?
-
-       璇彞缁?  
-`else`    锛?
-
-       璇彞缁?
-
-### 寰幆璇彞
-#### for寰幆璇彞
-`for`鍙橀噺 `in`鍙凯浠ｅ璞?
-
-          #寰幆浣撲唬鐮?
-
-`<font style="color:rgb(6, 6, 7);">鍙凯浠ｅ璞?/font>`<font style="color:rgb(6, 6, 7);">锛氬彲浠ユ槸鍒楄〃銆佸厓缁勩€佸瓧绗︿覆銆佸瓧鍏搞€侀泦鍚堢瓑锛屼篃鍙互鏄叾浠栨敮鎸佽凯浠ｇ殑瀵硅薄锛堝鏂囦欢瀵硅薄銆佺敓鎴愬櫒绛夛級</font>
-
-`<font style="color:rgb(6, 6, 7);">range()</font>`<font style="color:rgb(6, 6, 7);"> 鍑芥暟鍙互鐢熸垚涓€涓暣鏁板簭鍒楋紝甯哥敤浜庢帶鍒跺惊鐜鏁般€?/font>
-
-```python
-for i in range(1, 10, 2)    #浠?鍒? 姝ラ暱涓?
-    pirnt(i)
-```
-
-`break`<font style="color:rgb(6, 6, 7);">锛氶€€鍑哄惊鐜€?/font>
-
-`continue`<font style="color:rgb(6, 6, 7);">锛氳烦杩囧綋鍓嶅惊鐜紝杩涘叆涓嬩竴娆″惊鐜€?/font>
-
-#### while 寰幆
-`while` 鏉′欢锛?
-
-       #寰幆浣撲唬鐮?
-
-`else`:
-
-      #璇彞缁?
-
-鏉′欢锛氫竴涓竷灏旇〃杈惧紡 濡傛灉鏉′欢涓篢rue鍒欐墽琛屽惊鐜€傚弽涔嬪垯閫€鍑哄惊鐜?
-
-### 寮傚父澶勭悊
-`try` :
-
- 	<璇彞缁?>
-
-`except`:
-
-<璇彞缁?>
-
-### 鍑芥暟
-**<font style="color:rgb(6, 6, 7);">鍑芥暟</font>**<font style="color:rgb(6, 6, 7);">鏄竴绉嶅皝瑁呬簡涓€娈典唬鐮佺殑閫昏緫缁撴瀯锛岀敤浜庢墽琛岀壒瀹氫换鍔★紝鐢ㄥ叧閿瓧</font>`<font style="color:rgb(6, 6, 7);">def</font>`<font style="color:rgb(6, 6, 7);">鑷畾涔夊嚱鏁?/font>
-
-```python
-def function_name(parameters):
-    # 鍑芥暟浣?
-    # 鎵ц浠ｇ爜
-    return value  # 鍙€夛紝杩斿洖鍊?
-```
-
-+ `**def**`<font style="color:rgb(6, 6, 7);">锛氬畾涔夊嚱鏁扮殑鍏抽敭瀛椼€?/font>
-+ `**function_name**`<font style="color:rgb(6, 6, 7);">锛氬嚱鏁板悕绉帮紝搴旂鍚堝彉閲忓懡鍚嶈鍒欍€?/font>
-+ `**parameters**`<font style="color:rgb(6, 6, 7);">锛氬弬鏁板垪琛紝鐢ㄤ簬浼犻€掑€煎埌鍑芥暟鍐呴儴锛堝彲閫夛級銆?/font>
-+ `**return**`<font style="color:rgb(6, 6, 7);">锛氳繑鍥炲€硷紝鍑芥暟鎵ц瀹屾瘯鍚庤繑鍥炵殑缁撴灉锛堝彲閫夛級銆?/font>
-
-#### 鍙傛暟绫诲瀷
-<font style="color:rgb(6, 6, 7);">浣嶇疆鍙傛暟锛氭寜椤哄簭浼犻€掑弬鏁般€?/font>
-
-<font style="color:rgb(6, 6, 7);">鍏抽敭瀛楀弬鏁帮細閫氳繃鍙傛暟鍚嶄紶閫掑弬鏁般€?/font>
-
-<font style="color:rgb(6, 6, 7);">榛樿鍙傛暟锛氬弬鏁版湁榛樿鍊硷紝璋冪敤鏃跺彲鐪佺暐銆?/font>
-
-**<font style="color:rgb(6, 6, 7);">鍙彉鍙傛暟</font>**<font style="color:rgb(6, 6, 7);">锛?/font>
-
-`*args`<font style="color:rgb(6, 6, 7);">锛氭帴鏀跺涓綅缃弬鏁帮紝杩斿洖鍏冪粍銆?/font>
-
-`**kwargs`<font style="color:rgb(6, 6, 7);">锛氭帴鏀跺涓叧閿瓧鍙傛暟锛岃繑鍥炲瓧鍏?/font>
-
-##### <font style="color:rgb(6, 6, 7);">浣滅敤鍩?/font>
-<font style="color:rgb(6, 6, 7);">鍏ㄥ眬鍙橀噺锛氬湪鍑芥暟澶栭儴瀹氫箟锛屽彲鍦ㄦ暣涓▼搴忎腑璁块棶銆?/font>
-
-<font style="color:rgb(6, 6, 7);">灞€閮ㄥ彉閲忥細鍦ㄥ嚱鏁板唴閮ㄥ畾涔夛紝浠呭湪鍑芥暟鍐呴儴鏈夋晥銆?/font>
-
-#### <font style="color:rgb(6, 6, 7);">鍐呯疆閫氱敤鍑芥暟</font>
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">print()</font>`<font style="color:rgb(6, 6, 7);"> 鎵撳嵃杈撳嚭鍐呭鍒版帶鍒跺彴</font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">len()</font>`<font style="color:rgb(6, 6, 7);">杩斿洖瀵硅薄锛堝瀛楃涓层€佸垪琛ㄣ€佸厓缁勭瓑锛夌殑闀垮害銆?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">type()</font>`<font style="color:rgb(6, 6, 7);">杩斿洖瀵硅薄鐨勭被鍨嬨€?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">str()</font>`<font style="color:rgb(6, 6, 7);">, </font>`<font style="color:rgb(6, 6, 7);">int()</font>`<font style="color:rgb(6, 6, 7);">, </font>`<font style="color:rgb(6, 6, 7);">float()</font>`<font style="color:rgb(6, 6, 7);">灏嗗璞¤浆鎹负瀛楃涓层€佹暣鏁版垨娴偣鏁般€?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">range()</font>`<font style="color:rgb(6, 6, 7);">鐢熸垚涓€涓暣鏁板簭鍒楋紝甯哥敤浜庡惊鐜€?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">input()</font>`<font style="color:rgb(6, 6, 7);">浠庣敤鎴疯幏鍙栬緭鍏ャ€?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">sum()</font>`<font style="color:rgb(6, 6, 7);">, </font>`<font style="color:rgb(6, 6, 7);">min()</font>`<font style="color:rgb(6, 6, 7);">, </font>`<font style="color:rgb(6, 6, 7);">max()</font>`<font style="color:rgb(6, 6, 7);">璁＄畻搴忓垪鐨勬€诲拰銆佹渶灏忓€煎拰鏈€澶у€笺€?/font>
-
-<font style="color:rgb(6, 6, 7);">2.</font>**<font style="color:rgb(6, 6, 7);">鍒楄〃鐩稿叧鍑芥暟</font>**<font style="color:rgb(6, 6, 7);"></font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">list()</font>`<font style="color:rgb(6, 6, 7);">灏嗗叾浠栧彲杩唬瀵硅薄锛堝瀛楃涓层€佸厓缁勶級杞崲涓哄垪琛ㄣ€?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">append()</font>`<font style="color:rgb(6, 6, 7);">鍚戝垪琛ㄦ湯灏炬坊鍔犱竴涓厓绱犮€?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">extend()</font>`<font style="color:rgb(6, 6, 7);">灏嗕竴涓垪琛ㄧ殑鍏冪礌娣诲姞鍒板彟涓€涓垪琛ㄣ€?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">sort()</font>`<font style="color:rgb(6, 6, 7);">瀵瑰垪琛ㄨ繘琛屾帓搴忋€?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">pop()</font>`<font style="color:rgb(6, 6, 7);">绉婚櫎鍒楄〃涓殑涓€涓厓绱狅紝骞惰繑鍥炶鍏冪礌銆?/font>
-
-<font style="color:rgb(6, 6, 7);">3. </font>**<font style="color:rgb(6, 6, 7);">瀛楃涓茬浉鍏冲嚱鏁?/font>**<font style="color:rgb(6, 6, 7);"></font>
-
-<font style="color:rgb(6, 6, 7);">瀛楃涓叉槸Python涓渶甯哥敤鐨勬暟鎹被鍨嬩箣涓€锛屼互涓嬫槸涓€浜涘父鐢ㄧ殑瀛楃涓插鐞嗗嚱鏁般€?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">upper()</font>`<font style="color:rgb(6, 6, 7);"> 鍜?</font>`<font style="color:rgb(6, 6, 7);">lower()</font>`<font style="color:rgb(6, 6, 7);">灏嗗瓧绗︿覆杞崲涓哄ぇ鍐欐垨灏忓啓銆?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">strip()</font>`<font style="color:rgb(6, 6, 7);">鍘婚櫎瀛楃涓蹭袱绔殑绌虹櫧瀛楃銆?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">split()</font>`<font style="color:rgb(6, 6, 7);">灏嗗瓧绗︿覆鍒嗗壊涓哄垪琛ㄣ€?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">join()</font>`<font style="color:rgb(6, 6, 7);">灏嗗垪琛ㄤ腑鐨勫瓧绗︿覆鍏冪礌杩炴帴涓轰竴涓瓧绗︿覆銆?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">replace()</font>`<font style="color:rgb(6, 6, 7);">鏇挎崲瀛楃涓蹭腑鐨勬煇浜涘唴瀹广€?/font>
-
-<font style="color:rgb(6, 6, 7);">- 4. </font>**<font style="color:rgb(6, 6, 7);">鏁板鐩稿叧鍑芥暟</font>**<font style="color:rgb(6, 6, 7);"></font>
-
-<font style="color:rgb(6, 6, 7);">Python鐨刞math`妯″潡鎻愪緵浜嗚澶氭暟瀛︾浉鍏崇殑鍑芥暟銆?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">math.sqrt()</font>`<font style="color:rgb(6, 6, 7);">璁＄畻骞虫柟鏍广€?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">math.ceil()</font>`<font style="color:rgb(6, 6, 7);"> 鍜?</font>`<font style="color:rgb(6, 6, 7);">math.floor()</font>`<font style="color:rgb(6, 6, 7);">鍚戜笂鍙栨暣鍜屽悜涓嬪彇鏁淬€?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">math.pow()</font>`<font style="color:rgb(6, 6, 7);">璁＄畻骞傘€?/font>
-
-<font style="color:rgb(6, 6, 7);"> 5. </font>**<font style="color:rgb(6, 6, 7);">鍏朵粬閫氱敤鍑芥暟</font>**<font style="color:rgb(6, 6, 7);"></font>
-
-<font style="color:rgb(6, 6, 7);">浠ヤ笅鏄竴浜涘湪Python涓潪甯搁€氱敤鐨勫嚱鏁帮紝鐢ㄤ簬澶勭悊鍚勭鍦烘櫙銆?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">enumerate()</font>`<font style="color:rgb(6, 6, 7);">鍦ㄥ惊鐜腑鍚屾椂鑾峰彇绱㈠紩鍜屽€笺€?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">zip()</font>`<font style="color:rgb(6, 6, 7);">灏嗗涓彲杩唬瀵硅薄鎵撳寘涓哄厓缁勫垪琛ㄣ€?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">map()</font>`<font style="color:rgb(6, 6, 7);">瀵瑰彲杩唬瀵硅薄涓殑姣忎釜鍏冪礌搴旂敤鍑芥暟銆?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">filter()</font>`<font style="color:rgb(6, 6, 7);">杩囨护鍙凯浠ｅ璞′腑鐨勫厓绱犮€?/font>
-
-### 鍏冪粍
-涓€涓厓缁勬槸鐢卞涓€楀彿鍒嗛殧鐨勫€肩粍鎴愶紝鍓嶅悗鍙姞鎷彿
-
-鍏冪粍涓嶈兘淇敼锛屽嵆涓嶈兘鍒犻櫎锛岃祴鍊硷紝淇敼锛屾帓搴忥紝浣嗗厓缁勪腑鏁扮粍鍐呯殑鍊煎彲浠ユ敼鍙?
-
-#### 鍏冪粍鐨勫垏鐗?
-`[1:6]`閫夋嫨涓嬫爣涓?鍒?鐨勫厓绱?
-
-`[1:6:2]`閫夋嫨涓嬫爣涓?鍒?鐨勫厓绱?锛屾闀夸负2
-
-`[::-1]`灏嗗厓缁勭殑椤哄簭鍊掔疆
-
-### <font style="color:rgb(6, 6, 7);">.鍒楄〃锛坙ist锛?/font>
-鍒楄〃鍙互瀵瑰厓绱犺繘琛屽銆佸垹銆佹敼銆佹煡锛屽垪琛ㄥ厓绱犲彲浠ユ槸浠讳綍绫诲瀷
-
-#### <font style="color:rgb(6, 6, 7);">鍒楄〃鐩稿叧鍑芥暟</font>
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">list()</font>`<font style="color:rgb(6, 6, 7);">灏嗗叾浠栧彲杩唬瀵硅薄锛堝瀛楃涓层€佸厓缁勶級杞崲涓哄垪琛ㄣ€?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">append()</font>`<font style="color:rgb(6, 6, 7);">鍚戝垪琛ㄦ湯灏炬坊鍔犱竴涓厓绱犮€?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">extend()</font>`<font style="color:rgb(6, 6, 7);">灏嗕竴涓垪琛ㄧ殑鍏冪礌娣诲姞鍒板彟涓€涓垪琛ㄣ€?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">sort()</font>`<font style="color:rgb(6, 6, 7);">瀵瑰垪琛ㄨ繘琛屾帓搴忋€?/font>
-
-<font style="color:rgb(6, 6, 7);">锛?锛?/font>`<font style="color:rgb(6, 6, 7);">pop()</font>`<font style="color:rgb(6, 6, 7);">绉婚櫎鍒楄〃涓殑涓€涓厓绱狅紝骞惰繑鍥炶鍏冪礌銆?/font>
-
-```python
-emty = []   #绌鸿〃
-list = [''Google'', ''Runoob'', 1992, 2222]
-list[2] = 2000   #灏嗕笅鏍囦负2鐨勫€兼洿鎹负2000
-#鐢╥n鏉ュ垽鏂垪琛ㄦ槸鍚﹀寘鍚煇涓厓绱?缁撴灉涓篎alse锛堜笉瀛樺湪锛夋垨True(瀛樺湪)
-print(''Google'' in list)  #>>True
-#鑻鏄瓧绗︿覆锛屽垯x.split()鐨勫€兼槸涓€涓垪琛?
-#鍖呭惈瀛楃涓瞲缁忕┖鏍硷紝鍒惰〃绗︼紝鎹㈣绗﹀垎闅斿緱鍒扮殑鎵€鏈夊瓙涓?
-print("34\t\t45\n7".split()) #>>[''34'', ''45''. ''''7]
-```
-
-### <font style="color:rgb(6, 6, 7);">瀛楀吀锛坉ict锛?/font>
-姣忎釜鍏冪礌閮芥槸鐢扁€滈敭锛氬€尖€濅袱閮ㄥ垎缁勬垚
-
-#### 瀛楀吀鐨勭浉鍏冲嚱鏁?
-`cher()`娓呯┖瀛楀吀
-
-`keys()`鍙栧瓧鍏哥殑閿殑搴忓垪
-
-`items()`鍙栧瓧鍏哥殑鍏冪礌鐨勫簭鍒楋紝鍙敤浜庨亶鍘嗗瓧鍏?
-
-`values()`鍙栧瓧鍏哥殑鍊肩殑搴忓垪
-
-`pop(x)`鍒犻櫎閿綅x鐨勫厓绱狅紝濡傛灉涓嶅瓨鍦紝浜х敓寮傚父
-
-涓婅堪搴忓垪涓嶆槸list锛宼uple鎴杝et
-
-`copy()`娴呮嫹璐?
-
-### 闆嗗悎锛坰et锛?
-鍏冪礌绫诲瀷鍙互涓嶅悓锛屾病閲嶅鍏冪礌锛屽彲浠ュ鍒犲厓绱狅紝鍒楄〃銆佸瓧鍏搞€侀泦鍚堢瓑涓嶅彲鍙樼殑鏁版嵁绫诲瀷涓嶅彲浣滀负闆嗗悎鐨勫厓绱?
-
-#### 闆嗗悎甯哥敤鍑芥暟
-`add(x)`娣诲姞鍏冪礌x
-
-`clear()`娓呯┖闆嗗悎
-
-`remove(x)`鍒犻櫎鍏冪礌x
-
-`updata(x)`灏嗗簭鍒梮涓殑鍏冪礌鍔犲叆鍒伴泦鍚?
-
-#### 闆嗗悎鐨勮繍绠?
-`x in a`x鏄惁鍦ㄩ泦鍚?
-
-`a | b`姹俛鍜宐鐨勫苟
-
-`a & b`姹俛鍜宐鐨勪氦
-
-`a - b`姹俛鍜宐鐨勫樊锛屽嵆鍦╝涓€屼笉鍦╞涓殑鍏冪礌
-
-`a ^ b`姹俛鍜宐鐨勫绉板樊锛岀瓑浠蜂簬`(a | b)- (a & b)`
-
-`a == b`a鏄惁鍏冪礌鍜宐涓€鏍?
-
-`a !=b`a鏄惁鍏冪礌鍜宐涓嶄竴鏍?
-
-`a <= b`a鏄惁鏄痓鐨勫瓙闆嗭紙a鏈夌殑鍏冪礌锛宐閮芥湁锛?
-
-`<font style="color:rgb(6, 6, 7);">a < b</font>`<font style="color:rgb(6, 6, 7);">a鏄惁鏄痓鐨勭湡瀛愰泦锛坅鏈夌殑鍏冪礌锛宐閮芥湁锛屼笖b杩樺寘鍚玜涓病鏈夌殑鍏冪礌锛?/font>
-
-### 鏂囨湰鏂囦欢璇诲啓
-`open("鏂囦欢缁濆璺粡", "W", encoding="utf=8")`鍑芥暟鎵撳紑锛堝垱寤猴級鏂囦欢锛屽皢杩斿洖鍊兼斁鍏ヤ竴涓彉閲忥紝渚嬪f.鈥渨鈥濆啓鍏ワ紝鈥渞鈥濊鍙栵紝 鈥渁鈥濇坊鍔犲啓鍏?
-
-鐢╜f.write`鍑芥暟鍐欏叆鏂囦欢
-
-鐢╜f.readlines`鍑芥暟璇诲彇鏂囦欢鍏ㄩ儴鍐呭
-
-鐢╜f.reandline`鍑芥暟璇诲彇鏂囦欢涓€琛?
-
-鐢╜f.xlose()`鍏抽棴鏂囦欢
-
-鐢╜f.read()`璇诲彇鏂囦欢鍏ㄩ儴鍐呭銆傝繑鍥炰竴涓瓧绗︿覆锛屽寘鍚枃浠跺叏閮ㄥ唴瀹?
-
-### 鏂囦欢澶规搷浣滃嚱鏁?
-os搴撳拰shutil搴撲腑鏈変竴浜涘嚱鏁板彲浠ョ敤鏉ユ搷浣滄枃浠跺拰鏂囦欢澶?
-
-`os.chdir(x)`灏嗙▼搴忕殑褰撳墠鏂囦欢澶逛綅缃涓簒
-
-`os.getcwd()`姹傜▼搴忕殑褰撳墠鏂囦欢澶?
-
-`os.listdir(x)`杩斿洖涓€涓垪琛紝浣犻潰鏄枃浠跺すx涓殑鎵€鏈夋枃浠跺拰瀛愭枃浠跺す鐨勫悕瀛?
-
-`os.mkdir(x)`鍒涘缓鏂囦欢澶箈
-
-`os.path.getsize(x)`鑾峰彇鏂囦欢z鐨勫ぇ灏?
-
-`os.path.isfile(x)`鍒ゆ柇x鏄笉鏄枃浠?
-
-`os.remove(x)`鍒犻櫎鏂囦欢x
-
-`os.rmdir(x)`鍒犻櫎鏂囦欢澶箈
-
-`os.rename(x, y)`灏嗘枃浠舵垨鏂囦欢澶箈鏀瑰悕涓簓銆傝繕鍙互绉诲姩鏂囦欢鎴栨枃浠跺す
-
-`shutil.copyfile(x, y)`鎷疯礉鏂囦欢x鍒版枃浠秠锛岃嫢y瀛樺湪锛屼細琚壇楂?
-
-### Python鏁版嵁搴撶紪绋?
-鏁版嵁搴撳彲浠ョ敤鏉ュ瓨鏀惧ぇ閲忔暟鎹紝涓€涓暟鎹簱鍙互鏄竴涓枃浠讹紝涓€涓暟鎹彲浠ユ湁澶氬紶琛?
-
-#### 瀛楁鐨勬暟鎹被鍨?
-`text`瀛楃涓诧紝`real`灏忔暟锛?`integer`鏁存暟锛宍blob`浜岃繘鍒舵暟鎹紙濡傚浘鐗囷級锛宍date`鏃ユ湡锛堟湰璐ㄤ笂鏄痶ext锛夛紝`datetime`鏃堕棿+鏃ユ湡锛堟湰璐ㄤ笂鏄痶ext锛?
-
-#### SQL鏁版嵁搴撴煡璇㈣鍙?sqlite3)
-`CREATE TABLE`  鍒涘缓琛?
-
-`INSERT INTO`  `VALUES`  鍦ㄨ〃涓彃鍏ヨ褰?
-
-`UPDATE`             鍦ㄨ〃涓洿鏂拌褰?
-
-`SELECT`             鍦ㄨ〃涓繘琛屾煡璇?
-
-`DELETE`             鍦ㄨ〃涓垹闄よ褰?
-
-### 姝ｅ垯琛ㄨ揪寮?
-#### 姝ｅ垯琛ㄨ揪寮忎腑鐨勫姛鑳藉瓧绗?
-| 瀛楃/缁勫悎 | 鍖归厤鐨勬ā寮?| 姝ｅ垯琛ㄨ揪寮?| 鍖归厤鐨勫瓧绗︿覆 |
-| --- | --- | --- | --- |
-| `.` | 闄も€榎n鈥欏鐨勪换鎰忎竴涓瓧绗︼紝鍖呮嫭姹夊瓧 | ''a.b''<br/> | ''acb''<br/>''adb'' |
-| `*` | 閲忚瘝锛岃〃绀哄乏杈圭殑瀛楃鍙互鍑虹幇0娆℃垨浠绘剰澶氭 | ''a*b'' | ''b''<br/>''aaaaab'' |
-| `?` | 閲忚瘝锛岃〃绀哄乏杈圭殑瀛楃鍙互鍑虹幇0娆℃垨1娆?| ''ka?b'' | ''kb''<br/>''kab'' |
-| `+` | 閲忚瘝锛岃〃绀哄乏杈圭殑瀛楃蹇呴』鍑虹幇1娆℃垨鏇村娆?| ''ka+b'' | ''kab''<br/>''kaaaab'' |
-| `{m, n}` | 閲忚瘝锛宮,n鏄暣鏁帮紝琛ㄧず宸﹁竟鐨勫瓧绗﹀繀椤诲嚭鐜拌嚦灏憁娆★紝鏈€澶歯娆°€俷涔熷彲浠ヤ笉鍐欙紝琛ㄧず娌℃湁娆℃暟涓婄嚎 | ''ka{1}b''<br/>''ka{2,4}b''<br/>''ka{2,}b'' | ''kab''<br/>''kaaaab''<br/>''kaaaaaaaaaab'' |
-| `\d` | 涓€涓暟瀛楀瓧绗︼紝绛変环浜嶽0-9] | ''a\db'' | ''a3b''<br/>''a2b'' |
-| `\D` | 涓€涓潪鏁板瓧瀛楃锛岀瓑浠蜂簬[^\d],[0-9] | ''a\Db'' | ''acb'' |
-| `\s` | 涓€涓┖鐧藉瓧绗︼紝濡傜┖鏍硷紝\r\t\d | ''a\sb'' | ''a b''<br/>''a\nb'' |
-| `\S` | 涓€涓潪绌虹櫧瀛楃 | ''a\Sb'' | ''akb'' |
-| `\w` | 涓€涓崟璇嶅瓧绗︼細鍖呮嫭姹夊瓧鎴栧ぇ灏忓啓鑻辨枃瀛楁瘝锛屾暟瀛楋紝涓嬪垝绾匡紝鎴栧叾浠栬瑷€鐨勬枃瀛?| ''a\wb'' | ''a_b''<br/>''a涓璪'' |
-| `\W` | 涓€涓笉鏄崟璇嶇殑瀛楃 | ''a\Wb'' | ''a?b'' |
-| `|` | A|B琛ㄧず鑳藉尮閰岮鎴栬兘鍖归厤B鍧囩畻鍖归厤 | ''ab|c'' | ''ab''<br/>''c'' |
-| `\` | 姝ｅ垯琛ㄨ揪寮忎腑甯歌鐨勭壒娈婂瓧绗? + ? * ^ $ [] (锛墈} \ 鍦ㄦ鍒欒〃杈惧紡涓〃绀哄瓧绗︽湰韬氨鍦ㄥ瓧绗﹀墠鍔犱笂`\` | ''a\\''<br/>''a\$b''<br/>''a\[\]b'' | ''a\''<br/>''a$b''<br/>''a[]b'' |
-
-
-#### 姝ｅ垯琛ㄨ揪寮忎腑鑼冨洿绗﹀彿[]鍜岄噺璇?
-[XXX]:姝ゅ蹇呴』鍑虹幇鏌愭煇鑼冨洿鍐呯殑瀛楃 鎴?姝ゅ蹇呴』鍑虹幇涓€涓瓧绗︼紝浣嗕笉鍙互鏄煇鏌愯寖鍥村唴鐨勫瓧绗?
-
-`[a2c]`鍖归厤 ''a'' ''2'' ''c'' 涔嬩竴
-
-`[a-zA-z]`鍖归厤浠讳竴鑻辨枃瀛楁瘝
-
-`[\da-z\?]`鍖归厤涓€涓?鏁板瓧 鎴?灏忓啓鑻辨枃瀛楁瘝 鎴?''?''
-
-`[^abc]`鍖归厤涓€涓潪''a'' '' b'' ''c''鐨勫瓧绗?
-
-`[^a-f0-3]`鍖归厤涓€涓潪a-f鐨勮嫳鏂囧瓧姣嶏紝涔熼潪0-3鐨勬暟瀛楃殑瀛楃
-
-`[\ue00-\9fa5]`琛ㄧず涓€涓眽瀛?
-
-#### 姝ｅ垯琛ㄨ揪寮忎腑鐨勫嚱鏁?
-`re.match(pattern, string, flag=0)`
-
-浠庡瓧绗︿覆string鐨勮捣濮嬩綅缃尮閰嶄竴涓ā寮弍attern锛屾垚鍔熷垯杩斿洖涓€涓尮閰嶅璞★紝鍚﹀垯杩斿洖None
-
-`re.search(pattern, string, flags = 0)`
-
-鏌ユ壘瀛楃涓蹭腑鍙互鍖归厤鎴愬姛鐨勫瓙涓诧紝鎴愬姛鍒欒繑鍥炰竴涓尮閰嶅璞★紝鑻ユ棤娉曞尮閰嶏紝鍒欒繑鍥濶one
-
-`re.findall(pattern, string, flags = 0)`
-
-鏌ユ壘瀛楃涓蹭腑鎵€鏈夋ā寮忓尮閰嶇殑瀛愪覆锛堜笉閲嶅彔锛夋斁鍏ュ垪琛紝娌℃湁鍒欒繑鍥炵┖琛╗]
-
-`re.finditer(pattenr, stringm flags = 0)`
-
-鏌ユ壘瀛楃涓蹭腑鎵€鏈夋ā寮忓尮閰嶇殑瀛愪覆锛堜笉閲嶅彔锛?姣忎釜瀛愪覆瀵瑰簲浜庝竴涓尮閰嶅璞★紝杩斿洖鍖归厤瀵硅薄鐨勫簭鍒?
-
-`re.sub(妯″紡涓诧紝鏇挎崲涓诧紝姣嶄覆)`
-
-鐢ㄤ簬鏇挎崲鍖归厤鐨勫瓙涓?
-
-#### 杈圭晫绗﹀彿
-`\A`瀛楃涓茬殑宸﹁竟鐣?
-
-`\Z`瀛楃涓茬殑鏈夎竟鐣?
-
-`^`涓巂\A`鍚岋紝浣嗗湪澶氳鍖归厤妯″紡涓嬭繕鍙互琛ㄧず涓€琛屾枃瀛楃殑宸﹁竟鐣?
-
-`$`涓巂\Z`鍚岋紝浣嗗湪澶氳鍖归厤妯″紡涓嬭繕鍙互琛ㄧず涓€琛屾枃瀛楃殑鍙宠竟鐣?
-
-`\b`琛ㄧず姝ゅ搴斾负鍗曡瘝鐨勫乏杈圭晫鎴栨湁杈圭晫锛屽嵆涓嶅彲鏄崟璇嶅瓧绗?
-
-`\B`琛ㄧず姝ゅ涓嶅厑璁稿崟璇嶇殑宸﹁竟鐣屾垨鏈夎竟鐣岋紝鍗冲繀椤绘槸鍗曡瘝瀛楃
-
-#### 鍒嗙粍(....)
-鎷彿涓殑琛ㄨ揪寮忔槸涓€涓垎缁勩€傚涓垎缁勬寜宸︽嫭鍙蜂粠宸﹀埌鍙充粠1寮€濮嬩緷娆＄紪鍙?
-
-鍦ㄥ垎缁勭殑鍙宠竟鍙互閫氳繃鍒嗙粍鐨勭紪鍙峰紩鐢ㄨ鍒嗙粍鎵€鍖归厤鐨勫瓙涓?
-
-鍒嗙粍浣滀负涓€涓暣浣擄紝鍚庨潰鍙互璺熼噺璇?
-
-#### `re.findall`鍜屽垎缁?
-鏈変笖鍙湁涓€涓垎缁勬椂锛宺e.findall杩斿洖鐨勬槸涓€涓瓙涓茬殑鍒楄〃锛屾瘡涓厓绱犳槸涓€涓尮閰嶅瓙涓插搴旂殑鍐呭
-
-瓒呰繃涓€涓垎缁勬椂锛宺e.findall杩斿洖鐨勬槸涓€涓厓缁勭殑鍒楄〃锛屾瘡涓厓缁勫搴斾簬涓€涓尮閰嶇殑瀛愪覆锛屼緷娆℃槸1鍙峰垎缁勶紝浜屽彿鍒嗙粍锛屼笁鍙峰垎缁勨€︹€﹀尮閰嶇殑鍐呭
-
-#### 鍖归厤瀵硅薄
-鍖归厤鎴愬姛鏃剁殑杩斿洖缁撴灉
-
-灞炴€э細
-
-`string`鍖归厤鏃朵娇鐢ㄧ殑姣嶄覆
-
-`lastindex`鏈€鍚庝竴涓尮閰嶇殑鍒嗙粍鐨勭紪鍙枫€傛病鏈夎鍖归厤鐨勫垎缁勶紝灏嗕负None
-
-`group([n1, n2, ......])`鑾峰緱涓€涓垨澶氫釜鍒嗙粍鍖归厤鐨勫瓧绗︿覆锛涙寚瀹氬涓弬鏁版椂灏嗕互鍏冪粍褰㈠紡杩斿洖銆?
-
-`groups([default])`浠ュ厓缁勫舰寮忚繑鍥炲叏閮ㄥ垎缁勫尮閰嶇殑瀛楃涓?
-
-`groupdict([default])`杩斿洖鎸囧畾鐨勭粍鍖归厤鐨勫瓙涓插湪string涓殑浣嶇疆銆?
-
-### `<font style="color:rgb(64, 64, 64);">datetime</font>`<font style="color:rgb(64, 64, 64);">妯″潡</font>
-#### <font style="color:rgb(64, 64, 64);">1. </font>`<font style="color:rgb(64, 64, 64);">datetime</font>` 绫?
-`<font style="color:rgb(64, 64, 64);">datetime</font>`<font style="color:rgb(64, 64, 64);"> 绫绘槸 </font>`<font style="color:rgb(64, 64, 64);">datetime</font>`<font style="color:rgb(64, 64, 64);"> 妯″潡涓渶鏍稿績鐨勭被锛岀敤浜庤〃绀烘棩鏈熷拰鏃堕棿銆?/font>
-
-+ `<font style="color:rgb(64, 64, 64);">datetime.now()</font>`<font style="color:rgb(64, 64, 64);">锛氳繑鍥炲綋鍓嶆棩鏈熷拰鏃堕棿銆?/font>
-+ `<font style="color:rgb(64, 64, 64);">datetime.today()</font>`<font style="color:rgb(64, 64, 64);">锛氳繑鍥炲綋鍓嶆棩鏈熷拰鏃堕棿锛堜笌 </font>`<font style="color:rgb(64, 64, 64);">now()</font>`<font style="color:rgb(64, 64, 64);"> 绫讳技锛屼絾涓嶅寘鍚椂鍖轰俊鎭級銆?/font>
-+ `<font style="color:rgb(64, 64, 64);">datetime.combine(date, time)</font>`<font style="color:rgb(64, 64, 64);">锛氬皢 </font>`<font style="color:rgb(64, 64, 64);">date</font>`<font style="color:rgb(64, 64, 64);"> 鍜?</font>`<font style="color:rgb(64, 64, 64);">time</font>`<font style="color:rgb(64, 64, 64);"> 鍚堝苟涓轰竴涓?</font>`<font style="color:rgb(64, 64, 64);">datetime</font>`<font style="color:rgb(64, 64, 64);"> 瀵硅薄銆?/font>
-+ `<font style="color:rgb(64, 64, 64);">datetime.strptime(string, format)</font>`<font style="color:rgb(64, 64, 64);">锛氬皢瀛楃涓叉寜鐓ф寚瀹氭牸寮忚В鏋愪负 </font>`<font style="color:rgb(64, 64, 64);">datetime</font>`<font style="color:rgb(64, 64, 64);"> 瀵硅薄銆?/font>
-+ `<font style="color:rgb(64, 64, 64);">strftime(format)</font>`<font style="color:rgb(64, 64, 64);">锛氬皢 </font>`<font style="color:rgb(64, 64, 64);">datetime</font>`<font style="color:rgb(64, 64, 64);"> 瀵硅薄鏍煎紡鍖栦负瀛楃涓层€?/font>
-+ `<font style="color:rgb(64, 64, 64);">timestamp()</font>`<font style="color:rgb(64, 64, 64);">锛氬皢 </font>`<font style="color:rgb(64, 64, 64);">datetime</font>`<font style="color:rgb(64, 64, 64);"> 瀵硅薄杞崲涓烘椂闂存埑锛圲nix 鏃堕棿锛夈€?/font>
-+ `<font style="color:rgb(64, 64, 64);">fromtimestamp(timestamp)</font>`<font style="color:rgb(64, 64, 64);">锛氬皢鏃堕棿鎴宠浆鎹负 </font>`<font style="color:rgb(64, 64, 64);">datetime</font>`<font style="color:rgb(64, 64, 64);"> 瀵硅薄銆?/font>
-
-#### <font style="color:rgb(64, 64, 64);">2. </font>`<font style="color:rgb(64, 64, 64);">date</font>` 绫?
-`<font style="color:rgb(64, 64, 64);">date</font>`<font style="color:rgb(64, 64, 64);"> 绫荤敤浜庤〃绀烘棩鏈燂紙骞淬€佹湀銆佹棩锛夈€?/font>
-
-+ `<font style="color:rgb(64, 64, 64);">date.today()</font>`<font style="color:rgb(64, 64, 64);">锛氳繑鍥炲綋鍓嶆棩鏈熴€?/font>
-+ `<font style="color:rgb(64, 64, 64);">strftime(format)</font>`<font style="color:rgb(64, 64, 64);">锛氬皢 </font>`<font style="color:rgb(64, 64, 64);">date</font>`<font style="color:rgb(64, 64, 64);"> 瀵硅薄鏍煎紡鍖栦负瀛楃涓层€?/font>
-+ `<font style="color:rgb(64, 64, 64);">date.fromtimestamp(timestamp)</font>`<font style="color:rgb(64, 64, 64);">锛氬皢鏃堕棿鎴宠浆鎹负 </font>`<font style="color:rgb(64, 64, 64);">date</font>`<font style="color:rgb(64, 64, 64);"> 瀵硅薄銆?/font>
-+ `<font style="color:rgb(64, 64, 64);">date.replace(year, month, day)</font>`<font style="color:rgb(64, 64, 64);">锛氭浛鎹㈡棩鏈熶腑鐨勫勾銆佹湀銆佹棩銆?/font>
-+ `<font style="color:rgb(64, 64, 64);">weekday()</font>`<font style="color:rgb(64, 64, 64);">锛氳繑鍥炴槦鏈熷嚑锛? 琛ㄧず鍛ㄤ竴锛? 琛ㄧず鍛ㄦ棩锛夈€?/font>
-+ `<font style="color:rgb(64, 64, 64);">isoweekday()</font>`<font style="color:rgb(64, 64, 64);">锛氳繑鍥炴槦鏈熷嚑锛? 琛ㄧず鍛ㄤ竴锛? 琛ㄧず鍛ㄦ棩锛夈€?/font>
-
-#### <font style="color:rgb(64, 64, 64);">3. </font>`<font style="color:rgb(64, 64, 64);">time</font>` 绫?
-`<font style="color:rgb(64, 64, 64);">time</font>`<font style="color:rgb(64, 64, 64);"> 绫荤敤浜庤〃绀烘椂闂达紙鏃躲€佸垎銆佺銆佸井绉掞級銆?/font>
-
-+ `<font style="color:rgb(64, 64, 64);">strftime(format)</font>`<font style="color:rgb(64, 64, 64);">锛氬皢 </font>`<font style="color:rgb(64, 64, 64);">time</font>`<font style="color:rgb(64, 64, 64);"> 瀵硅薄鏍煎紡鍖栦负瀛楃涓层€?/font>
-+ `<font style="color:rgb(64, 64, 64);">time.replace(hour, minute, second, microsecond)</font>`<font style="color:rgb(64, 64, 64);">锛氭浛鎹㈡椂闂翠腑鐨勬椂銆佸垎銆佺銆佸井绉掋€?/font>
-
-#### <font style="color:rgb(64, 64, 64);">4. </font>`<font style="color:rgb(64, 64, 64);">timedelta</font>` 绫?
-`<font style="color:rgb(64, 64, 64);">timedelta</font>`<font style="color:rgb(64, 64, 64);"> 绫荤敤浜庤〃绀烘椂闂撮棿闅旓紙澶┿€佺銆佸井绉掔瓑锛夛紝甯哥敤浜庢棩鏈熷拰鏃堕棿鐨勫姞鍑忚繍绠椼€?/font>
-
-+ `<font style="color:rgb(64, 64, 64);">timedelta(days, seconds, microseconds, milliseconds, minutes, hours, weeks)</font>`<font style="color:rgb(64, 64, 64);">锛氬垱寤烘椂闂撮棿闅斻€?/font>
-+ `<font style="color:rgb(64, 64, 64);">total_seconds()</font>`<font style="color:rgb(64, 64, 64);">锛氳繑鍥炴椂闂撮棿闅旂殑鎬荤鏁般€?/font>
-
----
-
-#### <font style="color:rgb(64, 64, 64);">5. </font>`<font style="color:rgb(64, 64, 64);">tzinfo</font>` 绫?
-`<font style="color:rgb(64, 64, 64);">tzinfo</font>`<font style="color:rgb(64, 64, 64);"> 鏄竴涓娊璞″熀绫伙紝鐢ㄤ簬琛ㄧず鏃跺尯淇℃伅銆侾ython 3.9+ 鎺ㄨ崘浣跨敤 </font>`<font style="color:rgb(64, 64, 64);">zoneinfo</font>`<font style="color:rgb(64, 64, 64);"> 妯″潡鏉ュ鐞嗘椂鍖恒€?/font>
-
-##### 绀轰緥锛氫娇鐢?`<font style="color:rgb(64, 64, 64);">zoneinfo</font>`
-```python
-from zoneinfo import ZoneInfo
-from datetime import datetime
-
-# 鍒涘缓甯︽椂鍖虹殑 datetime 瀵硅薄
-now_utc = datetime.now(ZoneInfo("UTC"))
-now_shanghai = datetime.now(ZoneInfo("Asia/Shanghai"))
-
-print("UTC 鏃堕棿:", now_utc)
-print("涓婃捣鏃堕棿:", now_shanghai)
-```
-
-### random搴撳鐞嗛殢鏈轰簨鍔?
-Python 鐨?`random` 妯″潡鎻愪緵浜嗗绉嶇敓鎴愪吉闅忔満鏁扮殑鍑芥暟锛屽箍娉涚敤浜庢ā鎷熴€佹父鎴忓紑鍙戝拰闇€瑕侀殢鏈烘€х殑鍦版柟銆備互涓嬫槸 `random` 妯″潡涓父鐢ㄧ被鍜屽嚱鏁扮殑鐢ㄦ硶锛?
-
-#### 1. 鐢熸垚闅忔満娴偣鏁?
-+ `random.random()`锛氱敓鎴愪竴涓寖鍥村湪 `[0.0, 1.0)` 鐨勯殢鏈烘诞鐐规暟銆?
-+ `random.uniform(a, b)`锛氱敓鎴愪竴涓寖鍥村湪 `[a, b]` 鐨勯殢鏈烘诞鐐规暟銆?
-
-#### 2. 鐢熸垚闅忔満鏁存暟
-+ `random.randint(a, b)`锛氱敓鎴愪竴涓寖鍥村湪 `[a, b]` 鐨勯殢鏈烘暣鏁般€?
-+ `random.randrange(start, stop[, step])`锛氫粠 `range(start, stop, step)` 涓殢鏈洪€夋嫨涓€涓厓绱犮€?
-
-#### 3. 浠庡簭鍒椾腑闅忔満閫夋嫨
-+ `random.choice(seq)`锛氫粠闈炵┖搴忓垪 `seq` 涓殢鏈洪€夋嫨涓€涓厓绱犮€?
-+ `random.choices(population, weights=None, k=1)`锛氫粠 `population` 涓殢鏈洪€夋嫨 `k` 涓厓绱狅紝鍙寚瀹氭潈閲嶃€?
-
-#### 4. 闅忔満鎵撲贡搴忓垪
-+ `random.shuffle(x)`锛氶殢鏈烘墦涔卞簭鍒?`x`銆?
-
-#### 5. 鐢熸垚闅忔満鏍锋湰
-+ `random.sample(population, k)`锛氫粠 `population` 涓殢鏈洪€夋嫨 `k` 涓笉閲嶅鐨勫厓绱犮€?
-
-#### 6. 璁剧疆闅忔満绉嶅瓙
-+ `random.seed(a=None)`锛氳缃殢鏈烘暟鐢熸垚鍣ㄧ殑绉嶅瓙銆傚鏋滄湭鎸囧畾 `a`锛屽垯浣跨敤绯荤粺鏃堕棿銆?
-
-#### 7. 鍏朵粬闅忔満鍒嗗竷
-+ `random.gauss(mu, sigma)`锛氱敓鎴愭鎬佸垎甯冪殑闅忔満鏁般€?
-+ `random.expovariate(lambd)`锛氱敓鎴愭寚鏁板垎甯冪殑闅忔満鏁般€?
-
-### jieba搴撹繘琛屽垎璇?
-`jieba` 鏄竴涓姛鑳藉己澶х殑涓枃鍒嗚瘝搴擄紝骞挎硾鐢ㄤ簬鑷劧璇█澶勭悊銆佹枃鏈寲鎺樼瓑棰嗗煙銆備互涓嬫槸 `jieba` 搴撶殑涓昏绫汇€佸嚱鏁板強鍏剁敤娉曠殑璇︾粏浠嬬粛锛?
-
-#### 1. 瀹夎鍜屽鍏?
-鍦ㄤ娇鐢?`jieba` 搴撲箣鍓嶏紝闇€瑕佸厛瀹夎锛?
-
-```bash
-pip install jieba
-```
-
-瀹夎瀹屾垚鍚庯紝鍙互鍦?Python 涓鍏ワ細
-
-```python
-import jieba
-```
-
-#### 2. 鍒嗚瘝妯″紡
-`jieba` 鎻愪緵浜嗕笁绉嶄富瑕佺殑鍒嗚瘝妯″紡锛?
-
-##### 锛?锛夌簿纭ā寮忥紙榛樿妯″紡锛?
-绮剧‘妯″紡浼氬皢鏂囨湰灏藉彲鑳界簿纭湴鍒囧垎鎴愬崟涓瘝璇紝閫傚悎鏂囨湰鍒嗘瀽銆?
-
-```python
-text = "鎴戝枩娆ython缂栫▼"
-words = jieba.cut(text, cut_all=False)  # 鎴栫洿鎺?jieba.cut(text)
-print("绮剧‘妯″紡锛?, "/ ".join(words))
-```
-
-杈撳嚭锛?
-
-```plain
-绮剧‘妯″紡锛氭垜/ 鍠滄/ Python/ 缂栫▼
-```
-
-##### 锛?锛夊叏妯″紡
-鍏ㄦā寮忎細灏嗘枃鏈腑鎵€鏈夊彲鑳界殑璇嶈閮芥壂鎻忓嚭鏉ワ紝閫熷害闈炲父蹇紝浣嗗彲鑳藉瓨鍦ㄥ啑浣欍€?
-
-```python
-words = jieba.cut(text, cut_all=True)
-print("鍏ㄦā寮忥細", "/ ".join(words))
-```
-
-杈撳嚭锛?
-
-```plain
-鍏ㄦā寮忥細鎴? 鍠滄/ Python/ 缂栫▼
-```
-
-##### 锛?锛夋悳绱㈠紩鎿庢ā寮?
-鎼滅储寮曟搸妯″紡鍦ㄧ簿纭ā寮忕殑鍩虹涓婏紝瀵归暱璇嶅啀娆″垏鍒嗭紝鎻愰珮鍙洖鐜囷紝閫傚悎鐢ㄤ簬鎼滅储寮曟搸鍒嗚瘝銆?
-
-```python
-words = jieba.cut_for_search(text)
-print("鎼滅储寮曟搸妯″紡锛?, "/ ".join(words))
-```
-
-杈撳嚭锛?
-
-```plain
-鎼滅储寮曟搸妯″紡锛氭垜/ 鍠滄/ Python/ 缂栫▼
-```
-
-#### 3. 鑷畾涔夎瘝鍏?
-`jieba` 鏀寔鍔犺浇鑷畾涔夎瘝鍏革紝浠ユ彁楂樺垎璇嶇殑鍑嗙‘鎬с€傝嚜瀹氫箟璇嶅吀鏄竴涓枃鏈枃浠讹紝姣忚鍖呭惈涓€涓瘝鍜屽叾璇嶉锛堝彲閫夛級锛屾牸寮忓涓嬶細
-
-```plain
-鑷畾涔夎瘝 璇嶉
-```
-
-渚嬪锛屽垱寤轰竴涓悕涓?`custom_dict.txt` 鐨勮嚜瀹氫箟璇嶅吀锛?
-
-```plain
-鍗庝负绗旇鏈?10
-```
-
-鍔犺浇鑷畾涔夎瘝鍏革細
-
-```python
-jieba.load_userdict("custom_dict.txt")
-text = "鍗庝负绗旇鏈€ц兘鍑鸿壊"
-words = jieba.cut(text, cut_all=False)
-print("鑷畾涔夎瘝鍏革細", "/ ".join(words))
-```
-
-杈撳嚭锛?
-
-```plain
-鑷畾涔夎瘝鍏革細鍗庝负绗旇鏈? 鎬ц兘/ 鍑鸿壊
-```
-
-#### 4. 璇嶆€ф爣娉?
-`jieba` 鏀寔瀵瑰垎璇嶇粨鏋滆繘琛岃瘝鎬ф爣娉紝鍙互鐢ㄤ簬璇嶆€у垎鏋愬拰淇℃伅鎻愬彇銆?
-
-```python
-import jieba.posseg as pseg
-text = "鎴戝枩娆ython缂栫▼"
-words = pseg.cut(text)
-for word, flag in words:
-    print(f"{word} -> {flag}")
-```
-
-杈撳嚭锛?
-
-```plain
-鎴?-> r
-鍠滄 -> v
-Python -> eng
-缂栫▼ -> vn
-```
-
-#### 5. 鍏抽敭璇嶆彁鍙?
-`jieba` 鎻愪緵浜嗗叧閿瘝鎻愬彇鍔熻兘锛屼富瑕佹湁 TF-IDF 鍜?TextRank 涓ょ绠楁硶銆?
-
-##### 锛?锛塗F-IDF 鍏抽敭璇嶆彁鍙?
-```python
-import jieba.analyse
-text = "鎴戞潵鍒板寳浜竻鍗庡ぇ瀛︼紝娓呭崕澶у鏄腑鍥借憲鍚嶇殑楂樼瓑瀛﹀簻銆?
-keywords = jieba.analyse.extract_tags(text, topK=5, withWeight=False)
-print("鍏抽敭璇嶏紙TF-IDF锛夛細", keywords)
-```
-
-##### 锛?锛塗extRank 鍏抽敭璇嶆彁鍙?
-```python
-keywords = jieba.analyse.textrank(text, topK=5, withWeight=False)
-print("鍏抽敭璇嶏紙TextRank锛夛細", keywords)
-```
-
-#### 6. 骞惰鍒嗚瘝
-瀵逛簬杈冨ぇ鐨勬枃鏈紝鍙互浣跨敤骞惰鍒嗚瘝鏉ユ彁楂樺垎璇嶉€熷害銆?
-
-```python
-jieba.enable_parallel(4)  # 寮€鍚苟琛屽垎璇嶏紝鎸囧畾绾跨▼鏁?
-text = "Python鏄竴绉嶆祦琛岀殑缂栫▼璇█锛屽箍娉涚敤浜嶹eb寮€鍙戝拰鏁版嵁绉戝銆? * 1000
-words = jieba.cut(text, cut_all=False)
-print("骞惰鍒嗚瘝缁撴灉锛?, " ".join(words))
-```
-
-#### 7. 璋冩暣鍒嗚瘝缁撴灉
-鍙互閫氳繃璋冩暣璇嶉鎴栨坊鍔犳柊璇嶆潵浼樺寲鍒嗚瘝缁撴灉銆?
-
-##### 锛?锛夎皟鏁磋瘝棰?
-```python
-jieba.suggest_freq((''鍖椾含'', ''澶у''), True)  # 璋冩暣璇嶉
-```
-
-##### 锛?锛夋坊鍔犳柊璇?
-```python
-jieba.add_word(''娓呭崕澶у'', freq=10, tag=''n'')  # 娣诲姞鏂拌瘝骞舵寚瀹氳瘝鎬?
-```
-
-#### 8. 搴旂敤鍦烘櫙
-`jieba` 鍙互搴旂敤浜庡绉嶈嚜鐒惰瑷€澶勭悊浠诲姟锛屽鏂囨湰鍒嗙被銆佹儏鎰熷垎鏋愩€佹悳绱㈠紩鎿庝紭鍖栫瓑銆?
-
-##### 锛?锛夋枃鏈垎绫?
-閫氳繃鍒嗚瘝鎻愬彇鏂囨湰鐗瑰緛锛岀粨鍚堟満鍣ㄥ涔犵畻娉曡繘琛屽垎绫汇€?
-
-##### 锛?锛夋儏鎰熷垎鏋?
-缁撳悎鍒嗚瘝鍜屾儏鎰熷垎鏋愭ā鍨嬶紝鍒嗘瀽鏂囨湰涓殑鎯呮劅鍊惧悜銆?
-
-##### 锛?锛夋悳绱㈠紩鎿庝紭鍖?
-鎻愬彇鍏抽敭璇嶏紝鎻愰珮鎼滅储寮曟搸鐨勫彫鍥炵巼鍜岀簿纭害銆?
-
-
-
-
-
-
-
-
-
-
-
-### openpyxl鐨勭敤娉?
-`openpyxl` 鏄竴涓己澶х殑 Python 搴擄紝鐢ㄤ簬璇诲彇銆佸啓鍏ュ拰鎿嶄綔 Excel 鏂囦欢锛坄.xlsx` 鏍煎紡锛夈€備互涓嬫槸 `openpyxl` 涓父鐢ㄧ被鍜屽嚱鏁扮殑鐢ㄦ硶
-
-#### 1. 瀹夎 `openpyxl`
-鍦ㄤ娇鐢?`openpyxl` 涔嬪墠锛岄渶瑕侀€氳繃浠ヤ笅鍛戒护瀹夎锛?
-
-```bash
-pip install openpyxl
-```
-
-2. 鍒涘缓鍜屼繚瀛樺伐浣滅翱
-
-##### 鍒涘缓鏂板伐浣滅翱
-```python
-from openpyxl import Workbook
-
-wb = Workbook()  # 鍒涘缓涓€涓柊宸ヤ綔绨?
-ws = wb.active  # 鑾峰彇榛樿宸ヤ綔琛?
-ws.title = "MySheet"  # 璁剧疆宸ヤ綔琛ㄦ爣棰?
-ws[''A1''] = "Hello"  # 鍐欏叆鍗曞厓鏍兼暟鎹?
-ws[''B1''] = "World"
-wb.save("new_file.xlsx")  # 淇濆瓨宸ヤ綔绨?
-```
-
-##### 鎵撳紑鐜版湁宸ヤ綔绨?
-```python
-from openpyxl import load_workbook
-
-wb = load_workbook("existing_file.xlsx")  # 鍔犺浇鐜版湁宸ヤ綔绨?
-ws = wb["Sheet1"]  # 鑾峰彇鎸囧畾宸ヤ綔琛?
-cell_value = ws[''A1''].value  # 璇诲彇鍗曞厓鏍兼暟鎹?
-print(cell_value)
-```
-
-#### 3. 宸ヤ綔绨垮拰宸ヤ綔琛ㄧ殑鎿嶄綔
-##### 鑾峰彇宸ヤ綔琛?
-```python
-ws = wb.active  # 鑾峰彇褰撳墠娲诲姩宸ヤ綔琛?
-ws = wb["Sheet1"]  # 閫氳繃鍚嶇О鑾峰彇宸ヤ綔琛?
-```
-
-##### 鍒涘缓鏂板伐浣滆〃
-```python
-new_sheet = wb.create_sheet(title="NewSheet")  # 鍒涘缓鏂板伐浣滆〃
-```
-
-##### 鍒犻櫎宸ヤ綔琛?
-```python
-del wb["Sheet2"]  # 鍒犻櫎宸ヤ綔琛?
-```
-
-###### 澶嶅埗宸ヤ綔琛?
-```python
-copied_sheet = wb.copy_worksheet(wb["Sheet1"])  # 澶嶅埗宸ヤ綔琛?
-copied_sheet.title = "Copy of Sheet1"
-```
-
-#### 4. 鍗曞厓鏍兼搷浣?
-##### 鍐欏叆鏁版嵁
-```python
-ws[''A1''] = "Hello"  # 閫氳繃鍗曞厓鏍间綅缃啓鍏ユ暟鎹?
-ws.cell(row=2, column=2, value="World")  # 閫氳繃琛屽垪绱㈠紩鍐欏叆鏁版嵁
-```
-
-##### 璇诲彇鏁版嵁
-```python
-cell_value = ws[''A1''].value  # 閫氳繃鍗曞厓鏍间綅缃鍙栨暟鎹?
-cell_value = ws.cell(row=2, column=2).value  # 閫氳繃琛屽垪绱㈠紩璇诲彇鏁版嵁
-print(cell_value)
-```
-
-##### 杩唬鍗曞厓鏍?
-```python
-for row in ws.iter_rows(min_row=1, max_row=5, min_col=1, max_col=3, values_only=True):
-    print(row)  # 鎸夎杩唬
-
-for col in ws.iter_cols(min_row=1, max_row=5, min_col=1, max_col=3, values_only=True):
-    print(col)  # 鎸夊垪杩唬
-```
-
-#### 5.鏁版嵁杩藉姞
-```python
-data = [(1, 2, 3), (4, 5, 6)]
-for row in data:
-    ws.append(row)  # 灏嗘暟鎹拷鍔犲埌宸ヤ綔琛?
-wb.save("appended_file.xlsx")
-```
-
-#### 6. 鏍煎紡鍖栧拰鏍峰紡
-```python
-from openpyxl.styles import Font, Alignment
-
-cell = ws[''A1'']
-cell.font = Font(bold=True, size=14)  # 璁剧疆瀛椾綋鏍峰紡
-cell.alignment = Alignment(horizontal=''center'', vertical=''center'')  # 璁剧疆瀵归綈鏂瑰紡
-```
-
-#### 7. 鍚堝苟鍜屾媶鍒嗗崟鍏冩牸
-```python
-ws.merge_cells(''A1:B2'')  # 鍚堝苟鍗曞厓鏍?
-ws.unmerge_cells(''A1:B2'')  # 鎷嗗垎鍗曞厓鏍?
-```
-
-#### 8. 娣诲姞鍥捐〃
-```python
-from openpyxl.chart import BarChart, Reference
-
-data = Reference(ws, min_row=1, max_row=5, min_col=1, max_col=3)
-chart = BarChart()
-chart.add_data(data, titles_from_data=True)
-ws.add_chart(chart, "E2")
-wb.save("chart_file.xlsx")
-```
-
-#### 9. 宸ヤ綔绨垮睘鎬?
-```python
-print(wb.sheetnames)  # 鑾峰彇鎵€鏈夊伐浣滆〃鍚嶇О
-print(wb.active)  # 鑾峰彇褰撳墠娲诲姩宸ヤ綔琛?
-print(wb.read_only)  # 妫€鏌ユ槸鍚︿互鍙妯″紡鎵撳紑
-```
-
-
-
-
-
-### numpy搴撶殑鐢ㄦ硶
-澶氱淮鏁扮粍搴?
-
-#### numpy鍒涘缓鏁扮粍
-```python
-import numpy as np
-print(np.array([1,2,3])) #>>[1 2 3]
-print(np.arange(1,9,2)) #>>[1 3 5 7]
-print(np.linspace(1,10,4)) #>>[  1.  4.  7.  10.]
-print(np.ransdom.randint(10,20,[2,3]))
-#>>[[12 15 12]
-#>> [12 13 19]]
-a = np.zeros(3)
-print(a)  #>>[ 0.  0.  0.]
-print(list(a))  #>>[0.0 0.0 0.0]
-a = np.zeros((2,3),dtype=int)  #鍒涘缓涓€涓?琛?鍒楃殑鍏冪礌閮芥槸鏁存暟0鐨勬暟缁?
-```
-
-#### numpy鏁扮粍甯哥敤鐨勫睘鎬у拰鍑芥暟
-| 灞炴€ф垨鍑芥暟 | 鍚箟鎴栧姛鑳?|
-| --- | --- |
-| dtype | 鏁扮粍鍏冪礌鐨勭被鍨?|
-| ndim | 鏁扮粍鏄嚑缁寸殑 |
-| shape | 鏁扮粍姣忎竴缁寸殑闀垮害 |
-| size | 鏁扮粍鍏冪礌涓暟 |
-| argwhere(...) | 鏌ユ壘鍏冪礌浣嶇疆 |
-| tolist() | 杞崲涓簂ist |
-| min() | 鏈€灏忓厓绱?|
-| max() | 鏈€澶у厓绱?|
-| reshape(...) | 鏀瑰彉鏁扮粍鐨勫舰鐘?|
-| hlatten() | 杞崲鎴愪竴缁存暟缁?|
-
-
-#### numpy娣诲姞鏁扮粍鍏冪礌
-numpy鏁扮粍涓€鏃︾敓鎴愶紝鍒欎笉鑳藉鍒狅紝鍙兘杩斿洖涓€涓柊鐨勬暟缁?
-
-| append(x, y锛?| 鑻鏄暟缁勶紝鍒楄〃鎴栧厓缁勶紝灏唝鐨勫厓绱犳坊鍔犺繘鏁扮粍x寰楁柊鐨勬暟缁勶紝鍚﹀垯灏唝鏈韩娣诲姞杩涙暟缁剎寰楁柊鏁扮粍 |
-| --- | --- |
-| concatenate(...) | 鎷兼帴澶氫釜鏁扮粍鎴栧垪琛?|
-| delete(...) | 鍒犻櫎鏁扮粍鍏冪礌鐨勫緱鏂扮殑鏁扮粍 |
-
-
-#### numpy鏁扮粍鐨勬暟瀛﹁繍绠?
-```python
-import numpy as np
-a = np.array((1,2,3,4))
-b = a + 1
-print(b)           #>>[2 3 4 5]
-print(a*b)         #>>[2 6 12 20]   a,b瀵瑰簲鍏冪礌鐩镐箻
-print(a + b)       #>>[3 5 7 9]     a,b瀵瑰簲鍏冪礌鐩稿姞
-c = np.sqrt(a*10)  #>>姹俛*10鐨勫钩鏂硅窡
-```
-
-#### numpy鏁扮粍鐨勫垏鐗?
-numpy鏁扮粍鐨勫垏鐗囨槸鈥樿鍥锯€?
-
-鏄師鏁扮粍鐨勪竴閮ㄥ垎锛岃€岄潪涓€閮ㄥ垎鐨勬嫹璐?
-
-`1:6]`閫夋嫨涓嬫爣涓?鍒?鐨勫厓绱?
-
-`[1:6:2]`閫夋嫨涓嬫爣涓?鍒?鐨勫厓绱?锛屾闀夸负2
-
-`c = np.copy(a[3:6])`c鏄痑鐨勪竴閮ㄥ垎鎷疯礉
-
-鍒囩墖鍚庣殑鏁扮粍鍏冪礌鍊兼敼鍙樻椂锛屽師鏁扮粍鐨勫€艰鏀瑰彉锛岃€屾嫹璐濈殑涓嶄細
-
-### pandas
-#### pandas涓殑绫伙細Series
-Series鏄竴缁磋〃鏍硷紝姣忎釜鍏冪礌甯︽爣绛句笖鏈変笅鏍囷紝鍏煎叿鍒楄〃鍜屽瓧鍏哥殑璁块棶褰㈠紡
-
-`pandas.Series(data,index)`
-
-`data`鏁版嵁椤?
-
-`index`鏁版嵁鐨勬爣绛?
-
-#### DataFrame鐨勬瀯閫犲拰璁块棶
-DataFrame鏄甫琛屽垪鏍囩鐨勪簩缁磋〃鏍硷紝姣忎竴鍒楅兘鏄竴涓猄eries
-
-`df = pandas.DataFrame(data,index,columns)`
-
-`data`鏁版嵁鍒楄〃
-
-`index`琛屾爣绛?
-
-`columns`鍒楁爣绛?
-
-`df.valus`璁块棶鏁版嵁椤?
-
-#### DataFrame鐨勫垏鐗?
-iloc[琛岄€夋嫨鍣紝鍒楅€夋嫨鍣╙      鐢ㄤ笅鏍囧仛鍒囩墖    iloc[1:3,2:3]
-
-loc[琛岄€夋嫨鍣紝鍒楅€夋嫨鍣╙        鐢ㄦ爣绛惧仛鍒囩墖   loc[''index1'':index2, columns1:columns2]
-
-DataFrame鐨勫垏鐗囨槸瑙嗗浘
-
-DataFrame鐨勫垎鏋愮粺璁?
-
-#### DataFrame鐨勭殑淇敼鍜屽鍒?
-鍙互鍦ㄥ垏鐗囩殑鍩虹涓婅繘琛屼慨鏀?
-
-`df[''column1''] = data`涓哄垪娣诲姞鏁版嵁
-
-`df.insert(琛屾爣绛撅紝鍒楁爣绛撅紝data)`鍦ㄦ煇琛屾坊鍔犳煇鍒楁暟鎹?
-
-`df.columns = [columns1, columns2,......]`鏀瑰垪鏍囩鍚?
-
-`df.drop(琛屾垨鍒楋紝axis = 1, implace=True)`axis=0琛ㄧず鎸夎鍒犻櫎锛宎xis=1琛ㄧず鎸夊垪鍒犻櫎
-
-#### pandas璇籈xcel鏂囨。
-闇€瑕佸簱openpyxl锛堝.xlsx锛夋垨xlrd鎴杧lwt鏀寔锛堣€佺殑.xls锛?
-
-璇诲彇鐨勬瘡涓伐浣滆〃閮芥槸涓€涓狣ataFrame
-', NOW());
-SET @last_note_id = LAST_INSERT_ID();
-
-INSERT INTO 
-ote (uthor_id, 	itle, content, created_at)
-VALUES (1002, 'Spring', '# 绠€浠?
-+ 瀵煎寘
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+VALUES (8, 1002, 'Spring', '# 简介
++ 导包
 
 ```xml
 <dependency>
@@ -10569,68 +9650,68 @@ VALUES (1002, 'Spring', '# 绠€浠?
   http://www.springframework.org/schema/aop
   http://www.springframework.org/schema/aop/spring-aop.xsd">
   <!--
-  DataSource : 浣跨敤Spring鐨勬暟鎹簮鏇挎崲Mybatis鐨勯厤缃?
-  杩欓噷浣跨敤Spring鎻愪緵鐨凧DBC锛歰rg.springframework.jdbc.datasource
+  DataSource : 使用Spring的数据源替换Mybatis的配置
+  这里使用Spring提供的JDBC：org.springframework.jdbc.datasource
   -->
 
 </beans>
 ```
 
-+ 浼樼偣
-+ Spring鏄竴涓紑婧愮殑鍏嶈垂鐨勫鍣?
-+ 杞婚噺绾ч潪鍏ヤ镜寮忕殑
-+ 鎺у埗鍙嶈浆锛圛OC锛夛紝闈㈠悜鍒囬潰鍙樻垚锛圓OP锛?
-+ 鏀寔浜嬪姟鐨勫鐞嗭紝瀵规鏋舵暣鍚堢殑鏀寔
-+ 缁勬垚
++ 优点
++ Spring是一个开源的免费的容器
++ 轻量级非入侵式的
++ 控制反转（IOC），面向切面变成（AOP）
++ 支持事务的处理，对框架整合的支持
++ 组成
 
 <img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1749645254430-a64a9a2c-1839-4f2a-b7a6-d2458775f02f.png" width="487" title="" crop="0,0,1,1" id="uee35a4f0" class="ne-image">
 
-+ 鎵╁睍
++ 扩展
 + Spring Boot
-    - 涓€涓揩閫熷紑鍙戠殑鑴氭墜鏋?
-    - 鍩轰簬SpringBoot鍙互蹇€熷紑鍙戝崟涓井鏈嶅姟
-    - 棰勫畾澶т簬閰嶇疆
+    - 一个快速开发的脚手架
+    - 基于SpringBoot可以快速开发单个微服务
+    - 预定大于配置
 + Spring Cloud
-    - Spring Cloud 鏄熀浜嶴pringBoot瀹炵幇鐨?
+    - Spring Cloud 是基于SpringBoot实现的
 +
 
 # beans
-## ioc鍒涘缓瀵硅薄鐨勬柟寮?
-鏃犲弬鏋勯€狅細property
+## ioc创建对象的方式
+无参构造：property
 
-+ 鏍规嵁灞炴€у悕璧嬪€?
-+ name: 灞炴€у悕   value锛氬睘鎬у€?
++ 根据属性名赋值
++ name: 属性名   value：属性值
 
-鏈夊弬鏋勯€狅細constructor-arg
+有参构造：constructor-arg
 
-+ 鏍规嵁涓嬫爣绱㈠紩璧嬪€硷細index="0" value="闅忎究"
-+ 鏍规嵁灞炴€у悕璧嬪€硷細name="name" value="鐫″彉"
-+ 鏍规嵁灞炴€х被鍨嬭祴鍊硷細type="java.lang.String" value="鏄殑"    绫诲瀷锛氬寘鍚?绫诲悕
++ 根据下标索引赋值：index="0" value="随便"
++ 根据属性名赋值：name="name" value="睡变"
++ 根据属性类型赋值：type="java.lang.String" value="是的"    类型：包名+类名
 
 ```xml
 <bean id="user" class="com.jie.pojo.User" name="user3 user4, user5; user6">
 <!--        <property name="name" value="suibian"/>-->
-<!--        <constructor-arg index="0" value="闅忎究"/>-->
-<!--        <constructor-arg name="name" value="鐫″彉"/>-->
-    <constructor-arg type="java.lang.String" value="鏄殑"/>
+<!--        <constructor-arg index="0" value="随便"/>-->
+<!--        <constructor-arg name="name" value="睡变"/>-->
+    <constructor-arg type="java.lang.String" value="是的"/>
 </bean>
 ```
 
-## Spring閰嶇疆
-+ 鍒悕锛歛lias
+## Spring配置
++ 别名：alias
 
 ```xml
-<!--鍒悕锛屽鏋滄坊鍔犱簡鍒悕锛屼篃鍙互浣跨敤鍒悕鑾峰彇杩欎釜瀵硅薄-->
+<!--别名，如果添加了别名，也可以使用别名获取这个对象-->
 <alias name="user" alias="user2"/>
 ```
 
-+ bean锛氱殑閰嶇疆
++ bean：的配置
 
 ```xml
 <!--
-    id:  bean鐨勫敮涓€鏍囪瘑绗︼紝涔熷氨鏄浉褰撲簬瀵硅薄鍚?
-    class: bean 瀵硅薄璇村搴旂殑鍏ㄩ檺瀹氬悕 锛?鍖呭悕 + 绫诲悕
-    name: 涔熸槸鍒悕锛屼笖name鍙互鍙栧涓埆鍚嶏紝鍙敤閫楀彿锛岀┖鏍硷紝鍒嗗彿浣滀负鍒嗛殧绗?
+    id:  bean的唯一标识符，也就是相当于对象名
+    class: bean 对象说对应的全限定名 ： 包名 + 类名
+    name: 也是别名，且name可以取多个别名，可用逗号，空格，分号作为分隔符
 -->
 <bean id="user" class="com.jie.pojo.User" name="user3 user4, user5; user6">
     <property name="name" value="suibian"/>
@@ -10638,8 +9719,8 @@ VALUES (1002, 'Spring', '# 绠€浠?
 ```
 
 + import
-+ 涓€鑸敤浜庡洟闃熷紑鍙戜娇鐢紝浠栧彲浠ュ皢澶氫釜閰嶇疆鏂囦欢锛屽鍏ュ悎骞朵负涓€涓?
-+ 浠栦細鑷姩鍚堝苟鐩稿悓鐨勫唴瀹?
++ 一般用于团队开发使用，他可以将多个配置文件，导入合并为一个
++ 他会自动合并相同的内容
 
 ```xml
 <import resource="beans.xml"/>
@@ -10649,24 +9730,24 @@ VALUES (1002, 'Spring', '# 绠€浠?
 
 
 
-# DI渚濊禆娉ㄥ叆
-## 鏋勯€犲櫒娉ㄥ叆
-鏃犲弬鏋勯€狅細property
+# DI依赖注入
+## 构造器注入
+无参构造：property
 
-鏈夊弬鏋勯€狅細constructor-arg
+有参构造：constructor-arg
 
-## 澶嶆潅绫诲瀷娉ㄥ叆
-+ name锛氱畝鍗曠被鍨嬫敞鍏?
+## 复杂类型注入
++ name：简单类型注入
 
 ```xml
 <bean id="student" class="com.jie.pojo.Student">
 ```
 
-+ ref : 寮曠敤娉ㄥ叆
++ ref : 引用注入
 
 ```xml
 <bean id="address" class="com.jie.pojo.Address">
-    <property name="address" value="鍥涘窛"/>
+    <property name="address" value="四川"/>
 </bean>
 
 <!--ref-->
@@ -10674,46 +9755,46 @@ VALUES (1002, 'Spring', '# 绠€浠?
 
 ```
 
-+ array锛氭暟缁勬敞鍏?
++ array：数组注入
 
 ```xml
 <!--array-->
 <property name="books">
   <array>
-    <value>涓夊浗</value>
-    <value>瑗挎父</value>
-    <value>绾㈡ゼ</value>
-    <value>姘存祾</value>
+    <value>三国</value>
+    <value>西游</value>
+    <value>红楼</value>
+    <value>水浒</value>
   </array>
 </property>
 ```
 
-+ list锛氬垪琛ㄦ敞鍏?
++ list：列表注入
 
 ```xml
 <!--list-->
 <property name="hobbys">
   <list>
-    <value>缇芥瘺鐞?/value>
-    <value>绡悆</value>
-    <value>涔掍箵鐞?/value>
+    <value>羽毛球</value>
+    <value>篮球</value>
+    <value>乒乓球</value>
   </list>
 </property>
 ```
 
-+ map锛氶敭鍊煎
++ map：键值对
 
 ```xml
 <!--map-->
 <property name="card">
   <map>
-    <entry key="鏀挎不闈㈣矊" value="缇や紬"/>
-    <entry key="瑙掕壊" value="瀛︾敓"/>
+    <entry key="政治面貌" value="群众"/>
+    <entry key="角色" value="学生"/>
   </map>
 </property>
 ```
 
-+ set锛氶泦鍚?
++ set：集合
 
 ```xml
 <!--set-->
@@ -10726,7 +9807,7 @@ VALUES (1002, 'Spring', '# 绠€浠?
 </property>
 ```
 
-+ null锛氱┖
++ null：空
 
 ```xml
 <!--null-->
@@ -10736,14 +9817,14 @@ VALUES (1002, 'Spring', '# 绠€浠?
 </property>
 ```
 
-+ properties锛氶厤缃唴瀹?
++ properties：配置内容
 
 ```xml
 <!--properties-->
 <property name="info">
   <props>
     <prop key="url">www.baidu.com</prop>
-    <prop key="name">鐧惧害</prop>
+    <prop key="name">百度</prop>
     <prop key="post">3306</prop>
   </props>
 </property>
@@ -10751,42 +9832,42 @@ VALUES (1002, 'Spring', '# 绠€浠?
 
 
 
-## 浣跨敤鍛藉悕绌洪棿娉ㄥ叆
+## 使用命名空间注入
 ```xml
-<!--浣跨敤杩噋鍛藉悕绌洪棿娉ㄥ叆锛屽彲浠ョ洿鎺ユ敞鍏ュ睘鎬х殑鍊硷細property-->
-<bean id="user" class="com.jie.pojo.User" p:name="寮犱笁" p:age="12"/>
-<!--浣跨敤杩嘽鍛藉悕绌洪棿娉ㄥ叆锛屾敞鍏ュ睘鎬х殑鍊硷細constructor-->
-<bean id="user2" class="com.jie.pojo.User" c:name="鏉? c:age="12"/>
+<!--使用过p命名空间注入，可以直接注入属性的值：property-->
+<bean id="user" class="com.jie.pojo.User" p:name="张三" p:age="12"/>
+<!--使用过c命名空间注入，注入属性的值：constructor-->
+<bean id="user2" class="com.jie.pojo.User" c:name="李" c:age="12"/>
 ```
 
-## bean鐨勪綔鐢ㄥ煙
-+ 鍗曚緥妯″紡锛圫pring榛樿鏈哄埗锛?
+## bean的作用域
++ 单例模式（Spring默认机制）
 
 ```xml
 <bean id="user" class="com.jie.pojo.User" 
-  p:name="寮犱笁" p:age="12" scope="singleton"/>
+  p:name="张三" p:age="12" scope="singleton"/>
 ```
 
-+ 鍘熷瀷妯″紡锛氭瘡娆′粠瀹瑰櫒涓璯et鐨勬椂鍊欙紝閮戒細浜х敓涓€涓瀵硅薄
++ 原型模式：每次从容器中get的时候，都会产生一个姓对象
 
 ```xml
 <bean id="user2" class="com.jie.pojo.User" 
-  c:_0="鏉? c:_1="12" scope="prototype"/>
+  c:_0="李" c:_1="12" scope="prototype"/>
 ```
 
-+ 鍏朵綑鐨剅equesr, session, applicatiioin, 杩欎簺閮藉彧鑳藉湪web寮€鍙戜腑浣跨敤
++ 其余的requesr, session, applicatiioin, 这些都只能在web开发中使用
 
-# Bean鐨勮嚜鍔ㄨ閰?
-## autowier锛?
-+ byName:浼氳嚜鍔ㄥ湪瀹瑰櫒涓婁笅鏂囦腑鏌ユ壘锛屽拰鑷繁瀵硅薄set鏂规硶鍚庨潰鐨勫€煎搴旂殑bean id
-+ byType:浼氳嚜鍔ㄥ湪瀹瑰櫒涓婁笅鏂囦腑鏌ユ壘锛屽拰鑷繁瀵硅薄灞炴€х被鍨嬬浉鍚岀殑bean 蹇呴』淇濊瘉绫诲瀷鍏ㄥ眬鍞竴
+# Bean的自动装配
+## autowier：
++ byName:会自动在容器上下文中查找，和自己对象set方法后面的值对应的bean id
++ byType:会自动在容器上下文中查找，和自己对象属性类型相同的bean 必须保证类型全局唯一
 
 ```xml
 <bean id="cat" class="com.jie.pojo.Cat"/>
 <bean id="dog" class="com.jie.pojo.Dog"/>
 
 <bean id="people" class="com.jie.pojo.People" autowire="byType">
-  <property name="name" value="寮犱笁"/>
+  <property name="name" value="张三"/>
 </bean>
 ```
 
@@ -10796,11 +9877,11 @@ private Dog dog;
 private String name;
 ```
 
-## 浣跨敤娉ㄨВ鑷姩瑁呴厤
-瑕佷娇鐢ㄦ敞瑙ｉ』鐭ワ細
+## 使用注解自动装配
+要使用注解须知：
 
-+ 瀵煎叆绾︽潫
-+ 閰嶇疆娉ㄨВ鏀寔  <context:annotation-config/>
++ 导入约束
++ 配置注解支持  <context:annotation-config/>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -10821,16 +9902,16 @@ private String name;
 
 @Autowired
 
-+ 鐩存帴鍦ㄥ睘鎬т笂浣跨敤鍗冲彲锛佷篃鍙互鍦╯et鏂规硶涓婁娇鐢?
-+ 浣跨敤Autowired鍙互涓嶇敤缂栧啓set鏂规硶浜嗭紝鍓嶆彁鏄繖涓嚜鍔ㄨ閰嶇殑灞炴€у湪IOC瀹瑰櫒涓瓨鍦紝涓旂鍚堝悕瀛梑yName
-+ 濡傛灉鏄剧ず瀹氫箟浜咥utowired鐨剅equired灞炴€т负false锛岃鏄庤繖涓璞″彲浠ヤ负null
++ 直接在属性上使用即可！也可以在set方法上使用
++ 使用Autowired可以不用编写set方法了，前提是这个自动装配的属性在IOC容器中存在，且符合名字byName
++ 如果显示定义了Autowired的required属性为false，说明这个对象可以为null
 
 ```java
 @Autowired(required=false)
 private Cat cat;
 ```
 
-+ 濡傛灉@Autowired鑷姩瑁呴厤鐨勭幆澧冩瘮杈冨鏉傦紝鑷姩瑁呴厤鏃犳硶閫氳繃涓€涓敞瑙ｃ€怈Autowired銆戝畬鎴愮殑鏃跺€欙紝鍙互浣跨敤@Qualifier(value="xxx")鍘婚厤鍚園Autowired鐨勪娇鐢紝鎸囧畾涓€涓敮涓€鐨刡ean瀵硅薄娉ㄥ叆
++ 如果@Autowired自动装配的环境比较复杂，自动装配无法通过一个注解【@Autowired】完成的时候，可以使用@Qualifier(value="xxx")去配合@Autowired的使用，指定一个唯一的bean对象注入
 
 ```java
 @Autowired
@@ -10840,9 +9921,9 @@ private Cat cat;
 
 +
 
-# 浣跨敤娉ㄨВ寮€鍙?
-+ 鍦⊿pring4涔嬪悗锛岃浣跨敤娉ㄨВ寮€鍙戯紝蹇呴』瑕佷繚閲峚op鐨勫寘瀵煎叆浜?
-+ 浣跨敤娉ㄨВ闇€瑕佸鍏ontext鐨勭害鏉燂紝澧炲姞娉ㄨВ鐨勬敮鎸?
+# 使用注解开发
++ 在Spring4之后，要使用注解开发，必须要保重aop的包导入了
++ 使用注解需要导入context的约束，增加注解的支持
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -10853,7 +9934,7 @@ private Cat cat;
   http://www.springframework.org/schema/beans/spring-beans.xsd
   http://www.springframework.org/schema/context
   http://www.springframework.org/schema/context/spring-context.xsd">
-  <!--鎸囧畾瑕佹壂鎻忕殑鍖咃紝杩欎釜鍖呬笅鐨勬敞瑙ｅ氨浼氱敓鏁?->
+  <!--指定要扫描的包，这个包下的注解就会生效-->
   <context:component-scan base-package="com.jie"/>
   <context:annotation-config/>
 
@@ -10861,64 +9942,64 @@ private Cat cat;
 ```
 
 + bean
-+ 灞炴€т娇鐢ㄦ敞瑙ｆ敞鍏?
++ 属性使用注解注入
 
 ```java
-// 鐩稿綋浜?<bean id="user" class="com.jie.pojo.User"/>
+// 相当于 <bean id="user" class="com.jie.pojo.User"/>
 @Component
 public class User {
-    // 鐩稿綋浜?<property name="name" value="寮犱笁"/>
-    @Value("寮犱笁")
+    // 相当于 <property name="name" value="张三"/>
+    @Value("张三")
     public String name;
 }
 
 ```
 
-+ 琛嶇敓鐨勬敞瑙?
-    - @Component鏈夊嚑涓鐢熺殑娉ㄨВ锛屽湪web寮€鍙戜腑锛屼細鎸夌収mvc涓夋鏋舵瀯鍒嗗眰锛?
-    - dao 銆怈Repository銆?
-    - service 銆怈Service
-    - controller 銆怈Controller銆?
-    - 杩欏洓涓敞瑙ｅ姛鑳介兘鏄竴鏍风殑锛岄兘鏄唬琛ㄥ皢鏌愪釜绫荤鐨勫埌Spring涓紝瑁呴厤bean锛?
-+ 鑷姩瑁呴厤鐨勬敞瑙?
-    - @Autowired锛?
++ 衍生的注解
+    - @Component有几个衍生的注解，在web开发中，会按照mvc三次架构分层！
+    - dao 【@Repository】
+    - service 【@Service
+    - controller 【@Controller】
+    - 这四个注解功能都是一样的，都是代表将某个类租的到Spring中，装配bean！
++ 自动装配的注解
+    - @Autowired：
     - @Nullable
     - @Resource
-+ 浣滅敤鍩?
++ 作用域
     - @Scope("singleton")
-+ 灏忕粨
-    - xml鐢ㄦ潵绠＄悊bean
-    - 娉ㄨВ鍙礋璐ｅ畬鎴愬睘鎬х殑娉ㄥ叆
-    - 鍦ㄤ娇鐢ㄧ殑杩囩▼涓紝蹇呴』璁╂敞瑙ｇ敓鏁?
++ 小结
+    - xml用来管理bean
+    - 注解只负责完成属性的注入
+    - 在使用的过程中，必须让注解生效
 
-# 浣跨敤Java鐨勬柟寮忛厤缃甋pring
-+ comfig閰嶇疆绫?
+# 使用Java的方式配置Spring
++ comfig配置类
 
 ```java
-// 杩欎釜浼氳Spring瀹瑰櫒鎵樼锛屾敞鍐屽埌瀹瑰櫒涓紝鍥犱负瀹冩湰韬氨鏄竴涓狜Component
-// @Configuration 浠ｈ〃杩欐槸涓€涓厤缃被锛屽氨鍜宐eans.xml涓€鏍?
+// 这个会被Spring容器托管，注册到容器中，因为它本身就是一个@Component
+// @Configuration 代表这是一个配置类，就和beans.xml一样
 @Configuration
 @ComponentScan("com.jie.pojo")
 public class JieConfig {
 
-    // 娉ㄥ唽涓€涓猙ean锛?
-    // 杩欎釜鏂规硶鐨勫悕瀛楀氨鐩稿綋浜?id
-    // 杩欎釜鏀惧洖鍙氨鐩稿綋浜?class
+    // 注册一个bean，
+    // 这个方法的名字就相当于 id
+    // 这个放回只就相当于 class
     @Bean
     public User user() {
-        return new User();  // 杩斿洖瑕佹敞鍏ュ埌bean鐨勫璞?
+        return new User();  // 返回要注入到bean的对象
     }
 
 }
 ```
 
-+ 瀹炰綋绫?
++ 实体类
 
 ```java
 @Component
 public class User {
 
-    @Value("闅忎究")
+    @Value("随便")
     private String name;
 
     public String getName() {
@@ -10931,15 +10012,15 @@ public class User {
 }
 ```
 
-+ 娴嬭瘯绫?
++ 测试类
 
 ```java
 public class MyTest {
 
     @Test
     public void test() {
-        // 濡傛灉瀹屽叏浣跨敤浜嗛厤缃被鐨勬柟寮忓幓鍋氾紝鍙兘閫氳繃 AnnotationConfigApplicationContext 鏉ヨ幏鍙栧鍣?
-        // 鍕囨暍閰嶇疆绫荤殑class瀵硅薄鍔犺浇
+        // 如果完全使用了配置类的方式去做，只能通过 AnnotationConfigApplicationContext 来获取容器
+        // 勇敢配置类的class对象加载
         ApplicationContext context = new AnnotationConfigApplicationContext(JieConfig.class);
         User user = context.getBean("user", User.class);
         System.out.println(user.getName());
@@ -10947,41 +10028,41 @@ public class MyTest {
 }
 ```
 
-# 浠ｇ悊妯″紡
-## 闈欐€佷唬鐞嗘ā寮?
-瑙掕壊鍒嗘瀽锛?
+# 代理模式
+## 静态代理模式
+角色分析：
 
-+ 鎶借薄瑙掕壊锛氫竴鑸細浣跨敤鎺ュ彛鎴栬€呮娊璞＄被鏉ヨВ鍐?
-+ 鐪熷疄瑙掕壊锛氳浠ｇ悊鐨勮鑹?
-+ 浠ｇ悊瑙掕壊锛氫唬鐞嗙湡瀹炶鑹诧紝浠ｇ悊鐪熷疄瑙掕壊鍚庯紝涓€鑸細鍋氫竴浜涢檮灞炴搷浣?
-+ 瀹㈡埛锛氳闂唬鐞嗗璞＄殑浜?
++ 抽象角色：一般会使用接口或者抽象类来解决
++ 真实角色：被代理的角色
++ 代理角色：代理真实角色，代理真实角色后，一般会做一些附属操作
++ 客户：访问代理对象的人
 
-浠ｇ爜娴嬭瘯锛?
+代码测试：
 
-+ 鎶借薄瑙掕壊锛屾帴鍙?
++ 抽象角色，接口
 
 ```java
-// 鎶借薄锛屽叕鍏辩殑鏂规硶
+// 抽象，公共的方法
 public interface Rent {
     public void rent();
 }
 ```
 
-+ 鐪熷疄瑙掕壊锛屾埧涓?
++ 真实角色，房东
 
 ```java
-// 鐪熷疄瑙掕壊 锛?瀹炵幇鍏叡鏂规硶
+// 真实角色 ， 实现公共方法
 public class Host implements Rent {
     public void rent() {
-        System.out.println("鎴夸笢鍑虹鎴垮瓙");
+        System.out.println("房东出租房子");
     }
 }
 ```
 
-+ 浠ｇ悊瑙掕壊锛屼腑浠?
++ 代理角色，中介
 
 ```java
-// 浠ｇ悊瑙掕壊锛屽彲浠ュ疄鐜颁竴浜涢檮灞炴搷浣?
+// 代理角色，可以实现一些附属操作
 public class Proxy implements Rent {
 
     private Rent rent;
@@ -10994,48 +10075,48 @@ public class Proxy implements Rent {
         fare();
     }
 
-    // 鐪嬫埧
+    // 看房
     public void seeHouse() {
-        System.out.println("涓粙甯︿綘鐪嬫埧");
+        System.out.println("中介带你看房");
     }
 
-    // 鏀朵腑浠嬭垂
+    // 收中介费
     public void fare() {
-        System.out.println("鏀朵腑浠嬭垂");
+        System.out.println("收中介费");
     }
 }
 ```
 
-+ 瀹㈡埛锛氱鎴跨殑浜?
++ 客户：租房的人
 
 ```java
 public class Client {
 
     public static void main(String[] args) {
         Host host = new Host();
-        // 浠ｇ悊
+        // 代理
         Proxy proxy = new Proxy(host);
         proxy.rent();
     }
 }
 ```
 
-## 鍔ㄦ€佷唬鐞?
-+ 鍔ㄦ€佷唬鐞嗗拰闈欐€佷唬鐞嗚鑹蹭竴鏍?
-+ 鍔ㄦ€佷唬鐞嗙殑浠ｇ悊绫诲瀷鏄姩鎬佺敓鎴愮殑锛屼笉鏄垜浠洿鎺ュ啓濂界殑锛?
-+ 鍔ㄦ€佷唬鐞嗗垎涓轰袱澶х被锛氬熀浜庢帴鍙ｇ殑鍔ㄦ€佷唬鐞嗭紝鍩轰簬绫荤殑鍔ㄦ€佷唬鐞?
-    - 鍩轰簬鎺ュ彛 --- JDK 鍔ㄦ€佷唬鐞?
-    - 鍩轰簬绫伙細cglib
-    - Java瀛楄妭鐮佸疄鐜帮細javasist
+## 动态代理
++ 动态代理和静态代理角色一样
++ 动态代理的代理类型是动态生成的，不是我们直接写好的，
++ 动态代理分为两大类：基于接口的动态代理，基于类的动态代理
+    - 基于接口 --- JDK 动态代理
+    - 基于类：cglib
+    - Java字节码实现：javasist
 
-闇€瑕佷簡瑙ｄ袱涓被锛歅roxy锛氫唬鐞嗭紝InvocationHandler锛氳皟鐢ㄥ鐞嗙▼搴?
+需要了解两个类：Proxy：代理，InvocationHandler：调用处理程序
 
-娴嬭瘯锛?
+测试：
 
-+ 鎶借薄瑙掕壊锛?
++ 抽象角色：
 
 ```java
-// 鎶借薄瑙掕壊
+// 抽象角色
 public interface UserService {
     public void add();
     public void delete();
@@ -11044,86 +10125,86 @@ public interface UserService {
 }
 ```
 
-+ 鐪熷疄瑙掕壊
++ 真实角色
 
 ```java
-// 鐪熷疄瑙掕壊
+// 真实角色
 public class UserServiceImpl implements UserService{
     @Override
     public void add() {
-        System.out.println("娣诲姞浜嗕竴涓敤鎴?);
+        System.out.println("添加了一个用户");
     }
     @Override
     public void delete() {
-        System.out.println("鍒犻櫎浜嗕竴涓敤鎴?);
+        System.out.println("删除了一个用户");
     }
     @Override
     public void query() {
-        System.out.println("鏌ヨ浜嗕竴涓敤鎴?);
+        System.out.println("查询了一个用户");
     }
     @Override
     public void update() {
-        System.out.println("淇敼浜嗕竴涓敤鎴?);
+        System.out.println("修改了一个用户");
     }
 }
 ```
 
-+ 瀹炵幇鍔ㄦ€佷唬鐞嗙被InvocationHandler鎺ュ彛
++ 实现动态代理类InvocationHandler接口
 
 ```java
-// 鍔ㄦ€佷唬鐞嗙被 鍏敤
+// 动态代理类 公用
 public class ProxyInvocationHandler implements InvocationHandler {
-    // 琚唬鐞嗙殑鎺ュ彛
+    // 被代理的接口
     private Object target;
     public void setTarget(Object target) {
         this.target = target;
     }
-    // 鐢熸垚寰楀埌浠ｇ悊绫?
+    // 生成得到代理类
     public Object getProxy() {
         return Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), this);
     }
-    // 澶勭悊浠ｇ悊瀹炰緥锛屽苟杩斿洖缁撴灉
+    // 处理代理实例，并返回结果
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         log(method.getName());
         Object result = method.invoke(target, args);
         return result;
     }
-    // 璁剧疆鏃ュ織
+    // 设置日志
     public void log(String msg) {
-        System.out.println("鎵ц浜? + msg + "鏂规硶");
+        System.out.println("执行了" + msg + "方法");
     }
 }
 ```
 
-+ 瀹㈡埛绔?
++ 客户端
 
 ```java
-// 鐢ㄦ埛
+// 用户
 public class Client {
     public static void main(String[] args) {
-        // 鐪熷疄瑙掕壊
+        // 真实角色
         UserServiceImpl userService = new UserServiceImpl();
-        // 浠ｇ悊瑙掕壊
+        // 代理角色
         ProxyInvocationHandler pih = new ProxyInvocationHandler();
-        // 璁剧疆瑕佷唬鐞嗙殑瀵硅薄
+        // 设置要代理的对象
         pih.setTarget(userService);
-        // 鍔ㄦ€佺敓鎴愪唬鐞嗙被
+        // 动态生成代理类
         UserService proxy = (UserService) pih.getProxy();
-        // 鎵ц鐪熷疄瑙掕壊涓殑鏂规硶
+        // 执行真实角色中的方法
         proxy.add();
     }
 }
 ```
 
-鍔ㄦ€佷唬鐞嗙殑濂藉锛?
+动态代理的好处：
 
-+ 涓€涓姩鎬佷唬鐞嗙被浠ｇ悊鐨勬槸鎺ュ彛锛屼竴鑸唬鐞嗙殑鏄竴绫绘帴鍙?
-+ 涓€涓姩鎬佷唬鐞嗙被锛屽彲浠ヤ唬鐞嗗涓被锛屽彧瑕佸疄鐜颁簡鍚屼竴涓帴鍙ｅ嵆鍙?
++ 一个动态代理类代理的是接口，一般代理的是一类接口
++ 一个动态代理类，可以代理多个类，只要实现了同一个接口即可
 
 # AOP
-## 鐢⊿pring瀹炵幇AOP
-## 鎺ュ彛鍜屽疄鐜扮被
+## 用Spring实现AOP
+## 接口和实现类
 ```java
 public interface UserService {
     public void add();
@@ -11137,30 +10218,30 @@ public interface UserService {
 public class UserServiceImpl implements UserService {
     @Override
     public void add() {
-        System.out.println("娣诲姞浜嗕竴涓敤鎴?);
+        System.out.println("添加了一个用户");
     }
 
     @Override
     public void delete() {
-        System.out.println("鍒犻櫎浜嗕竴涓敤鎴?);
+        System.out.println("删除了一个用户");
     }
 
     @Override
     public void update() {
-        System.out.println("淇敼浜嗕竴涓敤鎴?);
+        System.out.println("修改了一个用户");
     }
 
     @Override
     public void query() {
-        System.out.println("鏌ヨ浜嗕竴涓敤鎴?);
+        System.out.println("查询了一个用户");
     }
 }
 ```
 
-## 鏂瑰紡涓€
-浣跨敤Spring鐨凙PI鎺ュ彛
+## 方式一
+使用Spring的API接口
 
-+ 閰嶇疆applicationContext.xml
++ 配置applicationContext.xml
 
 ```java
 <?xml version="1.0" encoding="UTF-8"?>
@@ -11172,17 +10253,17 @@ public class UserServiceImpl implements UserService {
                            http://www.springframework.org/schema/aop
                            http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <!--娉ㄥ唽bean-->
+    <!--注册bean-->
     <bean id="userService" class="com.jie.service.UserServiceImpl"/>
     <bean id="log" class="com.jie.log.Log"/>
     <bean id="afterLog" class="com.jie.log.AfterLog"/>
 
-    <!--閰嶇疆aop:闇€瑕佸鍏op鐨勭害鏉?->
+    <!--配置aop:需要导入aop的约束-->
     <aop:config>
-        <!--鍒囧叆鐐癸細expression锛氳〃杈惧紡, execution(瑕佹墽琛岀殑浣嶇疆锛?* * * * )-->
+        <!--切入点：expression：表达式, execution(要执行的位置！ * * * * )-->
         <aop:pointcut id="pointcut" expression="execution(* com.jie.service.UserServiceImpl.*(..))"/>
 
-        <!-- 鎵ц鐜粫澧炲姞锛乤dvisor -->
+        <!-- 执行环绕增加！advisor -->
         <aop:advisor advice-ref="log" pointcut-ref="pointcut"/>
         <aop:advisor advice-ref="afterLog" pointcut-ref="pointcut"/>
     </aop:config>
@@ -11190,10 +10271,10 @@ public class UserServiceImpl implements UserService {
 </beans>
 ```
 
-## 鏂瑰紡浜?
-鑷畾涔夋潵瀹炵幇AOP
+## 方式二
+自定义来实现AOP
 
-+ 鑷畾涔塂iy绫?
++ 自定义Diy类
 
 ```java
 public class DiyPointCat {
@@ -11206,45 +10287,45 @@ public class DiyPointCat {
 }
 ```
 
-+ 閰嶇疆applicationContext.xml
++ 配置applicationContext.xml
 
 ```java
 <bean id="diy" class="com.jie.diy.DiyPointCat"/>
 
 <aop:config>
     <aop:aspect ref="diy">
-        <!--璁剧疆鍒囧叆鐐?鍗冲皢瑕佽繍琛岃繖涓嚱鏁颁箣鍓?->
+        <!--设置切入点 即将要运行这个函数之前-->
         <aop:pointcut id="point" expression="execution(* com.jie.service.UserServiceImpl.*(..))"/>
-        <!--鍦ㄤ箣鍓峬ethod 鍑芥暟 锛?pointcut-ref 锛?鍒囧叆璺緞-->
+        <!--在之前method 函数 ， pointcut-ref ： 切入路径-->
         <aop:before method="before" pointcut-ref="point"/>
-        <!--鍦ㄤ箣鍚巑ethod 鍑芥暟 锛?pointcut-ref 锛?鍒囧叆璺緞-->
+        <!--在之后method 函数 ， pointcut-ref ： 切入路径-->
         <aop:after method="after" pointcut-ref="point"/>
     </aop:aspect>
 </aop:config>
 ```
 
-## 娴嬭瘯
+## 测试
 ```java
 public class MyTest {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        // 鍔ㄦ€佷唬鐞嗕唬鐞嗙殑鏄帴鍙?
+        // 动态代理代理的是接口
         UserService service = (UserService) context.getBean("userService");
         service.update();
     }
 }
 ```
 
-## 浣跨敤娉ㄨВ瀹炵幇
-+ 娉ㄨВ鍒囬潰绫?
+## 使用注解实现
++ 注解切面类
 
 ```java
-@Aspect // 浣跨敤娉ㄨВ鏍囧織杩欐槸涓€涓垏闈㈢被
+@Aspect // 使用注解标志这是一个切面类
 public class AnnotationPointCut {
 
     @Before("execution(* com.jie.service.UserServiceImpl.*(..))")
     public void before() {
-        System.out.println("=========鏂规硶鎵ц鍓?=========");
+        System.out.println("=========方法执行前==========");
     }
 
     @After("execution(* com.jie.service.UserServiceImpl.*(..))")
@@ -11254,32 +10335,32 @@ public class AnnotationPointCut {
 
     @Around("execution(* com.jie.service.UserServiceImpl.*(..))")
     public void around(ProceedingJoinPoint joinPoint) throws Throwable {
-        System.out.println("鐜粫鍓?);
+        System.out.println("环绕前");
         System.out.println(joinPoint.getSignature().getDeclaringType().getName());
         Object proceed = joinPoint.proceed();
-        System.out.println("鐜粫鍚?);
+        System.out.println("环绕后");
     }
 
 }
 ```
 
-+ applicantionContext.xml閰嶇疆
++ applicantionContext.xml配置
 
 ```xml
-<!--娉ㄥ唽bean-->
+<!--注册bean-->
 <bean id="userService" class="com.jie.service.UserServiceImpl"/>
 <bean id="log" class="com.jie.log.Log"/>
 <bean id="afterLog" class="com.jie.log.AfterLog"/>
 <bean id="annotationPointCut" class="com.jie.diy.AnnotationPointCut"/>
 
-<!--浣跨敤aop瀹炵幇娉ㄨВ浠ｇ悊-->
+<!--使用aop实现注解代理-->
 <aop:aspectj-autoproxy/>
 ```
 
 # Mybatis-Spring
-鏂规硶涓€
+方法一
 
-+ UserMapper 鎺ュ彛锛?
++ UserMapper 接口，
 
 ```java
 public interface UserMapper {
@@ -11287,7 +10368,7 @@ public interface UserMapper {
 }
 ```
 
-+ UserMapper.xml, 鍐橲QL璇彞
++ UserMapper.xml, 写SQL语句
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -11301,18 +10382,18 @@ public interface UserMapper {
 </mapper>
 ```
 
-+ mybatis-config.xml 涓昏閰嶇疆鏄痵ettings锛宼ypeAliases(鍒悕)
++ mybatis-config.xml 主要配置是settings，typeAliases(别名)
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-config.dtd">
-<!--configuration 鏍稿績閰嶇疆鏂囦欢-->
+<!--configuration 核心配置文件-->
 <configuration>
     <settings>
         <setting name="logImpl" value="STDOUT_LOGGING"/>
-        <!--鏄惧紡寮€鍚粯璁ょ紦瀛?->
+        <!--显式开启默认缓存-->
         <setting name="cacheEnabled" value="true"/>
     </settings>
 
@@ -11322,7 +10403,7 @@ public interface UserMapper {
 </configuration>
 ```
 
-+ spring-mapper.xml, 鏁版嵁婧愶紝SqlSessionFactory锛孲qlSessionTemplate
++ spring-mapper.xml, 数据源，SqlSessionFactory，SqlSessionTemplate
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -11337,8 +10418,8 @@ public interface UserMapper {
                            http://www.springframework.org/schema/aop
                            http://www.springframework.org/schema/aop/spring-aop.xsd">
     <!--
-        DataSource : 浣跨敤Spring鐨勬暟鎹簮鏇挎崲Mybatis鐨勯厤缃?
-        杩欓噷浣跨敤Spring鎻愪緵鐨凧DBC锛歰rg.springframework.jdbc.datasource
+        DataSource : 使用Spring的数据源替换Mybatis的配置
+        这里使用Spring提供的JDBC：org.springframework.jdbc.datasource
     -->
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -11351,12 +10432,12 @@ public interface UserMapper {
     <!--SqlSessionFactory-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <!--缁戝畾Mybatis閰嶇疆鏂囦欢-->
+        <!--绑定Mybatis配置文件-->
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <property name="mapperLocations" value="com/jie/mapper/UserMapper.xml"/>
      </bean>
 
-    <!--SqlSessionTemplate: 鍗硊tils涓殑SqlSession-->
+    <!--SqlSessionTemplate: 即utils中的SqlSession-->
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg index="0" ref="sqlSessionFactory"/>
     </bean>
@@ -11364,7 +10445,7 @@ public interface UserMapper {
 </beans>
 ```
 
-+ UserMapperImpl, 缁欐帴鍙ｆ坊鍔犲疄鐜扮被
++ UserMapperImpl, 给接口添加实现类
 
 ```java
 public class UserMapperImpl implements UserMapper {
@@ -11383,7 +10464,7 @@ public class UserMapperImpl implements UserMapper {
 }
 ```
 
-+ applicationContext.xml锛屽皢瀹炵幇绫绘敞鍏ュ埌Spring涓?
++ applicationContext.xml，将实现类注入到Spring中
 
 ```java
 <?xml version="1.0" encoding="UTF-8"?>
@@ -11406,7 +10487,7 @@ public class UserMapperImpl implements UserMapper {
 </beans>
 ```
 
-+ 娴嬭瘯浣跨敤
++ 测试使用
 
 ```java
 public class UserMapperTest {
@@ -11423,9 +10504,9 @@ public class UserMapperTest {
 }
 ```
 
-鏂规硶浜?
+方法二
 
-+ 鏇存敼鎺ュ彛瀹炵幇绫伙紝闇€瑕佺户鎵縎qlSessionDaoSupport绫?
++ 更改接口实现类，需要继承SqlSessionDaoSupport类
 
 ```java
 public class UserMapperImpl2 extends SqlSessionDaoSupport implements UserMapper {
@@ -11437,7 +10518,7 @@ public class UserMapperImpl2 extends SqlSessionDaoSupport implements UserMapper 
 }
 ```
 
-+ 灏嗗疄鐜扮被娉ㄥ叆鍒癝pring涓?
++ 将实现类注入到Spring中
 
 ```java
 <?xml version="1.0" encoding="UTF-8"?>
@@ -11457,7 +10538,7 @@ public class UserMapperImpl2 extends SqlSessionDaoSupport implements UserMapper 
 </beans>
 ```
 
-+ 娴嬭瘯瀹炵幇
++ 测试实现
 
 ```java
 public class UserMapperTest {
@@ -11474,8 +10555,8 @@ public class UserMapperTest {
 }
 ```
 
-# 澹版槑寮忎簨鍔?
-+ 澹版槑寮忎簨鍔★紝鐢ˋOP瀹炵幇
+# 声明式事务
++ 声明式事务，用AOP实现
 
 ```java
 <?xml version="1.0" encoding="UTF-8"?>
@@ -11490,13 +10571,13 @@ public class UserMapperTest {
                            http://www.springframework.org/schema/aop
                            http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <!--閰嶇疆澹版槑寮忎簨鍔?->
+    <!--配置声明式事务-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <!--缁撳悎aop瀹炵幇浜嬪姟鐨勭粐鍏?->
-    <!-- 閰嶇疆浜嬪姟閫氱煡 -->
+    <!--结合aop实现事务的织入-->
+    <!-- 配置事务通知 -->
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="add" propagation="REQUIRED"/>
@@ -11507,7 +10588,7 @@ public class UserMapperTest {
         </tx:attributes>
     </tx:advice>
 
-    <!--閰嶇疆浜嬪姟鍒囧叆-->
+    <!--配置事务切入-->
     <aop:config>
         <aop:pointcut id="txPointCat" expression="execution(* com.jie.mapper.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCat"/>
@@ -11515,59 +10596,950 @@ public class UserMapperTest {
 
 </beans>
 ```
-', NOW());
-SET @last_note_id = LAST_INSERT_ID();
+', 0, NOW());
 
-INSERT INTO 
-ote (uthor_id, 	itle, content, created_at)
-VALUES (1003, 'HTML', '## 缃戦〉鐨勫熀鏈爣绛?
-+ 鏍囬鏍囩
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+VALUES (9, 1002, 'python基础', '### 数据类型
+int:整数，123；float：小数，1.2，complex：复数,1+2i；str：字符串，“abc”；list：列表，[1,''ok];tuple：元祖，(1,3,''ok'');bool：布尔，True.False;dict：字典，{"tom":20,"jack":30};set：集合, {"tom".16,20}
 
-```html
-<h1>涓€绾ф爣绛?/h1>
-<h2>浜岀骇鏍囩</h2>
-<h3>涓夌骇鏍囩</h3>
-<h4>鍥涚骇鏍囩</h4>
-<h5>浜旂骇鏍囩</h5>
-<h6>鍏骇鏍囩</h6>
+### 输入输出
+```python
+#不换行输出：end=""
+print(1, 2, 3, end="")
+print("ok")
+#输入 
+x = input(y)
 ```
 
-+ 娈佃惤鏍囩
+占位符：%s(字符串)；%d(整数)；%f(小数)；%.nf(保留n位的小数)
 
-```html
-<p>鏂囨湰鍐呭</p>
-<p>鏂囨湰鍐呭2</p>
+### 运算符
+算数运算符： +(加),-(减), *(乘), /(除,float), %(取模), //(求商,int), **(求幂) 优先级 1）**；2）*, /, //, %；3) + -
+
+关系运算符 ==  !=  >  <  >=  <=
+
+逻辑运算符：and   or    not     优先级 not>and>or
+
+bool类型： True, False
+
+### 条件分支语句
+`if` 逻辑表达式1：
+
+       语句组1  
+`else`    ：
+
+       语句组2
+
+### 循环语句
+#### for循环语句
+`for`变量 `in`可迭代对象:
+
+          #循环体代码
+
+`<font style="color:rgb(6, 6, 7);">可迭代对象</font>`<font style="color:rgb(6, 6, 7);">：可以是列表、元组、字符串、字典、集合等，也可以是其他支持迭代的对象（如文件对象、生成器等）</font>
+
+`<font style="color:rgb(6, 6, 7);">range()</font>`<font style="color:rgb(6, 6, 7);"> 函数可以生成一个整数序列，常用于控制循环次数。</font>
+
+```python
+for i in range(1, 10, 2)    #从1到9 步长为2
+    pirnt(i)
 ```
 
-+ 鎹㈣鏍囩
+`break`<font style="color:rgb(6, 6, 7);">：退出循环。</font>
 
-```html
-<p>鏂囨湰鍐呭<br/></p>
+`continue`<font style="color:rgb(6, 6, 7);">：跳过当前循环，进入下一次循环。</font>
+
+#### while 循环
+`while` 条件：
+
+       #循环体代码
+
+`else`:
+
+      #语句组
+
+条件：一个布尔表达式 如果条件为True则执行循环。反之则退出循环
+
+### 异常处理
+`try` :
+
+ 	<语句组1>
+
+`except`:
+
+<语句组2>
+
+### 函数
+**<font style="color:rgb(6, 6, 7);">函数</font>**<font style="color:rgb(6, 6, 7);">是一种封装了一段代码的逻辑结构，用于执行特定任务，用关键字</font>`<font style="color:rgb(6, 6, 7);">def</font>`<font style="color:rgb(6, 6, 7);">自定义函数</font>
+
+```python
+def function_name(parameters):
+    # 函数体
+    # 执行代码
+    return value  # 可选，返回值
 ```
 
-+ 姘村钩绾挎爣绛?
++ `**def**`<font style="color:rgb(6, 6, 7);">：定义函数的关键字。</font>
++ `**function_name**`<font style="color:rgb(6, 6, 7);">：函数名称，应符合变量命名规则。</font>
++ `**parameters**`<font style="color:rgb(6, 6, 7);">：参数列表，用于传递值到函数内部（可选）。</font>
++ `**return**`<font style="color:rgb(6, 6, 7);">：返回值，函数执行完毕后返回的结果（可选）。</font>
+
+#### 参数类型
+<font style="color:rgb(6, 6, 7);">位置参数：按顺序传递参数。</font>
+
+<font style="color:rgb(6, 6, 7);">关键字参数：通过参数名传递参数。</font>
+
+<font style="color:rgb(6, 6, 7);">默认参数：参数有默认值，调用时可省略。</font>
+
+**<font style="color:rgb(6, 6, 7);">可变参数</font>**<font style="color:rgb(6, 6, 7);">：</font>
+
+`*args`<font style="color:rgb(6, 6, 7);">：接收多个位置参数，返回元组。</font>
+
+`**kwargs`<font style="color:rgb(6, 6, 7);">：接收多个关键字参数，返回字典</font>
+
+##### <font style="color:rgb(6, 6, 7);">作用域</font>
+<font style="color:rgb(6, 6, 7);">全局变量：在函数外部定义，可在整个程序中访问。</font>
+
+<font style="color:rgb(6, 6, 7);">局部变量：在函数内部定义，仅在函数内部有效。</font>
+
+#### <font style="color:rgb(6, 6, 7);">内置通用函数</font>
+<font style="color:rgb(6, 6, 7);">（1）</font>`<font style="color:rgb(6, 6, 7);">print()</font>`<font style="color:rgb(6, 6, 7);"> 打印输出内容到控制台</font>
+
+<font style="color:rgb(6, 6, 7);">（2）</font>`<font style="color:rgb(6, 6, 7);">len()</font>`<font style="color:rgb(6, 6, 7);">返回对象（如字符串、列表、元组等）的长度。</font>
+
+<font style="color:rgb(6, 6, 7);">（3）</font>`<font style="color:rgb(6, 6, 7);">type()</font>`<font style="color:rgb(6, 6, 7);">返回对象的类型。</font>
+
+<font style="color:rgb(6, 6, 7);">（4）</font>`<font style="color:rgb(6, 6, 7);">str()</font>`<font style="color:rgb(6, 6, 7);">, </font>`<font style="color:rgb(6, 6, 7);">int()</font>`<font style="color:rgb(6, 6, 7);">, </font>`<font style="color:rgb(6, 6, 7);">float()</font>`<font style="color:rgb(6, 6, 7);">将对象转换为字符串、整数或浮点数。</font>
+
+<font style="color:rgb(6, 6, 7);">（5）</font>`<font style="color:rgb(6, 6, 7);">range()</font>`<font style="color:rgb(6, 6, 7);">生成一个整数序列，常用于循环。</font>
+
+<font style="color:rgb(6, 6, 7);">（6）</font>`<font style="color:rgb(6, 6, 7);">input()</font>`<font style="color:rgb(6, 6, 7);">从用户获取输入。</font>
+
+<font style="color:rgb(6, 6, 7);">（7）</font>`<font style="color:rgb(6, 6, 7);">sum()</font>`<font style="color:rgb(6, 6, 7);">, </font>`<font style="color:rgb(6, 6, 7);">min()</font>`<font style="color:rgb(6, 6, 7);">, </font>`<font style="color:rgb(6, 6, 7);">max()</font>`<font style="color:rgb(6, 6, 7);">计算序列的总和、最小值和最大值。</font>
+
+<font style="color:rgb(6, 6, 7);">2.</font>**<font style="color:rgb(6, 6, 7);">列表相关函数</font>**<font style="color:rgb(6, 6, 7);"></font>
+
+<font style="color:rgb(6, 6, 7);">（1）</font>`<font style="color:rgb(6, 6, 7);">list()</font>`<font style="color:rgb(6, 6, 7);">将其他可迭代对象（如字符串、元组）转换为列表。</font>
+
+<font style="color:rgb(6, 6, 7);">（2）</font>`<font style="color:rgb(6, 6, 7);">append()</font>`<font style="color:rgb(6, 6, 7);">向列表末尾添加一个元素。</font>
+
+<font style="color:rgb(6, 6, 7);">（3）</font>`<font style="color:rgb(6, 6, 7);">extend()</font>`<font style="color:rgb(6, 6, 7);">将一个列表的元素添加到另一个列表。</font>
+
+<font style="color:rgb(6, 6, 7);">（4）</font>`<font style="color:rgb(6, 6, 7);">sort()</font>`<font style="color:rgb(6, 6, 7);">对列表进行排序。</font>
+
+<font style="color:rgb(6, 6, 7);">（5）</font>`<font style="color:rgb(6, 6, 7);">pop()</font>`<font style="color:rgb(6, 6, 7);">移除列表中的一个元素，并返回该元素。</font>
+
+<font style="color:rgb(6, 6, 7);">3. </font>**<font style="color:rgb(6, 6, 7);">字符串相关函数</font>**<font style="color:rgb(6, 6, 7);"></font>
+
+<font style="color:rgb(6, 6, 7);">字符串是Python中最常用的数据类型之一，以下是一些常用的字符串处理函数。</font>
+
+<font style="color:rgb(6, 6, 7);">（1）</font>`<font style="color:rgb(6, 6, 7);">upper()</font>`<font style="color:rgb(6, 6, 7);"> 和 </font>`<font style="color:rgb(6, 6, 7);">lower()</font>`<font style="color:rgb(6, 6, 7);">将字符串转换为大写或小写。</font>
+
+<font style="color:rgb(6, 6, 7);">（2）</font>`<font style="color:rgb(6, 6, 7);">strip()</font>`<font style="color:rgb(6, 6, 7);">去除字符串两端的空白字符。</font>
+
+<font style="color:rgb(6, 6, 7);">（3）</font>`<font style="color:rgb(6, 6, 7);">split()</font>`<font style="color:rgb(6, 6, 7);">将字符串分割为列表。</font>
+
+<font style="color:rgb(6, 6, 7);">（4）</font>`<font style="color:rgb(6, 6, 7);">join()</font>`<font style="color:rgb(6, 6, 7);">将列表中的字符串元素连接为一个字符串。</font>
+
+<font style="color:rgb(6, 6, 7);">（5）</font>`<font style="color:rgb(6, 6, 7);">replace()</font>`<font style="color:rgb(6, 6, 7);">替换字符串中的某些内容。</font>
+
+<font style="color:rgb(6, 6, 7);">- 4. </font>**<font style="color:rgb(6, 6, 7);">数学相关函数</font>**<font style="color:rgb(6, 6, 7);"></font>
+
+<font style="color:rgb(6, 6, 7);">Python的`math`模块提供了许多数学相关的函数。</font>
+
+<font style="color:rgb(6, 6, 7);">（1）</font>`<font style="color:rgb(6, 6, 7);">math.sqrt()</font>`<font style="color:rgb(6, 6, 7);">计算平方根。</font>
+
+<font style="color:rgb(6, 6, 7);">（2）</font>`<font style="color:rgb(6, 6, 7);">math.ceil()</font>`<font style="color:rgb(6, 6, 7);"> 和 </font>`<font style="color:rgb(6, 6, 7);">math.floor()</font>`<font style="color:rgb(6, 6, 7);">向上取整和向下取整。</font>
+
+<font style="color:rgb(6, 6, 7);">（3）</font>`<font style="color:rgb(6, 6, 7);">math.pow()</font>`<font style="color:rgb(6, 6, 7);">计算幂。</font>
+
+<font style="color:rgb(6, 6, 7);"> 5. </font>**<font style="color:rgb(6, 6, 7);">其他通用函数</font>**<font style="color:rgb(6, 6, 7);"></font>
+
+<font style="color:rgb(6, 6, 7);">以下是一些在Python中非常通用的函数，用于处理各种场景。</font>
+
+<font style="color:rgb(6, 6, 7);">（1）</font>`<font style="color:rgb(6, 6, 7);">enumerate()</font>`<font style="color:rgb(6, 6, 7);">在循环中同时获取索引和值。</font>
+
+<font style="color:rgb(6, 6, 7);">（2）</font>`<font style="color:rgb(6, 6, 7);">zip()</font>`<font style="color:rgb(6, 6, 7);">将多个可迭代对象打包为元组列表。</font>
+
+<font style="color:rgb(6, 6, 7);">（3）</font>`<font style="color:rgb(6, 6, 7);">map()</font>`<font style="color:rgb(6, 6, 7);">对可迭代对象中的每个元素应用函数。</font>
+
+<font style="color:rgb(6, 6, 7);">（4）</font>`<font style="color:rgb(6, 6, 7);">filter()</font>`<font style="color:rgb(6, 6, 7);">过滤可迭代对象中的元素。</font>
+
+### 元组
+一个元组是由多个逗号分隔的值组成，前后可加括号
+
+元组不能修改，即不能删除，赋值，修改，排序，但元组中数组内的值可以改变
+
+#### 元组的切片
+`[1:6]`选择下标为1到5的元素
+
+`[1:6:2]`选择下标为1到5的元素 ，步长为2
+
+`[::-1]`将元组的顺序倒置
+
+### <font style="color:rgb(6, 6, 7);">.列表（list）</font>
+列表可以对元素进行增、删、改、查，列表元素可以是任何类型
+
+#### <font style="color:rgb(6, 6, 7);">列表相关函数</font>
+<font style="color:rgb(6, 6, 7);">（1）</font>`<font style="color:rgb(6, 6, 7);">list()</font>`<font style="color:rgb(6, 6, 7);">将其他可迭代对象（如字符串、元组）转换为列表。</font>
+
+<font style="color:rgb(6, 6, 7);">（2）</font>`<font style="color:rgb(6, 6, 7);">append()</font>`<font style="color:rgb(6, 6, 7);">向列表末尾添加一个元素。</font>
+
+<font style="color:rgb(6, 6, 7);">（3）</font>`<font style="color:rgb(6, 6, 7);">extend()</font>`<font style="color:rgb(6, 6, 7);">将一个列表的元素添加到另一个列表。</font>
+
+<font style="color:rgb(6, 6, 7);">（4）</font>`<font style="color:rgb(6, 6, 7);">sort()</font>`<font style="color:rgb(6, 6, 7);">对列表进行排序。</font>
+
+<font style="color:rgb(6, 6, 7);">（5）</font>`<font style="color:rgb(6, 6, 7);">pop()</font>`<font style="color:rgb(6, 6, 7);">移除列表中的一个元素，并返回该元素。</font>
+
+```python
+emty = []   #空表
+list = [''Google'', ''Runoob'', 1992, 2222]
+list[2] = 2000   #将下标为2的值更换为2000
+#用in来判断列表是否包含某个元素 结果为False（不存在）或True(存在)
+print(''Google'' in list)  #>>True
+#若x是字符串，则x.split()的值是一个列表
+#包含字符串x经空格，制表符，换行符分隔得到的所有子串
+print("34\t\t45\n7".split()) #>>[''34'', ''45''. ''''7]
+```
+
+### <font style="color:rgb(6, 6, 7);">字典（dict）</font>
+每个元素都是由“键：值”两部分组成
+
+#### 字典的相关函数
+`cher()`清空字典
+
+`keys()`取字典的键的序列
+
+`items()`取字典的元素的序列，可用于遍历字典
+
+`values()`取字典的值的序列
+
+`pop(x)`删除键位x的元素，如果不存在，产生异常
+
+上述序列不是list，tuple或set
+
+`copy()`浅拷贝
+
+### 集合（set）
+元素类型可以不同，没重复元素，可以增删元素，列表、字典、集合等不可变的数据类型不可作为集合的元素
+
+#### 集合常用函数
+`add(x)`添加元素x
+
+`clear()`清空集合
+
+`remove(x)`删除元素x
+
+`updata(x)`将序列x中的元素加入到集合
+
+#### 集合的运算
+`x in a`x是否在集合
+
+`a | b`求a和b的并
+
+`a & b`求a和b的交
+
+`a - b`求a和b的差，即在a中而不在b中的元素
+
+`a ^ b`求a和b的对称差，等价于`(a | b)- (a & b)`
+
+`a == b`a是否元素和b一样
+
+`a !=b`a是否元素和b不一样
+
+`a <= b`a是否是b的子集（a有的元素，b都有）
+
+`<font style="color:rgb(6, 6, 7);">a < b</font>`<font style="color:rgb(6, 6, 7);">a是否是b的真子集（a有的元素，b都有，且b还包含a中没有的元素）</font>
+
+### 文本文件读写
+`open("文件绝对路经", "W", encoding="utf=8")`函数打开（创建）文件，将返回值放入一个变量，例如f.“w”写入，“r”读取， “a”添加写入
+
+用`f.write`函数写入文件
+
+用`f.readlines`函数读取文件全部内容
+
+用`f.reandline`函数读取文件一行
+
+用`f.xlose()`关闭文件
+
+用`f.read()`读取文件全部内容。返回一个字符串，包含文件全部内容
+
+### 文件夹操作函数
+os库和shutil库中有一些函数可以用来操作文件和文件夹
+
+`os.chdir(x)`将程序的当前文件夹位置设为x
+
+`os.getcwd()`求程序的当前文件夹
+
+`os.listdir(x)`返回一个列表，你面是文件夹x中的所有文件和子文件夹的名字
+
+`os.mkdir(x)`创建文件夹x
+
+`os.path.getsize(x)`获取文件z的大小
+
+`os.path.isfile(x)`判断x是不是文件
+
+`os.remove(x)`删除文件x
+
+`os.rmdir(x)`删除文件夹x
+
+`os.rename(x, y)`将文件或文件夹x改名为y。还可以移动文件或文件夹
+
+`shutil.copyfile(x, y)`拷贝文件x到文件y，若y存在，会被副高
+
+### Python数据库编程
+数据库可以用来存放大量数据，一个数据库可以是一个文件，一个数据可以有多张表
+
+#### 字段的数据类型
+`text`字符串，`real`小数， `integer`整数，`blob`二进制数据（如图片），`date`日期（本质上是text），`datetime`时间+日期（本质上是text）
+
+#### SQL数据库查询语句(sqlite3)
+`CREATE TABLE`  创建表
+
+`INSERT INTO`  `VALUES`  在表中插入记录
+
+`UPDATE`             在表中更新记录
+
+`SELECT`             在表中进行查询
+
+`DELETE`             在表中删除记录
+
+### 正则表达式
+#### 正则表达式中的功能字符
+| 字符/组合 | 匹配的模式 | 正则表达式 | 匹配的字符串 |
+| --- | --- | --- | --- |
+| `.` | 除‘\n’外的任意一个字符，包括汉字 | ''a.b''<br/> | ''acb''<br/>''adb'' |
+| `*` | 量词，表示左边的字符可以出现0次或任意多次 | ''a*b'' | ''b''<br/>''aaaaab'' |
+| `?` | 量词，表示左边的字符可以出现0次或1次 | ''ka?b'' | ''kb''<br/>''kab'' |
+| `+` | 量词，表示左边的字符必须出现1次或更多次 | ''ka+b'' | ''kab''<br/>''kaaaab'' |
+| `{m, n}` | 量词，m,n是整数，表示左边的字符必须出现至少m次，最多n次。n也可以不写，表示没有次数上线 | ''ka{1}b''<br/>''ka{2,4}b''<br/>''ka{2,}b'' | ''kab''<br/>''kaaaab''<br/>''kaaaaaaaaaab'' |
+| `\d` | 一个数字字符，等价于[0-9] | ''a\db'' | ''a3b''<br/>''a2b'' |
+| `\D` | 一个非数字字符，等价于[^\d],[0-9] | ''a\Db'' | ''acb'' |
+| `\s` | 一个空白字符，如空格，\r\t\d | ''a\sb'' | ''a b''<br/>''a\nb'' |
+| `\S` | 一个非空白字符 | ''a\Sb'' | ''akb'' |
+| `\w` | 一个单词字符：包括汉字或大小写英文字母，数字，下划线，或其他语言的文字 | ''a\wb'' | ''a_b''<br/>''a中b'' |
+| `\W` | 一个不是单词的字符 | ''a\Wb'' | ''a?b'' |
+| `|` | A|B表示能匹配A或能匹配B均算匹配 | ''ab|c'' | ''ab''<br/>''c'' |
+| `\` | 正则表达式中常见的特殊字符. + ? * ^ $ [] (）{} \ 在正则表达式中表示字符本身就在字符前加上`\` | ''a\\''<br/>''a\$b''<br/>''a\[\]b'' | ''a\''<br/>''a$b''<br/>''a[]b'' |
+
+
+#### 正则表达式中范围符号[]和量词
+[XXX]:此处必须出现某某范围内的字符 或 此处必须出现一个字符，但不可以是某某范围内的字符
+
+`[a2c]`匹配 ''a'' ''2'' ''c'' 之一
+
+`[a-zA-z]`匹配任一英文字母
+
+`[\da-z\?]`匹配一个 数字 或 小写英文字母 或 ''?''
+
+`[^abc]`匹配一个非''a'' '' b'' ''c''的字符
+
+`[^a-f0-3]`匹配一个非a-f的英文字母，也非0-3的数字的字符
+
+`[\ue00-\9fa5]`表示一个汉字
+
+#### 正则表达式中的函数
+`re.match(pattern, string, flag=0)`
+
+从字符串string的起始位置匹配一个模式pattern，成功则返回一个匹配对象，否则返回None
+
+`re.search(pattern, string, flags = 0)`
+
+查找字符串中可以匹配成功的子串，成功则返回一个匹配对象，若无法匹配，则返回None
+
+`re.findall(pattern, string, flags = 0)`
+
+查找字符串中所有模式匹配的子串（不重叠）放入列表，没有则返回空表[]
+
+`re.finditer(pattenr, stringm flags = 0)`
+
+查找字符串中所有模式匹配的子串（不重叠）,每个子串对应于一个匹配对象，返回匹配对象的序列
+
+`re.sub(模式串，替换串，母串)`
+
+用于替换匹配的子串
+
+#### 边界符号
+`\A`字符串的左边界
+
+`\Z`字符串的有边界
+
+`^`与`\A`同，但在多行匹配模式下还可以表示一行文字的左边界
+
+`$`与`\Z`同，但在多行匹配模式下还可以表示一行文字的右边界
+
+`\b`表示此处应为单词的左边界或有边界，即不可是单词字符
+
+`\B`表示此处不允许单词的左边界或有边界，即必须是单词字符
+
+#### 分组(....)
+括号中的表达式是一个分组。多个分组按左括号从左到右从1开始依次编号
+
+在分组的右边可以通过分组的编号引用该分组所匹配的子串
+
+分组作为一个整体，后面可以跟量词
+
+#### `re.findall`和分组
+有且只有一个分组时，re.findall返回的是一个子串的列表，每个元素是一个匹配子串对应的内容
+
+超过一个分组时，re.findall返回的是一个元组的列表，每个元组对应于一个匹配的子串，依次是1号分组，二号分组，三号分组……匹配的内容
+
+#### 匹配对象
+匹配成功时的返回结果
+
+属性：
+
+`string`匹配时使用的母串
+
+`lastindex`最后一个匹配的分组的编号。没有被匹配的分组，将为None
+
+`group([n1, n2, ......])`获得一个或多个分组匹配的字符串；指定多个参数时将以元组形式返回。
+
+`groups([default])`以元组形式返回全部分组匹配的字符串
+
+`groupdict([default])`返回指定的组匹配的子串在string中的位置。
+
+### `<font style="color:rgb(64, 64, 64);">datetime</font>`<font style="color:rgb(64, 64, 64);">模块</font>
+#### <font style="color:rgb(64, 64, 64);">1. </font>`<font style="color:rgb(64, 64, 64);">datetime</font>` 类
+`<font style="color:rgb(64, 64, 64);">datetime</font>`<font style="color:rgb(64, 64, 64);"> 类是 </font>`<font style="color:rgb(64, 64, 64);">datetime</font>`<font style="color:rgb(64, 64, 64);"> 模块中最核心的类，用于表示日期和时间。</font>
+
++ `<font style="color:rgb(64, 64, 64);">datetime.now()</font>`<font style="color:rgb(64, 64, 64);">：返回当前日期和时间。</font>
++ `<font style="color:rgb(64, 64, 64);">datetime.today()</font>`<font style="color:rgb(64, 64, 64);">：返回当前日期和时间（与 </font>`<font style="color:rgb(64, 64, 64);">now()</font>`<font style="color:rgb(64, 64, 64);"> 类似，但不包含时区信息）。</font>
++ `<font style="color:rgb(64, 64, 64);">datetime.combine(date, time)</font>`<font style="color:rgb(64, 64, 64);">：将 </font>`<font style="color:rgb(64, 64, 64);">date</font>`<font style="color:rgb(64, 64, 64);"> 和 </font>`<font style="color:rgb(64, 64, 64);">time</font>`<font style="color:rgb(64, 64, 64);"> 合并为一个 </font>`<font style="color:rgb(64, 64, 64);">datetime</font>`<font style="color:rgb(64, 64, 64);"> 对象。</font>
++ `<font style="color:rgb(64, 64, 64);">datetime.strptime(string, format)</font>`<font style="color:rgb(64, 64, 64);">：将字符串按照指定格式解析为 </font>`<font style="color:rgb(64, 64, 64);">datetime</font>`<font style="color:rgb(64, 64, 64);"> 对象。</font>
++ `<font style="color:rgb(64, 64, 64);">strftime(format)</font>`<font style="color:rgb(64, 64, 64);">：将 </font>`<font style="color:rgb(64, 64, 64);">datetime</font>`<font style="color:rgb(64, 64, 64);"> 对象格式化为字符串。</font>
++ `<font style="color:rgb(64, 64, 64);">timestamp()</font>`<font style="color:rgb(64, 64, 64);">：将 </font>`<font style="color:rgb(64, 64, 64);">datetime</font>`<font style="color:rgb(64, 64, 64);"> 对象转换为时间戳（Unix 时间）。</font>
++ `<font style="color:rgb(64, 64, 64);">fromtimestamp(timestamp)</font>`<font style="color:rgb(64, 64, 64);">：将时间戳转换为 </font>`<font style="color:rgb(64, 64, 64);">datetime</font>`<font style="color:rgb(64, 64, 64);"> 对象。</font>
+
+#### <font style="color:rgb(64, 64, 64);">2. </font>`<font style="color:rgb(64, 64, 64);">date</font>` 类
+`<font style="color:rgb(64, 64, 64);">date</font>`<font style="color:rgb(64, 64, 64);"> 类用于表示日期（年、月、日）。</font>
+
++ `<font style="color:rgb(64, 64, 64);">date.today()</font>`<font style="color:rgb(64, 64, 64);">：返回当前日期。</font>
++ `<font style="color:rgb(64, 64, 64);">strftime(format)</font>`<font style="color:rgb(64, 64, 64);">：将 </font>`<font style="color:rgb(64, 64, 64);">date</font>`<font style="color:rgb(64, 64, 64);"> 对象格式化为字符串。</font>
++ `<font style="color:rgb(64, 64, 64);">date.fromtimestamp(timestamp)</font>`<font style="color:rgb(64, 64, 64);">：将时间戳转换为 </font>`<font style="color:rgb(64, 64, 64);">date</font>`<font style="color:rgb(64, 64, 64);"> 对象。</font>
++ `<font style="color:rgb(64, 64, 64);">date.replace(year, month, day)</font>`<font style="color:rgb(64, 64, 64);">：替换日期中的年、月、日。</font>
++ `<font style="color:rgb(64, 64, 64);">weekday()</font>`<font style="color:rgb(64, 64, 64);">：返回星期几（0 表示周一，6 表示周日）。</font>
++ `<font style="color:rgb(64, 64, 64);">isoweekday()</font>`<font style="color:rgb(64, 64, 64);">：返回星期几（1 表示周一，7 表示周日）。</font>
+
+#### <font style="color:rgb(64, 64, 64);">3. </font>`<font style="color:rgb(64, 64, 64);">time</font>` 类
+`<font style="color:rgb(64, 64, 64);">time</font>`<font style="color:rgb(64, 64, 64);"> 类用于表示时间（时、分、秒、微秒）。</font>
+
++ `<font style="color:rgb(64, 64, 64);">strftime(format)</font>`<font style="color:rgb(64, 64, 64);">：将 </font>`<font style="color:rgb(64, 64, 64);">time</font>`<font style="color:rgb(64, 64, 64);"> 对象格式化为字符串。</font>
++ `<font style="color:rgb(64, 64, 64);">time.replace(hour, minute, second, microsecond)</font>`<font style="color:rgb(64, 64, 64);">：替换时间中的时、分、秒、微秒。</font>
+
+#### <font style="color:rgb(64, 64, 64);">4. </font>`<font style="color:rgb(64, 64, 64);">timedelta</font>` 类
+`<font style="color:rgb(64, 64, 64);">timedelta</font>`<font style="color:rgb(64, 64, 64);"> 类用于表示时间间隔（天、秒、微秒等），常用于日期和时间的加减运算。</font>
+
++ `<font style="color:rgb(64, 64, 64);">timedelta(days, seconds, microseconds, milliseconds, minutes, hours, weeks)</font>`<font style="color:rgb(64, 64, 64);">：创建时间间隔。</font>
++ `<font style="color:rgb(64, 64, 64);">total_seconds()</font>`<font style="color:rgb(64, 64, 64);">：返回时间间隔的总秒数。</font>
+
+---
+
+#### <font style="color:rgb(64, 64, 64);">5. </font>`<font style="color:rgb(64, 64, 64);">tzinfo</font>` 类
+`<font style="color:rgb(64, 64, 64);">tzinfo</font>`<font style="color:rgb(64, 64, 64);"> 是一个抽象基类，用于表示时区信息。Python 3.9+ 推荐使用 </font>`<font style="color:rgb(64, 64, 64);">zoneinfo</font>`<font style="color:rgb(64, 64, 64);"> 模块来处理时区。</font>
+
+##### 示例：使用 `<font style="color:rgb(64, 64, 64);">zoneinfo</font>`
+```python
+from zoneinfo import ZoneInfo
+from datetime import datetime
+
+# 创建带时区的 datetime 对象
+now_utc = datetime.now(ZoneInfo("UTC"))
+now_shanghai = datetime.now(ZoneInfo("Asia/Shanghai"))
+
+print("UTC 时间:", now_utc)
+print("上海时间:", now_shanghai)
+```
+
+### random库处理随机事务
+Python 的 `random` 模块提供了多种生成伪随机数的函数，广泛用于模拟、游戏开发和需要随机性的地方。以下是 `random` 模块中常用类和函数的用法：
+
+#### 1. 生成随机浮点数
++ `random.random()`：生成一个范围在 `[0.0, 1.0)` 的随机浮点数。
++ `random.uniform(a, b)`：生成一个范围在 `[a, b]` 的随机浮点数。
+
+#### 2. 生成随机整数
++ `random.randint(a, b)`：生成一个范围在 `[a, b]` 的随机整数。
++ `random.randrange(start, stop[, step])`：从 `range(start, stop, step)` 中随机选择一个元素。
+
+#### 3. 从序列中随机选择
++ `random.choice(seq)`：从非空序列 `seq` 中随机选择一个元素。
++ `random.choices(population, weights=None, k=1)`：从 `population` 中随机选择 `k` 个元素，可指定权重。
+
+#### 4. 随机打乱序列
++ `random.shuffle(x)`：随机打乱序列 `x`。
+
+#### 5. 生成随机样本
++ `random.sample(population, k)`：从 `population` 中随机选择 `k` 个不重复的元素。
+
+#### 6. 设置随机种子
++ `random.seed(a=None)`：设置随机数生成器的种子。如果未指定 `a`，则使用系统时间。
+
+#### 7. 其他随机分布
++ `random.gauss(mu, sigma)`：生成正态分布的随机数。
++ `random.expovariate(lambd)`：生成指数分布的随机数。
+
+### jieba库进行分词
+`jieba` 是一个功能强大的中文分词库，广泛用于自然语言处理、文本挖掘等领域。以下是 `jieba` 库的主要类、函数及其用法的详细介绍：
+
+#### 1. 安装和导入
+在使用 `jieba` 库之前，需要先安装：
+
+```bash
+pip install jieba
+```
+
+安装完成后，可以在 Python 中导入：
+
+```python
+import jieba
+```
+
+#### 2. 分词模式
+`jieba` 提供了三种主要的分词模式：
+
+##### （1）精确模式（默认模式）
+精确模式会将文本尽可能精确地切分成单个词语，适合文本分析。
+
+```python
+text = "我喜欢Python编程"
+words = jieba.cut(text, cut_all=False)  # 或直接 jieba.cut(text)
+print("精确模式：", "/ ".join(words))
+```
+
+输出：
+
+```plain
+精确模式：我/ 喜欢/ Python/ 编程
+```
+
+##### （2）全模式
+全模式会将文本中所有可能的词语都扫描出来，速度非常快，但可能存在冗余。
+
+```python
+words = jieba.cut(text, cut_all=True)
+print("全模式：", "/ ".join(words))
+```
+
+输出：
+
+```plain
+全模式：我/ 喜欢/ Python/ 编程
+```
+
+##### （3）搜索引擎模式
+搜索引擎模式在精确模式的基础上，对长词再次切分，提高召回率，适合用于搜索引擎分词。
+
+```python
+words = jieba.cut_for_search(text)
+print("搜索引擎模式：", "/ ".join(words))
+```
+
+输出：
+
+```plain
+搜索引擎模式：我/ 喜欢/ Python/ 编程
+```
+
+#### 3. 自定义词典
+`jieba` 支持加载自定义词典，以提高分词的准确性。自定义词典是一个文本文件，每行包含一个词和其词频（可选），格式如下：
+
+```plain
+自定义词 词频
+```
+
+例如，创建一个名为 `custom_dict.txt` 的自定义词典：
+
+```plain
+华为笔记本 10
+```
+
+加载自定义词典：
+
+```python
+jieba.load_userdict("custom_dict.txt")
+text = "华为笔记本性能出色"
+words = jieba.cut(text, cut_all=False)
+print("自定义词典：", "/ ".join(words))
+```
+
+输出：
+
+```plain
+自定义词典：华为笔记本/ 性能/ 出色
+```
+
+#### 4. 词性标注
+`jieba` 支持对分词结果进行词性标注，可以用于词性分析和信息提取。
+
+```python
+import jieba.posseg as pseg
+text = "我喜欢Python编程"
+words = pseg.cut(text)
+for word, flag in words:
+    print(f"{word} -> {flag}")
+```
+
+输出：
+
+```plain
+我 -> r
+喜欢 -> v
+Python -> eng
+编程 -> vn
+```
+
+#### 5. 关键词提取
+`jieba` 提供了关键词提取功能，主要有 TF-IDF 和 TextRank 两种算法。
+
+##### （1）TF-IDF 关键词提取
+```python
+import jieba.analyse
+text = "我来到北京清华大学，清华大学是中国著名的高等学府。"
+keywords = jieba.analyse.extract_tags(text, topK=5, withWeight=False)
+print("关键词（TF-IDF）：", keywords)
+```
+
+##### （2）TextRank 关键词提取
+```python
+keywords = jieba.analyse.textrank(text, topK=5, withWeight=False)
+print("关键词（TextRank）：", keywords)
+```
+
+#### 6. 并行分词
+对于较大的文本，可以使用并行分词来提高分词速度。
+
+```python
+jieba.enable_parallel(4)  # 开启并行分词，指定线程数
+text = "Python是一种流行的编程语言，广泛用于Web开发和数据科学。" * 1000
+words = jieba.cut(text, cut_all=False)
+print("并行分词结果：", " ".join(words))
+```
+
+#### 7. 调整分词结果
+可以通过调整词频或添加新词来优化分词结果。
+
+##### （1）调整词频
+```python
+jieba.suggest_freq((''北京'', ''大学''), True)  # 调整词频
+```
+
+##### （2）添加新词
+```python
+jieba.add_word(''清华大学'', freq=10, tag=''n'')  # 添加新词并指定词性
+```
+
+#### 8. 应用场景
+`jieba` 可以应用于多种自然语言处理任务，如文本分类、情感分析、搜索引擎优化等。
+
+##### （1）文本分类
+通过分词提取文本特征，结合机器学习算法进行分类。
+
+##### （2）情感分析
+结合分词和情感分析模型，分析文本中的情感倾向。
+
+##### （3）搜索引擎优化
+提取关键词，提高搜索引擎的召回率和精确度。
+
+
+
+
+
+
+
+
+
+
+
+### openpyxl的用法
+`openpyxl` 是一个强大的 Python 库，用于读取、写入和操作 Excel 文件（`.xlsx` 格式）。以下是 `openpyxl` 中常用类和函数的用法
+
+#### 1. 安装 `openpyxl`
+在使用 `openpyxl` 之前，需要通过以下命令安装：
+
+```bash
+pip install openpyxl
+```
+
+2. 创建和保存工作簿
+
+##### 创建新工作簿
+```python
+from openpyxl import Workbook
+
+wb = Workbook()  # 创建一个新工作簿
+ws = wb.active  # 获取默认工作表
+ws.title = "MySheet"  # 设置工作表标题
+ws[''A1''] = "Hello"  # 写入单元格数据
+ws[''B1''] = "World"
+wb.save("new_file.xlsx")  # 保存工作簿
+```
+
+##### 打开现有工作簿
+```python
+from openpyxl import load_workbook
+
+wb = load_workbook("existing_file.xlsx")  # 加载现有工作簿
+ws = wb["Sheet1"]  # 获取指定工作表
+cell_value = ws[''A1''].value  # 读取单元格数据
+print(cell_value)
+```
+
+#### 3. 工作簿和工作表的操作
+##### 获取工作表
+```python
+ws = wb.active  # 获取当前活动工作表
+ws = wb["Sheet1"]  # 通过名称获取工作表
+```
+
+##### 创建新工作表
+```python
+new_sheet = wb.create_sheet(title="NewSheet")  # 创建新工作表
+```
+
+##### 删除工作表
+```python
+del wb["Sheet2"]  # 删除工作表
+```
+
+###### 复制工作表
+```python
+copied_sheet = wb.copy_worksheet(wb["Sheet1"])  # 复制工作表
+copied_sheet.title = "Copy of Sheet1"
+```
+
+#### 4. 单元格操作
+##### 写入数据
+```python
+ws[''A1''] = "Hello"  # 通过单元格位置写入数据
+ws.cell(row=2, column=2, value="World")  # 通过行列索引写入数据
+```
+
+##### 读取数据
+```python
+cell_value = ws[''A1''].value  # 通过单元格位置读取数据
+cell_value = ws.cell(row=2, column=2).value  # 通过行列索引读取数据
+print(cell_value)
+```
+
+##### 迭代单元格
+```python
+for row in ws.iter_rows(min_row=1, max_row=5, min_col=1, max_col=3, values_only=True):
+    print(row)  # 按行迭代
+
+for col in ws.iter_cols(min_row=1, max_row=5, min_col=1, max_col=3, values_only=True):
+    print(col)  # 按列迭代
+```
+
+#### 5.数据追加
+```python
+data = [(1, 2, 3), (4, 5, 6)]
+for row in data:
+    ws.append(row)  # 将数据追加到工作表
+wb.save("appended_file.xlsx")
+```
+
+#### 6. 格式化和样式
+```python
+from openpyxl.styles import Font, Alignment
+
+cell = ws[''A1'']
+cell.font = Font(bold=True, size=14)  # 设置字体样式
+cell.alignment = Alignment(horizontal=''center'', vertical=''center'')  # 设置对齐方式
+```
+
+#### 7. 合并和拆分单元格
+```python
+ws.merge_cells(''A1:B2'')  # 合并单元格
+ws.unmerge_cells(''A1:B2'')  # 拆分单元格
+```
+
+#### 8. 添加图表
+```python
+from openpyxl.chart import BarChart, Reference
+
+data = Reference(ws, min_row=1, max_row=5, min_col=1, max_col=3)
+chart = BarChart()
+chart.add_data(data, titles_from_data=True)
+ws.add_chart(chart, "E2")
+wb.save("chart_file.xlsx")
+```
+
+#### 9. 工作簿属性
+```python
+print(wb.sheetnames)  # 获取所有工作表名称
+print(wb.active)  # 获取当前活动工作表
+print(wb.read_only)  # 检查是否以只读模式打开
+```
+
+
+
+
+
+### numpy库的用法
+多维数组库
+
+#### numpy创建数组
+```python
+import numpy as np
+print(np.array([1,2,3])) #>>[1 2 3]
+print(np.arange(1,9,2)) #>>[1 3 5 7]
+print(np.linspace(1,10,4)) #>>[  1.  4.  7.  10.]
+print(np.ransdom.randint(10,20,[2,3]))
+#>>[[12 15 12]
+#>> [12 13 19]]
+a = np.zeros(3)
+print(a)  #>>[ 0.  0.  0.]
+print(list(a))  #>>[0.0 0.0 0.0]
+a = np.zeros((2,3),dtype=int)  #创建一个2行3列的元素都是整数0的数组
+```
+
+#### numpy数组常用的属性和函数
+| 属性或函数 | 含义或功能 |
+| --- | --- |
+| dtype | 数组元素的类型 |
+| ndim | 数组是几维的 |
+| shape | 数组每一维的长度 |
+| size | 数组元素个数 |
+| argwhere(...) | 查找元素位置 |
+| tolist() | 转换为list |
+| min() | 最小元素 |
+| max() | 最大元素 |
+| reshape(...) | 改变数组的形状 |
+| hlatten() | 转换成一维数组 |
+
+
+#### numpy添加数组元素
+numpy数组一旦生成，则不能增删，只能返回一个新的数组
+
+| append(x, y） | 若y是数组，列表或元组，将y的元素添加进数组x得新的数组，否则将y本身添加进数组x得新数组 |
+| --- | --- |
+| concatenate(...) | 拼接多个数组或列表 |
+| delete(...) | 删除数组元素的得新的数组 |
+
+
+#### numpy数组的数学运算
+```python
+import numpy as np
+a = np.array((1,2,3,4))
+b = a + 1
+print(b)           #>>[2 3 4 5]
+print(a*b)         #>>[2 6 12 20]   a,b对应元素相乘
+print(a + b)       #>>[3 5 7 9]     a,b对应元素相加
+c = np.sqrt(a*10)  #>>求a*10的平方跟
+```
+
+#### numpy数组的切片
+numpy数组的切片是‘视图’
+
+是原数组的一部分，而非一部分的拷贝
+
+`1:6]`选择下标为1到5的元素
+
+`[1:6:2]`选择下标为1到5的元素 ，步长为2
+
+`c = np.copy(a[3:6])`c是a的一部分拷贝
+
+切片后的数组元素值改变时，原数组的值要改变，而拷贝的不会
+
+### pandas
+#### pandas中的类：Series
+Series是一维表格，每个元素带标签且有下标，兼具列表和字典的访问形式
+
+`pandas.Series(data,index)`
+
+`data`数据项
+
+`index`数据的标签
+
+#### DataFrame的构造和访问
+DataFrame是带行列标签的二维表格，每一列都是一个Series
+
+`df = pandas.DataFrame(data,index,columns)`
+
+`data`数据列表
+
+`index`行标签
+
+`columns`列标签
+
+`df.valus`访问数据项
+
+#### DataFrame的切片
+iloc[行选择器，列选择器]      用下标做切片    iloc[1:3,2:3]
+
+loc[行选择器，列选择器]        用标签做切片   loc[''index1'':index2, columns1:columns2]
+
+DataFrame的切片是视图
+
+DataFrame的分析统计
+
+#### DataFrame的的修改和增删
+可以在切片的基础上进行修改
+
+`df[''column1''] = data`为列添加数据
+
+`df.insert(行标签，列标签，data)`在某行添加某列数据
+
+`df.columns = [columns1, columns2,......]`改列标签名
+
+`df.drop(行或列，axis = 1, implace=True)`axis=0表示按行删除，axis=1表示按列删除
+
+#### pandas读Excel文档
+需要库openpyxl（对.xlsx）或xlrd或xlwt支持（老的.xls）
+
+读取的每个工作表都是一个DataFrame
+', 0, NOW());
+
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+VALUES (10, 1003, 'HTML', '## 网页的基本标签
++ 标题标签
+
+```html
+<h1>一级标签</h1>
+<h2>二级标签</h2>
+<h3>三级标签</h3>
+<h4>四级标签</h4>
+<h5>五级标签</h5>
+<h6>六级标签</h6>
+```
+
++ 段落标签
+
+```html
+<p>文本内容</p>
+<p>文本内容2</p>
+```
+
++ 换行标签
+
+```html
+<p>文本内容<br/></p>
+```
+
++ 水平线标签
 
 ```html
 <hr/>
 ```
 
-+ 瀛椾綋鏍峰紡鏍囩
++ 字体样式标签
 
 ```html
-<strong>绮椾綋</strong>
-<em>鏂滀綋</em>
+<strong>粗体</strong>
+<em>斜体</em>
 ```
 
-+ 鐗规畩绗﹀彿 &;
++ 特殊符号 &;
 
 ```html
-<h3>绌?nbsk;鏍?/h3>
-<p>澶т簬鍙?gt;</p>
-<p>灏忎簬鍙?lt;</p>
-<p>鐗堟潈绗﹀彿&copy;</p>
+<h3>空&nbsk;格</h3>
+<p>大于号&gt;</p>
+<p>小于号&lt;</p>
+<p>版权符号&copy;</p>
 ```
 
-+ 娉ㄩ噴
++ 注释
 
 ```html
 <-- 
@@ -11576,120 +11548,120 @@ VALUES (1003, 'HTML', '## 缃戦〉鐨勫熀鏈爣绛?
   -->
 ```
 
-## 缃戦〉缁撴瀯鍒嗘瀽
-+ **header锛氭爣棰樺ご閮ㄥ尯鍩熺殑鍐呭锛堢敤浜庨〉闈㈡垨椤甸潰涓殑涓€鍧楀尯鍩燂級**
-+ **footer锛氭爣璁拌剼閮ㄥ尯鍩熺殑鍐呭锛堢敤浜庢鐗归〉闈㈡垨椤甸潰鐨勪竴鍧楀尯鍩燂級**
-+ section锛歐eb宸蹭拱浣犱腑鐨勪竴鍧楃嫭绔嬪尯鍩?
-+ article锛氱嫭绔嬬殑鏂囩珷鍐呭
-+ aside锛氱浉鍏冲唴瀹圭殑搴旂敤锛堢敤浜庝晶杈规爮锛?
-+ **nav锛氬鑸被杈呭姪鍐呭**
+## 网页结构分析
++ **header：标题头部区域的内容（用于页面或页面中的一块区域）**
++ **footer：标记脚部区域的内容（用于正特页面或页面的一块区域）**
++ section：Web已买你中的一块独立区域
++ article：独立的文章内容
++ aside：相关内容的应用（用于侧边栏）
++ **nav：导航类辅助内容**
 
-## 鍥惧儚锛岃秴閾炬帴锛岀綉椤靛竷灞€
-### 鍥惧儚鏍囩
+## 图像，超链接，网页布局
+### 图像标签
 ```html
 <img src="path" alt="text" title="tesx" width="x" height="y"/>
 ```
 
-灞炴€?
+属性
 
-+ src = "path" :鍥惧儚鍦板潃   蹇呭～
-+ alt = "text" 鍥捐薄鐨勪唬鏇挎枃瀛?蹇呭～
-+ title = "text" 榧犳爣鎮仠鏂囧瓧
-+ width = "x" 锛氬浘鍍忕殑瀹藉害
-+ height = "y"锛氬浘璞￠珮搴?
++ src = "path" :图像地址   必填
++ alt = "text" 图象的代替文字 必填
++ title = "text" 鼠标悬停文字
++ width = "x" ：图像的宽度
++ height = "y"：图象高度
 
-甯哥敤鐨勫浘鍍忔牸寮?JPG GIF PNG BMP
+常用的图像格式 JPG GIF PNG BMP
 
-### 閾炬帴鏍囩
-#### 椤甸潰闂撮摼鎺?
+### 链接标签
+#### 页面间链接
 ```html
-<a href="path" target="鐩爣绐楀彛浣嶇疆">杩炴帴鏂囨湰鎴栧浘鍍?/a>
+<a href="path" target="目标窗口位置">连接文本或图像</a>
 ```
 
-灞炴€э細
+属性：
 
-+ href="path"锛氳繛鎺ヨ矾寰? 蹇呭～
-+ target="杩炴帴鍦ㄥ摢涓獥鍙?
-    - _bank 锛氬湪鏂版爣绛句腑鎵撳紑
-    - _self锛氬湪鑷繁鐨勭綉椤典腑鎵撳紑  榛樿
++ href="path"：连接路径  必填
++ target="连接在哪个窗口"
+    - _bank ：在新标签中打开
+    - _self：在自己的网页中打开  默认
 
-#### 閿氶摼鎺?
-1. 闇€瑕佷竴涓敋鏍囪
-2. 璺宠浆鍒版爣璁?
-
-```html
-<a name="tep">椤堕儴</a>
-<a herf="#tep">鍥炲埌椤堕儴</a>
-```
-
-3. 鍙互璺冲埌鍏朵粬椤甸潰鐨勬寚瀹氫綅缃?
+#### 锚链接
+1. 需要一个锚标记
+2. 跳转到标记
 
 ```html
-<a herf="涓婁竴涓〉闈?html#tep">璺宠浆</a>
+<a name="tep">顶部</a>
+<a herf="#tep">回到顶部</a>
 ```
 
-#### 鍔熻兘鎬ч摼鎺?
-+ 閭欢閾炬帴锛歮ailto
+3. 可以跳到其他页面的指定位置
 
 ```html
-<a href="mailto:閭鍦板潃"></a>
+<a herf="上一个页面.html#tep">跳转</a>
 ```
 
-+ QQ閾炬帴锛?
+#### 功能性链接
++ 邮件链接：mailto
 
-#### 琛屽唴鍏冪礌鍜屽潡鍏冪礌
-+ 鍧楀厓绱狅細
-    - 鏃犺鍐呭澶氬皯锛岃鍏冪礌鐙崰涓€琛?
-    - 锛坧锛?h1~h6...锛?
-+ 琛屽唴鍏冪礌
-    - 鍐呭鎾戝紑瀹藉害锛屽乏鍙抽兘鏄鍐呭厓绱犵殑鍙互鍦ㄦ帓鍦ㄤ竴琛?
-    - 锛坅锛宻trong锛宔n...锛?
+```html
+<a href="mailto:邮箱地址"></a>
+```
 
-## 鍒楄〃锛岃〃鏍硷紝濯掍綋鍏冪礌
-### 鍒楄〃
-#### 浠€涔堟槸鍒楄〃
-鍒楄〃鏄俊鎭祫婧愮殑涓€绉嶈〃绀哄舰寮忥紝浠栧彲浠ユ槸淇℃伅缁撴瀯鍖栧拰鏉＄悊鍖栵紝骞朵互鍒楄〃鐨勬牱寮忔樉绀哄嚭鏉ワ紝浠ヤ究娴忚鑰呰兘鏇村揩鎹风殑鑾峰緱鐩稿簲鐨勪俊鎭?
++ QQ链接：
 
-#### 鏈夊簭鍒楄〃
+#### 行内元素和块元素
++ 块元素：
+    - 无论内容多少，该元素独占一行
+    - （p， h1~h6...）
++ 行内元素
+    - 内容撑开宽度，左右都是行内元素的可以在排在一行
+    - （a，strong，en...）
+
+## 列表，表格，媒体元素
+### 列表
+#### 什么是列表
+列表是信息资源的一种表示形式，他可以是信息结构化和条理化，并以列表的样式显示出来，以便浏览者能更快捷的获得相应的信息
+
+#### 有序列表
 ```html
 <ol>
   <li>java</li>
   <li>python</li>
-  <li>杩愮淮</li>
+  <li>运维</li>
 </ol>
 ```
 
-搴旂敤鑼冨洿锛氳瘯鍗凤紝闂嵎鈥︹€?
+应用范围：试卷，问卷……
 
-#### 鏃犲簭鍒楄〃
+#### 无序列表
 ```html
 <ul>
   <li>java</li>
   <li>python</li>
-  <li>杩愮淮</li> 
+  <li>运维</li> 
 </ul>
 ```
 
-搴旂敤鑼冨洿锛氬鑸爮锛屼晶杈规爮鈥︹€?
+应用范围：导航栏，侧边栏……
 
-#### 鑷畾涔夊垪琛?
+#### 自定义列表
 ```html
-<dl>  鏍囩
-  <dt></dt>  鍒楄〃鍚嶇О
-  <dd></dd>  鍒楄〃鍐呭
+<dl>  标签
+  <dt></dt>  列表名称
+  <dd></dd>  列表内容
   <dd></dd>  
   <dd></dd>
 </dl>
 ```
 
-搴旂敤鑼冨洿锛氬叕鍙哥綉绔欏簳閮?
+应用范围：公司网站底部
 
-### 琛ㄦ牸
-+ 鏍囩 table
-+ 琛? tr
-+ 鍒? td
-+ 璺ㄨ rowspan="2"   璺ㄤ袱琛?
-+ 璺ㄥ垪 colspan="2"    璺ㄤ袱鍒?
+### 表格
++ 标签 table
++ 行  tr
++ 列  td
++ 跨行 rowspan="2"   跨两行
++ 跨列 colspan="2"    跨两列
 
 ```html
 <table >
@@ -11697,257 +11669,255 @@ VALUES (1003, 'HTML', '## 缃戦〉鐨勫熀鏈爣绛?
 </table>
 ```
 
-### 濯掍綋鍏冪礌
-#### 瑙嗛鍏冪礌 video
+### 媒体元素
+#### 视频元素 video
 ```html
 <video src="path" controls autoplay></video>
 ```
 
-+ src="path"锛氳祫婧愯矾寰?
-+ controls 锛氳缃挱鏀鹃€夐」
-+ autoplay  鎵撳紑缃戦〉鑷姩鎾斁
++ src="path"：资源路径
++ controls ：设置播放选项
++ autoplay  打开网页自动播放
 
-#### 濯掍綋鍏冪礌 audio
+#### 媒体元素 audio
 ```html
 <aduio src="path" controls autoplay></aduio>
 ```
 
-## iframe鍐呰仈鏍囩
-src锛氬紩鐢ㄩ〉闈㈠湴鍧€
+## iframe内联标签
+src：引用页面地址
 
-name锛氭鏋舵爣璇嗗悕
+name：框架标识名
 
 ```tcl
 <iframe src="https://www.baidu.com" frameborder="0", height="800", width="1000"></iframe>
 ```
 
-## 琛ㄥ崟
-### 绠€浠?
+## 表单
+### 简介
 ```tcl
-action: 琛ㄥ崟鎻愪氦浣嶇疆锛屽彲浠ユ槸缃戠珯锛屼篃鍙互鏄竴涓姹傚鐞嗗湴鍧€
-method锛歱ost锛実et 鎻愪氦鏂瑰紡
-  get鏂规硶锛氬彲浠ュ湪url涓湅鍒版彁浜ょ殑淇℃伅锛屼笉瀹夊叏锛岄珮鏁?
-  post锛氭瘮杈冨畨鍏紝浼犺緭澶ф枃浠?
-value="闅忎究" 榛樿鍒濆鍊?
-maxlength="8" 鏈€闀胯兘鍐欏嚑涓瓧绗?
-size="30" 鏂囨湰妗嗙殑闀垮害
+action: 表单提交位置，可以是网站，也可以是一个请求处理地址
+method：post，get 提交方式
+  get方法：可以在url中看到提交的信息，不安全，高效
+  post：比较安全，传输大文件
+value="随便" 默认初始值
+maxlength="8" 最长能写几个字符
+size="30" 文本框的长度
 ```
 
-method锛氳瀹氬浣曞彂閫佽〃鍗曟暟鎹?甯哥敤鍊?get|post
+method：规定如何发送表单数据 常用值 get|post
 
-action锛氳〃绀哄悜浣曞鍙戦€佽〃鍗曟暟鎹?
+action：表示向何处发送表单数据
 
-### 甯哥敤鎸夐挳
-#### 涓嬫媺妗嗭細
+### 常用按钮
+#### 下拉框：
 ```tcl
-<select name="鍒楄〃鍚嶅崟" id="">
-  <option value="chain" aria-checked="true">涓浗</option>
-  <option value="us">缇庡浗</option>
-  <option value="eth">鐟炲＋</option>
-  <option value="yindu">鍗板害</option>
+<select name="列表名单" id="">
+  <option value="chain" aria-checked="true">中国</option>
+  <option value="us">美国</option>
+  <option value="eth">瑞士</option>
+  <option value="yindu">印度</option>
 </select>
 ```
 
-#### 鐢ㄦ埛鍚嶅瘑鐮侊細
+#### 用户名密码：
 ```tcl
-<p>鍚嶅瓧锛?input type="text" name="username" value="闅忎究" maxlength="8" size="30"/></p>
-<p>瀵嗙爜锛?input type="password" name="pwd"/></p>
+<p>名字：<input type="text" name="username" value="随便" maxlength="8" size="30"/></p>
+<p>密码：<input type="password" name="pwd"/></p>
 ```
 
-#### 鏂囨湰鍩?
+#### 文本域
 ```html
 <!--
-鏂囨湰鍩?
-cols : 琛?
-rows 锛?鍒?
+文本域
+cols : 行
+rows ： 列
 -->
 
-<p>鍙嶉锛?
-  <textarea name="testarea" id="" cols="30" rows="10">鏂囨湰鍐呭</textarea>
+<p>反馈：
+  <textarea name="testarea" id="" cols="30" rows="10">文本内容</textarea>
 </p>
 ```
 
-#### 鍗曢€夋鏍囩
+#### 单选框标签
 ```html
   <!--
-  鍗曢€夋鏍囩
+  单选框标签
   input type="radio"
-  value : 鍗曢€夋鐨勫€?
-  name : 琛ㄧず缁?
+  value : 单选框的值
+  name : 表示组
   -->
-  <p>鎬у埆:
-    <input type="radio" value="boy" name="sex"/>鐢?
-    <input type="radio" value="girl" name="sex"/>濂?
+  <p>性别:
+    <input type="radio" value="boy" name="sex"/>男
+    <input type="radio" value="girl" name="sex"/>女
   </p>
 ```
 
-#### 澶氶€夋
+#### 多选框
 ```html
   <!--
-  澶氶€夋
+  多选框
   input type="checkbox"
   -->
-  <p>鐖卞ソ锛?
-    <input type="checkbox" value="sleep" name="hobby">鐫¤
-    <input type="checkbox" value="code" name="hobby">鏁蹭唬鐮?
-    <input type="checkbox" value="chat" name="hobby">鑱婂ぉ
-    <input type="checkbox" value="game" name="hobby">娓告垙
-    <input type="checkbox" value="girl" name="hobby">鎭嬬埍
+  <p>爱好：
+    <input type="checkbox" value="sleep" name="hobby">睡觉
+    <input type="checkbox" value="code" name="hobby">敲代码
+    <input type="checkbox" value="chat" name="hobby">聊天
+    <input type="checkbox" value="game" name="hobby">游戏
+    <input type="checkbox" value="girl" name="hobby">恋爱
   </p>
 ```
 
-#### 鏂囦欢鍩?
+#### 文件域
 ```html
-  <p>鏂囦欢
+  <p>文件
     <input type="file" name="files">
-    <input type="button" value="涓婁紶" name="upload">
+    <input type="button" value="上传" name="upload">
   </p>
 ```
 
-#### 閲嶇疆锛屾彁浜わ紝鍥惧儚锛屾櫘閫氭寜閽?
+#### 重置，提交，图像，普通按钮
 ```html
   <!--
-  澶氶€夋
-  input type="button"  鏅€氭寜閽?
-  input type="image"   鍥惧儚鎸夐挳
-  input type="submit"  鎻愪氦鎸夐挳
-  input type="reset"   閲嶇疆
+  多选框
+  input type="button"  普通按钮
+  input type="image"   图像按钮
+  input type="submit"  提交按钮
+  input type="reset"   重置
   -->
-  <p>鎸夐挳
-    <input type="button" name="btn1" value="鐐瑰嚮鍙橀暱">
+  <p>按钮
+    <input type="button" name="btn1" value="点击变长">
     <input type="image" >
   </p>
 
 
   <input type="submit">
-  <input type="reset" value="娓呯┖琛ㄥ崟">
+  <input type="reset" value="清空表单">
 ```
 
-#### 閭锛寀rl锛屾暟瀛?
+#### 邮箱，url，数字
 ```html
   <!--
-  閭欢
+  邮件
   -->
-  <p>閭锛?
+  <p>邮箱：
     <input type="email"name="email">
   </p>
   <!--url-->
   <p>url:
     <input type="url" name="url">
   </p>
-  <!--鏁板瓧-->
-  <p>鏁板瓧锛?
+  <!--数字-->
+  <p>数字：
     <input type="number" name="number" max="100" min="0" step="10">
   </p>
 ```
 
-#### 婊戝潡锛屾悳绱?
+#### 滑块，搜索
 ```html
-  <!--婊戝潡-->
-  <p>闊抽噺锛?
-    <input type="range" max="100" min="0" name=鈥渧oice" step="2">
+  <!--滑块-->
+  <p>音量：
+    <input type="range" max="100" min="0" name=“voice" step="2">
   </p>
 
-  <!--鎼滅储-->
-  <p>鎼滅储
+  <!--搜索-->
+  <p>搜索
     <input type="search" name="search">
   </p>
 
 ```
 
-## 琛ㄥ崟搴旂敤
-+ 鍙锛歳eadonly
-+ 绂佺敤锛歞isabled
-+ 闅愯棌鍩燂細hidden
-+ 榛樿鍊硷細value
-+ 澧炲己榧犳爣鍙敤鎬?
+## 表单应用
++ 只读：readonly
++ 禁用：disabled
++ 隐藏域：hidden
++ 默认值：value
++ 增强鼠标可用性
 
 ```html
   <!--
-  澧炲己榧犳爣鍙敤鎬?
+  增强鼠标可用性
   -->
 
   <q>
-    <label for="mark">鐐规垜璇曡瘯</label>
+    <label for="mark">点我试试</label>
     <input type="text" id="mark">
   </q>
 ```
 
-## 琛ㄥ崟鐨勫垵绾ч獙璇?
-placeholder锛氭彁绀轰俊鎭?
+## 表单的初级验证
+placeholder：提示信息
 
-required锛氶潪绌哄瓧娈?
+required：非空字段
 
-pattern锛氭鍒欒〃杈惧紡
+pattern：正则表达式
 
 [https://www.jb51.net/tools/regexsc.htm](https://www.jb51.net/tools/regexsc.htm)
 
 
-', NOW());
-SET @last_note_id = LAST_INSERT_ID();
+', 0, NOW());
 
-INSERT INTO 
-ote (uthor_id, 	itle, content, created_at)
-VALUES (1003, 'Mybatis', '# 绠€浠?
-## 浠€涔堟槸Mybatis
-1. Mybatis 鐧惧害鐧剧
-+ MyBatis 鏄竴娆句紭绉€鐨勬寔涔呭眰妗嗘灦锛屽畠鏀寔鑷畾涔?SQL銆佸瓨鍌ㄨ繃绋嬩互鍙婇珮绾ф槧灏勩€?
-+ MyBatis 閬垮厤浜嗗嚑涔庢墍鏈夌殑 JDBC 浠ｇ爜鍜屾墜鍔ㄨ缃弬鏁颁互鍙婅幏鍙栫粨鏋滈泦鐨勫伐浣溿€?
-+ 浣跨敤 MyBatis 鍙互灏嗘暟鎹眰鍜屼笟鍔″眰涔嬮棿鐨勪唬鐮佸垎绂伙紝鏋佸ぇ鍦版彁楂樹簡寮€鍙戞晥鐜囷紝骞朵笖鍑忓皯浜嗕唬鐮佺殑缁存姢閲忋€?
-+ 瀹氫箟锛歁yBatis 鏄竴涓紭绉€鐨勬寔涔呭眰妗嗘灦锛屽畠鏀寔鑷畾涔?SQL銆佸瓨鍌ㄨ繃绋嬩互鍙婇珮绾ф槧灏勩€?
-+ 鑳屾櫙锛歁yBatis 鏈€鍒濈敱 MyBatis.org 绀惧尯寮€鍙戯紝鍚庢潵鎴愪负 Apache 鐨勪竴涓《绾ч」鐩€?
-2. 鏍稿績鐗规€?
-   + SQL 鏄犲皠锛氶€氳繃 XML 鎴栨敞瑙ｆ柟寮忓皢 Java 瀵硅薄涓?SQL 璇彞杩涜鏄犲皠銆?
-   + 鍔ㄦ€?SQL锛氭彁渚涘己澶х殑鍔ㄦ€?SQL 鍔熻兘锛屾敮鎸佸鏉傜殑 SQL 璇彞鏋勯€犮€?
-   + 楂樼骇鏄犲皠锛氭敮鎸佷竴瀵逛竴銆佷竴瀵瑰绛夊鏉傚叧绯荤殑鏄犲皠銆?
-   + 绫诲瀷澶勭悊锛氳嚜鍔ㄥ鐞?Java 绫诲瀷鍒版暟鎹簱绫诲瀷鐨勮浆鎹€?
-   + 缂撳瓨鏀寔锛氭彁渚涗竴绾у拰浜岀骇缂撳瓨鏈哄埗锛屾彁楂樻煡璇㈡晥鐜囥€?
-3. 浣跨敤鏂规硶
-   + 閰嶇疆鏂囦欢锛氶€氳繃 MyBatis 鐨勯厤缃枃浠讹紙mybatis-config.xml锛夐厤缃暟鎹簮銆佷簨鍔＄鐞嗗櫒绛夈€?
-   + Mapper 鎺ュ彛锛氬畾涔夋暟鎹闂眰鎺ュ彛锛屽苟閫氳繃 XML 鎴栨敞瑙ｆ柟寮忛厤缃?SQL 璇彞銆?
-   + 浼氳瘽宸ュ巶锛氫娇鐢?SqlSessionFactoryBuilder 鏋勫缓 SqlSessionFactory銆?
-   + 浼氳瘽鎿嶄綔锛氶€氳繃 SqlSession 杩涜鏁版嵁搴撴搷浣溿€?
-4. 浼樺娍
-   + 绠€鍗曟槗鐢細瀛︿範鎴愭湰浣庯紝鏄撲簬涓婃墜銆?
-   + 鐏垫椿鎬у己锛氭敮鎸侀珮搴﹁嚜瀹氫箟鐨?SQL 鍜屾槧灏勮鍒欍€?
-   + 鎬ц兘浼樺寲锛氶€氳繃缂撳瓨鏈哄埗鍜屽姩鎬?SQL 鎻愰珮鎬ц兘銆?
-   + 绀惧尯鏀寔锛氫綔涓?Apache 椤圭洰锛屾嫢鏈夋椿璺冪殑绀惧尯鏀寔銆?
-5. 鍔ｅ娍
-   + 杩囧害閰嶇疆锛氬浜庣畝鍗曠殑搴旂敤鏉ヨ锛屽彲鑳介渶瑕佽繃澶氱殑閰嶇疆宸ヤ綔銆?
-   + 渚靛叆鎬э細铏界劧鍑忓皯浜嗕唬鐮侀噺锛屼絾鍦ㄦ煇浜涙儏鍐典笅鍙兘浼氬鍔犱唬鐮佷笌鏁版嵁搴撶殑鑰﹀悎搴︺€?
-   + 鐗堟湰鍏煎鎬э細闅忕潃 Java 鍜屾暟鎹簱鎶€鏈殑鏇存柊锛孧yBatis 闇€瑕佷笉鏂洿鏂颁互淇濇寔鍏煎鎬с€?
-## 濡備綍鑾峰緱Mybatis
-+ Maven浠撳簱
-+ GitHub锛歨ttps://github.com/mybatis/mybatis-3/releases
-+ 涓枃鏂囨。锛歨ttps://mybatis.org/mybatis-3/zh/index.html
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+VALUES (11, 1003, 'Mybatis', '# 简介
+## 什么是Mybatis
+1. Mybatis 百度百科
++ MyBatis 是一款优秀的持久层框架，它支持自定义 SQL、存储过程以及高级映射。
++ MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集的工作。
++ 使用 MyBatis 可以将数据层和业务层之间的代码分离，极大地提高了开发效率，并且减少了代码的维护量。
++ 定义：MyBatis 是一个优秀的持久层框架，它支持自定义 SQL、存储过程以及高级映射。
++ 背景：MyBatis 最初由 MyBatis.org 社区开发，后来成为 Apache 的一个顶级项目。
+2. 核心特性
+   + SQL 映射：通过 XML 或注解方式将 Java 对象与 SQL 语句进行映射。
+   + 动态 SQL：提供强大的动态 SQL 功能，支持复杂的 SQL 语句构造。
+   + 高级映射：支持一对一、一对多等复杂关系的映射。
+   + 类型处理：自动处理 Java 类型到数据库类型的转换。
+   + 缓存支持：提供一级和二级缓存机制，提高查询效率。
+3. 使用方法
+   + 配置文件：通过 MyBatis 的配置文件（mybatis-config.xml）配置数据源、事务管理器等。
+   + Mapper 接口：定义数据访问层接口，并通过 XML 或注解方式配置 SQL 语句。
+   + 会话工厂：使用 SqlSessionFactoryBuilder 构建 SqlSessionFactory。
+   + 会话操作：通过 SqlSession 进行数据库操作。
+4. 优势
+   + 简单易用：学习成本低，易于上手。
+   + 灵活性强：支持高度自定义的 SQL 和映射规则。
+   + 性能优化：通过缓存机制和动态 SQL 提高性能。
+   + 社区支持：作为 Apache 项目，拥有活跃的社区支持。
+5. 劣势
+   + 过度配置：对于简单的应用来说，可能需要过多的配置工作。
+   + 侵入性：虽然减少了代码量，但在某些情况下可能会增加代码与数据库的耦合度。
+   + 版本兼容性：随着 Java 和数据库技术的更新，MyBatis 需要不断更新以保持兼容性。
+## 如何获得Mybatis
++ Maven仓库
++ GitHub：https://github.com/mybatis/mybatis-3/releases
++ 中文文档：https://mybatis.org/mybatis-3/zh/index.html
 
-## 鎸佷箙鍖?
-鏁版嵁鎸佷箙鍖?
+## 持久化
+数据持久化
 
-+ 鎸佷箙灞傚氨鏄皢绋嬪簭鐨勬暟鎹湪鎸佷箙鐘舵€佸拰鐬椂鐘舵€佽浆鍖栫殑杩囩▼
-+ 鍐呭瓨锛氭柇鐢靛嵆澶?
-+ 鏁版嵁搴擄紙JDBC锛夛紝io鏂囦欢鎸佷箙鍖?
++ 持久层就是将程序的数据在持久状态和瞬时状态转化的过程
++ 内存：断电即失
++ 数据库（JDBC），io文件持久化
 
-涓轰粈涔堥渶瑕佹寔涔呭寲
+为什么需要持久化
 
-+ 鏈変竴浜涘璞★紝涓嶈兘璁╀粬涓㈡帀
-+ 鍐呭瓨澶吹浜?
++ 有一些对象，不能让他丢掉
++ 内存太贵了
 
-## 鎸佷箙灞?
-Dao灞傦紝Servlet灞傦紝controller灞?
+## 持久层
+Dao层，Servlet层，controller层
 
-+ 瀹屾垚鎸佷箙鍖栧伐浣滅殑浠ｇ爜鍧?
-+ 灞傜晫闄愬崄鍒嗘槑鏄?
++ 完成持久化工作的代码块
++ 层界限十分明显
 
-## 涓轰粈涔堥渶瑕丮ybatis
-+ 甯姪绋嬪簭鍛樺皢鏁版嵁瀛樺叆鍒版暟鎹簱涓?
-+ 鏂逛究
-+ 浼犵粺鐨凧DBC浠ｇ爜姣旇緝澶嶆潅锛岀畝鍖栥€傛鏋躲€傝嚜鍔ㄥ寲
+## 为什么需要Mybatis
++ 帮助程序员将数据存入到数据库中
++ 方便
++ 传统的JDBC代码比较复杂，简化。框架。自动化
 +
 
-# 绗竴涓狹ybatis绋嬪簭
-## 鎼缓鐜
-+ 鎼缓鏁版嵁搴?
+# 第一个Mybatis程序
+## 搭建环境
++ 搭建数据库
 
 ```sql
 create database mybatis;
@@ -11963,19 +11933,19 @@ create table `user` (
 
 insert into `user` (id, name, password)
 values
-    (1, "寮犱笁", "123456"),
-    (2, "鏉庡洓", "123456"),
-    (3,"鐜嬩簲", "123456");
+    (1, "张三", "123456"),
+    (2, "李四", "123456"),
+    (3,"王五", "123456");
 ```
 
-+ 鏂板缓椤圭洰
-    - 鏂板缓涓€涓櫘閫氱殑maven椤圭洰
-    - 鍒犻櫎src鐩綍
-    - 瀵煎叆maven渚濊禆
++ 新建项目
+    - 新建一个普通的maven项目
+    - 删除src目录
+    - 导入maven依赖
 
 ```xml
 <dependencies>
-  <!-- mysql椹卞姩 -->
+  <!-- mysql驱动 -->
   <dependency>
     <groupId>mysql</groupId>
     <artifactId>mysql-connector-java</artifactId>
@@ -12021,15 +11991,15 @@ values
 
     - 
 
-## 鍒涘缓涓€涓ā鍧?
-+ 缂栧啓Mybatis鐨勬牳蹇冩枃浠?
+## 创建一个模块
++ 编写Mybatis的核心文件
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-config.dtd">
-<!--configuration 鏍稿績閰嶇疆鏂囦欢-->
+<!--configuration 核心配置文件-->
 <configuration>
     <environments default="development">
         <environment id="development">
@@ -12042,14 +12012,14 @@ values
             </dataSource>
         </environment>
     </environments>
-    <!--姣忎竴涓狹apper.xml閮介渶瑕佸湪mybatis鏍稿績閰嶇疆鏂囦欢涓敞鍐?->
+    <!--每一个Mapper.xml都需要在mybatis核心配置文件中注册-->
     <mappers>
         <mapper resource="com/jie/dao/UserMapper.xml"/>
     </mappers>
 </configuration>
 ```
 
-+ 缂栧啓Mybatis鐨勫伐鍏风被
++ 编写Mybatis的工具类
 
 ```java
 // sqlSessionFactory
@@ -12059,7 +12029,7 @@ public class MybatisUtils {
 
     static {
         try {
-            // 浣跨敤mybatis蹇呴』鑾峰彇sqlSessionFactory瀵硅薄
+            // 使用mybatis必须获取sqlSessionFactory对象
             String resource = "mybatis-config.xml";
             InputStream inputStream = Resources.getResourceAsStream(resource);
             sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
@@ -12068,8 +12038,8 @@ public class MybatisUtils {
         }
     }
 
-    // 鏃㈢劧鏈変簡 SqlSessionFactory锛岄【鍚嶆€濅箟锛屾垜浠彲浠ヤ粠涓幏寰?SqlSession 鐨勫疄渚嬨€?
-    // SqlSession 鎻愪緵浜嗗湪鏁版嵁搴撴墽琛?SQL 鍛戒护鎵€闇€鐨勬墍鏈夋柟娉曘€?
+    // 既然有了 SqlSessionFactory，顾名思义，我们可以从中获得 SqlSession 的实例。
+    // SqlSession 提供了在数据库执行 SQL 命令所需的所有方法。
 
     public static SqlSession getSqlSession() {
         return sqlSessionFactory.openSession();
@@ -12081,8 +12051,8 @@ public class MybatisUtils {
 
 
 
-## 缂栧啓浠ｇ爜
-+ 瀹炰綋绫?
+## 编写代码
++ 实体类
 
 ```java
 public class User {
@@ -12130,7 +12100,7 @@ public class User {
 }
 ```
 
-+ Dao鎺ュ彛
++ Dao接口
 
 ```java
 public interface UserDao {
@@ -12138,7 +12108,7 @@ public interface UserDao {
 }
 ```
 
-+ 鎺ュ彛瀹炵幇绫伙紝鐢卞師鏉ョ殑UserDaoImpl杞崲涓轰竴涓狹apper閰嶇疆鏂囦欢
++ 接口实现类，由原来的UserDaoImpl转换为一个Mapper配置文件
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -12146,9 +12116,9 @@ public interface UserDao {
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!--namespace: 缁戝畾涓€涓搴旂殑Dao/Mapper鎺ュ彛-->
+<!--namespace: 绑定一个对应的Dao/Mapper接口-->
 <mapper namespace="com.jie.dao.UserDao">
-    <!-- select锛氭煡璇㈣鍙? id锛氭柟娉曞悕 resultType锛氬疄浣撶被/杩斿洖鍊肩被鍨?->
+    <!-- select：查询语句  id：方法名 resultType：实体类/返回值类型-->
     <select id="getUserList()" resultType="com.jie.pojo.User">
         select * from mybatis.user;
     </select>
@@ -12157,14 +12127,14 @@ public interface UserDao {
 
 +
 
-## 娴嬭瘯
-娉ㄦ剰鐐癸細
+## 测试
+注意点：
 
-+ 姣忎竴涓狹apper.xml閮介渶瑕佸湪mybatis鏍稿績閰嶇疆鏂囦欢涓厤缃?
++ 每一个Mapper.xml都需要在mybatis核心配置文件中配置
 + <font style="color:rgba(0, 0, 0, 0.9);background-color:rgb(245, 245, 245);">org.apache.ibatis.binding.BindingException: Invalid bound statement (not found)</font>
 
 ```xml
-<!--姣忎竴涓狹apper.xml閮介渶瑕佸湪mybatis鏍稿績閰嶇疆鏂囦欢涓厤缃?->
+<!--每一个Mapper.xml都需要在mybatis核心配置文件中配置-->
 <mappers>
   <mapper resource="com/jie/dao/UserMapper.xml"/>
 </mappers>
@@ -12195,7 +12165,7 @@ public interface UserDao {
 </build>
 ```
 
-junit娴嬭瘯
+junit测试
 
 ```xml
 public class UserDaoTest {
@@ -12205,14 +12175,14 @@ public class UserDaoTest {
         SqlSession sqlSession = null;
 
         try{
-            // 鑾峰緱sqlSession瀵硅薄
+            // 获得sqlSession对象
             sqlSession = MybatisUtils.getSqlSession();
-            // 鎵цsql
-            // 鏂瑰紡1.  getMapper
+            // 执行sql
+            // 方式1.  getMapper
             UserDao userDao = sqlSession.getMapper(UserDao.class);
             List<User> userList = userDao.getUserList();
 
-            // 鏂瑰紡2
+            // 方式2
             // sqlSession.selectList(("com.jie.dao.UserDao.getUserList"));
 
             for (User user : userList) {
@@ -12222,7 +12192,7 @@ public class UserDaoTest {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            // 鍏抽棴sqlSession
+            // 关闭sqlSession
             sqlSession.close();
         }
 
@@ -12231,39 +12201,39 @@ public class UserDaoTest {
 ```
 
 ## namespace
-namespace涓殑鍖呭悕瑕佸拰Mapper鎺ュ彛涓殑鍖呭悕涓€鑷达紒
+namespace中的包名要和Mapper接口中的包名一致！
 
 ## select
-閫夋嫨锛屾煡璇㈣鍙ワ紱
+选择，查询语句；
 
-+ id锛氬氨鏄搴攏amespace涓殑鏂规硶鍚?
-+ resultType锛歋ql璇彞鎵ц鐨勮繑鍥炲€肩被鍨?
-+ parameterType锛氬弬鏁扮被鍨?
-1. 缂栧啓Mapper鐨勬帴鍙?
++ id：就是对应namespace中的方法名
++ resultType：Sql语句执行的返回值类型
++ parameterType：参数类型
+1. 编写Mapper的接口
 
 ```java
-// 鎻掑彊鍏ㄩ儴鐢ㄦ埛
+// 插叙全部用户
 List<User> getUserList();
 
-// 鏍规嵁id鏌ヨ鐢ㄦ埛
+// 根据id查询用户
 User getUserById(int id);
 ```
 
-2. 缂栧啓sql璇彞
+2. 编写sql语句
 
 ```xml
-<!--    select锛氭煡璇㈣鍙? id锛氭柟娉曞悕   resultType锛氭煡璇㈢粨鏋滄槧灏勭殑瀵硅薄绫诲瀷-->
+<!--    select：查询语句  id：方法名   resultType：查询结果映射的对象类型-->
 <select id="getUserList" resultType="com.jie.pojo.User">
     select * from user
 </select>
 
-<!--    鏍规嵁id鏌ヨ淇℃伅-->
+<!--    根据id查询信息-->
 <select id="getUserById" resultType="com.jie.pojo.User" parameterType="int">
     select *  from user where id = #{id}
 </select>
 ```
 
-3. 娴嬭瘯
+3. 测试
 
 ```java
     @Test
@@ -12271,14 +12241,14 @@ User getUserById(int id);
         SqlSession sqlSession = null;
 
         try{
-            // 鑾峰緱sqlSession瀵硅薄
+            // 获得sqlSession对象
             sqlSession = MybatisUtils.getSqlSession();
-            // 鎵цsql
-            // 鏂瑰紡1.  getMapper
+            // 执行sql
+            // 方式1.  getMapper
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
             List<User> userList = userMapper.getUserList();
 
-            // 鏂瑰紡2
+            // 方式2
             // sqlSession.selectList(("com.jie.dao.UserDao.getUserList"));
 
             for (User user : userList) {
@@ -12288,7 +12258,7 @@ User getUserById(int id);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            // 鍏抽棴sqlSession
+            // 关闭sqlSession
             sqlSession.close();
         }
 
@@ -12299,27 +12269,27 @@ User getUserById(int id);
         SqlSession sqlSession = null;
 
         try{
-            // 鑾峰緱sqlSession瀵硅薄
+            // 获得sqlSession对象
             sqlSession = MybatisUtils.getSqlSession();
-            // 鎵цsql
-            // 鏂瑰紡1.  getMapper
+            // 执行sql
+            // 方式1.  getMapper
             UserMapper mapper = sqlSession.getMapper(UserMapper.class);
             User user = mapper.getUserById(1);
 
-            // 鏂瑰紡2
+            // 方式2
             // sqlSession.selectList(("com.jie.dao.UserDao.getUserList"));
 
             System.out.println(user);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            // 鍏抽棴sqlSession
+            // 关闭sqlSession
             sqlSession.close();
         }
     }
 ```
 
-## 鍦ㄨ繘琛屽鍒犳敼鐨勬椂鍊欏繀椤绘彁浜や簨鍔?
+## 在进行增删改的时候必须提交事务
 ```java
 sqlSession.commit();
 sqlSession.close();
@@ -12328,24 +12298,24 @@ sqlSession.close();
 ### insert
 ### update
 ### delete
-## 閿欒鍒嗘瀽
-+ 鏍囩涓嶈鍖归厤閿?
-+ resources 缁戝畾 Mapper锛岄渶瑕佷娇鐢ㄨ矾寰?
-+ 绋嬪簭閰嶇疆鏂囦欢蹇呴』绗﹀悎瑙勮寖
-+ 娌℃湁娉ㄥ唽鍒拌祫婧?
-+ 杈撳嚭鐨剎ml鏂囦欢瀛樺湪涔辩爜闂
-+ maven璧勬簮娌℃湁瀵煎嚭闂
+## 错误分析
++ 标签不要匹配错
++ resources 绑定 Mapper，需要使用路径
++ 程序配置文件必须符合规范
++ 没有注册到资源
++ 输出的xml文件存在乱码问题
++ maven资源没有导出问题
 
-## 涓囪兘Map
-鍋囪瀹炰綋绫荤殑瀛楁鎴栧弬鏁版瘮杈冨锛屽彲浠ヨ€冭檻浣跨敤Map
+## 万能Map
+假设实体类的字段或参数比较多，可以考虑使用Map
 
 ```java
-// 涓囪兘鐨凪ap
+// 万能的Map
 int getUserById2(Map<String, Object> map);
 ```
 
 ```xml
-<!-- 鍗犱綅绗﹀弬鏁扮殑鍚嶅瓧瑕佸拰Map涓殑瀵瑰簲 -->
+<!-- 占位符参数的名字要和Map中的对应 -->
 <insert id="getUserById2" parameterType="map">
     insert into user(id, name, password) values(#{id}, #{name}, #{password})
 </insert>
@@ -12359,7 +12329,7 @@ public void addUserTest() {
     UserMapper mapper = sqlSession.getMapper(UserMapper.class);
     HashMap<String, Object> map = new HashMap<>();
     map.put("id", 5);
-    map.put("name", "鑻忎竷");
+    map.put("name", "苏七");
     map.put("password", "123456");
     mapper.getUserById2(map);
     sqlSession.commit();
@@ -12367,63 +12337,63 @@ public void addUserTest() {
 }
 ```
 
-Map浼犻€掑弬鏁帮紝鐩存帴鍦╯ql涓彇鍑簁ey鍗冲彲    parameterType="map"
+Map传递参数，直接在sql中取出key即可    parameterType="map"
 
-瀵硅薄浼犻€掑弬鏁帮紝鐩存帴鍦╯ql涓彇鍑哄璞＄殑灞炴€у嵆鍙?     parameterType="com.jie.pojo.User"
+对象传递参数，直接在sql中取出对象的属性即可      parameterType="com.jie.pojo.User"
 
-鍙湁涓€涓熀鏈被鍨嬬殑鎯呭喌涓嬶紝鍙互鐩存帴鍦╯ql涓彇鍒?
+只有一个基本类型的情况下，可以直接在sql中取到
 
-澶氫釜鍙傛暟鐢∕ap锛屾垨鑰呮敞瑙?
+多个参数用Map，或者注解
 
-## 妯＄硦鏌ヨ
-+ java浠ｇ爜鎵ц鐨勬椂鍊欙紝浼犻€掗€氶厤绗? %
+## 模糊查询
++ java代码执行的时候，传递通配符% %
 
 ```java
-List<User> userList = userMapper.getUserLike("%鏉?");
+List<User> userList = userMapper.getUserLike("%李%");
 ```
 
-+ 鍦╯ql鎷兼帴涓娇鐢ㄩ€氶厤绗?
++ 在sql拼接中使用通配符
 
 ```sql
 select * from user where name like "%"#{value}"%"
 ```
 
-# 閰嶇疆瑙ｆ瀽
-## 鏍稿績閰嶇疆鏂囦欢
+# 配置解析
+## 核心配置文件
 + mybatis-config.xml
-+ Mybatis 鐨勯厤缃枃浠跺寘鍚簡浼氭繁娣卞奖鍝峂ybatis琛屼负鐨勮缃拰灞炴€т俊鎭?
-+ 蹇呴』鎸夌収濡備笅椤哄簭鏀剧疆閰嶇疆淇℃伅
++ Mybatis 的配置文件包含了会深深影响Mybatis行为的设置和属性信息
++ 必须按照如下顺序放置配置信息
 
 ```sql
-configuration锛堥厤缃級
-properties锛堝睘鎬э級
-settings锛堣缃級
-typeAliases锛堢被鍨嬪埆鍚嶏級
-typeHandlers锛堢被鍨嬪鐞嗗櫒锛?
-objectFactory锛堝璞″伐鍘傦級
-plugins锛堟彃浠讹級
-environments锛堢幆澧冮厤缃級
-  environment锛堢幆澧冨彉閲忥級
-  transactionManager锛堜簨鍔＄鐞嗗櫒锛?
-  dataSource锛堟暟鎹簮锛?
-databaseIdProvider锛堟暟鎹簱鍘傚晢鏍囪瘑锛?
-mappers锛堟槧灏勫櫒锛?
+configuration（配置）
+properties（属性）
+settings（设置）
+typeAliases（类型别名）
+typeHandlers（类型处理器）
+objectFactory（对象工厂）
+plugins（插件）
+environments（环境配置）
+  environment（环境变量）
+  transactionManager（事务管理器）
+  dataSource（数据源）
+databaseIdProvider（数据库厂商标识）
+mappers（映射器）
 ```
 
 +
 
-## <font style="color:rgb(51, 51, 51);">鐜閰嶇疆锛坋nvironments锛?/font>
-+ <font style="color:rgb(51, 51, 51);">MyBatis 鍙互閰嶇疆鎴愰€傚簲澶氱鐜</font>
-+ <font style="color:rgb(51, 51, 51);">涓嶈繃瑕佽浣忥細灏界鍙互閰嶇疆澶氫釜鐜锛屼絾姣忎釜 SqlSessionFactory 瀹炰緥鍙兘閫夋嫨涓€绉嶇幆澧?/font>
-+ <font style="color:rgb(51, 51, 51);">瀛︿細浣跨敤閰嶇疆澶氬閰嶇疆鐜</font>
-+ <font style="color:rgb(51, 51, 51);">Mybatis榛樿鐨勪簨鐗╃鐞嗗櫒鏄疛DBC锛岃繛鎺ユ睜锛歅OOLED</font>
+## <font style="color:rgb(51, 51, 51);">环境配置（environments）</font>
++ <font style="color:rgb(51, 51, 51);">MyBatis 可以配置成适应多种环境</font>
++ <font style="color:rgb(51, 51, 51);">不过要记住：尽管可以配置多个环境，但每个 SqlSessionFactory 实例只能选择一种环境</font>
++ <font style="color:rgb(51, 51, 51);">学会使用配置多套配置环境</font>
++ <font style="color:rgb(51, 51, 51);">Mybatis默认的事物管理器是JDBC，连接池：POOLED</font>
 
-## <font style="color:rgb(51, 51, 51);">灞炴€э紙properties锛?/font>
-<font style="color:rgb(51, 51, 51);">鎴戜滑鍙互閫氳繃properties灞炴€ф潵瀹炵幇寮曠敤閰嶇疆鏂囦欢</font>
+## <font style="color:rgb(51, 51, 51);">属性（properties）</font>
+<font style="color:rgb(51, 51, 51);">我们可以通过properties属性来实现引用配置文件</font>
 
-<font style="color:rgb(51, 51, 51);">杩欎簺灞炴€у彲浠ュ湪澶栭儴杩涜閰嶇疆锛屽苟鍙互杩涜鍔ㄦ€佹浛鎹€備綘鏃㈠彲浠ュ湪鍏稿瀷鐨?Java 灞炴€ф枃浠朵腑閰嶇疆杩欎簺灞炴€э紝涔熷彲浠ュ湪 properties 鍏冪礌鐨勫瓙鍏冪礌涓缃?銆恉b.properties銆?/font>
+<font style="color:rgb(51, 51, 51);">这些属性可以在外部进行配置，并可以进行动态替换。你既可以在典型的 Java 属性文件中配置这些属性，也可以在 properties 元素的子元素中设置 【db.properties】</font>
 
-<font style="color:rgb(51, 51, 51);">缂栧啓涓€涓猟b.properties </font>
+<font style="color:rgb(51, 51, 51);">编写一个db.properties </font>
 
 ```sql
 driver=com.mysql.jdbc.Driver
@@ -12432,7 +12402,7 @@ username=root
 password=@Root1234
 ```
 
-寮曞叆澶栭儴閰嶇疆鏂囦欢
+引入外部配置文件
 
 ```sql
 <properties resource="db.properties" />
@@ -12450,27 +12420,27 @@ password=@Root1234
 </environments>
 ```
 
-+ 鍙互鐩存帴寮曞叆澶栭儴鏂囦欢
-+ 鍙互鍦ㄥ叾涓鍔犱竴浜涘睘鎬ч厤缃?
-+ 濡傛灉涓や釜鏂囦欢鏈夊悓涓€涓瓧娈碉紝鏈夐檺浣跨敤澶栭儴閰嶇疆鏂囦欢
++ 可以直接引入外部文件
++ 可以在其中增加一些属性配置
++ 如果两个文件有同一个字段，有限使用外部配置文件
 
-## 绫诲瀷鍒悕锛坱ypeAliases锛?
-+ 绫诲瀷鍒悕鏄负java绫诲瀷璁剧疆鐨勪竴涓煭鐨勫悕瀛?
-+ 瀛樺湪鐨勬剰涔変粎鍦ㄧ敤浜庢潵鍑忓皯绫诲畬鍏ㄩ檺瀹氬悕鐨勫啑浣?
+## 类型别名（typeAliases）
++ 类型别名是为java类型设置的一个短的名字
++ 存在的意义仅在用于来减少类完全限定名的冗余
 
 ```xml
-<!-- 鍙互缁欏疄浣撶被鍙栧埆鍚?->
+<!-- 可以给实体类取别名-->
 <typeAliases>
     <typeAlias type="com.jie.pojo.User" alias="User"/>
     <package name="com.jie.pojo"/>  <!-- user -->
 </typeAliases>
 ```
 
-+ 涔熷彲浠ユ寚瀹氫竴涓寘鍚嶏紝Mybatis浼氬湪鍖呭悕涓嬮潰鎼滅储闇€瑕佺殑Java Bean锛?
-+ 鎵弿瀹炰綋绫荤殑鍖咃紝瀹冪殑榛樿鍒悕灏变负杩欎釜浜嗙殑绫诲悕锛岄瀛楁瘝灏忓啓
-+ 鍦ㄥ疄浣撶被姣旇緝灏戠殑鏃跺€欙紝浣跨敤绗竴绉嶆柟寮?
-+ 濡傛灉瀹炰綋绫昏緝澶氱殑鏃跺€欙紝寤鸿浣跨敤绗簩绉?
-+ 涔熷彲浠ュ湪瀹炰綋绫讳笂澧炲姞娉ㄨВ鏉ュ彇鍒悕锛屽苟涓斾紭鍏堜娇鐢ㄦ敞瑙ｅ悕
++ 也可以指定一个包名，Mybatis会在包名下面搜索需要的Java Bean，
++ 扫描实体类的包，它的默认别名就为这个了的类名，首字母小写
++ 在实体类比较少的时候，使用第一种方式
++ 如果实体类较多的时候，建议使用第二种
++ 也可以在实体类上增加注解来取别名，并且优先使用注解名
 
 ```xml
 @Alias("user")
@@ -12478,19 +12448,19 @@ password=@Root1234
 
 
 
-## 璁剧疆锛圫ettings锛?
-logImpl锛?font style="color:rgb(51, 51, 51);">鎸囧畾 MyBatis 鎵€鐢ㄦ棩蹇楃殑鍏蜂綋瀹炵幇锛屾湭鎸囧畾鏃跺皢鑷姩鏌ユ壘銆?/font>
+## 设置（Settings）
+logImpl：<font style="color:rgb(51, 51, 51);">指定 MyBatis 所用日志的具体实现，未指定时将自动查找。</font>
 
-+ <font style="color:rgb(51, 51, 51);">SLF4J | LOG4J锛?.5.9 璧峰簾寮冿級 |</font>
++ <font style="color:rgb(51, 51, 51);">SLF4J | LOG4J（3.5.9 起废弃） |</font>
 + <font style="color:rgb(51, 51, 51);">LOG4J2 |</font>
 + <font style="color:rgb(51, 51, 51);">JDK_LOGGING |</font>
 + <font style="color:rgb(51, 51, 51);">COMMONS_LOGGING </font>
 + <font style="color:rgb(51, 51, 51);"> STDOUT_LOGGING |</font>
 + <font style="color:rgb(51, 51, 51);">NO_LOGGING</font>
 
-<font style="color:rgb(51, 51, 51);background-color:rgb(249, 249, 249);">cacheEnabled锛氬叏灞€鎬у湴寮€鍚垨鍏抽棴鎵€鏈夋槧灏勫櫒閰嶇疆鏂囦欢涓凡閰嶇疆鐨勪换浣曠紦瀛樸€?/font>
+<font style="color:rgb(51, 51, 51);background-color:rgb(249, 249, 249);">cacheEnabled：全局性地开启或关闭所有映射器配置文件中已配置的任何缓存。</font>
 
-<font style="color:rgb(51, 51, 51);">lazyLoadingEnabled锛氬欢杩熷姞杞界殑鍏ㄥ眬寮€鍏炽€傚綋寮€鍚椂锛屾墍鏈夊叧鑱斿璞￠兘浼氬欢杩熷姞杞姐€?鐗瑰畾鍏宠仈鍏崇郴涓彲閫氳繃璁剧疆 </font>`<font style="color:rgb(221, 17, 68);background-color:rgb(247, 247, 249);">fetchType</font>`<font style="color:rgb(51, 51, 51);"> 灞炴€ф潵瑕嗙洊璇ラ」鐨勫紑鍏崇姸鎬併€?/font>
+<font style="color:rgb(51, 51, 51);">lazyLoadingEnabled：延迟加载的全局开关。当开启时，所有关联对象都会延迟加载。 特定关联关系中可通过设置 </font>`<font style="color:rgb(221, 17, 68);background-color:rgb(247, 247, 249);">fetchType</font>`<font style="color:rgb(51, 51, 51);"> 属性来覆盖该项的开关状态。</font>
 
 ```xml
 <settings>
@@ -12498,8 +12468,8 @@ logImpl锛?font style="color:rgb(51, 51, 51);">鎸囧畾 MyBatis 鎵€鐢ㄦ棩
 </settings>
 ```
 
-## 褰辫鍣紙mappers锛?
-+ 鏂瑰紡1锛氫娇鐢ㄧ浉瀵逛簬绫昏矾寰勭殑璧勬簮寮曠敤
+## 影视器（mappers）
++ 方式1：使用相对于类路径的资源引用
 
 ```xml
 <mappers>
@@ -12509,7 +12479,7 @@ logImpl锛?font style="color:rgb(51, 51, 51);">鎸囧畾 MyBatis 鎵€鐢ㄦ棩
 </mappers>
 ```
 
-+ 鏂瑰紡2锛氫娇鐢ㄦ槧灏勫櫒鎺ュ彛瀹炵幇绫荤殑瀹屽叏闄愬畾绫诲悕
++ 方式2：使用映射器接口实现类的完全限定类名
 
 ```xml
 <mappers>
@@ -12519,10 +12489,10 @@ logImpl锛?font style="color:rgb(51, 51, 51);">鎸囧畾 MyBatis 鎵€鐢ㄦ棩
 </mappers>
 ```
 
-    - 娉ㄦ剰锛?
-        * 鎺ュ彛鍜屼粬鐨凪apper閰嶇疆鏂囦欢蹇呴』鍚屽悕
-        * 鎺ュ彛鍜屽畠鐨凪apper閰嶇疆鏂囦欢蹇呴』鍦ㄥ悓涓€涓寘涓?
-+ 鏂瑰紡3
+    - 注意：
+        * 接口和他的Mapper配置文件必须同名
+        * 接口和它的Mapper配置文件必须在同一个包下
++ 方式3
 
 ```xml
 <mappers>
@@ -12530,59 +12500,59 @@ logImpl锛?font style="color:rgb(51, 51, 51);">鎸囧畾 MyBatis 鎵€鐢ㄦ棩
 </mappers>
 ```
 
-    - 娉ㄦ剰鐐瑰拰鏂瑰紡2涓€鏍?
+    - 注意点和方式2一样
 
-## 浣滅敤鍩熷拰鐢熷懡鍛ㄦ湡
-# 瑙ｅ喅灞炴€у悕鍜屽瓧娈靛悕涓嶄竴鑷撮棶棰?
-1. 缁欏睘鎬у悕鎹㈠埆鍚?
+## 作用域和生命周期
+# 解决属性名和字段名不一致问题
+1. 给属性名换别名
 
 ```xml
 select id,name,password as pwd from user
 ```
 
-2. 浣跨敤缁撴灉闆嗘槧灏?
+2. 使用结果集映射
 
 ```xml
-<!--缁撴灉闆嗘槧灏?->
+<!--结果集映射-->
 <resultMap id="UserMap" type="User">
-  <!--column锛氭暟鎹簱涓殑瀛楁锛宲roperty锛氬疄浣撶被涓殑灞炴€?->
+  <!--column：数据库中的字段，property：实体类中的属性-->
   <result column="id" property="id"/>
   <result column="name" property="name"/>
   <result column="password" property="pwd"/>
 </resultMap>
-<!--    select锛氭煡璇㈣鍙? id锛氭柟娉曞悕   resultType锛氭煡璇㈢粨鏋滄槧灏勭殑瀵硅薄绫诲瀷-->
+<!--    select：查询语句  id：方法名   resultType：查询结果映射的对象类型-->
 <select id="getUserList" resultMap="UserMap">
   select id,name,password as pwd from user
 </select>
 ```
 
-+ resultMap鍏冪礌鏄疢ybatis涓渶閲嶈鏈€寮哄ぇ鐨勫厓绱?
-+ ResultMap鐨勮璁℃€濇兂鏄紝瀵逛簬绠€鍗曠殑璇彞鏍规湰涓嶉渶瑕佹樉寮忕殑缁撴灉鏄犲皠锛岃€屾槸瀵逛簬澶嶆潅涓€鐐圭殑璇彞鍙渶瑕佹弿杩板畠浠殑鍏崇郴灏卞ソ浜?
-+ 鍙渶瑕佽缃瓧娈靛拰灞炴€т笉涓€鑷寸殑鍗冲彲
++ resultMap元素是Mybatis中最重要最强大的元素
++ ResultMap的设计思想是，对于简单的语句根本不需要显式的结果映射，而是对于复杂一点的语句只需要描述它们的关系就好了
++ 只需要设置字段和属性不一致的即可
 
 
 
-# 鏃ュ織
-## 鏍囧噯鏃ュ織宸ュ巶
-濡傛灉涓€涓暟鎹簱鎿嶄綔锛屽嚭鐜颁簡寮傚父锛屾垜浠渶瑕佹帓閿欙紝鏃ュ織灏辨槸鏈€濂界殑鍔╂墜-->鏃ュ織宸ュ巶
+# 日志
+## 标准日志工厂
+如果一个数据库操作，出现了异常，我们需要排错，日志就是最好的助手-->日志工厂
 
-logImpl锛?font style="color:rgb(51, 51, 51);">鎸囧畾 MyBatis 鎵€鐢ㄦ棩蹇楃殑鍏蜂綋瀹炵幇锛屾湭鎸囧畾鏃跺皢鑷姩鏌ユ壘銆?/font>
+logImpl：<font style="color:rgb(51, 51, 51);">指定 MyBatis 所用日志的具体实现，未指定时将自动查找。</font>
 
 + <font style="color:rgb(51, 51, 51);">SLF4J </font>
-+ <font style="color:rgb(51, 51, 51);"> LOG4J锛?.5.9 璧峰簾寮冿級 </font>
++ <font style="color:rgb(51, 51, 51);"> LOG4J（3.5.9 起废弃） </font>
 + <font style="color:rgb(51, 51, 51);">LOG4J2</font>
 + <font style="color:rgb(51, 51, 51);">JDK_LOGGING </font>
 + <font style="color:rgb(51, 51, 51);">COMMONS_LOGGING </font>
-+ <font style="color:rgb(51, 51, 51);"> STDOUT_LOGGING    銆愩€?/font>
++ <font style="color:rgb(51, 51, 51);"> STDOUT_LOGGING    【】</font>
 + <font style="color:rgb(51, 51, 51);">NO_LOGGING</font>
 
-鍦∕ybatis涓叿浣撲娇鐢ㄥ摢涓棩蹇楀疄鐜帮紝鍦ㄨ缃腑璁惧畾
+在Mybatis中具体使用哪个日志实现，在设置中设定
 
-<font style="color:rgb(51, 51, 51);">STDOUT_LOGGING 锛氭爣鍑嗘棩蹇楄緭鍑?/font>
+<font style="color:rgb(51, 51, 51);">STDOUT_LOGGING ：标准日志输出</font>
 
 ```xml
 <settings>
-    <!-- 鏍囧噯鏃ュ織杈撳嚭 -->
+    <!-- 标准日志输出 -->
     <setting name="logImpl" value="STDOUT_LOGGING"/>
 </settings>
 ```
@@ -12590,19 +12560,19 @@ logImpl锛?font style="color:rgb(51, 51, 51);">鎸囧畾 MyBatis 鎵€鐢ㄦ棩
 <img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1749185466196-49861eed-f54c-425c-a672-49cb70fbb79e.png" width="550.4" title="" crop="0,0,1,1" id="u956aaeae" class="ne-image">
 
 ## Log4j
-浠€涔堟槸Log4j锛?
+什么是Log4j：
 
-+ Log4jApache鐨勪竴涓紑婧愰」鐩紝鍙互鎺у埗鏃ュ織淇℃伅杈撻€佺殑鐩殑鍦版槸鎺у埗鍙帮紝鏂囦欢锛孏UI缁勪欢锛?
-+ 涔熷彲浠ユ帶鍒舵瘡涓€鏉℃棩蹇楃殑杈撳嚭鏍煎紡
-+ 閫氳繃瀹氫箟姣忎竴鏉℃棩蹇椾俊鎭殑绾у埆锛岃兘澶熸洿鍔犵粏鑷寸殑鎺у埗鏃ュ織鐨勭敓鎴愯繃绋?
-+ 閫氳繃涓€涓厤缃枃浠舵潵鐏垫椿鐨勮繘琛岄厤缃紝鑰屼笉鏄淇敼搴旂敤鐨勪唬鐮?
++ Log4jApache的一个开源项目，可以控制日志信息输送的目的地是控制台，文件，GUI组件，
++ 也可以控制每一条日志的输出格式
++ 通过定义每一条日志信息的级别，能够更加细致的控制日志的生成过程
++ 通过一个配置文件来灵活的进行配置，而不是要修改应用的代码
 
-濡備綍浣跨敤
+如何使用
 
-1. 鍏堝鍏og4j鐨勫寘
+1. 先导入log4j的包
 
 ```xml
-<!-- 瀵煎叆log4j閰嶇疆鏂囦欢 -->
+<!-- 导入log4j配置文件 -->
 <dependency>
     <groupId>log4j</groupId>
     <artifactId>log4j</artifactId>
@@ -12613,17 +12583,17 @@ logImpl锛?font style="color:rgb(51, 51, 51);">鎸囧畾 MyBatis 鎵€鐢ㄦ棩
 2. log4j.properties
 
 ```xml
-#鏍筁ogger閰嶇疆
+#根Logger配置
 log4j.rootLogger=debug, console, file
 
-# 鎺у埗鍙拌緭鍑?
+# 控制台输出
 log4j.appender.console=org.apache.log4j.ConsoleAppender
 log4j.appender.console.Target=System.out
 log4j.appender.console.Threshold=DEBUG
 log4j.appender.console.layout=org.apache.log4j.PatternLayout
 log4j.appender.console.layout.ConversionPattern=%d{ISO8601} [%t] %-5p %c{2}:%L - %m%n
 
-# 婊氬姩鏂囦欢杈撳嚭
+# 滚动文件输出
 log4j.appender.file=org.apache.log4j.RollingFileAppender
 log4j.appender.file.File=./log/jie.log
 log4j.appender.file.MaxFileSize=10MB
@@ -12631,7 +12601,7 @@ log4j.appender.file.Threshold=debug
 log4j.appender.file.layout=org.apache.log4j.PatternLayout
 log4j.appender.file.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %p %t %c - %m%n
 
-# 鐗瑰畾鍖呮棩蹇楃骇鍒帶鍒?
+# 特定包日志级别控制
 log4j.logger.org.mybatis=debug
 log4j.logger.java.sql=debug
 log4j.logger.java.sql.Statement=debug
@@ -12640,27 +12610,27 @@ log4j.logger.java.sql.PreparedStatement=debug
 
 ```
 
-3. 閰嶇疆log4j鏃ュ織鐨勫疄鐜?
+3. 配置log4j日志的实现
 
 ```xml
 <settings>
-    <!-- 鏍囧噯鏃ュ織杈撳嚭 -->
+    <!-- 标准日志输出 -->
     <setting name="logImpl" value="LOG4J"/>
 </settings>
 ```
 
-4. 娴嬭瘯杩愯
+4. 测试运行
 
-绠€鍗曚娇鐢?
+简单使用
 
-1. 鍦ㄤ娇鐢↙og4j鐨勭被涓紝瀵煎叆鍖?import org.apache.log4j.Logger;
-2. 鏃ュ織瀵硅薄锛屽弬鏁颁负褰撳墠绫荤殑class
+1. 在使用Log4j的类中，导入包 import org.apache.log4j.Logger;
+2. 日志对象，参数为当前类的class
 
 ```java
 static Logger logger = Logger.getLogger(UserMapperTest.class);
 ```
 
-3. 鏃ュ織绾у埆
+3. 日志级别
 
 ```java
 logger.info();
@@ -12670,25 +12640,25 @@ logger.error();
 
 4.
 
-# 鍒嗛〉
-## Mybatis鍒嗛〉鐢╯ql鏌ヨ
-1. 鎺ュ彛
+# 分页
+## Mybatis分页用sql查询
+1. 接口
 
 ```java
-// 鍒嗛〉鏌ヨ
+// 分页查询
 List<User> getUserLimitList(Map<String, Integer> map);
 ```
 
-2. sql璇彞
+2. sql语句
 
 ```xml
-<!-- 鍒嗛〉鏌ヨ -->
+<!-- 分页查询 -->
 <select id="getUserLimitList" resultType="com.jie.pojo.User">
     select * from user limit #{startIndex},#{pageSize}
 </select>
 ```
 
-3. 娴嬭瘯
+3. 测试
 
 ```java
 @Test
@@ -12707,24 +12677,24 @@ public void test3(){
 }
 ```
 
-## RowBounds绫?
-1. 鎺ュ彛
+## RowBounds类
+1. 接口
 
 ```java
-// 鍒嗛〉鏌ヨ
+// 分页查询
 List<User> getUserRowBounds();
 ```
 
-2. sql璇彞
+2. sql语句
 
 ```xml
-<!-- 鍒嗛〉鏌ヨ -->
+<!-- 分页查询 -->
 <select id="getUserRowBounds" resultType="com.jie.pojo.User">
     select * from user
 </select>
 ```
 
-3. 娴嬭瘯
+3. 测试
 
 ```java
 @Test
@@ -12739,35 +12709,35 @@ public void test4(){
 }
 ```
 
-## 鍒嗛〉鎻掍欢
+## 分页插件
 Mybatis PageHelper
 
-# 浣跨敤娉ㄨВ寮€鍙?
-## 浣跨敤娉ㄨВ寮€鍙戠殑杩囩▼
-1. 娉ㄨВ鍦ㄦ帴鍙ｄ笂瀹炵幇
+# 使用注解开发
+## 使用注解开发的过程
+1. 注解在接口上实现
 
 ```java
-// 鎻掑彊鍏ㄩ儴鐢ㄦ埛
+// 插叙全部用户
 @Select("select * from user")
 List<User> getUserList();
 ```
 
-2. 鍦ㄦ牳蹇冮厤缃枃浠朵腑缁戝畾鎺ュ彛
+2. 在核心配置文件中绑定接口
 
 ```xml
-<!--缁戝畾鎺ュ彛-->
+<!--绑定接口-->
 <mappers>
   <mapper class="com.jie.mapper.UserMapper"/>
 </mappers>
 ```
 
-3. 娴嬭瘯
+3. 测试
 
 ```java
 @Test
 public void test() {
     SqlSession sqlSession = MybatisUtils.getSqlSession();
-    // 椤跺眰涓昏搴旂敤鍙嶅皠
+    // 顶层主要应用反射
     UserMapper mapper = sqlSession.getMapper(UserMapper.class);
     List<User> users = mapper.getUserList();
     for (User user : users) {
@@ -12777,31 +12747,31 @@ public void test() {
 }
 ```
 
-+ 鏈川锛氬弽灏勬満鍒跺疄鐜?
-+ 搴曞眰锛氬姩鎬佷唬鐞嗭紒
++ 本质：反射机制实现
++ 底层：动态代理！
 
-## Mybatis鎵ц杩囩▼
+## Mybatis执行过程
 ## CRUD
-璁剧疆鑷姩鎻愪氦浜嬪姟
+设置自动提交事务
 
 ```java
-// 鍦ㄧ紪鍐欑殑宸ュ叿绫讳腑 璁剧疆鍙傛暟涓簍rue
+// 在编写的工具类中 设置参数为true
 public static SqlSession getSqlSession() {
     return sqlSessionFactory.openSession(true);
 }
 ```
 
-鍦ㄨ缃熀鏈被鍨嬬殑鍙傛暟鏃跺姞涓婃敞瑙param()
+在设置基本类型的参数时加上注解@param()
 
-+ 鎺ュ彛
++ 接口
 
 ```java
-// 鏍规嵁id鏌ョ敤鎴?
+// 根据id查用户
 @Select("select * from user where id=#{id}")
 List<User> getUserById(@Param("id") int id);
 ```
 
-+ 娴嬭瘯
++ 测试
 
 ```java
 @Test
@@ -12814,22 +12784,22 @@ public void test2() {
 }
 ```
 
-鍏?*浜嶡Param()**
+关**于@Param()**
 
-+ 鍩烘湰绫诲瀷鐨勯槓杩版垨鑰匰tring绫诲瀷锛岄渶瑕佸姞涓?
-+ 寮曠敤绫诲瀷涓嶉渶瑕佸姞
-+ 濡傛瓕鍙湁涓€涓熀鏈被鍨嬬殑璇濓紝鍙互蹇界暐锛屼絾寤鸿鍔犱笂
-+ 鎴戜滑鍦⊿QL涓紩鐢ㄧ殑灏辨槸@Param()涓殑灞炴€у悕
++ 基本类型的阐述或者String类型，需要加上
++ 引用类型不需要加
++ 如歌只有一个基本类型的话，可以忽略，但建议加上
++ 我们在SQL中引用的就是@Param()中的属性名
 
-#{}   鍜?  ${} 鐨勫尯鍒?
+#{}   和   ${} 的区别
 
-+ #{} 鍙互闃叉SQL娉ㄥ叆
++ #{} 可以防止SQL注入
 
 # Lombok
-浣跨敤姝ラ
+使用步骤
 
-+ 鍦↖DEA涓畨瑁匧ombok鎻掍欢
-+ 鍦ㄩ」鐩腑瀵煎叆lombok鐨刯ar鍖?
++ 在IDEA中安装Lombok插件
++ 在项目中导入lombok的jar包
 
 ```xml
 <dependency>
@@ -12839,7 +12809,7 @@ public void test2() {
 </dependency>
 ```
 
-+ 鍦ㄥ疄浣撶被涓婂姞娉ㄨВ
++ 在实体类上加注解
 
 ```xml
 @Getter 
@@ -12851,9 +12821,9 @@ public void test2() {
 @Data
 ```
 
-# 澶氬涓€鍜屼竴瀵瑰澶勭悊
-## 澶氬涓€澶勭悊
-+ 鎸夌収鏌ヨ宓屽澶勭悊
+# 多对一和一对多处理
+## 多对一处理
++ 按照查询嵌套处理
 
 ```xml
 <select id="getStudents" resultMap="StudentMap">
@@ -12871,7 +12841,7 @@ public void test2() {
 </select>
 ```
 
-+ 鎸夌収缁撴灉宓屽澶勭悊
++ 按照结果嵌套处理
 
 ```xml
 <select id="getStudents2" resultMap="StudentTeacher">
@@ -12889,11 +12859,11 @@ public void test2() {
 </resultMap>
 ```
 
-## 涓€瀵瑰澶勭悊
-+ 鏍规嵁缁撴灉宓屽鏌ヨ
+## 一对多处理
++ 根据结果嵌套查询
 
 ```xml
-<!-- 鎸夌収缁撴灉宓屽鏌ヨ-->
+<!-- 按照结果嵌套查询-->
 <select id="getTeacher" resultMap="TeacherMap">
     select t.id tid, t.name tname, s.name sname, s.id sid
     from teacher t, student s
@@ -12903,9 +12873,9 @@ public void test2() {
 <resultMap id="TeacherMap" type="com.jie.pojo.Teacher">
     <result property="id" column="tid"/>
     <result property="name" column="tname"/>
-    <!-- collection: 涓€瀵瑰澶勭悊锛堥泦鍚堬級 association: 澶氬涓€澶勭悊锛堝璞★級 -->
-    <!-- javaType: 鎸囧畾灞炴€х殑绫诲瀷
-         闆嗗悎涓殑娉涘瀷淇℃伅锛岀敤ofType鑾峰彇
+    <!-- collection: 一对多处理（集合） association: 多对一处理（对象） -->
+    <!-- javaType: 指定属性的类型
+         集合中的泛型信息，用ofType获取
     -->
     <collection property="students" ofType="com.jie.pojo.Student">
         <result property="id" column="sit"/>
@@ -12914,10 +12884,10 @@ public void test2() {
 </resultMap>
 ```
 
-+ 鏍规嵁瀛愭煡璇㈠祵濂楀鐞?
++ 根据子查询嵌套处理
 
 ```xml
-<!--鏍规嵁瀛愭煡璇㈠祵濂楀鐞?->
+<!--根据子查询嵌套处理-->
 <select id="getTeacher2" resultMap="TeacherStudent">
     select * from teacher where id = #{id}
 </select>
@@ -12933,21 +12903,21 @@ public void test2() {
 </select>
 ```
 
-## 灏忕粨
-+ 鍏宠仈锛歛ssociation  銆愬瀵逛竴銆?
-+ 闆嗗悎锛歝ollection   銆愪竴瀵瑰銆?
+## 小结
++ 关联：association  【多对一】
++ 集合：collection   【一对多】
 + javaType    &     ofType
-    - javaType锛氱敤鏉ュ埗瀹氬疄浣撶被涓睘鎬х殑绫诲瀷
-    - ofType锛氱敤鏉ュ埗瀹氭槧灏勫埌List鎴栬€呴泦鍚堜腑鐨刾ojo绫诲瀷锛屾硾鍨嬩腑鐨勭害鏉熺被鍨?
-+ 娉ㄦ剰鐐癸細
-    - 淇濊瘉sql鐨勫彲璇绘€э紝灏介噺淇濊瘉閫氫織鏄撴噦
-    - 娉ㄦ剰涓€瀵瑰鍜屽瀵逛竴涓紝灞炴€у悕鍜屽瓧娈电殑闂
-    - 濡傛灉闂涓嶅ソ鎺掓煡閿欒锛屽彲浠ヤ娇鐢ㄦ棩蹇楋紝
+    - javaType：用来制定实体类中属性的类型
+    - ofType：用来制定映射到List或者集合中的pojo类型，泛型中的约束类型
++ 注意点：
+    - 保证sql的可读性，尽量保证通俗易懂
+    - 注意一对多和多对一中，属性名和字段的问题
+    - 如果问题不好排查错误，可以使用日志，
 
-# 鍔ㄦ€丼QL锛氭嫾鎺ql璇彞
-## 鍩虹
-+ 鏍规嵁涓嶅悓鐨勬潯浠惰拷鍔爏ql璇彞
-+ <font style="color:rgb(51, 51, 51);">鍊熷姪鍔熻兘寮哄ぇ鐨勫熀浜?OGNL 鐨勮〃杈惧紡锛孧yBatis 3 鏇挎崲浜嗕箣鍓嶇殑澶ч儴鍒嗗厓绱狅紝澶уぇ绮剧畝浜嗗厓绱犵绫伙紝鐜板湪瑕佸涔犵殑鍏冪礌绉嶇被姣斿師鏉ョ殑涓€鍗婅繕瑕佸皯銆?/font>
+# 动态SQL：拼接sql语句
+## 基础
++ 根据不同的条件追加sql语句
++ <font style="color:rgb(51, 51, 51);">借助功能强大的基于 OGNL 的表达式，MyBatis 3 替换了之前的大部分元素，大大精简了元素种类，现在要学习的元素种类比原来的一半还要少。</font>
     - <font style="color:rgb(64, 64, 64);">if</font>
     - <font style="color:rgb(64, 64, 64);">choose (when, otherwise)</font>
     - <font style="color:rgb(64, 64, 64);">trim (where, set)</font>
@@ -12956,18 +12926,18 @@ public void test2() {
 
 
 ## If
-+ 鎺ュ彛
++ 接口
 
 ```java
-// if鏌ヨ
+// if查询
 List<Blog> queryBlogIf(Map map);
 ```
 
-+ sql璇彞
-    - where鏍囩锛氬彧鏈夊湪婊¤冻涓€涓垨澶氫釜鏉′欢涓嬫墠浼氬嚭鐜帮紝濡傛灉绗竴涓猧f涓嶆弧瓒虫潯浠朵細鑷姩鑸嶅純绗簩涓猧f鐨刟nd
++ sql语句
+    - where标签：只有在满足一个或多个条件下才会出现，如果第一个if不满足条件会自动舍弃第二个if的and
 
 ```xml
-<!-- 閫夋嫨鏌ヨ -->
+<!-- 选择查询 -->
 <select id="queryBlogIf" parameterType="map" resultType="com.jie.pojo.Blog">
     select * from blog where 1=1
     <where>
@@ -12981,7 +12951,7 @@ List<Blog> queryBlogIf(Map map);
 </select>
 ```
 
-+ 娴嬭瘯
++ 测试
 
 ```java
 @Test
@@ -12989,8 +12959,8 @@ public void test3() {
     SqlSession sqlSession = MybatisUtils.getSqlSession();
     BlogMapper mapper = sqlSession.getMapper(BlogMapper.class);
     HashMap map = new HashMap<>();
-    map.put("title", "java濡傛绠€鍗?);
-    map.put("author", "浣滆€?);
+    map.put("title", "java如此简单");
+    map.put("author", "作者");
     List<Blog> blogs = mapper.queryBlogIf(map);
     for (Blog blog : blogs) {
         System.out.println(blog);
@@ -12999,8 +12969,8 @@ public void test3() {
 }
 ```
 
-## choose锛坵hen锛宱therwise锛?閫夋嫨涓€涓?
-+ 鎺ュ彛
+## choose（when，otherwise） 选择一个
++ 接口
 
 ```java
 List<Blog> queryBlogChoose(Map map);
@@ -13027,7 +12997,7 @@ List<Blog> queryBlogChoose(Map map);
 </select>
 ```
 
-+ 娴嬭瘯
++ 测试
 
 ```java
 @Test
@@ -13035,7 +13005,7 @@ public void test4() {
     SqlSession sqlSession = MybatisUtils.getSqlSession();
     BlogMapper mapper = sqlSession.getMapper(BlogMapper.class);
     HashMap map = new HashMap<>();
-    map.put("author", "浣滆€?);
+    map.put("author", "作者");
     map.put("views", 9999);
     List<Blog> blogs = mapper.queryBlogChoose(map);
     for (Blog blog : blogs) {
@@ -13046,11 +13016,11 @@ public void test4() {
 
 ```
 
-## trim锛坵here锛宻et锛?
-+ 鎺ュ彛
+## trim（where，set）
++ 接口
 
 ```xml
-// 鏇存柊鍗氬
+// 更新博客
 int updateBlog(Map map);
 ```
 
@@ -13072,7 +13042,7 @@ int updateBlog(Map map);
 </update>
 ```
 
-+ 娴嬭瘯
++ 测试
 
 ```java
 @Test
@@ -13080,8 +13050,8 @@ public void test5() {
     SqlSession sqlSession = MybatisUtils.getSqlSession();
     BlogMapper mapper = sqlSession.getMapper(BlogMapper.class);
     HashMap map = new HashMap<>();
-    map.put("title", "瑗挎父璁?");
-    map.put("author", "缃楄疮涓?);
+    map.put("title", "西游记2");
+    map.put("author", "罗贯中");
     map.put("id", "27c41929a2334b7591dcf159b7b8a81c");
 
     int i = mapper.updateBlog(map);
@@ -13090,15 +13060,15 @@ public void test5() {
 }
 ```
 
-## SQL鐗囨
-+ 鎺ュ彛
+## SQL片段
++ 接口
 
 ```xml
-// if鏌ヨ
+// if查询
 List<Blog> queryBlogIf(Map map);
 ```
 
-+ SQL 瀹炵幇sql澶嶇敤
++ SQL 实现sql复用
 
 ```xml
 <sql id="if-title-author">
@@ -13121,7 +13091,7 @@ List<Blog> queryBlogIf(Map map);
 </select>
 ```
 
-+ 娴嬭瘯
++ 测试
 
 ```xml
 @Test
@@ -13129,8 +13099,8 @@ public void test3() {
     SqlSession sqlSession = MybatisUtils.getSqlSession();
     BlogMapper mapper = sqlSession.getMapper(BlogMapper.class);
     HashMap map = new HashMap<>();
-    map.put("title", "java濡傛绠€鍗?);
-    map.put("author", "浣滆€?);
+    map.put("title", "java如此简单");
+    map.put("author", "作者");
     List<Blog> blogs = mapper.queryBlogIf(map);
     for (Blog blog : blogs) {
         System.out.println(blog);
@@ -13139,25 +13109,25 @@ public void test3() {
 }
 ```
 
-娉ㄦ剰浜嬮」锛?
+注意事项：
 
-+ 鏈€濂藉熀浜庡崟琛ㄦ潵瀹氫箟SQL鐗囨
-+ 涓嶈瀛樺湪where鏍囩
++ 最好基于单表来定义SQL片段
++ 不要存在where标签
 
 ## foreach
-+ 鎺ュ彛
++ 接口
 
 ```xml
-// 鏌ヨ绗?-2-3鍙疯褰曠殑鍗氬
+// 查询第1-2-3号记录的博客
 List<Blog> queryBlogForeach(Map map);
 ```
 
 + sql
-    - `collection="ids"`锛氶泦鍚堝悕锛?
-    -  `item="id"`锛氬彇闆嗗悎鐨勫€?
-    - `open="and (" ` 锛氳捣濮?
-    - `close=")"` 锛氱粨灏?
-    - `separator="or"`锛氬垎闅旂
+    - `collection="ids"`：集合名：
+    -  `item="id"`：取集合的值
+    - `open="and (" ` ：起始
+    - `close=")"` ：结尾
+    - `separator="or"`：分隔符
 
 ```xml
 <select id="queryBlogForeach" parameterType="map" resultType="com.jie.pojo.Blog">
@@ -13170,7 +13140,7 @@ List<Blog> queryBlogForeach(Map map);
 </select>
 ```
 
-+ 娴嬭瘯
++ 测试
 
 ```xml
 @Test
@@ -13191,147 +13161,145 @@ public void test6() {
 }
 ```
 
-# 缂撳瓨[Cache]
-## 绠€浠?
-+ 浠€涔堟槸缂撳瓨
-    - 鏀惧湪鍐呭瓨涓殑涓存椂鏁版嵁
-    - 灏嗙敤鎴风粡甯告煡璇㈢殑鏁版嵁鏀惧湪缂撳瓨锛堝唴瀛橈級涓紝鐢ㄦ埛鍘绘煡璇㈡暟鎹氨涓嶇敤浠庣鐩橈紙鍏崇郴鍨嬫暟鎹簱鏁版嵁鏂囦欢锛夋煡璇紝浠庣紦瀛樹腑鏌ヨ锛屼粠鑰屾彁楂樻煡璇㈡晥鐜囷紝瑙ｅ喅浜嗛珮骞跺彂绯荤粺鐨勬€ц兘闂
-+ 涓轰粈涔堣浣跨敤缂撳瓨
-    - 鍑忓皯鍜屾暟鎹簱鐨勪氦浜掓鏁帮紝鍑忓皯绯荤粺寮€閿€锛屾彁楂樿タ瀹晥鐜?
-+ 浠€涔堟牱鐨勯鏁版嵁鑳戒娇鐢ㄧ紦瀛?
-    - 缁忓父鏌ヨ骞朵笖涓嶇粡甯告敼鍙樼殑鏁版嵁
+# 缓存[Cache]
+## 简介
++ 什么是缓存
+    - 放在内存中的临时数据
+    - 将用户经常查询的数据放在缓存（内存）中，用户去查询数据就不用从磁盘（关系型数据库数据文件）查询，从缓存中查询，从而提高查询效率，解决了高并发系统的性能问题
++ 为什么要使用缓存
+    - 减少和数据库的交互次数，减少系统开销，提高西宫效率
++ 什么样的额数据能使用缓存
+    - 经常查询并且不经常改变的数据
 
-## Mybatis缂撳瓨
-+ Mybatis鍖呭惈涓€涓潪甯稿己澶х殑鏌ヨ缂撳瓨鐗规€э紝瀹冨彲浠ラ潪甯告柟渚垮湴瀹氬埗鍜岄厤缃紦銆傜紦瀛樺彲浠ユ瀬澶х殑鎻愬崌鏌ヨ鏁堢巼
-+ Mybatis绯荤粺涓粯璁ゅ畾涔変簡涓ょ骇缂撳瓨锛?*涓€绾х紦瀛?*鍜?*浜岀骇缂撳瓨**
-    - 榛樿鎯呭喌涓嬶紝鍙湁涓€绾х紦瀛樺紑鍚紝锛圫qlSession绾у埆鐨勭紦瀛橈紝涔熺О涓烘湰鍦扮紦瀛橈級
-    - 浜岀骇缂撳瓨闇€瑕佹墜鍔ㄥ紑鍚拰閰嶇疆锛屽畠鏄熀浜巒amespace绾у埆鐨勭紦瀛?
-    - 涓轰簡鎻愰珮鎵╁睍鎬э紝Mybatis瀹氫箟浜嗙紦瀛樻帴鍙ache锛屽彲浠ラ€氳繃瀹炵幇Cache鎺ュ彛鏉ヨ嚜瀹氫箟浜岀骇缂撳瓨
+## Mybatis缓存
++ Mybatis包含一个非常强大的查询缓存特性，它可以非常方便地定制和配置缓。缓存可以极大的提升查询效率
++ Mybatis系统中默认定义了两级缓存：**一级缓存**和**二级缓存**
+    - 默认情况下，只有一级缓存开启，（SqlSession级别的缓存，也称为本地缓存）
+    - 二级缓存需要手动开启和配置，它是基于namespace级别的缓存
+    - 为了提高扩展性，Mybatis定义了缓存接口Cache，可以通过实现Cache接口来自定义二级缓存
 
-## 涓€绾х紦瀛?
-+ 涓€绾х紦瀛樹篃绉颁负鏈湴缂撳瓨锛圫qlSession绾у埆鐨勭紦瀛橈級
-    - 涓庢暟鎹簱鍚屼竴娆′細璇濇湡闂存煡璇㈠埌鐨勬暟鎹細鏀惧湪鏈湴缂撳瓨涓?
-    - 浠ュ悗濡傛灉闇€瑕佽幏鍙栫浉鍚岀殑鏁版嵁锛岀洿鎺ヤ粠缂撳瓨涓嬁锛屾病蹇呰鍐嶆鏌ヨ鏁版嵁搴擄紱
-+ 娴嬭瘯娴佺▼
-    - 寮€鍚棩蹇?
-    - 娴嬭瘯鍦ㄤ竴涓猄ession涓煡璇袱娆＄浉鍚岀殑缁撴灉
-    - 鏌ョ湅鏃ュ織
-+ 缂撳瓨澶辨晥鐨勬儏鍐碉細
-    - 鏌ヨ涓嶅悓鐨勪俊鎭?
-    - 澧炲垹鏀规搷浣滐紝鍙兘浼氫慨鏀瑰師鏉ョ殑鏁版嵁锛屾墍浠ュ繀瀹氫細鍒锋柊缂撳瓨锛?
-    - 鏌ヨ涓嶅悓鐨刴apper.xml
-    - 鎵嬪姩娓呯悊缂撳瓨
+## 一级缓存
++ 一级缓存也称为本地缓存（SqlSession级别的缓存）
+    - 与数据库同一次会话期间查询到的数据会放在本地缓存中
+    - 以后如果需要获取相同的数据，直接从缓存中拿，没必要再次查询数据库；
++ 测试流程
+    - 开启日志
+    - 测试在一个Session中查询两次相同的结果
+    - 查看日志
++ 缓存失效的情况：
+    - 查询不同的信息
+    - 增删改操作，可能会修改原来的数据，所以必定会刷新缓存！
+    - 查询不同的mapper.xml
+    - 手动清理缓存
 
-## 浜岀骇缂撳瓨
-+ 浜岀骇缂撳瓨涔熷彨鍏ㄥ眬缂撳瓨锛屼竴绾х紦瀛樹綔鐢ㄥ煙澶綆浜嗭紝鎵€浠ヨ癁鐢熶簡浜岀骇缂撳瓨
-+ 鍩轰簬namespace绾у埆鐨勭紦瀛橈紝涓€涓悕绉扮┖闂达紝瀵瑰簲涓€涓簩绾х紦瀛?
-+ 宸ヤ綔鏈哄埗
-    - 涓€涓細璇濇煡璇竴鏉℃暟鎹紝杩欎釜鏁版嵁灏变細琚斁鍦ㄥ綋鍓嶄細璇濈殑涓€绾х紦瀛樹腑锛?
-    - 濡傛灉褰撳墠浼氳瘽鍏抽棴浜嗭紝杩欎釜浼氳瘽瀵瑰簲鐨勪竴绾х紦瀛樺氨娌′簡锛屼絾鏄垜浠兂瑕佺殑鏄紝浼氳瘽鍏抽棴浜嗭紝涓€绾х紦瀛樹腑鐨勬暟鎹淇濇寔鍒颁簩绾х紦瀛樹腑
-    - 鏂扮殑浼氳瘽鏌ヨ淇℃伅锛屽氨鍙互浠庝簩绾х紦瀛樹腑鑾峰彇鍐呭
-    - 涓嶅悓鐨刴apper鏌ュ嚭鐨勬暟鎹細鏀惧湪鑷繁瀵瑰簲鐨勭紦瀛橈紙map锛変腑锛?
-+ 娴嬭瘯姝ラ
-    - 寮€鍚叏灞€缂撳瓨
+## 二级缓存
++ 二级缓存也叫全局缓存，一级缓存作用域太低了，所以诞生了二级缓存
++ 基于namespace级别的缓存，一个名称空间，对应一个二级缓存
++ 工作机制
+    - 一个会话查询一条数据，这个数据就会被放在当前会话的一级缓存中；
+    - 如果当前会话关闭了，这个会话对应的一级缓存就没了，但是我们想要的是，会话关闭了，一级缓存中的数据被保持到二级缓存中
+    - 新的会话查询信息，就可以从二级缓存中获取内容
+    - 不同的mapper查出的数据会放在自己对应的缓存（map）中；
++ 测试步骤
+    - 开启全局缓存
 
 ```xml
 <settings>
     <setting name="logImpl" value="STDOUT_LOGGING"/>
-    <!--鏄惧紡寮€鍚粯璁ょ紦瀛?->
+    <!--显式开启默认缓存-->
     <setting name="cacheEnabled" value="true"/>
 </settings>
 ```
 
-    - 鍦ㄨ浣跨敤浜岀骇缂撳瓨鐨刴apper涓紑鍚細鍙嚜瀹氫箟缂撳瓨
+    - 在要使用二级缓存的mapper中开启：可自定义缓存
 
 ```xml
-<!--鍦ㄥ綋鍓峬apper.xml涓娇鐢ㄤ簩绾х紦瀛?->
+<!--在当前mapper.xml中使用二级缓存-->
 <cache eviction="FIFO"
 flushInterval="60000"
 size="512"
 readOnly="true"/>
 ```
 
-    - 娴嬭瘯
-        * 闇€瑕佸皢瀹炰綋绫诲簭鍒楀寲锛佸惁鍒欎細鎶ラ敊
+    - 测试
+        * 需要将实体类序列化！否则会报错
 
 ```xml
 Caused by: java.io.NotSerializableException:com.jie.pojo.User
 ```
 
-+ 灏忕粨
-    - 鍙寮€鍚簡浜岀骇缂撳瓨锛屽湪鍚屼竴涓狹apper涓嬪氨鏈夋晥
-    - 鎵€鏈夌殑鏁版嵁閮戒細鍏堟斁鍦ㄤ竴绾х紦瀛樹腑锛?
-    - 鍙湁褰撲細璇濇彁浜わ紝鎴栬€呭叧闂殑鏃跺€欙紝鎵嶄細鎻愪氦鍒颁簩绾х紦瀛樹腑
++ 小结
+    - 只要开启了二级缓存，在同一个Mapper下就有效
+    - 所有的数据都会先放在一级缓存中；
+    - 只有当会话提交，或者关闭的时候，才会提交到二级缓存中
 
-## 鑷畾涔夌紦瀛?
-浣跨敤鑷畾涔夌紦瀛?
+## 自定义缓存
+使用自定义缓存
 
-+ 鍦∕aven涓鍖?
-+ 鍦∕apper涓寚瀹歟hcache缂撳瓨
-+ 鍐欓厤缃枃浠秂hcache.xml
-', NOW());
-SET @last_note_id = LAST_INSERT_ID();
++ 在Maven中导包
++ 在Mapper中指定ehcache缓存
++ 写配置文件ehcache.xml
+', 0, NOW());
 
-INSERT INTO 
-ote (uthor_id, 	itle, content, created_at)
-VALUES (1003, 'Springboot', '# 閰嶇疆鏂囦欢
-SpringBoot浣跨敤涓€涓叏灞€鐨勯厤缃枃浠讹紝閰嶇疆鏂囦欢鍚嶇О鏄浐瀹氱殑
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+VALUES (12, 1003, 'Springboot', '# 配置文件
+SpringBoot使用一个全局的配置文件，配置文件名称是固定的
 
 + application.properties
-    - 璇硶缁撴瀯锛歬ey=value
+    - 语法结构：key=value
 + application.yaml
-    - 璇硶缁撴瀯锛歬ey锛氱┖鏍?value
+    - 语法结构：key：空格 value
 
-閰嶇疆鏂囦欢鐨勪綔鐢細淇敼springBoot鍒跺畾閰嶇疆鐨勯粯璁ゅ€硷紝鍥犱负SpringBoot鍐嶄綆灞傜粰鎴戜滑閰嶇疆濂戒簡
+配置文件的作用：修改springBoot制定配置的默认值，因为SpringBoot再低层给我们配置好了
 
 # ymal
-+ yaml:<font style="color:rgb(15, 17, 21);">YAML锛圷AML Ain''t Markup Language锛夋槸涓€绉?/font>**<font style="color:rgb(15, 17, 21);">鏁版嵁搴忓垪鍖栨牸寮?/font>**<font style="color:rgb(15, 17, 21);">锛屾瘮浼犵粺鐨?</font>`<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">properties</font>`<font style="color:rgb(15, 17, 21);"> 鏂囦欢鏇村叿鍙鎬э紝閫傚悎鐢ㄦ潵琛ㄨ揪灞傛鍖栭厤缃暟鎹?/font>
-+ <font style="color:rgb(15, 17, 21);">鍩虹璇硶瑙勫垯</font>
-    - <font style="color:rgb(15, 17, 21);">澶у皬鍐欐晱鎰?/font>
-    - <font style="color:rgb(15, 17, 21);">浣跨敤缂╄繘琛ㄧず灞傜骇</font><font style="color:rgb(15, 17, 21);">锛堝繀椤荤敤绌烘牸锛屼笉鑳界敤 Tab锛?/font>
-    - <font style="color:rgb(15, 17, 21);">鍚岀骇鍏冪礌宸﹀榻?/font>
-    - <font style="color:rgb(15, 17, 21);">浣跨敤 </font>`<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">#</font>`<font style="color:rgb(15, 17, 21);"> 娉ㄩ噴</font>
++ yaml:<font style="color:rgb(15, 17, 21);">YAML（YAML Ain''t Markup Language）是一种</font>**<font style="color:rgb(15, 17, 21);">数据序列化格式</font>**<font style="color:rgb(15, 17, 21);">，比传统的 </font>`<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">properties</font>`<font style="color:rgb(15, 17, 21);"> 文件更具可读性，适合用来表达层次化配置数据</font>
++ <font style="color:rgb(15, 17, 21);">基础语法规则</font>
+    - <font style="color:rgb(15, 17, 21);">大小写敏感</font>
+    - <font style="color:rgb(15, 17, 21);">使用缩进表示层级</font><font style="color:rgb(15, 17, 21);">（必须用空格，不能用 Tab）</font>
+    - <font style="color:rgb(15, 17, 21);">同级元素左对齐</font>
+    - <font style="color:rgb(15, 17, 21);">使用 </font>`<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">#</font>`<font style="color:rgb(15, 17, 21);"> 注释</font>
 
 ```yaml
-# 姝ｇ‘绀轰緥
+# 正确示例
 server:
   port: 8080
   servlet:
     context-path: /api
 ```
 
-+ 鏁版嵁绫诲瀷鍐欐硶
++ 数据类型写法
 
 ```yaml
-# 瀛楃涓诧紝鏁板€硷紝甯冨皵
+# 字符串，数值，布尔
 name: zhangsan
 age: 25
 enabled: true
-# 瀛楃涓插彲浠ヤ笉鍔犲紩鍙凤紝鐗规畩瀛楃鎴栬浆涔夋椂鐢ㄥ弻寮曞彿
-description: "hello \n world"   # 浼氳浆涔?\n
-simple: hello world              # 鏅€氬瓧绗︿覆
+# 字符串可以不加引号，特殊字符或转义时用双引号
+description: "hello \n world"   # 会转义 \n
+simple: hello world              # 普通字符串
 
 
-# 瀵硅薄/Map
+# 对象/Map
 person:
   name: lisi
   age: 30
 
-# 琛屽唴鍐欐硶
+# 行内写法
 person: {name: lisi, age: 30}
 
-# 鏁扮粍/list/set
+# 数组/list/set
 hobbies:
   - reading
   - coding
   - gaming
 
-# 琛屽唴鍐欐硶
+# 行内写法
 hobbies: [reading, coding, gaming]
 ```
 
-+ SpringBoot璇诲彇yaml鍊?
-    - @Value璇诲彇鍗曚釜鍊?
++ SpringBoot读取yaml值
+    - @Value读取单个值
 
 ```yaml
 app:
@@ -13347,7 +13315,7 @@ private String appName;
 private String version;
 ```
 
-    - `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">@ConfigurationProperties</font>`<font style="color:rgb(15, 17, 21);">锛堟帹鑽愶紝绫诲瀷瀹夊叏锛?/font>
+    - `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">@ConfigurationProperties</font>`<font style="color:rgb(15, 17, 21);">（推荐，类型安全）</font>
 
 ```yaml
 aliyun:
@@ -13364,11 +13332,11 @@ public class AliyunProperties {
     private String secretKey;
     private String region;
     
-    // getter / setter 锛堝繀椤伙級
+    // getter / setter （必须）
 }
 ```
 
-    - `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">@ConfigurationProperties</font>`<font style="color:rgb(15, 17, 21);"> 缁戝畾澶嶆潅缁撴瀯</font>
+    - `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">@ConfigurationProperties</font>`<font style="color:rgb(15, 17, 21);"> 绑定复杂结构</font>
 
 ```yaml
 database:
@@ -13395,7 +13363,7 @@ public class DatabaseProperties {
 }
 ```
 
-    - 鍗犱綅绗︿笌闅忔満鍊?
+    - 占位符与随机值
 
 ```yaml
 app:
@@ -13406,10 +13374,10 @@ app:
   port: ${random.int(8080,9090)}
 ```
 
-+ 澶氱幆澧冮厤缃?
++ 多环境配置
 
 ```yaml
-# 榛樿閰嶇疆
+# 默认配置
 spring:
   profiles:
     active: dev
@@ -13431,7 +13399,7 @@ server:
   port: 80
 ```
 
-+ 鏉炬暎缁戝畾
++ 松散绑定
 
 ```yaml
 myapp:
@@ -13441,35 +13409,35 @@ myapp:
 ```java
 @ConfigurationProperties(prefix = "myapp")
 public class MyProperties {
-    private String accessKeyId;  // 鑷姩鍖归厤 access-key-id
+    private String accessKeyId;  // 自动匹配 access-key-id
 }
 ```
 
-+ 浣跨敤@Validdated鏍￠獙閰嶇疆鍊?
++ 使用@Validdated校验配置值
 
 ```java
 @Validated
 @ConfigurationProperties(prefix = "app")
 public class AppConfig {
-    @NotNull  // 涓嶄负绌?
+    @NotNull  // 不为空
     private String name;
-    @Min(1)   // 鏈€灏忓€间负1
+    @Min(1)   // 最小值为1
     private Integer timeout;
 }
 ```
 
-# 鑷姩瑁呴厤鍘熺悊
-1. SpringBoot鍚姩浼氬姞杞藉ぇ閲忕殑鑷姩閰嶇疆绫?
-2. 鎴戜滑鐪嬫垜浠渶瑕佺殑鍔熻兘鏈夋病鏈夊湪SpringBoot榛樿鍐欏ソ鐨勮嚜鍔ㄩ厤缃被涓?
-3. 鍐嶆潵鐪嬭繖涓惎鍔ㄩ厤缃被涓埌搴曢厤缃簡鍝簺缁勪欢锛涳紙鍙闇€瑕佺殑缁勪欢瀛樺湪鍏朵腑锛屽氨涓嶉渶瑕佹墜鍔ㄩ厤缃級
-4. 缁欏鍣ㄤ腑鑷姩閰嶇疆绫绘坊鍔犵粍浠剁殑鏃跺€欙紝浼氫粠properties绫讳腑鑾峰彇鏌愪簺绫伙紝鍙渶瑕佸湪閰嶇疆鏂囦欢涓嚜鍔ㄨ繖浜涘睘鎬х殑鍊煎嵆鍙細
-    - xxxxAutoConfiguration锛氳嚜鍔ㄩ厤缃被锛涚粰瀹瑰櫒涓坊鍔犵粍浠?
-    - xxxxProperties锛氬皝瑁呴厤缃枃浠朵腑鍥界浉鍏冲睘鎬?
-5. 鍙互閫氳繃鍦ㄩ厤缃枃浠朵腑璁剧疆debug=true锛屽彲浠ユ煡璇㈠摢浜涢厤缃被鏄惁鐢熸晥
+# 自动装配原理
+1. SpringBoot启动会加载大量的自动配置类
+2. 我们看我们需要的功能有没有在SpringBoot默认写好的自动配置类中
+3. 再来看这个启动配置类中到底配置了哪些组件；（只要需要的组件存在其中，就不需要手动配置）
+4. 给容器中自动配置类添加组件的时候，会从properties类中获取某些类，只需要在配置文件中自动这些属性的值即可：
+    - xxxxAutoConfiguration：自动配置类；给容器中添加组件
+    - xxxxProperties：封装配置文件中国相关属性
+5. 可以通过在配置文件中设置debug=true，可以查询哪些配置类是否生效
 
-# 妯＄増寮曟搸thymeleaf
-## 蹇€熷叆闂?
-+ 寮曞叆渚濊禆
+# 模版引擎thymeleaf
+## 快速入门
++ 引入依赖
 
 ```xml
 <dependency>
@@ -13478,20 +13446,20 @@ public class AppConfig {
 </dependency>
 ```
 
-+ 鍩烘湰閰嶇疆
++ 基本配置
 
 ```yaml
 # application.yml
 spring:
   thymeleaf:
-    prefix: classpath:/templates/   # 妯℃澘瀛樻斁鐩綍锛堥粯璁わ級
-    suffix: .html                     # 鍚庣紑锛堥粯璁わ級
-    cache: false                      # 寮€鍙戞椂鍏抽棴缂撳瓨
-    mode: HTML                        # 妯℃澘妯″紡
+    prefix: classpath:/templates/   # 模板存放目录（默认）
+    suffix: .html                     # 后缀（默认）
+    cache: false                      # 开发时关闭缓存
+    mode: HTML                        # 模板模式
     encoding: UTF-8
 ```
 
-+ 绗竴涓緥瀛?
++ 第一个例子
 
 ```java
 @Controller
@@ -13500,7 +13468,7 @@ public class HelloController {
     @GetMapping("/hello")
     public String hello(Model model) {
         model.addAttribute("message", "Hello Thymeleaf!");
-        return "hello";  // 瀵瑰簲 templates/hello.html
+        return "hello";  // 对应 templates/hello.html
     }
 }
 ```
@@ -13513,201 +13481,201 @@ public class HelloController {
     <title>Thymeleaf Demo</title>
   </head>
   <body>
-    <p th:text="${message}">鍗犱綅绗︽枃鏈?/p>
+    <p th:text="${message}">占位符文本</p>
   </body>
 </html>
 ```
 
-## 鏍稿績璇硶
-### 鏍囧噯琛ㄨ揪寮?
-| <font style="color:rgb(15, 17, 21);">琛ㄨ揪寮?/font> | <font style="color:rgb(15, 17, 21);">浣滅敤</font> | <font style="color:rgb(15, 17, 21);">绀轰緥</font> |
+## 核心语法
+### 标准表达式
+| <font style="color:rgb(15, 17, 21);">表达式</font> | <font style="color:rgb(15, 17, 21);">作用</font> | <font style="color:rgb(15, 17, 21);">示例</font> |
 | --- | --- | --- |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">${...}</font>` | <font style="color:rgb(15, 17, 21);">鍙橀噺琛ㄨ揪寮忥紙浠嶮odel/Spring瀹瑰櫒鑾峰彇锛?/font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">${user.name}</font>` |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">*{...}</font>` | <font style="color:rgb(15, 17, 21);">閫夋嫨琛ㄨ揪寮忥紙閰嶅悎</font>`<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:object</font>`<br/><font style="color:rgb(15, 17, 21);">浣跨敤锛?/font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">*{name}</font>` |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">#{...}</font>` | <font style="color:rgb(15, 17, 21);">娑堟伅琛ㄨ揪寮忥紙鍥介檯鍖栵級</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">#{home.title}</font>` |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">@{...}</font>` | <font style="color:rgb(15, 17, 21);">閾炬帴琛ㄨ揪寮忥紙URL锛?/font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">@{/user/profile}</font>` |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">~{...}</font>` | <font style="color:rgb(15, 17, 21);">鐗囨琛ㄨ揪寮忥紙寮曞叆鍏叡鐗囨锛?/font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">~{common/header :: nav}</font>` |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">${...}</font>` | <font style="color:rgb(15, 17, 21);">变量表达式（从Model/Spring容器获取）</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">${user.name}</font>` |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">*{...}</font>` | <font style="color:rgb(15, 17, 21);">选择表达式（配合</font>`<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:object</font>`<br/><font style="color:rgb(15, 17, 21);">使用）</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">*{name}</font>` |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">#{...}</font>` | <font style="color:rgb(15, 17, 21);">消息表达式（国际化）</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">#{home.title}</font>` |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">@{...}</font>` | <font style="color:rgb(15, 17, 21);">链接表达式（URL）</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">@{/user/profile}</font>` |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">~{...}</font>` | <font style="color:rgb(15, 17, 21);">片段表达式（引入公共片段）</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">~{common/header :: nav}</font>` |
 
 
-### 甯哥敤灞炴€?
-| <font style="color:rgb(15, 17, 21);">灞炴€?/font> | <font style="color:rgb(15, 17, 21);">浣滅敤</font> | <font style="color:rgb(15, 17, 21);">绀轰緥</font> |
+### 常用属性
+| <font style="color:rgb(15, 17, 21);">属性</font> | <font style="color:rgb(15, 17, 21);">作用</font> | <font style="color:rgb(15, 17, 21);">示例</font> |
 | --- | --- | --- |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:text</font>` | <font style="color:rgb(15, 17, 21);">璁剧疆鏂囨湰鍐呭</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);"><span th:text="${name}">榛樿</span></font>` |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:utext</font>` | <font style="color:rgb(15, 17, 21);">璁剧疆HTML鍐呭锛堜笉杞箟锛?/font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);"><div th:utext="${htmlContent}"></div></font>` |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:value</font>` | <font style="color:rgb(15, 17, 21);">璁剧疆value灞炴€?/font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);"><input th:value="${user.name}"></font>` |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:href</font>` | <font style="color:rgb(15, 17, 21);">璁剧疆閾炬帴</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);"><a th:href="@{/user/{id}(id=${user.id})}"></font>` |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:src</font>` | <font style="color:rgb(15, 17, 21);">璁剧疆鍥剧墖婧?/font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);"><img th:src="@{/images/logo.png}"></font>` |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:if</font>`<br/><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">/</font><font style="color:rgb(15, 17, 21);"> </font>`<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:unless</font>` | <font style="color:rgb(15, 17, 21);">鏉′欢鍒ゆ柇</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);"><div th:if="${user != null}"></font>` |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:each</font>` | <font style="color:rgb(15, 17, 21);">寰幆閬嶅巻</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);"><tr th:each="user : ${users}"></font>` |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:switch</font>`<br/><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">/</font><font style="color:rgb(15, 17, 21);"> </font>`<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:case</font>` | <font style="color:rgb(15, 17, 21);">澶氬垎鏀€夋嫨</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);"><div th:switch="${role}"></font>` |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:object</font>` | <font style="color:rgb(15, 17, 21);">鎸囧畾琛ㄥ崟缁戝畾瀵硅薄</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);"><form th:object="${user}"></font>` |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:field</font>` | <font style="color:rgb(15, 17, 21);">琛ㄥ崟瀛楁缁戝畾</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);"><input th:field="*{name}"></font>` |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:remove</font>` | <font style="color:rgb(15, 17, 21);">绉婚櫎妯℃澘灞炴€?/font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);"><div th:remove="all">寮€鍙戞椂鍙锛屾覆鏌撳悗绉婚櫎</div></font>` |
-| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:replace</font>`<br/><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">/</font><font style="color:rgb(15, 17, 21);"> </font>`<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:insert</font>` | <font style="color:rgb(15, 17, 21);">寮曞叆鐗囨</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);"><div th:replace="~{fragments/header :: logo}"></div></font>` |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:text</font>` | <font style="color:rgb(15, 17, 21);">设置文本内容</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);"><span th:text="${name}">默认</span></font>` |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:utext</font>` | <font style="color:rgb(15, 17, 21);">设置HTML内容（不转义）</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);"><div th:utext="${htmlContent}"></div></font>` |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:value</font>` | <font style="color:rgb(15, 17, 21);">设置value属性</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);"><input th:value="${user.name}"></font>` |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:href</font>` | <font style="color:rgb(15, 17, 21);">设置链接</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);"><a th:href="@{/user/{id}(id=${user.id})}"></font>` |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:src</font>` | <font style="color:rgb(15, 17, 21);">设置图片源</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);"><img th:src="@{/images/logo.png}"></font>` |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:if</font>`<br/><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">/</font><font style="color:rgb(15, 17, 21);"> </font>`<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:unless</font>` | <font style="color:rgb(15, 17, 21);">条件判断</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);"><div th:if="${user != null}"></font>` |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:each</font>` | <font style="color:rgb(15, 17, 21);">循环遍历</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);"><tr th:each="user : ${users}"></font>` |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:switch</font>`<br/><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">/</font><font style="color:rgb(15, 17, 21);"> </font>`<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:case</font>` | <font style="color:rgb(15, 17, 21);">多分支选择</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);"><div th:switch="${role}"></font>` |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:object</font>` | <font style="color:rgb(15, 17, 21);">指定表单绑定对象</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);"><form th:object="${user}"></font>` |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:field</font>` | <font style="color:rgb(15, 17, 21);">表单字段绑定</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);"><input th:field="*{name}"></font>` |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:remove</font>` | <font style="color:rgb(15, 17, 21);">移除模板属性</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);"><div th:remove="all">开发时可见，渲染后移除</div></font>` |
+| `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:replace</font>`<br/><font style="color:rgb(15, 17, 21);"> </font><font style="color:rgb(15, 17, 21);">/</font><font style="color:rgb(15, 17, 21);"> </font>`<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:insert</font>` | <font style="color:rgb(15, 17, 21);">引入片段</font> | `<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);"><div th:replace="~{fragments/header :: logo}"></div></font>` |
 
 
-### <font style="color:rgb(15, 17, 21);">瀛楅潰閲忓拰杩愮畻</font>
+### <font style="color:rgb(15, 17, 21);">字面量和运算</font>
 ```html
-<!-- 鏂囨湰瀛楅潰閲?-->
+<!-- 文本字面量 -->
 <p th:text="''Hello, '' + ${name}"></p>
 
-<!-- 鏁板瓧杩愮畻 -->
+<!-- 数字运算 -->
 <p th:text="${price * 0.8}"></p>
 
-<!-- 甯冨皵杩愮畻 -->
-<p th:if="${age >= 18 and active == true}">鎴愬勾浜?/p>
+<!-- 布尔运算 -->
+<p th:if="${age >= 18 and active == true}">成年人</p>
 
-<!-- 姣旇緝杩愮畻绗?-->
+<!-- 比较运算符 -->
 <!-- gt (>), lt (<), ge (>=), le (<=), eq (==), ne (!=) -->
-<p th:if="${score gt 60}">鍙婃牸</p>
+<p th:if="${score gt 60}">及格</p>
 ```
 
-### 鏉′欢鍒ゆ柇
+### 条件判断
 ```html
-<!-- th:if锛氭潯浠朵负true鏃舵樉绀?-->
-<div th:if="${user != null}">娆㈣繋锛?span th:text="${user.name}"></span></div>
+<!-- th:if：条件为true时显示 -->
+<div th:if="${user != null}">欢迎，<span th:text="${user.name}"></span></div>
 
-<!-- th:unless锛氭潯浠朵负false鏃舵樉绀猴紙鍙栧弽锛?-->
-<div th:unless="${user != null}">璇峰厛鐧诲綍</div>
+<!-- th:unless：条件为false时显示（取反） -->
+<div th:unless="${user != null}">请先登录</div>
 
-<!-- 涓夊厓杩愮畻绗?-->
-<span th:text="${user != null ? user.name : ''娓稿''}"></span>
+<!-- 三元运算符 -->
+<span th:text="${user != null ? user.name : ''游客''}"></span>
 
 <!-- switch-case -->
 <div th:switch="${user.role}">
-    <p th:case="''ADMIN''">绠＄悊鍛?/p>
-    <p th:case="''USER''">鏅€氱敤鎴?/p>
-    <p th:case="*">鏈煡瑙掕壊</p>
+    <p th:case="''ADMIN''">管理员</p>
+    <p th:case="''USER''">普通用户</p>
+    <p th:case="*">未知角色</p>
 </div>
 ```
 
-### 寰幆閬嶅巻
+### 循环遍历
 ```html
-<!-- 鍩烘湰閬嶅巻 -->
+<!-- 基本遍历 -->
 <ul>
     <li th:each="user : ${users}" th:text="${user.name}"></li>
 </ul>
 
-<!-- 鑾峰彇杩唬鐘舵€?-->
+<!-- 获取迭代状态 -->
 <table>
     <tr th:each="user,stat : ${users}">
-        <td th:text="${stat.index}">绱㈠紩锛?寮€濮嬶級</td>
-        <td th:text="${stat.count}">璁℃暟锛?寮€濮嬶級</td>
-        <td th:text="${stat.even}">鏄惁涓哄伓鏁?/td>
-        <td th:text="${stat.odd}">鏄惁涓哄鏁?/td>
-        <td th:text="${stat.first}">鏄惁绗竴鏉?/td>
-        <td th:text="${stat.last}">鏄惁鏈€鍚庝竴鏉?/td>
+        <td th:text="${stat.index}">索引（0开始）</td>
+        <td th:text="${stat.count}">计数（1开始）</td>
+        <td th:text="${stat.even}">是否为偶数</td>
+        <td th:text="${stat.odd}">是否为奇数</td>
+        <td th:text="${stat.first}">是否第一条</td>
+        <td th:text="${stat.last}">是否最后一条</td>
         <td th:text="${user.name}"></td>
     </tr>
 </ul>
 
-<!-- 閬嶅巻Map -->
+<!-- 遍历Map -->
 <div th:each="entry : ${map}">
     <span th:text="${entry.key}"></span> : <span th:text="${entry.value}"></span>
 </div>
 ```
 
-### 閾炬帴琛ㄨ揪寮?
+### 链接表达式
 ```html
-<!-- 鍩虹璺緞 -->
-<a th:href="@{/user/list}">鐢ㄦ埛鍒楄〃</a>
+<!-- 基础路径 -->
+<a th:href="@{/user/list}">用户列表</a>
 
-<!-- 甯﹁矾寰勫彉閲?-->
-<a th:href="@{/user/{id}/edit(id=${user.id})}">缂栬緫</a>
+<!-- 带路径变量 -->
+<a th:href="@{/user/{id}/edit(id=${user.id})}">编辑</a>
 
-<!-- 甯︽煡璇㈠弬鏁?-->
-<a th:href="@{/user/list(page=${currentPage}, size=10)}">鍒嗛〉</a>
+<!-- 带查询参数 -->
+<a th:href="@{/user/list(page=${currentPage}, size=10)}">分页</a>
 
-<!-- 娣峰悎浣跨敤 -->
-<a th:href="@{/user/{id}/profile(id=${user.id}, tab=''info'')}">涓汉璧勬枡</a>
+<!-- 混合使用 -->
+<a th:href="@{/user/{id}/profile(id=${user.id}, tab=''info'')}">个人资料</a>
 
-<!-- 鐩稿璺緞 -->
-<img th:src="@{~/images/logo.png}">   <!-- 搴旂敤鐩稿璺緞 -->
-<img th:src="@{/images/logo.png}">    <!-- 涓婁笅鏂囩浉瀵硅矾寰勶紙榛樿锛?-->
+<!-- 相对路径 -->
+<img th:src="@{~/images/logo.png}">   <!-- 应用相对路径 -->
+<img th:src="@{/images/logo.png}">    <!-- 上下文相对路径（默认） -->
 ```
 
-### 琛ㄥ崟澶勭悊
+### 表单处理
 ```html
-<!-- 缁戝畾瀵硅薄 -->
+<!-- 绑定对象 -->
 <form th:action="@{/user/save}" th:object="${user}" method="post">
     
-    <!-- 闅愯棌鍩?-->
+    <!-- 隐藏域 -->
     <input type="hidden" th:field="*{id}">
     
-    <!-- 鏂囨湰杈撳叆 -->
-    <input type="text" th:field="*{name}" placeholder="璇疯緭鍏ュ鍚?>
+    <!-- 文本输入 -->
+    <input type="text" th:field="*{name}" placeholder="请输入姓名">
     
-    <!-- 瀵嗙爜 -->
+    <!-- 密码 -->
     <input type="password" th:field="*{password}">
     
-    <!-- 鍗曢€?-->
-    <input type="radio" th:field="*{gender}" value="M"> 鐢?
-    <input type="radio" th:field="*{gender}" value="F"> 濂?
+    <!-- 单选 -->
+    <input type="radio" th:field="*{gender}" value="M"> 男
+    <input type="radio" th:field="*{gender}" value="F"> 女
     
-    <!-- 涓嬫媺妗?-->
+    <!-- 下拉框 -->
     <select th:field="*{city}">
-        <option th:value="''BJ''">鍖椾含</option>
-        <option th:value="''SH''">涓婃捣</option>
+        <option th:value="''BJ''">北京</option>
+        <option th:value="''SH''">上海</option>
     </select>
     
-    <!-- 澶嶉€夋 -->
-    <input type="checkbox" th:field="*{hobbies}" value="reading"> 闃呰
-    <input type="checkbox" th:field="*{hobbies}" value="coding"> 缂栫▼
+    <!-- 复选框 -->
+    <input type="checkbox" th:field="*{hobbies}" value="reading"> 阅读
+    <input type="checkbox" th:field="*{hobbies}" value="coding"> 编程
     
-    <!-- 鎻愪氦鎸夐挳 -->
-    <button type="submit">淇濆瓨</button>
+    <!-- 提交按钮 -->
+    <button type="submit">保存</button>
 </form>
 ```
 
-**<font style="color:rgb(15, 17, 21);">娉ㄦ剰</font>**<font style="color:rgb(15, 17, 21);">锛?/font>`<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:field</font>`<font style="color:rgb(15, 17, 21);"> 浼氳嚜鍔ㄥ鐞嗗洖鏄撅紝鍖呮嫭 </font>`<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">checked</font>`<font style="color:rgb(15, 17, 21);">銆?/font>`<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">selected</font>`<font style="color:rgb(15, 17, 21);"> 绛夌姸鎬併€?/font>
+**<font style="color:rgb(15, 17, 21);">注意</font>**<font style="color:rgb(15, 17, 21);">：</font>`<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">th:field</font>`<font style="color:rgb(15, 17, 21);"> 会自动处理回显，包括 </font>`<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">checked</font>`<font style="color:rgb(15, 17, 21);">、</font>`<font style="color:rgb(15, 17, 21);background-color:rgb(235, 238, 242);">selected</font>`<font style="color:rgb(15, 17, 21);"> 等状态。</font>
 
-### <font style="color:rgb(15, 17, 21);">鍐呯疆瀵硅薄</font>
+### <font style="color:rgb(15, 17, 21);">内置对象</font>
 ```html
-<!-- 鍩虹瀵硅薄 -->
-${#strings}     <!-- 瀛楃涓插伐鍏?-->
-${#lists}       <!-- 闆嗗悎宸ュ叿 -->
-${#maps}        <!-- Map宸ュ叿 -->
-${#arrays}      <!-- 鏁扮粍宸ュ叿 -->
-${#dates}       <!-- 鏃ユ湡宸ュ叿 -->
-${#calendars}   <!-- 鏃ュ巻宸ュ叿 -->
-${#numbers}     <!-- 鏁板瓧鏍煎紡鍖?-->
-${#bools}       <!-- 甯冨皵宸ュ叿 -->
-${#sets}        <!-- Set宸ュ叿 -->
-${#objects}     <!-- 瀵硅薄宸ュ叿 -->
+<!-- 基础对象 -->
+${#strings}     <!-- 字符串工具 -->
+${#lists}       <!-- 集合工具 -->
+${#maps}        <!-- Map工具 -->
+${#arrays}      <!-- 数组工具 -->
+${#dates}       <!-- 日期工具 -->
+${#calendars}   <!-- 日历工具 -->
+${#numbers}     <!-- 数字格式化 -->
+${#bools}       <!-- 布尔工具 -->
+${#sets}        <!-- Set工具 -->
+${#objects}     <!-- 对象工具 -->
 
-<!-- Web涓婁笅鏂囧璞?-->
+<!-- Web上下文对象 -->
 ${#request}     <!-- HttpServletRequest -->
 ${#session}     <!-- HttpSession -->
 ${#servletContext}  <!-- ServletContext -->
 
-<!-- 鐩存帴璁块棶锛堢畝鍖栧啓娉曪級 -->
-${param.xxx}    <!-- 璇锋眰鍙傛暟 -->
-${session.xxx}  <!-- Session灞炴€?-->
-${application.xxx}  <!-- Application灞炴€?-->
+<!-- 直接访问（简化写法） -->
+${param.xxx}    <!-- 请求参数 -->
+${session.xxx}  <!-- Session属性 -->
+${application.xxx}  <!-- Application属性 -->
 ```
 
-### 宸ュ叿绫讳娇鐢ㄥ疄渚?
+### 工具类使用实例
 ```html
-<!-- 瀛楃涓插鐞?-->
+<!-- 字符串处理 -->
 <p th:text="${#strings.toUpperCase(name)}"></p>
 <p th:text="${#strings.isEmpty(name)}"></p>
-<p th:text="${#strings.defaultString(name, ''榛樿鍊?)}"></p>
+<p th:text="${#strings.defaultString(name, ''默认值'')}"></p>
 <p th:text="${#strings.substring(name, 0, 5)}"></p>
 
-<!-- 鏃ユ湡鏍煎紡鍖?-->
+<!-- 日期格式化 -->
 <p th:text="${#dates.format(birthday, ''yyyy-MM-dd'')}"></p>
 
-<!-- 闆嗗悎鎿嶄綔 -->
+<!-- 集合操作 -->
 <p th:text="${#lists.size(users)}"></p>
 <p th:text="${#lists.contains(users, admin)}"></p>
 
-<!-- 鏁板瓧鏍煎紡鍖?-->
-<p th:text="${#numbers.formatDecimal(price, 1, 2)}"></p>  <!-- 1浣嶆暣鏁帮紝2浣嶅皬鏁?-->
-<p th:text="${#numbers.formatCurrency(price)}"></p>       <!-- 璐у竵鏍煎紡 -->
+<!-- 数字格式化 -->
+<p th:text="${#numbers.formatDecimal(price, 1, 2)}"></p>  <!-- 1位整数，2位小数 -->
+<p th:text="${#numbers.formatCurrency(price)}"></p>       <!-- 货币格式 -->
 ```
 
-### 妯＄増甯冨眬
-+ 鑷畾涔夌墖娈?
+### 模版布局
++ 自定义片段
 
 ```html
 <!-- templates/fragments/header.html -->
@@ -13719,8 +13687,8 @@ ${application.xxx}  <!-- Application灞炴€?-->
     
     <div th:fragment="nav (active)">
         <ul>
-            <li th:class="${active == ''home''} ? ''active'' : ''''">棣栭〉</li>
-            <li th:class="${active == ''about''} ? ''active'' : ''''">鍏充簬</li>
+            <li th:class="${active == ''home''} ? ''active'' : ''''">首页</li>
+            <li th:class="${active == ''about''} ? ''active'' : ''''">关于</li>
         </ul>
     </div>
     
@@ -13731,26 +13699,26 @@ ${application.xxx}  <!-- Application灞炴€?-->
 </html>
 ```
 
-+ 寮曞叆鐗囨
++ 引入片段
 
 ```html
-<!-- 鏂瑰紡1锛歵h:insert锛堟彃鍏ュ埌褰撳墠鏍囩鍐呴儴锛?-->
+<!-- 方式1：th:insert（插入到当前标签内部） -->
 <div th:insert="~{fragments/header :: logo}"></div>
 
-<!-- 鏂瑰紡2锛歵h:replace锛堟浛鎹㈠綋鍓嶆爣绛撅級 -->
+<!-- 方式2：th:replace（替换当前标签） -->
 <div th:replace="~{fragments/header :: logo}"></div>
 
-<!-- 鏂瑰紡3锛歵h:include锛堝凡搴熷純锛屽彧鎻掑叆鍐呭锛屼笉鍖呭惈鏍囩锛?-->
+<!-- 方式3：th:include（已废弃，只插入内容，不包含标签） -->
 <div th:include="~{fragments/header :: logo}"></div>
 
-<!-- 浼犻€掑弬鏁?-->
+<!-- 传递参数 -->
 <div th:replace="~{fragments/header :: nav (active=''home'')}"></div>
 
-<!-- 绠€鍖栧啓娉曪紙鍘绘帀~{}锛?-->
+<!-- 简化写法（去掉~{}） -->
 <div th:replace="fragments/header :: logo"></div>
 ```
 
-+ 甯冨眬妯＄増绀轰緥
++ 布局模版示例
 
 ```html
 <!-- templates/layout/base.html -->
@@ -13758,14 +13726,14 @@ ${application.xxx}  <!-- Application灞炴€?-->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${title}">榛樿鏍囬</title>
+    <title th:text="${title}">默认标题</title>
     <link th:replace="~{fragments/header :: css}">
 </head>
 <body>
     <div th:replace="~{fragments/header :: nav}"></div>
     
     <div class="container">
-        <div th:replace="~{::content}">涓讳綋鍐呭</div>
+        <div th:replace="~{::content}">主体内容</div>
     </div>
     
     <div th:replace="~{fragments/footer}"></div>
@@ -13774,50 +13742,50 @@ ${application.xxx}  <!-- Application灞炴€?-->
 </html>
 ```
 
-### 鍥介檯鍖?
-+ 閰嶇疆鏂囦欢
+### 国际化
++ 配置文件
 
 ```html
 src/main/resources/
-鈹溾攢鈹€ messages.properties      (榛樿)
-鈹溾攢鈹€ messages_zh_CN.properties (涓枃)
-鈹溾攢鈹€ messages_en_US.properties (鑻辨枃)
+├── messages.properties      (默认)
+├── messages_zh_CN.properties (中文)
+├── messages_en_US.properties (英文)
 ```
 
 ```properties
 # messages.properties
-home.title=棣栭〉
-home.welcome=娆㈣繋
+home.title=首页
+home.welcome=欢迎
 
 # messages_zh_CN.properties
-home.title=棣栭〉
-home.welcome=娆㈣繋
+home.title=首页
+home.welcome=欢迎
 
 # messages_en_US.properties
 home.title=Home
 home.welcome=Welcome
 ```
 
-+ 浣跨敤鍥介檯鍖?
++ 使用国际化
 
 ```html
-<!-- 浣跨敤 #{} 琛ㄨ揪寮?-->
-<h1 th:text="#{home.title}">棣栭〉</h1>
-<p th:text="#{home.welcome(${user.name})}">娆㈣繋锛寋0}</p>
+<!-- 使用 #{} 表达式 -->
+<h1 th:text="#{home.title}">首页</h1>
+<p th:text="#{home.welcome(${user.name})}">欢迎，{0}</p>
 ```
 
-+ 閰嶇疆
++ 配置
 
 ```yaml
 spring:
   messages:
-    basename: i18n/messages   # 鏂囦欢鍩虹鍚嶏紙榛樿锛?
+    basename: i18n/messages   # 文件基础名（默认）
     encoding: UTF-8
     cache-duration: 3600
 ```
 
 ```java
-// Controller涓垏鎹㈣瑷€
+// Controller中切换语言
 @GetMapping("/locale")
 public String changeLocale(@RequestParam String lang, 
                            HttpServletRequest request, 
@@ -13853,23 +13821,23 @@ public class DruidConfig {
         return new DruidDataSource();
     }
 
-    // 鍚庡彴鎺у埗 锛?web.xml
+    // 后台控制 ： web.xml
     @Bean
     public ServletRegistrationBean servletRegistrationBean() {
         ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean();
 
-        // 鍚庡彴闇€瑕佹湁浜虹櫥褰曪紝璐﹀彿瀵嗙爜閰嶇疆
+        // 后台需要有人登录，账号密码配置
         HashMap<String, String> initParameters = new HashMap<>();
         initParameters.put("loginUsername", "admin");
         initParameters.put("loginPassword", "123456");
 
-        // 鍏佽璋佸彲浠ヨ闂?
+        // 允许谁可以访问
         initParameters.put("allow", "");
 
-        // 绂佹璋佽闂?
+        // 禁止谁访问
         initParameters.put("kuagnshen", "192.168.11.123");
 
-        // 璁剧疆鍒濆鍖栧弬鏁?
+        // 设置初始化参数
         servletRegistrationBean.setInitParameters(initParameters);
         return servletRegistrationBean;
     }
@@ -13879,7 +13847,7 @@ public class DruidConfig {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
         filterRegistrationBean.setFilter(new WebStatFilter());
         HashMap<String, String> initParameters = new HashMap<>();
-        // 鍙互 杩囨护鍝簺璇锋眰
+        // 可以 过滤哪些请求
         initParameters.put("exclusions", "*");
         filterRegistrationBean.setInitParameters(initParameters);
         return filterRegistrationBean;
@@ -13891,7 +13859,7 @@ public class DruidConfig {
 ```
 
 # Mybatis
-瀵煎叆渚濊禆
+导入依赖
 
 ```xml
 <dependency>
@@ -13910,111 +13878,111 @@ public class DruidConfig {
 ```
 
 # Spring Security & Apache Shiro
-## 涓€銆佹鏋跺姣旀瑙?
-| 瀵规瘮缁村害 | Spring Security | Apache Shiro |
+## 一、框架对比概览
+| 对比维度 | Spring Security | Apache Shiro |
 | --- | --- | --- |
-| **鍑鸿韩** | Spring 瀹樻柟鍥㈤槦 | Apache 鍩洪噾浼?|
-| **Spring 闆嗘垚** | 鍘熺敓闆嗘垚锛屾棤缂濊鎺?| 闇€瑕侀澶栨暣鍚?|
-| **鍔熻兘鑼冨洿** | 璁よ瘉銆佹巿鏉冦€丱Auth2銆丼SO | 璁よ瘉銆佹巿鏉冦€佷細璇濈鐞?|
-| **瀛︿範鏇茬嚎** | 闄″抄锛堝鏉備絾寮哄ぇ锛?| 骞崇紦锛堢畝鍗曟槗鎳傦級 |
-| **閰嶇疆鏂瑰紡** | 娉ㄨВ + 閰嶇疆鏂囦欢 | 閰嶇疆鏂囦欢 + API |
-| **RESTful 鏀寔** | 浼樼锛堝師鐢?JWT 鏀寔锛?| 涓€鑸紙闇€瑕佹墿灞曪級 |
-| **绀惧尯娲昏穬搴?* | 鏋侀珮 | 涓瓑 |
-| **閫傜敤鍦烘櫙** | 澶у瀷浼佷笟绾у簲鐢ㄣ€佸井鏈嶅姟 | 涓皬鍨嬪簲鐢ㄣ€佸揩閫熷紑鍙?|
+| **出身** | Spring 官方团队 | Apache 基金会 |
+| **Spring 集成** | 原生集成，无缝衔接 | 需要额外整合 |
+| **功能范围** | 认证、授权、OAuth2、SSO | 认证、授权、会话管理 |
+| **学习曲线** | 陡峭（复杂但强大） | 平缓（简单易懂） |
+| **配置方式** | 注解 + 配置文件 | 配置文件 + API |
+| **RESTful 支持** | 优秀（原生 JWT 支持） | 一般（需要扩展） |
+| **社区活跃度** | 极高 | 中等 |
+| **适用场景** | 大型企业级应用、微服务 | 中小型应用、快速开发 |
 
 
-**閫夊瀷寤鸿锛?*
+**选型建议：**
 
-+ 浣跨敤 Spring Boot 鈫?**浼樺厛 Spring Security**
-+ 闇€瑕?OAuth2/SSO 鈫?**Spring Security**
-+ 闈?Spring 椤圭洰 鈫?**Shiro**
-+ 鍥㈤槦缁忛獙涓嶈冻銆佹兂蹇€熶笂鎵?鈫?**Shiro**
++ 使用 Spring Boot → **优先 Spring Security**
++ 需要 OAuth2/SSO → **Spring Security**
++ 非 Spring 项目 → **Shiro**
++ 团队经验不足、想快速上手 → **Shiro**
 
 ---
 
-## 浜屻€丼pring Security
-### 2.1 鏍稿績鏋舵瀯
+## 二、Spring Security
+### 2.1 核心架构
 ```plain
-Spring Security 鍩轰簬 Servlet 杩囨护鍣ㄩ摼
+Spring Security 基于 Servlet 过滤器链
 ```
 
-#### 鍏抽敭缁勪欢
-| 缁勪欢 | 浣滅敤 |
+#### 关键组件
+| 组件 | 作用 |
 | --- | --- |
-| **SecurityContextHolder** | 瀛樺偍褰撳墠鐢ㄦ埛瀹夊叏涓婁笅鏂囷紙ThreadLocal锛?|
-| **Authentication** | 灏佽鐢ㄦ埛璁よ瘉淇℃伅锛堢敤鎴峰悕銆佸瘑鐮併€佹潈闄愶級 |
-| **AuthenticationManager** | 璁よ瘉绠＄悊鍣紝鏍稿績鍏ュ彛 |
-| **ProviderManager** | AuthenticationManager 鐨勫疄鐜帮紝绠＄悊澶氫釜璁よ瘉鎻愪緵鑰?|
-| **AuthenticationProvider** | 鍏蜂綋璁よ瘉閫昏緫瀹炵幇锛堝 DaoAuthenticationProvider锛?|
-| **UserDetailsService** | 鍔犺浇鐢ㄦ埛淇℃伅锛堥渶瑕佽嚜瀹氫箟瀹炵幇锛?|
-| **PasswordEncoder** | 瀵嗙爜缂栫爜鍣紙BCrypt銆丄rgon2 绛夛級 |
-| **SecurityFilterChain** | 瀹夊叏杩囨护鍣ㄩ摼 |
-| **AccessDecisionManager** | 璁块棶鍐崇瓥绠＄悊鍣紙鎺堟潈锛?|
+| **SecurityContextHolder** | 存储当前用户安全上下文（ThreadLocal） |
+| **Authentication** | 封装用户认证信息（用户名、密码、权限） |
+| **AuthenticationManager** | 认证管理器，核心入口 |
+| **ProviderManager** | AuthenticationManager 的实现，管理多个认证提供者 |
+| **AuthenticationProvider** | 具体认证逻辑实现（如 DaoAuthenticationProvider） |
+| **UserDetailsService** | 加载用户信息（需要自定义实现） |
+| **PasswordEncoder** | 密码编码器（BCrypt、Argon2 等） |
+| **SecurityFilterChain** | 安全过滤器链 |
+| **AccessDecisionManager** | 访问决策管理器（授权） |
 
 
-#### 鏍稿績娴佺▼鍥?
+#### 核心流程图
 ```plain
-鐢ㄦ埛璇锋眰 鈫?杩囨护鍣ㄩ摼 鈫?鎻愬彇鍑瘉 鈫?AuthenticationManager 鈫?AuthenticationProvider 鈫?UserDetailsService 鈫?杩斿洖 Authentication 鈫?SecurityContextHolder 鈫?鎺堟潈鍒ゆ柇 鈫?涓氬姟澶勭悊
+用户请求 → 过滤器链 → 提取凭证 → AuthenticationManager → AuthenticationProvider → UserDetailsService → 返回 Authentication → SecurityContextHolder → 授权判断 → 业务处理
 ```
 
-### 2.2 璁よ瘉娴佺▼
+### 2.2 认证流程
 ```java
-// 1. 鐢ㄦ埛杈撳叆璐﹀彿瀵嗙爜
-// 2. UsernamePasswordAuthenticationFilter 鎷︽埅 /login
-// 3. 鍒涘缓 UsernamePasswordAuthenticationToken锛堟湭璁よ瘉锛?
-// 4. 璋冪敤 AuthenticationManager.authenticate()
-// 5. ProviderManager 鎵惧埌鍚堥€傜殑 AuthenticationProvider
-// 6. DaoAuthenticationProvider 璋冪敤 UserDetailsService.loadUserByUsername()
-// 7. 瀵嗙爜姣斿
-// 8. 璁よ瘉鎴愬姛锛氬垱寤哄畬鏁?Authentication 瀵硅薄瀛樺叆 SecurityContextHolder
-// 9. 璁よ瘉澶辫触锛氭姏鍑?AuthenticationException
+// 1. 用户输入账号密码
+// 2. UsernamePasswordAuthenticationFilter 拦截 /login
+// 3. 创建 UsernamePasswordAuthenticationToken（未认证）
+// 4. 调用 AuthenticationManager.authenticate()
+// 5. ProviderManager 找到合适的 AuthenticationProvider
+// 6. DaoAuthenticationProvider 调用 UserDetailsService.loadUserByUsername()
+// 7. 密码比对
+// 8. 认证成功：创建完整 Authentication 对象存入 SecurityContextHolder
+// 9. 认证失败：抛出 AuthenticationException
 ```
 
-### 2.3 鎺堟潈娴佺▼
+### 2.3 授权流程
 ```java
-// 1. FilterSecurityInterceptor 鎷︽埅璇锋眰
-// 2. 浠?SecurityContextHolder 鑾峰彇褰撳墠鐢ㄦ埛 Authentication
-// 3. 璋冪敤 AccessDecisionManager 鍐崇瓥
-// 4. 鏈夋潈闄?鈫?缁х画鎵ц
-// 5. 鏃犳潈闄?鈫?鎶涘嚭 AccessDeniedException
+// 1. FilterSecurityInterceptor 拦截请求
+// 2. 从 SecurityContextHolder 获取当前用户 Authentication
+// 3. 调用 AccessDecisionManager 决策
+// 4. 有权限 → 继续执行
+// 5. 无权限 → 抛出 AccessDeniedException
 ```
 
-### 2.4 甯哥敤閰嶇疆
-#### 鍩虹閰嶇疆绫?
+### 2.4 常用配置
+#### 基础配置类
 ```java
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)  // 鍚敤鏂规硶绾ф潈闄愭敞瑙?
+@EnableGlobalMethodSecurity(prePostEnabled = true)  // 启用方法级权限注解
 public class SecurityConfig {
     
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            // 鍏抽棴 CSRF锛堝墠鍚庣鍒嗙鏃讹級
+            // 关闭 CSRF（前后端分离时）
             .csrf().disable()
             
-            // 鎺堟潈瑙勫垯
+            // 授权规则
             .authorizeHttpRequests(auth -> auth
-                // 鍏紑鎺ュ彛
+                // 公开接口
                 .antMatchers("/login", "/register", "/public/**").permitAll()
-                // 闇€瑕?USER 瑙掕壊
+                // 需要 USER 角色
                 .antMatchers("/user/**").hasRole("USER")
-                // 闇€瑕?ADMIN 瑙掕壊
+                // 需要 ADMIN 角色
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                // 鍏朵粬鎵€鏈夎姹傞兘闇€瑕佽璇?
+                // 其他所有请求都需要认证
                 .anyRequest().authenticated()
             )
             
-            // 琛ㄥ崟鐧诲綍
+            // 表单登录
             .formLogin(form -> form
-                .loginPage("/login")           // 鑷畾涔夌櫥褰曢〉
-                .loginProcessingUrl("/doLogin") // 澶勭悊鐧诲綍璇锋眰鐨刄RL
-                .defaultSuccessUrl("/home")     // 鐧诲綍鎴愬姛璺宠浆
-                .failureUrl("/login?error")     // 鐧诲綍澶辫触璺宠浆
+                .loginPage("/login")           // 自定义登录页
+                .loginProcessingUrl("/doLogin") // 处理登录请求的URL
+                .defaultSuccessUrl("/home")     // 登录成功跳转
+                .failureUrl("/login?error")     // 登录失败跳转
                 .permitAll()
             )
             
-            // 鐧诲嚭
+            // 登出
             .logout(logout -> logout
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login?logout")
@@ -14023,10 +13991,10 @@ public class SecurityConfig {
                 .permitAll()
             )
             
-            // 璁颁綇鎴?
+            // 记住我
             .rememberMe(remember -> remember
                 .key("uniqueAndSecret")
-                .tokenValiditySeconds(86400)  // 24灏忔椂
+                .tokenValiditySeconds(86400)  // 24小时
             );
         
         return http.build();
@@ -14034,19 +14002,19 @@ public class SecurityConfig {
     
     @Bean
     public UserDetailsService userDetailsService() {
-        // 浠庢暟鎹簱鍔犺浇鐢ㄦ埛
+        // 从数据库加载用户
         return new CustomUserDetailsService();
     }
     
     @Bean
     public PasswordEncoder passwordEncoder() {
-        // BCrypt 鍔犲瘑锛堟帹鑽愶級
+        // BCrypt 加密（推荐）
         return new BCryptPasswordEncoder();
     }
 }
 ```
 
-### 2.5 鑷畾涔?UserDetailsService
+### 2.5 自定义 UserDetailsService
 ```java
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -14056,21 +14024,21 @@ public class CustomUserDetailsService implements UserDetailsService {
     
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // 1. 浠庢暟鎹簱鏌ヨ鐢ㄦ埛
+        // 1. 从数据库查询用户
         User user = userMapper.selectByUsername(username);
         if (user == null) {
-            throw new UsernameNotFoundException("鐢ㄦ埛涓嶅瓨鍦?);
+            throw new UsernameNotFoundException("用户不存在");
         }
         
-        // 2. 鏌ヨ鐢ㄦ埛鏉冮檺
+        // 2. 查询用户权限
         List<String> permissions = permissionMapper.selectByUserId(user.getId());
         
-        // 3. 鏋勫缓 Authority 鍒楄〃
+        // 3. 构建 Authority 列表
         List<GrantedAuthority> authorities = permissions.stream()
             .map(SimpleGrantedAuthority::new)
             .collect(Collectors.toList());
         
-        // 4. 杩斿洖 UserDetails 瀵硅薄
+        // 4. 返回 UserDetails 对象
         return new org.springframework.security.core.userdetails.User(
             user.getUsername(),
             user.getPassword(),
@@ -14080,7 +14048,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 }
 ```
 
-### 2.6 JWT 闆嗘垚锛堝墠鍚庣鍒嗙锛?
+### 2.6 JWT 集成（前后端分离）
 ```java
 @Component
 public class JwtTokenUtil {
@@ -14091,7 +14059,7 @@ public class JwtTokenUtil {
     @Value("${jwt.expiration}")
     private Long expiration;
     
-    // 鐢熸垚 Token
+    // 生成 Token
     public String generateToken(String username) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + expiration);
@@ -14104,7 +14072,7 @@ public class JwtTokenUtil {
             .compact();
     }
     
-    // 瑙ｆ瀽 Token
+    // 解析 Token
     public String getUsernameFromToken(String token) {
         return Jwts.parser()
             .setSigningKey(secret)
@@ -14113,7 +14081,7 @@ public class JwtTokenUtil {
             .getSubject();
     }
     
-    // 楠岃瘉 Token
+    // 验证 Token
     public Boolean validateToken(String token) {
         try {
             Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
@@ -14124,7 +14092,7 @@ public class JwtTokenUtil {
     }
 }
 
-// JWT 璁よ瘉杩囨护鍣?
+// JWT 认证过滤器
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     
     @Autowired
@@ -14155,107 +14123,107 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 }
 ```
 
-### 2.7 甯哥敤娉ㄨВ
+### 2.7 常用注解
 ```java
-// 鏂规硶绾у畨鍏ㄦ敞瑙ｏ紙闇€瑕佸湪閰嶇疆绫绘坊鍔?@EnableGlobalMethodSecurity锛?
+// 方法级安全注解（需要在配置类添加 @EnableGlobalMethodSecurity）
 
-// 1. @PreAuthorize锛氭柟娉曟墽琛屽墠鍒ゆ柇鏉冮檺
+// 1. @PreAuthorize：方法执行前判断权限
 @PreAuthorize("hasRole(''ADMIN'')")
 @GetMapping("/admin/users")
 public List<User> getAllUsers() { ... }
 
-// 2. @PostAuthorize锛氭柟娉曟墽琛屽悗鍒ゆ柇鏉冮檺锛堢敤浜庢暟鎹骇鏉冮檺锛?
+// 2. @PostAuthorize：方法执行后判断权限（用于数据级权限）
 @PostAuthorize("returnObject.username == authentication.name")
 @GetMapping("/user/{id}")
 public User getUser(@PathVariable Long id) { ... }
 
-// 3. @PreFilter锛氳繃婊ゅ叆鍙傞泦鍚?
+// 3. @PreFilter：过滤入参集合
 @PreFilter("filterObject.age >= 18")
 public void addUsers(List<User> users) { ... }
 
-// 4. @PostFilter锛氳繃婊よ繑鍥炲€奸泦鍚?
+// 4. @PostFilter：过滤返回值集合
 @PostFilter("filterObject.enabled == true")
 public List<User> getActiveUsers() { ... }
 
-// 5. @Secured锛氭寚瀹氳鑹诧紙鏃у紡锛?
+// 5. @Secured：指定角色（旧式）
 @Secured("ROLE_ADMIN")
 @GetMapping("/admin/reports")
 public String getReports() { ... }
 ```
 
-### 2.8 鏉冮檺琛ㄨ揪寮?
-| 琛ㄨ揪寮?| 璇存槑 |
+### 2.8 权限表达式
+| 表达式 | 说明 |
 | --- | --- |
-| `hasRole(''ADMIN'')` | 鎷ユ湁 ADMIN 瑙掕壊 |
-| `hasAnyRole(''ADMIN'', ''USER'')` | 鎷ユ湁浠绘剰瑙掕壊 |
-| `hasAuthority(''READ'')` | 鎷ユ湁 READ 鏉冮檺 |
-| `permitAll()` | 姘歌繙鍏佽 |
-| `denyAll()` | 姘歌繙鎷掔粷 |
-| `isAnonymous()` | 鍖垮悕鐢ㄦ埛 |
-| `isAuthenticated()` | 宸茶璇佺敤鎴?|
-| `hasIpAddress(''192.168.1.0/24'')` | IP 鍦板潃鍖归厤 |
+| `hasRole(''ADMIN'')` | 拥有 ADMIN 角色 |
+| `hasAnyRole(''ADMIN'', ''USER'')` | 拥有任意角色 |
+| `hasAuthority(''READ'')` | 拥有 READ 权限 |
+| `permitAll()` | 永远允许 |
+| `denyAll()` | 永远拒绝 |
+| `isAnonymous()` | 匿名用户 |
+| `isAuthenticated()` | 已认证用户 |
+| `hasIpAddress(''192.168.1.0/24'')` | IP 地址匹配 |
 
 
-### 2.9 甯歌闂涓庤В鍐?
-**闂1锛氶潤鎬佽祫婧愯鎷︽埅**
+### 2.9 常见问题与解决
+**问题1：静态资源被拦截**
 
 ```java
-// 閰嶇疆蹇界暐闈欐€佽祫婧?
+// 配置忽略静态资源
 .webSecurity.ignoring().antMatchers("/css/**", "/js/**", "/images/**");
 ```
 
-**闂2锛欳SRF 瀵艰嚧 POST 璇锋眰鎶ラ敊**
+**问题2：CSRF 导致 POST 请求报错**
 
 ```java
-// 瑙ｅ喅鏂规1锛氱鐢?CSRF锛堜笉鎺ㄨ崘鐢熶骇鐜锛?
+// 解决方案1：禁用 CSRF（不推荐生产环境）
 .csrf().disable();
 
-// 瑙ｅ喅鏂规2锛氬湪琛ㄥ崟涓坊鍔?CSRF Token
+// 解决方案2：在表单中添加 CSRF Token
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 ```
 
-**闂3锛氬瘑鐮佸姞瀵嗘柟寮忛€夋嫨**
+**问题3：密码加密方式选择**
 
 ```java
-// 鎺ㄨ崘锛欱Crypt锛堣嚜閫傚簲闅惧害锛?
+// 推荐：BCrypt（自适应难度）
 PasswordEncoder encoder = new BCryptPasswordEncoder();
 
-// 鏀寔澶氱缂栫爜鍣ㄥ苟瀛?
+// 支持多种编码器并存
 PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-// 杈撳嚭鏍煎紡锛歿bcrypt}$2a$10$...
+// 输出格式：{bcrypt}$2a$10$...
 ```
 
 ---
 
-## 涓夈€丄pache Shiro
-### 3.1 鏍稿績鏋舵瀯
+## 三、Apache Shiro
+### 3.1 核心架构
 ```plain
 Application Code
-    鈫?
-Subject (褰撳墠鐢ㄦ埛)
-    鈫?
-SecurityManager (瀹夊叏绠＄悊鍣紝Shiro 鏍稿績)
-    鈫?
-鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹尖攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
-鈫?          鈫?          鈫?            鈫?
+    ↓
+Subject (当前用户)
+    ↓
+SecurityManager (安全管理器，Shiro 核心)
+    ↓
+┌───────────┼───────────┬─────────────┐
+↓           ↓           ↓             ↓
 Realm     Authc       Authz          Session
-(鏁版嵁婧?  (璁よ瘉)      (鎺堟潈)         (浼氳瘽绠＄悊)
+(数据源)  (认证)      (授权)         (会话管理)
 ```
 
-#### 鍏抽敭缁勪欢
-| 缁勪欢 | 浣滅敤 |
+#### 关键组件
+| 组件 | 作用 |
 | --- | --- |
-| **Subject** | 褰撳墠鐢ㄦ埛鐨勫畨鍏ㄦ搷浣滄帴鍙?|
-| **SecurityManager** | Shiro 鏍稿績锛岀鐞嗘墍鏈夌粍浠?|
-| **Realm** | 鏁版嵁婧愶紝浠庢暟鎹簱鍔犺浇鐢ㄦ埛鍜屾潈闄?|
-| **Authenticator** | 璁よ瘉鍣?|
-| **Authorizer** | 鎺堟潈鍣?|
-| **SessionManager** | 浼氳瘽绠＄悊鍣?|
-| **CacheManager** | 缂撳瓨绠＄悊鍣?|
+| **Subject** | 当前用户的安全操作接口 |
+| **SecurityManager** | Shiro 核心，管理所有组件 |
+| **Realm** | 数据源，从数据库加载用户和权限 |
+| **Authenticator** | 认证器 |
+| **Authorizer** | 授权器 |
+| **SessionManager** | 会话管理器 |
+| **CacheManager** | 缓存管理器 |
 
 
-### 3.2 蹇€熷叆闂?
-#### 娣诲姞渚濊禆
+### 3.2 快速入门
+#### 添加依赖
 ```xml
 <dependency>
     <groupId>org.apache.shiro</groupId>
@@ -14265,7 +14233,7 @@ Realm     Authc       Authz          Session
 
 ```
 
-#### 閰嶇疆鏂囦欢锛坅pplication.yml锛?
+#### 配置文件（application.yml）
 ```yaml
 shiro:
   loginUrl: /login
@@ -14273,16 +14241,16 @@ shiro:
   unauthorizedUrl: /unauthorized
 ```
 
-#### 閰嶇疆绫?
+#### 配置类
 ```java
 @Configuration
 public class ShiroConfig {
     
-    // 1. 鑷畾涔?Realm
+    // 1. 自定义 Realm
     @Bean
     public UserRealm userRealm() {
         UserRealm realm = new UserRealm();
-        // 璁剧疆鍔犲瘑绠楁硶
+        // 设置加密算法
         HashedCredentialsMatcher matcher = new HashedCredentialsMatcher();
         matcher.setHashAlgorithmName("md5");
         matcher.setHashIterations(2);
@@ -14290,7 +14258,7 @@ public class ShiroConfig {
         return realm;
     }
     
-    // 2. 瀹夊叏绠＄悊鍣?
+    // 2. 安全管理器
     @Bean
     public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
@@ -14298,7 +14266,7 @@ public class ShiroConfig {
         return manager;
     }
     
-    // 3. Shiro 杩囨护鍣?
+    // 3. Shiro 过滤器
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean() {
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
@@ -14307,12 +14275,12 @@ public class ShiroConfig {
         bean.setSuccessUrl("/index");
         bean.setUnauthorizedUrl("/unauthorized");
         
-        // 瀹氫箟杩囨护瑙勫垯
+        // 定义过滤规则
         Map<String, String> filterChainMap = new LinkedHashMap<>();
-        filterChainMap.put("/login", "anon");      // 鍖垮悕璁块棶
-        filterChainMap.put("/logout", "logout");   // 鐧诲嚭
-        filterChainMap.put("/user/**", "authc");   // 闇€瑕佽璇?
-        filterChainMap.put("/admin/**", "roles[admin]");  // 闇€瑕?admin 瑙掕壊
+        filterChainMap.put("/login", "anon");      // 匿名访问
+        filterChainMap.put("/logout", "logout");   // 登出
+        filterChainMap.put("/user/**", "authc");   // 需要认证
+        filterChainMap.put("/admin/**", "roles[admin]");  // 需要 admin 角色
         filterChainMap.put("/**", "authc");
         
         bean.setFilterChainDefinitionMap(filterChainMap);
@@ -14321,55 +14289,55 @@ public class ShiroConfig {
 }
 ```
 
-### 3.3 鑷畾涔?Realm
+### 3.3 自定义 Realm
 ```java
 public class UserRealm extends AuthorizingRealm {
     
     @Autowired
     private UserMapper userMapper;
     
-    // 鎺堟潈
+    // 授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        // 鑾峰彇褰撳墠鐢ㄦ埛
+        // 获取当前用户
         Subject subject = SecurityUtils.getSubject();
         User currentUser = (User) subject.getPrincipal();
         
-        // 鏌ヨ鐢ㄦ埛鏉冮檺
+        // 查询用户权限
         List<String> permissions = permissionMapper.selectByUserId(currentUser.getId());
         
-        // 灏佽鎺堟潈淇℃伅
+        // 封装授权信息
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.addStringPermissions(permissions);
         
         return info;
     }
     
-    // 璁よ瘉
+    // 认证
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) 
             throws AuthenticationException {
-        // 鑾峰彇鐢ㄦ埛鍚?
+        // 获取用户名
         String username = (String) token.getPrincipal();
         
-        // 鏌ヨ鐢ㄦ埛
+        // 查询用户
         User user = userMapper.selectByUsername(username);
         if (user == null) {
-            return null;  // 鐢ㄦ埛涓嶅瓨鍦?
+            return null;  // 用户不存在
         }
         
-        // 灏佽璁よ瘉淇℃伅
+        // 封装认证信息
         return new SimpleAuthenticationInfo(
             user,                        // principal
             user.getPassword(),          // credentials
-            ByteSource.Util.bytes(user.getSalt()), // 鍔犵洂
+            ByteSource.Util.bytes(user.getSalt()), // 加盐
             this.getName()               // realm name
         );
     }
 }
 ```
 
-### 3.4 鐧诲綍璁よ瘉
+### 3.4 登录认证
 ```java
 @RestController
 public class LoginController {
@@ -14378,114 +14346,114 @@ public class LoginController {
     public Result login(@RequestParam String username, 
                         @RequestParam String password) {
         
-        // 鑾峰彇 Subject
+        // 获取 Subject
         Subject subject = SecurityUtils.getSubject();
         
-        // 灏佽 Token
+        // 封装 Token
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-        token.setRememberMe(true);  // 璁颁綇鎴?
+        token.setRememberMe(true);  // 记住我
         
         try {
-            // 鎵ц鐧诲綍
+            // 执行登录
             subject.login(token);
-            return Result.success("鐧诲綍鎴愬姛");
+            return Result.success("登录成功");
         } catch (UnknownAccountException e) {
-            return Result.error("鐢ㄦ埛涓嶅瓨鍦?);
+            return Result.error("用户不存在");
         } catch (IncorrectCredentialsException e) {
-            return Result.error("瀵嗙爜閿欒");
+            return Result.error("密码错误");
         } catch (LockedAccountException e) {
-            return Result.error("璐﹀彿宸查攣瀹?);
+            return Result.error("账号已锁定");
         } catch (AuthenticationException e) {
-            return Result.error("璁よ瘉澶辫触");
+            return Result.error("认证失败");
         }
     }
     
     @GetMapping("/logout")
     public String logout() {
         Subject subject = SecurityUtils.getSubject();
-        subject.logout();  // 鐧诲嚭
+        subject.logout();  // 登出
         return "redirect:/login";
     }
 }
 ```
 
-### 3.5 鏉冮檺鎺у埗
+### 3.5 权限控制
 ```java
-// 1. 缂栫▼寮忔帶鍒?
+// 1. 编程式控制
 Subject subject = SecurityUtils.getSubject();
 if (subject.hasRole("admin")) {
-    // 鏈?admin 瑙掕壊
+    // 有 admin 角色
 }
 if (subject.isPermitted("user:delete")) {
-    // 鏈夊垹闄ゆ潈闄?
+    // 有删除权限
 }
 
-// 2. 娉ㄨВ寮忔帶鍒?
+// 2. 注解式控制
 @RestController
 @RequestMapping("/user")
 public class UserController {
     
-    @RequiresRoles("admin")      // 闇€瑕?admin 瑙掕壊
+    @RequiresRoles("admin")      // 需要 admin 角色
     @GetMapping("/list")
     public List<User> list() { ... }
     
-    @RequiresPermissions("user:delete")  // 闇€瑕佹寚瀹氭潈闄?
+    @RequiresPermissions("user:delete")  // 需要指定权限
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Long id) { ... }
     
-    @RequiresAuthentication      // 闇€瑕佽璇?
+    @RequiresAuthentication      // 需要认证
     @GetMapping("/info")
     public User info() { ... }
 }
 
-// 3. JSP 鏍囩鎺у埗
+// 3. JSP 标签控制
 <shiro:hasRole name="admin">
-    <a href="/admin">绠＄悊鍚庡彴</a>
+    <a href="/admin">管理后台</a>
 </shiro:hasRole>
 <shiro:hasPermission name="user:delete">
-    <button>鍒犻櫎</button>
+    <button>删除</button>
 </shiro:hasPermission>
 
 ```
 
-### 3.6 JSP 鏍囩搴?
-| 鏍囩 | 璇存槑 |
+### 3.6 JSP 标签库
+| 标签 | 说明 |
 | --- | --- |
-| `<shiro:authenticated>` | 宸茶璇佺敤鎴?|
-| `<shiro:notAuthenticated>` | 鏈璇佺敤鎴?|
-| `<shiro:guest>` | 璁垮锛堟湭璁颁綇鎴戯級 |
-| `<shiro:user>` | 鐢ㄦ埛锛堝凡璁よ瘉鎴栬浣忔垜锛?|
-| `<shiro:hasRole name="admin">` | 鎷ユ湁鎸囧畾瑙掕壊 |
-| `<shiro:lacksRole name="admin">` | 娌℃湁鎸囧畾瑙掕壊 |
-| `<shiro:hasPermission name="user:delete">` | 鎷ユ湁鎸囧畾鏉冮檺 |
-| `<shiro:principal>` | 鏄剧ず鐢ㄦ埛淇℃伅 |
+| `<shiro:authenticated>` | 已认证用户 |
+| `<shiro:notAuthenticated>` | 未认证用户 |
+| `<shiro:guest>` | 访客（未记住我） |
+| `<shiro:user>` | 用户（已认证或记住我） |
+| `<shiro:hasRole name="admin">` | 拥有指定角色 |
+| `<shiro:lacksRole name="admin">` | 没有指定角色 |
+| `<shiro:hasPermission name="user:delete">` | 拥有指定权限 |
+| `<shiro:principal>` | 显示用户信息 |
 
 
-### 3.7 Session 绠＄悊
+### 3.7 Session 管理
 ```java
-// 鑾峰彇 Session
+// 获取 Session
 Subject subject = SecurityUtils.getSubject();
 Session session = subject.getSession();
 
-// 瀛樺偍鏁版嵁
+// 存储数据
 session.setAttribute("key", "value");
 
-// 鑾峰彇鏁版嵁
+// 获取数据
 Object value = session.getAttribute("key");
 
-// 璁剧疆瓒呮椂锛堟绉掞級
-session.setTimeout(1800000);  // 30鍒嗛挓
+// 设置超时（毫秒）
+session.setTimeout(1800000);  // 30分钟
 ```
 
-### 3.8 鍔犲瘑涓庣洂鍊?
+### 3.8 加密与盐值
 ```java
-// 瀵嗙爜鍔犲瘑
+// 密码加密
 public String encryptPassword(String password, String salt) {
-    Md5Hash md5Hash = new Md5Hash(password, salt, 2);  // MD5 + 鐩?+ 2娆¤凯浠?
+    Md5Hash md5Hash = new Md5Hash(password, salt, 2);  // MD5 + 盐 + 2次迭代
     return md5Hash.toString();
 }
 
-// 娉ㄥ唽鐢ㄦ埛
+// 注册用户
 public void register(User user) {
     String salt = UUID.randomUUID().toString().substring(0, 8);
     user.setSalt(salt);
@@ -14496,35 +14464,35 @@ public void register(User user) {
 
 ---
 
-## 鍥涖€佸姣旀€荤粨
-### 4.1 浠ｇ爜瀵规瘮
-| 鎿嶄綔 | Spring Security | Shiro |
+## 四、对比总结
+### 4.1 代码对比
+| 操作 | Spring Security | Shiro |
 | --- | --- | --- |
-| 鑾峰彇褰撳墠鐢ㄦ埛 | `SecurityContextHolder.getContext().getAuthentication()` | `SecurityUtils.getSubject()` |
-| 鑾峰彇鐢ㄦ埛鍚?| `authentication.getName()` | `subject.getPrincipal()` |
-| 妫€鏌ヨ鑹?| `@PreAuthorize("hasRole(''ADMIN'')")` | `@RequiresRoles("admin")` |
-| 鑾峰彇鏉冮檺 | `authentication.getAuthorities()` | `subject.getPermissions()` |
+| 获取当前用户 | `SecurityContextHolder.getContext().getAuthentication()` | `SecurityUtils.getSubject()` |
+| 获取用户名 | `authentication.getName()` | `subject.getPrincipal()` |
+| 检查角色 | `@PreAuthorize("hasRole(''ADMIN'')")` | `@RequiresRoles("admin")` |
+| 获取权限 | `authentication.getAuthorities()` | `subject.getPermissions()` |
 
 
-### 4.2 閫夊瀷鍐崇瓥鏍?
+### 4.2 选型决策树
 ```plain
-鏄惁浣跨敤 Spring Boot锛?
-    鈹溾攢 鏄?鈫?椤圭洰瑙勬ā锛?
-    鈹?     鈹溾攢 澶у瀷/寰湇鍔?鈫?Spring Security + OAuth2
-    鈹?     鈹斺攢 涓皬鍨?鈫?Shiro锛堢畝鍗曞揩閫燂級
-    鈹斺攢 鍚?鈫?Shiro锛堥潪 Spring 鐜鍙嬪ソ锛?
+是否使用 Spring Boot？
+    ├─ 是 → 项目规模？
+    │      ├─ 大型/微服务 → Spring Security + OAuth2
+    │      └─ 中小型 → Shiro（简单快速）
+    └─ 否 → Shiro（非 Spring 环境友好）
 
-鏄惁闇€瑕?OAuth2/SSO锛?
-    鈹溾攢 鏄?鈫?Spring Security
-    鈹斺攢 鍚?鈫?涓よ€呯殕鍙?
+是否需要 OAuth2/SSO？
+    ├─ 是 → Spring Security
+    └─ 否 → 两者皆可
 
-鍥㈤槦鐔熸倝搴︼紵
-    鈹溾攢 鐔熸倝 Spring 鈫?Spring Security
-    鈹斺攢 涓嶇啛鎮?Spring 鈫?Shiro
+团队熟悉度？
+    ├─ 熟悉 Spring → Spring Security
+    └─ 不熟悉 Spring → Shiro
 ```
 
-### 4.3 杩佺Щ璺緞
-濡傛灉浠?Shiro 杩佺Щ鍒?Spring Security锛?
+### 4.3 迁移路径
+如果从 Shiro 迁移到 Spring Security：
 
 | Shiro | Spring Security |
 | --- | --- |
@@ -14537,18 +14505,18 @@ public void register(User user) {
 
 ---
 
-**寤鸿锛?*
+**建议：**
 
-+ **鏂伴」鐩?*锛氫紭鍏堥€?Spring Security锛堟洿寮哄ぇ銆佹洿鐜颁唬銆佺ぞ鍖烘洿娲昏穬锛?
-+ **缁存姢鑰侀」鐩?*锛氫繚鎸?Shiro 鎴栨寜闇€杩佺Щ
-+ **蹇€熷師鍨?*锛歋hiro 鏇磋交閲?
-+ **浼佷笟绾?*锛歋pring Security + OAuth2
++ **新项目**：优先选 Spring Security（更强大、更现代、社区更活跃）
++ **维护老项目**：保持 Shiro 或按需迁移
++ **快速原型**：Shiro 更轻量
++ **企业级**：Spring Security + OAuth2
 
-# Swagger/OpenAPI 浼佷笟绾у紑鍙戠瑪璁?
-## 涓€銆佹妧鏈€夊瀷
-**浼佷笟鎺ㄨ崘锛歋pringDoc OpenAPI (Swagger3)**锛屽簾寮?Swagger2
+# Swagger/OpenAPI 企业级开发笔记
+## 一、技术选型
+**企业推荐：SpringDoc OpenAPI (Swagger3)**，废弃 Swagger2
 
-### Maven 渚濊禆
+### Maven 依赖
 ```xml
 <!-- Spring Boot 2.x -->
 <dependency>
@@ -14565,27 +14533,27 @@ public void register(User user) {
 
 ```
 
-### 璁块棶鍦板潃
+### 访问地址
 ```plain
 Swagger UI: http://localhost:8080/swagger-ui/index.html
-API 鏂囨。: http://localhost:8080/v3/api-docs
+API 文档: http://localhost:8080/v3/api-docs
 ```
 
 ---
 
-## 浜屻€佸父鐢ㄦ敞瑙ｏ紙5涓牳蹇冿級
-| 娉ㄨВ | 浣滅敤 | 绀轰緥 |
+## 二、常用注解（5个核心）
+| 注解 | 作用 | 示例 |
 | --- | --- | --- |
-| `@Tag` | 鎺у埗鍣ㄥ垎缁?| `@Tag(name = "鐢ㄦ埛绠＄悊")` |
-| `@Operation` | 鎺ュ彛鎻忚堪 | `@Operation(summary = "鏌ヨ鐢ㄦ埛")` |
-| `@Parameter` | 鍙傛暟鎻忚堪 | `@Parameter(description = "鐢ㄦ埛ID")` |
-| `@Schema` | 妯″瀷鎻忚堪 | `@Schema(description = "鐢ㄦ埛鍚?)` |
-| `@ApiResponse` | 鍝嶅簲鎻忚堪 | `@ApiResponse(responseCode = "200")` |
+| `@Tag` | 控制器分组 | `@Tag(name = "用户管理")` |
+| `@Operation` | 接口描述 | `@Operation(summary = "查询用户")` |
+| `@Parameter` | 参数描述 | `@Parameter(description = "用户ID")` |
+| `@Schema` | 模型描述 | `@Schema(description = "用户名")` |
+| `@ApiResponse` | 响应描述 | `@ApiResponse(responseCode = "200")` |
 
 
 ---
 
-## 涓夈€侀厤缃唬鐮?
+## 三、配置代码
 ### application.yml
 ```yaml
 springdoc:
@@ -14597,7 +14565,7 @@ springdoc:
   packages-to-scan: com.example.controller
 ```
 
-### 閰嶇疆绫伙紙鍙€夛級
+### 配置类（可选）
 ```java
 @Configuration
 public class OpenApiConfig {
@@ -14606,9 +14574,9 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
             .info(new Info()
-                .title("API鎺ュ彛鏂囨。")
+                .title("API接口文档")
                 .version("v1.0")
-                .description("椤圭洰API璇存槑"))
+                .description("项目API说明"))
             .addSecurityItem(new SecurityRequirement().addList("token"))
             .components(new Components()
                 .addSecuritySchemes("token", 
@@ -14621,43 +14589,43 @@ public class OpenApiConfig {
 
 ---
 
-## 鍥涖€佷唬鐮佺ず渚?
-### Controller 灞?
+## 四、代码示例
+### Controller 层
 ```java
-@Tag(name = "鐢ㄦ埛绠＄悊")
+@Tag(name = "用户管理")
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
     
-    @Operation(summary = "鍒嗛〉鏌ヨ鐢ㄦ埛")
+    @Operation(summary = "分页查询用户")
     @GetMapping("/page")
     public Result<PageResult<UserVO>> page(@ParameterObject UserQueryDTO dto) {
         return Result.success(userService.page(dto));
     }
     
-    @Operation(summary = "鏍规嵁ID鏌ヨ鐢ㄦ埛")
+    @Operation(summary = "根据ID查询用户")
     @GetMapping("/{id}")
     public Result<UserVO> getById(
-        @Parameter(description = "鐢ㄦ埛ID", required = true) @PathVariable Long id) {
+        @Parameter(description = "用户ID", required = true) @PathVariable Long id) {
         return Result.success(userService.getById(id));
     }
     
-    @Operation(summary = "鏂板鐢ㄦ埛")
+    @Operation(summary = "新增用户")
     @PostMapping
     public Result<UserVO> add(@Valid @RequestBody UserAddDTO dto) {
         return Result.success(userService.add(dto));
     }
     
-    @Operation(summary = "淇敼鐢ㄦ埛")
+    @Operation(summary = "修改用户")
     @PutMapping("/{id}")
     public Result<UserVO> update(@PathVariable Long id, @RequestBody UserUpdateDTO dto) {
         dto.setId(id);
         return Result.success(userService.update(dto));
     }
     
-    @Operation(summary = "鍒犻櫎鐢ㄦ埛")
+    @Operation(summary = "删除用户")
     @DeleteMapping("/{id}")
-    @ApiResponse(responseCode = "200", description = "鍒犻櫎鎴愬姛")
+    @ApiResponse(responseCode = "200", description = "删除成功")
     public Result<Void> delete(@PathVariable Long id) {
         userService.delete(id);
         return Result.success(null);
@@ -14665,59 +14633,59 @@ public class UserController {
 }
 ```
 
-### DTO/VO 灞?
+### DTO/VO 层
 ```java
 @Data
-@Schema(description = "鐢ㄦ埛淇℃伅")
+@Schema(description = "用户信息")
 public class UserVO {
     
-    @Schema(description = "鐢ㄦ埛ID", example = "1001")
+    @Schema(description = "用户ID", example = "1001")
     private Long id;
     
-    @Schema(description = "鐢ㄦ埛鍚?, example = "寮犱笁")
+    @Schema(description = "用户名", example = "张三")
     private String username;
     
-    @Schema(description = "骞撮緞", example = "25")
+    @Schema(description = "年龄", example = "25")
     private Integer age;
     
-    @Schema(description = "閭", example = "zhangsan@example.com")
+    @Schema(description = "邮箱", example = "zhangsan@example.com")
     private String email;
 }
 
 @Data
-@Schema(description = "鐢ㄦ埛鏌ヨ璇锋眰")
+@Schema(description = "用户查询请求")
 public class UserQueryDTO {
     
-    @Schema(description = "鐢ㄦ埛鍚?)
+    @Schema(description = "用户名")
     private String username;
     
-    @Schema(description = "椤电爜", defaultValue = "1")
+    @Schema(description = "页码", defaultValue = "1")
     private Integer pageNum = 1;
     
-    @Schema(description = "姣忛〉鏉℃暟", defaultValue = "10")
+    @Schema(description = "每页条数", defaultValue = "10")
     private Integer pageSize = 10;
 }
 ```
 
-### 缁熶竴鍝嶅簲
+### 统一响应
 ```java
 @Data
-@Schema(description = "缁熶竴鍝嶅簲")
+@Schema(description = "统一响应")
 public class Result<T> {
     
-    @Schema(description = "鐘舵€佺爜", example = "200")
+    @Schema(description = "状态码", example = "200")
     private Integer code;
     
-    @Schema(description = "鎻愮ず淇℃伅", example = "鎿嶄綔鎴愬姛")
+    @Schema(description = "提示信息", example = "操作成功")
     private String message;
     
-    @Schema(description = "鍝嶅簲鏁版嵁")
+    @Schema(description = "响应数据")
     private T data;
     
     public static <T> Result<T> success(T data) {
         Result<T> result = new Result<>();
         result.setCode(200);
-        result.setMessage("鎴愬姛");
+        result.setMessage("成功");
         result.setData(data);
         return result;
     }
@@ -14733,8 +14701,8 @@ public class Result<T> {
 
 ---
 
-## 浜斻€佺敓浜х幆澧冮厤缃?
-### 鍏抽棴 Swagger锛堢敓浜х幆澧冿級
+## 五、生产环境配置
+### 关闭 Swagger（生产环境）
 ```yaml
 # application-prod.yml
 springdoc:
@@ -14744,16 +14712,16 @@ springdoc:
     enabled: false
 ```
 
-### 鏉′欢鍚敤
+### 条件启用
 ```java
 @ConditionalOnProperty(name = "springdoc.swagger-ui.enabled", havingValue = "true")
 ```
 
 ---
 
-## 鍏€侀殣钘忔帴鍙?
+## 六、隐藏接口
 ```java
-@Hidden  // 娣诲姞鍒扮被鎴栨柟娉曚笂
+@Hidden  // 添加到类或方法上
 @GetMapping("/internal")
 public Result<String> internal() {
     // ...
@@ -14762,28 +14730,28 @@ public Result<String> internal() {
 
 ---
 
-## 涓冦€佸揩閫熸€荤粨
-### 3姝ラ泦鎴?
-1. **娣诲姞渚濊禆**锛坰pringdoc-openapi-ui锛?
-2. **鍐欐敞瑙?*锛園Tag銆丂Operation銆丂Schema锛?
-3. **璁块棶鍦板潃**锛?swagger-ui/index.html锛?
+## 七、快速总结
+### 3步集成
+1. **添加依赖**（springdoc-openapi-ui）
+2. **写注解**（@Tag、@Operation、@Schema）
+3. **访问地址**（/swagger-ui/index.html）
 
-### 鏍稿績瑙勮寖
-+ 鉁?鎵€鏈夋帴鍙ｅ繀椤绘湁 @Operation
-+ 鉁?鎵€鏈夊瓧娈靛繀椤绘湁 @Schema(example = "")
-+ 鉁?缁熶竴鍝嶅簲鏍煎紡 Result
-+ 鉁?鐢熶骇鐜鍏抽棴 Swagger
-+ 鉂?涓嶅湪 Controller 鍐欎笟鍔￠€昏緫
-1. **寮哄埗浣跨敤 SpringDoc**锛屽簾寮?SpringFox
-2. **鐢熶骇鐜蹇呴』鍏抽棴** Swagger 鎴栭厤缃闂檺鍒?
-3. **鎵€鏈夋帴鍙ｅ繀椤绘湁娓呮櫚鐨勬弿杩?*锛園Operation锛?
-4. **鎵€鏈夊瓧娈靛繀椤绘湁绀轰緥鍊煎拰鎻忚堪**锛園Schema锛?
-5. **缁熶竴鐨勫搷搴旀牸寮?*锛圧esult + @ApiResponse锛?
-6. **鏁忔劅鎺ュ彛蹇呴』鏍囨敞瀹夊叏璁よ瘉**锛園SecurityRequirement锛?
-7. **绂佹鍦?Controller 涓啓涓氬姟閫昏緫**锛屼繚鎸佹枃妗ｆ竻鏅?
+### 核心规范
++ ✅ 所有接口必须有 @Operation
++ ✅ 所有字段必须有 @Schema(example = "")
++ ✅ 统一响应格式 Result
++ ✅ 生产环境关闭 Swagger
++ ❌ 不在 Controller 写业务逻辑
+1. **强制使用 SpringDoc**，废弃 SpringFox
+2. **生产环境必须关闭** Swagger 或配置访问限制
+3. **所有接口必须有清晰的描述**（@Operation）
+4. **所有字段必须有示例值和描述**（@Schema）
+5. **统一的响应格式**（Result + @ApiResponse）
+6. **敏感接口必须标注安全认证**（@SecurityRequirement）
+7. **禁止在 Controller 中写业务逻辑**，保持文档清晰
 
-# 浠诲姟
-## 寮傛浠诲姟
+# 任务
+## 异步任务
 ```java
 package com.jie.service;
 
@@ -14793,7 +14761,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AsyncService {
 
-    // 鍛婅瘔Spring杩欐槸涓€涓紓姝ユ柟娉?
+    // 告诉Spring这是一个异步方法
     @Async
     public void hello(){
         try {
@@ -14801,7 +14769,7 @@ public class AsyncService {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("姝ｅ湪鍔犺浇璧勬簮");
+        System.out.println("正在加载资源");
     }
 
 }
@@ -14838,9 +14806,9 @@ public class SpringbootMissionApplication {
 
 
 
-## 閭欢浠诲姟
-### 蹇€熷疄鐜?
-1. 瀵煎叆渚濊禆
+## 邮件任务
+### 快速实现
+1. 导入依赖
 
 ```xml
 <dependency>
@@ -14849,100 +14817,100 @@ public class SpringbootMissionApplication {
 </dependency>
 ```
 
-2. 閰嶇疆鏂囦欢
+2. 配置文件
 
 ```properties
 spring:
   mail:
-    host: smtp.qq.com          # SMTP鏈嶅姟鍣ㄥ湴鍧€
-    port: 465                   # 绔彛锛圦Q閭浣跨敤465鎴?87锛?
-    username: your-email@qq.com # 鍙戜欢浜洪偖绠?
-    password: your-auth-code    # 鎺堟潈鐮侊紙涓嶆槸鐧诲綍瀵嗙爜锛侊級
+    host: smtp.qq.com          # SMTP服务器地址
+    port: 465                   # 端口（QQ邮箱使用465或587）
+    username: your-email@qq.com # 发件人邮箱
+    password: your-auth-code    # 授权码（不是登录密码！）
     default-encoding: UTF-8
     properties:
       mail:
         smtp:
           ssl:
-            enable: true        # QQ閭闇€瑕佸紑鍚疭SL
+            enable: true        # QQ邮箱需要开启SSL
           auth: true
           starttls:
-            enable: true        #寮€鍚姞瀵嗛獙璇?
+            enable: true        #开启加密验证
 ```
 
-3.1 娉ㄥ叆JavaMailSender
+3.1 注入JavaMailSender
 
 ```java
 @Autowired
 private JavaMailSender mailSender;
 ```
 
-3.2 鍙戦€佺畝鍗曟枃鏈偖浠?
+3.2 发送简单文本邮件
 
 ```java
 public void sendSimpleMail(String to, String subject, String content) {
     SimpleMailMessage message = new SimpleMailMessage();
-    message.setFrom("your-email@qq.com");  // 鍙戜欢浜?
-    message.setTo(to);                      // 鏀朵欢浜?
-    message.setSubject(subject);            // 涓婚
-    message.setText(content);               // 鍐呭
+    message.setFrom("your-email@qq.com");  // 发件人
+    message.setTo(to);                      // 收件人
+    message.setSubject(subject);            // 主题
+    message.setText(content);               // 内容
     mailSender.send(message);
 }
 ```
 
-3.3 鍙戦€佸鏉傞偖浠讹紙HTML + 闄勪欢锛?
+3.3 发送复杂邮件（HTML + 附件）
 
 ```java
 @Test
 public void sendComplexMail() throws MessagingException {
-    // 1. 鍒涘缓澶嶆潅閭欢瀵硅薄
+    // 1. 创建复杂邮件对象
     MimeMessage mimeMessage = mailSender.createMimeMessage();
     
-    // 2. 浣跨敤MimeMessageHelper鍖呰锛岀浜屼釜鍙傛暟true琛ㄧず鏀寔闄勪欢
+    // 2. 使用MimeMessageHelper包装，第二个参数true表示支持附件
     MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
     
-    // 3. 璁剧疆閭欢鍩烘湰淇℃伅
-    helper.setSubject("閫氱煡-浠婃櫄寮€浼?);
+    // 3. 设置邮件基本信息
+    helper.setSubject("通知-今晚开会");
     helper.setFrom("your-email@qq.com");
     helper.setTo("target@163.com");
     
-    // 4. 璁剧疆HTML鍐呭锛堢浜屼釜鍙傛暟true琛ㄧず鍐呭涓篐TML鏍煎紡锛?
-    helper.setText("<b style=''color:red''>浠婃櫄7:30寮€浼?/b>", true);
+    // 4. 设置HTML内容（第二个参数true表示内容为HTML格式）
+    helper.setText("<b style=''color:red''>今晚7:30开会</b>", true);
     
-    // 5. 娣诲姞闄勪欢
+    // 5. 添加附件
     helper.addAttachment("1.jpg", new File("C:/images/1.jpg"));
     helper.addAttachment("2.jpg", new File("C:/images/2.jpg"));
     
-    // 6. 鍙戦€?
+    // 6. 发送
     mailSender.send(mimeMessage);
 }
 ```
 
-3.4 鍙戦€佸甫鍐呭祵鍥剧墖鐨勯偖浠?
+3.4 发送带内嵌图片的邮件
 
 ```java
 public void sendInlineMail() throws MessagingException {
     MimeMessage message = mailSender.createMimeMessage();
     MimeMessageHelper helper = new MimeMessageHelper(message, true);
     
-    helper.setSubject("甯﹀浘鐗囩殑閭欢");
+    helper.setSubject("带图片的邮件");
     helper.setTo("receiver@example.com");
     helper.setFrom("sender@qq.com");
     
-    // HTML鍐呭涓娇鐢–ID寮曠敤鍥剧墖
+    // HTML内容中使用CID引用图片
     String content = "<html><body>"
-        + "<h3>杩欐槸涓€灏佸甫鍥剧墖鐨勯偖浠?/h3>"
+        + "<h3>这是一封带图片的邮件</h3>"
         + "<img src=''cid:imageId'' />"
         + "</body></html>";
     helper.setText(content, true);
     
-    // 娣诲姞鍐呭祵鍥剧墖锛堢浜屼釜鍙傛暟鏄疌ID锛屼笌HTML涓殑cid瀵瑰簲锛?
+    // 添加内嵌图片（第二个参数是CID，与HTML中的cid对应）
     helper.addInline("imageId", new File("C:/images/logo.png"));
     
     mailSender.send(message);
 }
 ```
 
-3.5 鍙戦€侀偖浠跺伐鍏风被瀹屾暣绀轰緥
+3.5 发送邮件工具类完整示例
 
 ```java
 @Service
@@ -14956,7 +14924,7 @@ public class MailService {
     private String from;
     
     /**
-     * 鍙戦€佺畝鍗曢偖浠?
+     * 发送简单邮件
      */
     public void sendSimpleMail(String to, String subject, String content) {
         try {
@@ -14966,14 +14934,14 @@ public class MailService {
             message.setSubject(subject);
             message.setText(content);
             mailSender.send(message);
-            log.info("绠€鍗曢偖浠跺彂閫佹垚鍔?-> {}", to);
+            log.info("简单邮件发送成功 -> {}", to);
         } catch (Exception e) {
-            log.error("鍙戦€佺畝鍗曢偖浠跺け璐?, e);
+            log.error("发送简单邮件失败", e);
         }
     }
     
     /**
-     * 鍙戦€丠TML閭欢
+     * 发送HTML邮件
      */
     public void sendHtmlMail(String to, String subject, String htmlContent) {
         try {
@@ -14984,14 +14952,14 @@ public class MailService {
             helper.setSubject(subject);
             helper.setText(htmlContent, true);
             mailSender.send(message);
-            log.info("HTML閭欢鍙戦€佹垚鍔?-> {}", to);
+            log.info("HTML邮件发送成功 -> {}", to);
         } catch (MessagingException e) {
-            log.error("鍙戦€丠TML閭欢澶辫触", e);
+            log.error("发送HTML邮件失败", e);
         }
     }
     
     /**
-     * 鍙戦€佸甫闄勪欢鐨勯偖浠?
+     * 发送带附件的邮件
      */
     public void sendAttachmentMail(String to, String subject, String content, 
                                    Map<String, File> attachments) {
@@ -15003,15 +14971,15 @@ public class MailService {
             helper.setSubject(subject);
             helper.setText(content, true);
             
-            // 娣诲姞闄勪欢
+            // 添加附件
             for (Map.Entry<String, File> entry : attachments.entrySet()) {
                 helper.addAttachment(entry.getKey(), entry.getValue());
             }
             
             mailSender.send(message);
-            log.info("甯﹂檮浠堕偖浠跺彂閫佹垚鍔?-> {}", to);
+            log.info("带附件邮件发送成功 -> {}", to);
         } catch (MessagingException e) {
-            log.error("鍙戦€佸甫闄勪欢閭欢澶辫触", e);
+            log.error("发送带附件邮件失败", e);
         }
     }
 }
@@ -15019,8 +14987,8 @@ public class MailService {
 
 
 
-### 缁撳悎妯℃澘寮曟搸
-浣跨敤Thymeleaf妯℃澘
+### 结合模板引擎
+使用Thymeleaf模板
 
 ```xml
 <dependency>
@@ -15030,7 +14998,7 @@ public class MailService {
 
 ```
 
-閭欢妯℃澘锛坢ail-template.html锛夛細
+邮件模板（mail-template.html）：
 
 ```html
 <!DOCTYPE html>
@@ -15040,15 +15008,15 @@ public class MailService {
 </head>
 <body>
     <h3 th:text="${title}"></h3>
-    <p>灏婃暚鐨?<span th:text="${username}"></span>锛屾偍濂斤紒</p>
+    <p>尊敬的 <span th:text="${username}"></span>，您好！</p>
     <p th:text="${content}"></p>
-    <a th:href="${link}">鐐瑰嚮楠岃瘉</a>
+    <a th:href="${link}">点击验证</a>
 </body>
 </html>
 
 ```
 
-鍙戦€佹ā鏉块偖浠讹細
+发送模板邮件：
 
 ```java
 @Service
@@ -15062,22 +15030,22 @@ public class TemplateMailService {
     
     public void sendTemplateMail(String to, String username, String link) {
         try {
-            // 鏋勫缓妯℃澘鏁版嵁
+            // 构建模板数据
             Context context = new Context();
-            context.setVariable("title", "娆㈣繋娉ㄥ唽");
+            context.setVariable("title", "欢迎注册");
             context.setVariable("username", username);
-            context.setVariable("content", "璇风偣鍑讳笅鏂归摼鎺ュ畬鎴愰獙璇?);
+            context.setVariable("content", "请点击下方链接完成验证");
             context.setVariable("link", link);
             
-            // 娓叉煋妯℃澘
+            // 渲染模板
             String htmlContent = templateEngine.process("mail-template", context);
             
-            // 鍙戦€侀偖浠?
+            // 发送邮件
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             helper.setFrom("your-email@qq.com");
             helper.setTo(to);
-            helper.setSubject("娉ㄥ唽楠岃瘉閭欢");
+            helper.setSubject("注册验证邮件");
             helper.setText(htmlContent, true);
             
             mailSender.send(message);
@@ -15090,11 +15058,11 @@ public class TemplateMailService {
 
 
 
-### 缁撳悎寮傛浠诲姟
-鍙戦€侀偖浠舵槸鑰楁椂鎿嶄綔锛堢綉缁淚O锛夛紝寤鸿浣跨敤寮傛鏂瑰紡閬垮厤闃诲涓荤嚎绋嬨€?
+### 结合异步任务
+发送邮件是耗时操作（网络IO），建议使用异步方式避免阻塞主线程。
 
 ```java
-// 1. 鍚姩绫绘坊鍔?@EnableAsync
+// 1. 启动类添加 @EnableAsync
 @SpringBootApplication
 @EnableAsync
 public class Application {
@@ -15103,7 +15071,7 @@ public class Application {
     }
 }
 
-// 2. 閭欢鏈嶅姟鏂规硶娣诲姞 @Async
+// 2. 邮件服务方法添加 @Async
 @Service
 public class AsyncMailService {
     
@@ -15122,38 +15090,38 @@ public class AsyncMailService {
 }
 ```
 
-**鏍稿績瑕佺偣锛?*
+**核心要点：**
 
-+ 瀵嗙爜浣跨敤**鎺堟潈鐮?*鑰岄潪鐧诲綍瀵嗙爜
-+ QQ閭闇€瑕佸紑鍚疭SL
-+ 澶嶆潅閭欢浣跨敤 `MimeMessageHelper`
-+ 鐢熶骇鐜寤鸿寮傛澶勭悊 + 妯℃澘寮曟搸
-
-
++ 密码使用**授权码**而非登录密码
++ QQ邮箱需要开启SSL
++ 复杂邮件使用 `MimeMessageHelper`
++ 生产环境建议异步处理 + 模板引擎
 
 
 
-## 瀹氭椂浠诲姟
-### 姒傝堪
-Spring Boot 鎻愪緵浜?`@Scheduled` 娉ㄨВ锛屽彲浠ラ潪甯告柟渚垮湴瀹炵幇瀹氭椂浠诲姟鍔熻兘锛屽簳灞傚熀浜?Spring 鐨?TaskScheduler 瀹炵幇銆?
-
-**搴旂敤鍦烘櫙锛?*
-
-+ 瀹氭椂澶囦唤鏁版嵁
-+ 瀹氭椂鍙戦€侀偖浠?娑堟伅
-+ 瀹氭椂缁熻鏁版嵁
-+ 瀹氭椂娓呯悊涓存椂鏂囦欢
-+ 瀹氭椂鍚屾鏁版嵁
 
 
+## 定时任务
+### 概述
+Spring Boot 提供了 `@Scheduled` 注解，可以非常方便地实现定时任务功能，底层基于 Spring 的 TaskScheduler 实现。
 
-### 蹇€熷紑濮?
-#### 寮€鍚畾鏃朵换鍔℃敮鎸?
-鍦ㄥ惎鍔ㄧ被鎴栭厤缃被涓婃坊鍔?`@EnableScheduling` 娉ㄨВ锛?
+**应用场景：**
+
++ 定时备份数据
++ 定时发送邮件/消息
++ 定时统计数据
++ 定时清理临时文件
++ 定时同步数据
+
+
+
+### 快速开始
+#### 开启定时任务支持
+在启动类或配置类上添加 `@EnableScheduling` 注解：
 
 ```java
 @SpringBootApplication
-@EnableScheduling  // 寮€鍚畾鏃朵换鍔?
+@EnableScheduling  // 开启定时任务
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -15161,122 +15129,122 @@ public class Application {
 }
 ```
 
-#### 2.2 鍒涘缓瀹氭椂浠诲姟
+#### 2.2 创建定时任务
 ```java
 @Component
 @Slf4j
 public class MyScheduledTask {
     
     /**
-     * 鍥哄畾寤惰繜锛氭瘡5绉掓墽琛屼竴娆★紙涓婃鎵ц缁撴潫鍚庣瓑寰?绉掞級
+     * 固定延迟：每5秒执行一次（上次执行结束后等待5秒）
      */
     @Scheduled(fixedDelay = 5000)
     public void task1() {
-        log.info("鍥哄畾寤惰繜浠诲姟鎵ц锛歿}", new Date());
+        log.info("固定延迟任务执行：{}", new Date());
     }
     
     /**
-     * 鍥哄畾棰戠巼锛氭瘡3绉掓墽琛屼竴娆★紙涓嶇涓婃鏄惁鎵ц瀹岋級
+     * 固定频率：每3秒执行一次（不管上次是否执行完）
      */
     @Scheduled(fixedRate = 3000)
     public void task2() {
-        log.info("鍥哄畾棰戠巼浠诲姟鎵ц锛歿}", new Date());
+        log.info("固定频率任务执行：{}", new Date());
     }
     
     /**
-     * 鍒濆寤惰繜锛氬惎鍔ㄥ悗绛夊緟2绉掑啀寮€濮嬫墽琛?
+     * 初始延迟：启动后等待2秒再开始执行
      */
     @Scheduled(initialDelay = 2000, fixedRate = 5000)
     public void task3() {
-        log.info("寤惰繜鍚姩浠诲姟鎵ц锛歿}", new Date());
+        log.info("延迟启动任务执行：{}", new Date());
     }
     
     /**
-     * Cron琛ㄨ揪寮忥細姣忓ぉ涓婂崍10:30鎵ц
+     * Cron表达式：每天上午10:30执行
      */
     @Scheduled(cron = "0 30 10 * * ?")
     public void task4() {
-        log.info("Cron瀹氭椂浠诲姟鎵ц锛歿}", new Date());
+        log.info("Cron定时任务执行：{}", new Date());
     }
 }
 ```
 
 
 
-### Cron琛ㄨ揪寮忚瑙?
-#### 3.1 Cron琛ㄨ揪寮忔牸寮?
+### Cron表达式详解
+#### 3.1 Cron表达式格式
 ```plain
-绉?鍒?鏃?鏃?鏈?鍛?骞?鍙€?
-鈹?鈹?鈹?鈹?鈹?鈹?
-鈹?鈹?鈹?鈹?鈹?鈹斺攢鈹€ 鏄熸湡 (0-7, 0鍜?閮借〃绀哄懆鏃?
-鈹?鈹?鈹?鈹?鈹斺攢鈹€鈹€鈹€ 鏈堜唤 (1-12)
-鈹?鈹?鈹?鈹斺攢鈹€鈹€鈹€鈹€鈹€ 鏃ユ湡 (1-31)
-鈹?鈹?鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€ 灏忔椂 (0-23)
-鈹?鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€ 鍒嗛挓 (0-59)
-鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€ 绉?(0-59)
+秒 分 时 日 月 周 年(可选)
+│ │ │ │ │ │
+│ │ │ │ │ └── 星期 (0-7, 0和7都表示周日)
+│ │ │ │ └──── 月份 (1-12)
+│ │ │ └────── 日期 (1-31)
+│ │ └──────── 小时 (0-23)
+│ └────────── 分钟 (0-59)
+└──────────── 秒 (0-59)
 ```
 
-#### 3.2 鐗规畩瀛楃璇存槑
-| 瀛楃 | 鍚箟 | 绀轰緥 |
+#### 3.2 特殊字符说明
+| 字符 | 含义 | 示例 |
 | --- | --- | --- |
-| `*` | 鎵€鏈夊€?| `*` 琛ㄧず姣忎竴绉?鍒?鏃?.. |
-| `?` | 涓嶆寚瀹氬€?| 甯哥敤浜庢棩鏈熷拰鏄熸湡鍐茬獊鏃?|
-| `-` | 鑼冨洿 | `10-12` 琛ㄧず10鍒?2鐐?|
-| `,` | 鍒椾妇 | `1,3,5` 琛ㄧず1,3,5 |
-| `/` | 闂撮殧 | `0/15` 琛ㄧず姣忛殧15鍒嗛挓 |
-| `L` | 鏈€鍚?| 鏈堜唤涓殑鏈€鍚庝竴澶?|
-| `W` | 宸ヤ綔鏃?| 鏈€杩戠殑宸ヤ綔鏃?|
-| `#` | 绗嚑涓?| 绗嚑涓槦鏈熷嚑 |
+| `*` | 所有值 | `*` 表示每一秒/分/时... |
+| `?` | 不指定值 | 常用于日期和星期冲突时 |
+| `-` | 范围 | `10-12` 表示10到12点 |
+| `,` | 列举 | `1,3,5` 表示1,3,5 |
+| `/` | 间隔 | `0/15` 表示每隔15分钟 |
+| `L` | 最后 | 月份中的最后一天 |
+| `W` | 工作日 | 最近的工作日 |
+| `#` | 第几个 | 第几个星期几 |
 
 
-#### 3.3 甯哥敤Cron琛ㄨ揪寮忕ず渚?
+#### 3.3 常用Cron表达式示例
 ```java
-// 姣?绉掓墽琛屼竴娆?
+// 每5秒执行一次
 @Scheduled(cron = "0/5 * * * * ?")
 
-// 姣忓垎閽熺殑绗?0绉掓墽琛?
+// 每分钟的第30秒执行
 @Scheduled(cron = "30 * * * * ?")
 
-// 姣?鍒嗛挓鎵ц涓€娆?
+// 每5分钟执行一次
 @Scheduled(cron = "0 0/5 * * * ?")
 
-// 姣忓皬鏃剁殑绗?鍒?绉掓墽琛?
+// 每小时的第0分0秒执行
 @Scheduled(cron = "0 0 * * * ?")
 
-// 姣忓ぉ鍑屾櫒2鐐规墽琛?
+// 每天凌晨2点执行
 @Scheduled(cron = "0 0 2 * * ?")
 
-// 姣忓懆涓€涓婂崍10:15鎵ц
+// 每周一上午10:15执行
 @Scheduled(cron = "0 15 10 ? * MON")
 
-// 姣忔湀1鍙峰噷鏅?鐐规墽琛?
+// 每月1号凌晨1点执行
 @Scheduled(cron = "0 0 1 1 * ?")
 
-// 姣忓勾3鏈?0鏃ヤ笂鍗?0:30鎵ц
+// 每年3月20日上午10:30执行
 @Scheduled(cron = "0 30 10 20 3 ?")
 
-// 宸ヤ綔鏃ユ瘡澶╀笂鍗?鐐瑰埌涓嬪崍5鐐癸紝姣忓崐灏忔椂鎵ц
+// 工作日每天上午9点到下午5点，每半小时执行
 @Scheduled(cron = "0 0/30 9-17 * * MON-FRI")
 
-// 姣忎釜鏈堟渶鍚庝竴涓懆浜斾笂鍗?0鐐规墽琛?
+// 每个月最后一个周五上午10点执行
 @Scheduled(cron = "0 0 10 ? * 6L")
 
-// 姣忓ぉ涓婂崍10鐐癸紝涓嬪崍2鐐癸紝涓嬪崍4鐐规墽琛?
+// 每天上午10点，下午2点，下午4点执行
 @Scheduled(cron = "0 0 10,14,16 * * ?")
 ```
 
-#### 3.4 Cron鍦ㄧ嚎鐢熸垚鍣?
-鎺ㄨ崘浣跨敤鍦ㄧ嚎宸ュ叿鐢熸垚Cron琛ㄨ揪寮忥細
+#### 3.4 Cron在线生成器
+推荐使用在线工具生成Cron表达式：
 
 + [https://cron.qqe2.com/](https://cron.qqe2.com/)
 + [https://www.bejson.com/othertools/cron/](https://www.bejson.com/othertools/cron/)
 
 
 
-### 閰嶇疆绾跨▼姹?
-榛樿鎯呭喌涓嬶紝Spring Boot 浣跨敤鍗曠嚎绋嬫墽琛屾墍鏈夊畾鏃朵换鍔°€傚鏋滀竴涓换鍔℃墽琛屾椂闂磋繃闀匡紝浼氶樆濉炲叾浠栦换鍔°€?
+### 配置线程池
+默认情况下，Spring Boot 使用单线程执行所有定时任务。如果一个任务执行时间过长，会阻塞其他任务。
 
-#### 4.1 閰嶇疆鑷畾涔夌嚎绋嬫睜
+#### 4.1 配置自定义线程池
 ```java
 @Configuration
 @EnableScheduling
@@ -15289,48 +15257,48 @@ public class ScheduledConfig implements SchedulingConfigurer {
     
     @Bean(destroyMethod = "shutdown")
     public Executor taskExecutor() {
-        return Executors.newScheduledThreadPool(10);  // 10涓嚎绋嬬殑绾跨▼姹?
+        return Executors.newScheduledThreadPool(10);  // 10个线程的线程池
     }
 }
 ```
 
-#### 4.2 浣跨敤閰嶇疆鏂囦欢鏂瑰紡锛坅pplication.yml锛?
+#### 4.2 使用配置文件方式（application.yml）
 ```yaml
 spring:
   task:
     scheduling:
       pool:
-        size: 10                    # 绾跨▼姹犲ぇ灏?
-      thread-name-prefix: scheduled-task-  # 绾跨▼鍚嶇О鍓嶇紑
+        size: 10                    # 线程池大小
+      thread-name-prefix: scheduled-task-  # 线程名称前缀
       shutdown:
-        await-termination: true     # 绛夊緟浠诲姟鎵ц瀹屾瘯鍐嶅叧闂?
-        await-termination-period: 30s  # 鏈€澶х瓑寰呮椂闂?
+        await-termination: true     # 等待任务执行完毕再关闭
+        await-termination-period: 30s  # 最大等待时间
 ```
 
 
 
-### 浜斻€佸姩鎬佸畾鏃朵换鍔?
-#### 5.1 浠庨厤缃枃浠惰鍙朇ron琛ㄨ揪寮?
+### 五、动态定时任务
+#### 5.1 从配置文件读取Cron表达式
 ```java
 @Component
 @Slf4j
 public class DynamicScheduledTask {
     
-    @Scheduled(cron = "${task.cron:0 0 2 * * ?}")  // 浠庨厤缃枃浠惰鍙栵紝榛樿鍑屾櫒2鐐?
+    @Scheduled(cron = "${task.cron:0 0 2 * * ?}")  // 从配置文件读取，默认凌晨2点
     public void taskFromConfig() {
-        log.info("浠庨厤缃枃浠惰鍙栫殑瀹氭椂浠诲姟鎵ц");
+        log.info("从配置文件读取的定时任务执行");
     }
 }
 ```
 
-**application.yml锛?*
+**application.yml：**
 
 ```yaml
 task:
-  cron: 0 0/5 * * * ?  # 姣?鍒嗛挓鎵ц涓€娆?
+  cron: 0 0/5 * * * ?  # 每5分钟执行一次
 ```
 
-#### 5.2 缂栫▼寮忓姩鎬佷慨鏀瑰畾鏃惰鍒?
+#### 5.2 编程式动态修改定时规则
 ```java
 @Component
 @Slf4j
@@ -15342,36 +15310,36 @@ public class ReScheduledTask {
     private ScheduledFuture<?> future;
     
     /**
-     * 鍚姩瀹氭椂浠诲姟
+     * 启动定时任务
      */
     public void startTask(String cron) {
         if (future != null && !future.isCancelled()) {
-            future.cancel(false);  // 鍙栨秷鐜版湁浠诲姟
+            future.cancel(false);  // 取消现有任务
         }
         
-        // 瑙ｆ瀽Cron琛ㄨ揪寮?
+        // 解析Cron表达式
         CronTrigger trigger = new CronTrigger(cron);
         
-        // 鍚姩鏂颁换鍔?
+        // 启动新任务
         future = taskScheduler.schedule(() -> {
-            log.info("鍔ㄦ€佸畾鏃朵换鍔℃墽琛岋紝鏃堕棿锛歿}", new Date());
-            // 鎵ц鍏蜂綋涓氬姟閫昏緫
+            log.info("动态定时任务执行，时间：{}", new Date());
+            // 执行具体业务逻辑
         }, trigger);
     }
     
     /**
-     * 鍋滄浠诲姟
+     * 停止任务
      */
     public void stopTask() {
         if (future != null && !future.isCancelled()) {
             future.cancel(false);
-            log.info("瀹氭椂浠诲姟宸插仠姝?);
+            log.info("定时任务已停止");
         }
     }
 }
 ```
 
-**璋冪敤绀轰緥锛?*
+**调用示例：**
 
 ```java
 @RestController
@@ -15383,81 +15351,81 @@ public class TaskController {
     @PostMapping("/task/start")
     public String startTask(@RequestParam String cron) {
         reScheduledTask.startTask(cron);
-        return "瀹氭椂浠诲姟宸插惎鍔紝Cron锛? + cron;
+        return "定时任务已启动，Cron：" + cron;
     }
     
     @PostMapping("/task/stop")
     public String stopTask() {
         reScheduledTask.stopTask();
-        return "瀹氭椂浠诲姟宸插仠姝?;
+        return "定时任务已停止";
     }
 }
 ```
 
-#### 5.3 鍩轰簬鎺ュ彛鐨勫姩鎬佷换鍔?
+#### 5.3 基于接口的动态任务
 ```java
 @Component
 @Slf4j
 public class DynamicTask implements SchedulingConfigurer {
     
-    private String cron = "0/5 * * * * ?";  // 榛樿姣?绉?
+    private String cron = "0/5 * * * * ?";  // 默认每5秒
     
     @Override
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
         taskRegistrar.addTriggerTask(
             () -> {
-                // 浠诲姟閫昏緫
-                log.info("鍔ㄦ€丆ron浠诲姟鎵ц锛歿}", new Date());
+                // 任务逻辑
+                log.info("动态Cron任务执行：{}", new Date());
             },
             triggerContext -> {
-                // 鍔ㄦ€佽幏鍙朇ron琛ㄨ揪寮?
+                // 动态获取Cron表达式
                 CronTrigger trigger = new CronTrigger(cron);
                 return trigger.nextExecutionTime(triggerContext);
             }
         );
     }
     
-    // 鎻愪緵淇敼Cron鐨勬柟娉?
+    // 提供修改Cron的方法
     public void updateCron(String newCron) {
         this.cron = newCron;
-        log.info("Cron宸叉洿鏂颁负锛歿}", newCron);
+        log.info("Cron已更新为：{}", newCron);
     }
 }
 ```
 
 
 
-### 鍏€佸紓姝ュ畾鏃朵换鍔?
-缁撳悎 `@Async` 瀹炵幇寮傛鎵ц锛岄伩鍏嶉樆濉炲畾鏃朵换鍔＄嚎绋嬶細
+### 六、异步定时任务
+结合 `@Async` 实现异步执行，避免阻塞定时任务线程：
 
 ```java
 @Component
 @Slf4j
 public class AsyncScheduledTask {
     
-    @Async  // 寮傛鎵ц
+    @Async  // 异步执行
     @Scheduled(cron = "0/10 * * * * ?")
     public void asyncTask() {
-        log.info("寮傛瀹氭椂浠诲姟寮€濮嬫墽琛岋紝绾跨▼锛歿}", Thread.currentThread().getName());
-        // 妯℃嫙闀挎椂闂翠换鍔?
+        log.info("异步定时任务开始执行，线程：{}", Thread.currentThread().getName());
+        // 模拟长时间任务
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        log.info("寮傛瀹氭椂浠诲姟鎵ц瀹屾垚");
+        log.info("异步定时任务执行完成");
     }
 }
 ```
 
-**娉ㄦ剰锛?* 闇€瑕佸厛寮€鍚紓姝ユ敮鎸?`@EnableAsync`
+**注意：** 需要先开启异步支持 `@EnableAsync`
 
 
 
-### 涓冦€佸垎甯冨紡鐜涓嬬殑瀹氭椂浠诲姟
-鍦ㄥ垎甯冨紡鐜涓紝澶氫釜瀹炰緥鍚屾椂鎵ц瀹氭椂浠诲姟浼氶€犳垚鏁版嵁閲嶅澶勭悊銆傝В鍐虫柟妗堬細
+### 七、分布式环境下的定时任务
+在分布式环境中，多个实例同时执行定时任务会造成数据重复处理。解决方案：
 
-#### 7.1 浣跨敤ShedLock
+#### 7.1 使用ShedLock
 ```xml
 <dependency>
     <groupId>net.javacrumbs.shedlock</groupId>
@@ -15472,7 +15440,7 @@ public class AsyncScheduledTask {
 
 ```
 
-**閰嶇疆锛?*
+**配置：**
 
 ```java
 @Configuration
@@ -15487,7 +15455,7 @@ public class ShedLockConfig {
 }
 ```
 
-**浣跨敤锛?*
+**使用：**
 
 ```java
 @Component
@@ -15496,13 +15464,13 @@ public class DistributedTask {
     @Scheduled(cron = "0 0 2 * * ?")
     @SchedulerLock(name = "backupTask", lockAtMostFor = "5m", lockAtLeastFor = "1m")
     public void backupTask() {
-        // 杩欎釜浠诲姟鍦ㄥ悓涓€鏃堕棿鍙細鏈変竴涓疄渚嬫墽琛?
-        log.info("鍒嗗竷寮忓畾鏃朵换鍔℃墽琛?);
+        // 这个任务在同一时间只会有一个实例执行
+        log.info("分布式定时任务执行");
     }
 }
 ```
 
-#### 7.2 浣跨敤Redis鍒嗗竷寮忛攣
+#### 7.2 使用Redis分布式锁
 ```java
 @Component
 @Slf4j
@@ -15516,22 +15484,22 @@ public class RedisDistributedTask {
         String lockKey = "task:backup";
         String lockValue = UUID.randomUUID().toString();
         
-        // 灏濊瘯鑾峰彇閿侊紝杩囨湡鏃堕棿10绉?
+        // 尝试获取锁，过期时间10秒
         Boolean success = redisTemplate.opsForValue()
             .setIfAbsent(lockKey, lockValue, Duration.ofSeconds(10));
         
         if (Boolean.TRUE.equals(success)) {
             try {
-                log.info("鑾峰彇閿佹垚鍔燂紝鎵ц浠诲姟");
-                // 鎵ц涓氬姟閫昏緫
+                log.info("获取锁成功，执行任务");
+                // 执行业务逻辑
             } finally {
-                // 閲婃斁閿?
+                // 释放锁
                 String script = "if redis.call(''get'', KEYS[1]) == ARGV[1] then return redis.call(''del'', KEYS[1]) else return 0 end";
                 redisTemplate.execute(new DefaultRedisScript<>(script, Long.class), 
                     Collections.singletonList(lockKey), lockValue);
             }
         } else {
-            log.info("鏈幏鍙栧埌閿侊紝璺宠繃鎵ц");
+            log.info("未获取到锁，跳过执行");
         }
     }
 }
@@ -15539,62 +15507,62 @@ public class RedisDistributedTask {
 
 
 
-### 鍏€佹敞鎰忎簨椤逛笌鏈€浣冲疄璺?
-#### 8.1 閬垮厤闀挎椂闂翠换鍔￠樆濉?
+### 八、注意事项与最佳实践
+#### 8.1 避免长时间任务阻塞
 ```java
-// 鉂?閿欒锛氶暱鏃堕棿浠诲姟浼氶樆濉炲叾浠栧畾鏃朵换鍔?
+// ❌ 错误：长时间任务会阻塞其他定时任务
 @Scheduled(fixedRate = 5000)
 public void badTask() {
-    Thread.sleep(30000);  // 鎵ц30绉?
+    Thread.sleep(30000);  // 执行30秒
 }
 
-// 鉁?姝ｇ‘锛氫娇鐢ㄥ紓姝ユ垨鍙﹁捣绾跨▼
+// ✅ 正确：使用异步或另起线程
 @Async
 @Scheduled(fixedRate = 5000)
 public void goodTask() {
-    // 闀挎椂闂翠换鍔?
+    // 长时间任务
 }
 ```
 
-#### 8.2 鎹曡幏寮傚父
+#### 8.2 捕获异常
 ```java
 @Scheduled(cron = "0/10 * * * * ?")
 public void safeTask() {
     try {
-        // 涓氬姟閫昏緫
+        // 业务逻辑
     } catch (Exception e) {
-        log.error("瀹氭椂浠诲姟鎵ц澶辫触", e);
-        // 鍙互鍙戦€佸憡璀﹂€氱煡
+        log.error("定时任务执行失败", e);
+        // 可以发送告警通知
     }
 }
 ```
 
-#### 8.3 閬垮厤浠诲姟閲嶅彔鎵ц
+#### 8.3 避免任务重叠执行
 ```java
 private AtomicBoolean running = new AtomicBoolean(false);
 
-@Scheduled(fixedDelay = 5000)  // 浣跨敤fixedDelay纭繚涓婁竴娆℃墽琛屽畬鎴?
+@Scheduled(fixedDelay = 5000)  // 使用fixedDelay确保上一次执行完成
 public void nonOverlapTask() {
     if (!running.compareAndSet(false, true)) {
-        log.warn("涓婃浠诲姟灏氭湭瀹屾垚锛岃烦杩囨湰娆℃墽琛?);
+        log.warn("上次任务尚未完成，跳过本次执行");
         return;
     }
     try {
-        // 涓氬姟閫昏緫
+        // 业务逻辑
     } finally {
         running.set(false);
     }
 }
 ```
 
-#### 8.4 鍚堢悊鐨凜ron琛ㄨ揪寮?
-+ 閬垮厤鍦ㄩ珮骞跺彂鏃舵鎵ц鑰楁椂浠诲姟
-+ 瀹氭椂浠诲姟灏介噺鍦ㄥ噷鏅ㄤ笟鍔′綆宄版湡鎵ц
-+ 璁剧疆鍚堢悊鐨勮秴鏃舵椂闂?
+#### 8.4 合理的Cron表达式
++ 避免在高并发时段执行耗时任务
++ 定时任务尽量在凌晨业务低峰期执行
++ 设置合理的超时时间
 
 
 
-### 涔濄€佺洃鎺т笌绠＄悊
+### 九、监控与管理
 ```java
 @Component
 @Slf4j
@@ -15602,10 +15570,10 @@ public class ScheduledTaskMonitor {
     
     @EventListener
     public void handleTaskStart(ScheduledTaskRegistrationEvent event) {
-        log.info("瀹氭椂浠诲姟娉ㄥ唽锛歿}", event.getTask());
+        log.info("定时任务注册：{}", event.getTask());
     }
     
-    // 閫氳繃Actuator绔偣鏌ョ湅浠诲姟淇℃伅
+    // 通过Actuator端点查看任务信息
     @Autowired
     private ScheduledTaskRegistrar taskRegistrar;
     
@@ -15619,45 +15587,43 @@ public class ScheduledTaskMonitor {
 
 
 
-### 鍗併€佹€荤粨
-| 鍙傛暟 | 璇存槑 | 绀轰緥 |
+### 十、总结
+| 参数 | 说明 | 示例 |
 | --- | --- | --- |
-| `fixedDelay` | 涓婃缁撴潫鍒颁笅娆″紑濮嬬殑闂撮殧 | `fixedDelay = 5000` |
-| `fixedRate` | 鍥哄畾棰戠巼鎵ц | `fixedRate = 5000` |
-| `initialDelay` | 鍒濆寤惰繜鍚姩 | `initialDelay = 3000` |
-| `cron` | Cron琛ㄨ揪寮?| `cron = "0 0 2 * * ?"` |
+| `fixedDelay` | 上次结束到下次开始的间隔 | `fixedDelay = 5000` |
+| `fixedRate` | 固定频率执行 | `fixedRate = 5000` |
+| `initialDelay` | 初始延迟启动 | `initialDelay = 3000` |
+| `cron` | Cron表达式 | `cron = "0 0 2 * * ?"` |
 
 
-**鏍稿績瑕佺偣锛?*
+**核心要点：**
 
-1. 鍚姩绫绘坊鍔?`@EnableScheduling`
-2. 浠诲姟鏂规硶娣诲姞 `@Scheduled`
-3. 榛樿鍗曠嚎绋嬫墽琛岋紝娉ㄦ剰閰嶇疆绾跨▼姹?
-4. 鍒嗗竷寮忕幆澧冮渶瑕佽€冭檻閿佹満鍒?
-5. 闀挎椂闂翠换鍔″缓璁娇鐢ㄥ紓姝?
-6. 鍋氬ソ寮傚父澶勭悊鍜屾棩蹇楄褰?
-', NOW());
-SET @last_note_id = LAST_INSERT_ID();
+1. 启动类添加 `@EnableScheduling`
+2. 任务方法添加 `@Scheduled`
+3. 默认单线程执行，注意配置线程池
+4. 分布式环境需要考虑锁机制
+5. 长时间任务建议使用异步
+6. 做好异常处理和日志记录
+', 0, NOW());
 
-INSERT INTO 
-ote (uthor_id, 	itle, content, created_at)
-VALUES (1003, '多线程', '# 姒傝堪
-## Process(杩涚▼),Thread(绾跨▼)
-杩涚▼鏄郴缁熷垎閰嶇殑锛岀嚎绋嬪湪杩涚▼閲岄潰锛岃嚦灏戞湁涓€涓猰ain锛堜富锛夌嚎绋?
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+VALUES (13, 1003, '多线程', '# 概述
+## Process(进程),Thread(线程)
+进程是系统分配的，线程在进程里面，至少有一个main（主）线程
 
-+ 绾跨▼鏄嫭绔嬬殑鎵ц璺緞
-+ 鍦ㄧ▼搴忚繍琛屾椂锛屽嵆浣挎病鏈夊垱寤虹嚎绋嬶紝鍚庡彴涔熶細鏈夊涓嚎绋嬶紝濡備富绾跨▼锛実c绾跨▼(鍨冨溇鍥炴敹绾跨▼)锛?
-+ main()绉颁箣涓轰富绾跨▼锛屼负绯荤粺鐨勫叆鍙ｏ紝鐢ㄤ簬鎵ц鏁翠釜绋嬪簭
-+ 鍦ㄤ竴涓繘绋嬩腑锛屽鏋滃紑杈熶簡澶氫釜绾跨▼锛岀嚎绋嬬殑杩愯鐢辫皟搴﹀櫒瀹夋帓璋冨害锛岃皟搴﹀櫒鏄笌鎿嶄綔绯荤粺绱у瘑鐩稿叧鐨勶紝鍏堝悗椤哄簭鏄笉鑳借浜轰负鐨勫共棰勭殑
-+ 瀵瑰悓涓€浠借祫婧愭搷浣滄椂锛屼細瀛樺湪璧勬簮鎶㈠ず鐨勯棶棰橈紝闇€瑕佸姞鍏ュ苟鍙戞帶鍒?
-+ 绾跨▼浼氬甫鏉ラ澶栫殑寮€閿€锛屽cpu璋冨害鏃堕棿锛屽苟鍙戞帶鍒跺紑閿€
-+ 姣忎釜绾跨▼鍦ㄨ嚜宸辩殑宸ヤ綔鍐呭瓨浜や簰锛屽唴瀛樻帶鍒朵笉褰撲細閫犳垚鏁版嵁涓嶄竴鑷?
++ 线程是独立的执行路径
++ 在程序运行时，即使没有创建线程，后台也会有多个线程，如主线程，gc线程(垃圾回收线程)；
++ main()称之为主线程，为系统的入口，用于执行整个程序
++ 在一个进程中，如果开辟了多个线程，线程的运行由调度器安排调度，调度器是与操作系统紧密相关的，先后顺序是不能被人为的干预的
++ 对同一份资源操作时，会存在资源抢夺的问题，需要加入并发控制
++ 线程会带来额外的开销，如cpu调度时间，并发控制开销
++ 每个线程在自己的工作内存交互，内存控制不当会造成数据不一致
 
-# 涓夌鍒涘缓鏂瑰紡
+# 三种创建方式
 ## Thread class
-缁ф壙Thread绫伙紝閲嶅啓run()鏂规硶锛?璋冪敤Start寮€鍚嚎绋?
+继承Thread类，重写run()方法， 调用Start开启线程
 
-绾跨▼寮€鍚笉涓€瀹氱珛鍗虫墽琛岋紝鏈塁PU璋冨害鎵ц
+线程开启不一定立即执行，有CPU调度执行
 
 ```java
 
@@ -15665,26 +15631,26 @@ public class TestThread1 extends Thread{
     @Override
     public void run() {
         for (int i = 0; i < 200; i++) {
-            System.out.println("杩欐槸run鏂规硶"+i);
+            System.out.println("这是run方法"+i);
         }
     }
 
     public static void main(String[] args) {
-        // 鍒涘缓涓€涓嚎绋嬪璞?
+        // 创建一个线程对象
         TestThread1 t = new TestThread1();
 
-        // 璋冪敤start()鏂规硶寮€鍚嚎绋?
+        // 调用start()方法开启线程
         t.start();
 
         for (int i = 0; i < 2000; i++) {
-            System.out.println("杩欐槸涓荤嚎绋?+i);
+            System.out.println("这是主线程"+i);
         }
     }
 }
 
 ```
 
-鍚屾椂涓嬭浇涓夊紶鍥剧墖
+同时下载三张图片
 
 ```java
 package com.jie.thread;
@@ -15695,10 +15661,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-// 鑱旂郴Thread锛?瀹炵幇澶氱嚎绋嬪悓姝ヤ笅杞藉浘鐗?
+// 联系Thread， 实现多线程同步下载图片
 public class TestThread2 extends Thread {
-    private String name;  // 淇濆瓨鐨勬枃浠跺悕
-    private String url;   // 缃戠粶鍥剧墖鍦板潃
+    private String name;  // 保存的文件名
+    private String url;   // 网络图片地址
 
     public TestThread2(String name, String url) {
         this.url = url;
@@ -15710,7 +15676,7 @@ public class TestThread2 extends Thread {
     public void run() {
         WebDownloader downloader = new WebDownloader();
         downloader.download(url, name);
-        System.out.println("涓嬭浇浜嗘枃浠跺悕wield: " + name);
+        System.out.println("下载了文件名wield: " + name);
     }
 
     public static void main(String[] args) {
@@ -15724,23 +15690,23 @@ public class TestThread2 extends Thread {
     }
 }
 
-// 涓嬭浇鍣?
+// 下载器
 class WebDownloader{
     public void download(String url, String name){
         try {
             FileUtils.copyURLToFile(new URL(url), new File(name));
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("IO寮傚父锛宒ownloader鏂规硶鍑虹幇闂");
+            System.out.println("IO异常，downloader方法出现问题");
         }
     }
 }
 
 ```
 
-## Runnable 鎺ュ彛  (寤鸿浣跨敤)
-### 鍒濆Runable
-瀹炵幇runnable鎺ュ彛锛岄噸鍐檙un鏂规硶锛屾墽琛岀嚎绋嬮渶瑕佷涪鍏unnable鎺ュ彛瀹炵幇绫?
+## Runnable 接口  (建议使用)
+### 初始Runable
+实现runnable接口，重写run方法，执行线程需要丢入runnable接口实现类
 
 ```java
 package com.jie.thread;
@@ -15749,15 +15715,15 @@ public class TestThread3 implements Runnable {
     @Override
     public void run() {
         for (int i = 0; i < 20; i++) {
-            System.out.println("杩欐槸run鏂规硶" + i);
+            System.out.println("这是run方法" + i);
         }
     }
 
     public static void main(String[] args) {
-        //鍒涘缓娑﹂偅杈逛簡鎺ュ彛鐨勫疄鐜扮被瀵硅薄
+        //创建润那边了接口的实现类对象
         TestThread1 testThread1 = new TestThread1();
 
-        // 鍒涘缓绾跨▼瀵硅薄锛岄€氳繃绾跨▼瀵硅薄鏉ュ紑鍚垜浠殑绾跨▼锛屼唬鐞?
+        // 创建线程对象，通过线程对象来开启我们的线程，代理
         //Thread thread = new Thread(testThread1);
         //thread.start();
 
@@ -15765,23 +15731,23 @@ public class TestThread3 implements Runnable {
 
 
         for (int i = 0; i < 20; i++) {
-            System.out.println("杩欐槸涓荤嚎绋? + i);
+            System.out.println("这是主线程" + i);
         }
     }
 }
 
 ```
 
-鍙戠幇闂锛氬涓嚎绋嬪悓鏃舵搷浣滃悓涓€涓祫婧愮殑鎯呭喌涓嬶紝绾跨▼涓嶅畨鍏紝鏁版嵁绱婁贡
+发现问题：多个线程同时操作同一个资源的情况下，线程不安全，数据紊乱
 
 ```java
 package com.jie.thread;
 
-// 澶氫釜绾跨▼鍚屾椂鎿嶄綔涓€涓璞?
-// 涔扮伀杞︾エ
+// 多个线程同时操作一个对象
+// 买火车票
 public class TestThread4 implements Runnable {
 
-    //绁ㄦ暟
+    //票数
     private int ticketNums = 10;
 
 
@@ -15797,35 +15763,35 @@ public class TestThread4 implements Runnable {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println(Thread.currentThread().getName()+"-->鎷垮埌浜嗙"+ticketNums--+"绁?);
+            System.out.println(Thread.currentThread().getName()+"-->拿到了第"+ticketNums--+"票");
         }
     }
 
     public static void main(String[] args) {
         TestThread4 ticket = new TestThread4();
-        new Thread(ticket,"灏忔槑").start();
-        new Thread(ticket,"鑰佸笀").start();
-        new Thread(ticket,"榛勭墰鍏?).start();
+        new Thread(ticket,"小明").start();
+        new Thread(ticket,"老师").start();
+        new Thread(ticket,"黄牛党").start();
     }
 }
 ```
 
-### 榫熷厰璧涜窇
+### 龟兔赛跑
 ```java
 package com.jie.thread;
 
-// 妯℃嫙榫熷厰璧涜窇
+// 模拟龟兔赛跑
 public class Race implements Runnable {
 
-    // 鑳滃埄鑰?
+    // 胜利者
     private static String winner;
 
     @Override
     public void run() {
         for (int i = 0; i <= 100; i++) {
 
-            // 妯℃嫙鍏斿瓙鐫¤
-            if (Thread.currentThread().getName().equals("鍏?) && i%10==0) {
+            // 模拟兔子睡觉
+            if (Thread.currentThread().getName().equals("兔") && i%10==0) {
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
@@ -15833,19 +15799,19 @@ public class Race implements Runnable {
                 }
             }
 
-            // 鍒ゆ柇姣旇禌鏄惁缁撴潫
+            // 判断比赛是否结束
             boolean flag = gameOver(i);
-            // 濡傛灉姣旇禌缁撴潫, 涔呭仠姝㈢▼搴?
+            // 如果比赛结束, 久停止程序
             if (flag) {
                 break;
             }
 
-            System.out.println(Thread.currentThread().getName() + "璺戜簡-->" + i + "姝?);
+            System.out.println(Thread.currentThread().getName() + "跑了-->" + i + "步");
         }
     }
 
     private boolean gameOver (int steps){
-        if (winner != null) { // 宸茬粡瀛樺湪鑳滃埄鑰?
+        if (winner != null) { // 已经存在胜利者
             return true;
         }
 
@@ -15860,34 +15826,34 @@ public class Race implements Runnable {
 
     public static void main(String[] args) {
         Race race = new Race();
-        new Thread(race,"榫?).start();
-        new Thread(race,"鍏?).start();
+        new Thread(race,"龟").start();
+        new Thread(race,"兔").start();
     }
 }
 ```
 
-## callable 鎺ュ彛
-姝ラ
+## callable 接口
+步骤
 
-+ 杩炴帴鎺ュ彛 Callable
-+ 閲嶅啓call鏂规硶锛岄渶瑕佹姏鍑哄紓甯?
-+ 鍒涘缓鎵ц鏈嶅姟: ExecutorService ser =  Executors.newFixedThreadPool(nums)
-+ 鎻愪氦鎵ц Future<Boolean> result1 = ser.submit(1);
-+ 鑾峰彇缁撴灉 Boolean r1 = result1.get();
-+ 鍏抽棴鏈嶅姟 ser.shutdownNow();
++ 连接接口 Callable
++ 重写call方法，需要抛出异常
++ 创建执行服务: ExecutorService ser =  Executors.newFixedThreadPool(nums)
++ 提交执行 Future<Boolean> result1 = ser.submit(1);
++ 获取结果 Boolean r1 = result1.get();
++ 关闭服务 ser.shutdownNow();
 
-# 绾跨▼妯″紡
-## 闈欐€佷唬鐞嗘ā寮?
-+ 鐩爣瀵硅薄鍜屼唬鐞嗗璞￠兘闇€瑕佸疄鐜板悓涓€涓帴鍙?
-+ 浠ｇ悊瀵硅薄瑕佷唬鐞嗙湡瀹炶鑹?
-+ 濂藉
-    - 浠ｇ悊瀵硅薄鍙互鍋氬緢澶氱湡瀹炲璞″仛涓嶅埌鐨勪簨鎯?
-    - 鐪熷疄瀵硅薄鍙互涓撴敞鍋氳嚜宸辩殑浜嬫儏
+# 线程模式
+## 静态代理模式
++ 目标对象和代理对象都需要实现同一个接口
++ 代理对象要代理真实角色
++ 好处
+    - 代理对象可以做很多真实对象做不到的事情
+    - 真实对象可以专注做自己的事情
 
-## Lamda琛ㄨ揪寮?
-### 鍑芥暟寮忔帴鍙ｏ紙functional Interface锛?
-#### 瀹氫箟
-+ 浠讳綍鎺ュ彛锛屽鏋滃彧鍖呭惈鍞竴涓€涓娊璞℃柟娉曪紝閭ｄ箞瀹冨氨鏄竴涓嚱鏁板紡鎺ュ彛
+## Lamda表达式
+### 函数式接口（functional Interface）
+#### 定义
++ 任何接口，如果只包含唯一一个抽象方法，那么它就是一个函数式接口
 
 ```java
 public interface Runnable{
@@ -15895,21 +15861,21 @@ public interface Runnable{
 }
 ```
 
-+ 瀵逛簬鍑芥暟寮忔帴鍙ｏ紝鎴戜滑鍙互閫氳繃lambda琛ㄨ揪寮忔潵鍒涘缓璇ユ帴鍙ｇ殑瀵硅薄
++ 对于函数式接口，我们可以通过lambda表达式来创建该接口的对象
 
-### 涓轰粈涔堣鐢╨amda琛ㄨ揪寮?()->
-+ 閬垮厤鍖垮悕鍐呴儴绫诲畾涔夎繃澶?
-+ 鍙互璁╀綘鐨勪唬鐮佺湅璧锋潵寰堢畝娲?
-+ 鍘绘帀浜嗕竴鍫嗘病鏈夋剰涔夌殑浠ｇ爜锛屽彧鐣欎笅鏍稿績鐨勯€昏緫
+### 为什么要用lamda表达式 ()->
++ 避免匿名内部类定义过多
++ 可以让你的代码看起来很简洁
++ 去掉了一堆没有意义的代码，只留下核心的逻辑
 
-### lambda鐨勬帹瀵艰繃绋?
+### lambda的推导过程
 ```java
 package com.jie.thread;
 
-// 鎺ㄥ lambda 琛ㄨ揪寮?
+// 推导 lambda 表达式
 public class TestLambda1 {
 
-    // 闈欐€佸唴閮ㄧ被
+    // 静态内部类
     static class Like2 implements ILike{
 
         @Override
@@ -15926,7 +15892,7 @@ public class TestLambda1 {
         like = new Like2();
         like.Lambda();
 
-        // 灞€閮ㄥ唴閮ㄧ被
+        // 局部内部类
         class Like3 implements ILike{
             @Override
             public void Lambda() {
@@ -15937,7 +15903,7 @@ public class TestLambda1 {
         like = new Like3();
         like.Lambda();
 
-        // 鍖垮悕鍐呴儴绫伙紝娌℃湁绫荤殑鍚嶇О锛屽繀椤诲€熷姪鎺ュ彛鎴栬€呯埗绫?
+        // 匿名内部类，没有类的名称，必须借助接口或者父类
         like = new ILike() {
             @Override
             public void Lambda() {
@@ -15946,7 +15912,7 @@ public class TestLambda1 {
         };
         like.Lambda();
 
-        // 鐢╨ambda绠€鍖?
+        // 用lambda简化
         like = ()->{
             System.out.println("i like lambda5");
         };
@@ -15956,14 +15922,14 @@ public class TestLambda1 {
 }
 
 
-// 瀹氫箟涓€涓嚱鏁板紡鎺ュ彛
+// 定义一个函数式接口
 
 interface ILike{
     void Lambda();
 }
 
 
-// 瀹炵幇绫?
+// 实现类
 class Like implements ILike{
 
     @Override
@@ -15975,7 +15941,7 @@ class Like implements ILike{
 
 ```
 
-### lanbda 鐨勭畝鍖栬繃绋?
+### lanbda 的简化过程
 ```java
 package com.jie.thread;
 
@@ -15983,21 +15949,21 @@ public class TestLambda2 {
     public static void main(String[] args) {
         Ilove love = null;
         
-        // 1銆乴ambda琛ㄧず绠€鍖?
+        // 1、lambda表示简化
         love =(int a)->{
             System.out.println("i love you-->"+a);
         };
-        // 绠€鍖?銆佸幓鎺夊弬鏁扮被鍨?
+        // 简化1、去掉参数类型
         love = (a)->{
             System.out.println("i love you-->"+a);
         };
 
-        // 绠€鍖?銆佺畝鍖栨嫭鍙?
+        // 简化2、简化括号
         love = a -> {
             System.out.println("i love you-->"+a);
         };
 
-        // 绠€鍖?銆佺畝鍖栬姳鎷彿
+        // 简化3、简化花括号
         love = a -> System.out.println("i love you-->"+a);
 
         love.love(250);
@@ -16009,52 +15975,52 @@ interface Ilove {
 }
 ```
 
-### 鎬荤粨
-+ lambda琛ㄨ揪寮忓彧鑳芥湁涓€琛屼唬鐮佺殑鎯呭喌涓嬫墠鑳界畝鍖栨垚涓€琛岋紝濡傛灉鏈夊琛岋紝閭ｄ箞灏辩敤浠ｇ爜鍧楀寘瑁?
-+ 鍓嶆彁鏄帴鍙ｄ负鍑芥暟寮忔帴鍙?
-+ 澶氫釜鍙傛暟涔熷彲浠ュ幓鎺夊弬鏁扮被鍨嬶紝瑕佸幓鎺夊氨閮藉幓鎺夛紝澶氫釜鍙傛暟蹇呴』鍔犱笂鎷彿
+### 总结
++ lambda表达式只能有一行代码的情况下才能简化成一行，如果有多行，那么就用代码块包裹
++ 前提是接口为函数式接口
++ 多个参数也可以去掉参数类型，要去掉就都去掉，多个参数必须加上括号
 +
 
-# 绾跨▼鐘舵€?
-## 绾跨▼鐨勪簲涓姸鎬?
+# 线程状态
+## 线程的五个状态
 <img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1744267800072-d86a1671-1801-4bc5-868d-6c7485970c8b.png" width="1171.2" title="" crop="0,0,1,1" id="u4ff70ecc" class="ne-image">
 
 
 
-## 绾跨▼鏂规硶
-+ setPriority(int newPriorith)锛氭洿鏀圭嚎绋嬬殑浼樺厛绾?
-+ static void sleep(long millis)锛氬湪鎸囧畾鐨勬绉掓暟鍐呰褰撳墠姝ｅ湪鎵ц鐨勭嚎绋嬩綋浼戠湢
-+ void jion()锛氱瓑寰呯嚎绋嬬粓姝?
-+ static void yield()锛氭殏鍋滃綋鍓嶆鍦ㄦ墽琛岀殑绾跨▼瀵硅薄锛屽苟鎵ц鍏朵粬鐨勭嚎绋?
-+ void interrupt()锛氫腑鏂嚎绋嬶紝涓嶇敤杩欎釜鏂瑰紡
-+ boollean isAlive()锛氭祴璇曠嚎绋嬫槸鍚﹀浜庢椿鍔ㄧ姸鎬?
+## 线程方法
++ setPriority(int newPriorith)：更改线程的优先级
++ static void sleep(long millis)：在指定的毫秒数内让当前正在执行的线程体休眠
++ void jion()：等待线程终止
++ static void yield()：暂停当前正在执行的线程对象，并执行其他的线程
++ void interrupt()：中断线程，不用这个方式
++ boollean isAlive()：测试线程是否处于活动状态
 
-## 绾跨▼鍋滄
-### 娴嬭瘯stop
-1.寤鸿绾跨▼姝ｅ父鍋滄---> 鍒╃敤娆℃暟锛屼笉寤鸿姝诲惊鐜?
+## 线程停止
+### 测试stop
+1.建议线程正常停止---> 利用次数，不建议死循环
 
-2.寤鸿浣跨敤鏍囧織浣?--> 璁剧疆涓€涓爣蹇椾綅
+2.建议使用标志位---> 设置一个标志位
 
-3.涓嶈浣跨敤stop鎴栬€卍estroy绛夎繃鏃舵垨JIK涓嶅缓璁殑鏂规硶
+3.不要使用stop或者destroy等过时或JIK不建议的方法
 
 ```java
 package com.jie.thread;
 
 public class TestStop implements Runnable {
-    //璁剧疆涓€涓爣璇嗕綅
+    //设置一个标识位
     private Boolean flag = true;
 
     @Override
     public void run() {
         int i = 0;
         
-        //绾跨▼浣撲娇鐢ㄨ鏍囪瘑
+        //线程体使用该标识
         while (flag) {
             System.out.println("run...Thread..."+i++);
         }
     }
 
-    // 璁剧疆涓€涓叕寮€鐨勬柟娉曞仠姝㈢嚎绋嬶紝杞崲琛ㄧず浣?
+    // 设置一个公开的方法停止线程，转换表示位
     public void stop() {
         flag = false;
         System.out.println("stop....");
@@ -16064,7 +16030,7 @@ public class TestStop implements Runnable {
         TestStop t = new TestStop();
         new Thread(t).start();
 
-        // 璁剧疆涓荤嚎绋?
+        // 设置主线程
         for (int i = 0; i < 1000; i++) {
             System.out.println("main...Thread..."+i);
             if (i==900){
@@ -16076,12 +16042,12 @@ public class TestStop implements Runnable {
 
 ```
 
-## 绾跨▼浼戠湢
-+ sleep(鏃堕棿)鎸囧畾褰撳墠绾跨▼闃诲鐨勬绉掓暟锛?
-+ sleep瀛樺湪寮傚父InterruptedException锛?
-+ sleep鏃堕棿杈惧埌鍚庣嚎绋嬭繘鍏ュ氨缁姸鎬?
-+ sleep鍙互妯℃嫙缃戠粶寤舵椂锛屽€掕鏃剁瓑
-+ 姣忎竴涓璞￠兘鏈変竴涓攣锛宻leep涓嶄細閲婃斁閿侊紱
+## 线程休眠
++ sleep(时间)指定当前线程阻塞的毫秒数；
++ sleep存在异常InterruptedException；
++ sleep时间达到后线程进入就绪状态
++ sleep可以模拟网络延时，倒计时等
++ 每一个对象都有一个锁，sleep不会释放锁；
 
 ```java
 package com.jie.thread;
@@ -16092,14 +16058,14 @@ import java.util.Date;
 
 public class TestSleep2 {
     public static void main(String[] args) {
-        //鑾峰彇绯荤粺褰撳墠鏃堕棿
+        //获取系统当前时间
         Date startTime = new Date(System.currentTimeMillis());
 
         while (true) {
             try {
                 Thread.sleep(1000);
                 System.out.println(new SimpleDateFormat("HH:mm:ss").format(startTime));
-                startTime = new Date(System.currentTimeMillis()); // 鏇存柊鏃堕棿
+                startTime = new Date(System.currentTimeMillis()); // 更新时间
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -16120,10 +16086,10 @@ public class TestSleep2 {
 }
 ```
 
-## 绾跨▼绀艰
-+ 绀艰绾跨▼锛岃褰撳墠姝ｅ湪鎵ц鐨勭嚎绋嬫殏鍋滐紝浣嗕笉闃诲
-+ 璁╃嚎绋嬩粠杩愯鐘舵€佽浆涓哄氨缁姸鎬?
-+ **璁ヽpu閲嶆柊璋冨害锛岀ぜ璁╀笉涓€瀹氭垚鍔燂紝鐪婥PU蹇冩儏**
+## 线程礼让
++ 礼让线程，让当前正在执行的线程暂停，但不阻塞
++ 让线程从运行状态转为就绪状态
++ **让cpu重新调度，礼让不一定成功，看CPU心情**
 
 ```java
 package com.jie.thread;
@@ -16142,26 +16108,26 @@ class MyYield implements Runnable {
 
     @Override
     public void run() {
-        System.out.println(Thread.currentThread().getName()+"绾跨▼寮€濮嬫墽琛?);
-        Thread.yield();//绀艰
-        System.out.println(Thread.currentThread().getName()+"绾跨▼鍋滄鎵ц");
+        System.out.println(Thread.currentThread().getName()+"线程开始执行");
+        Thread.yield();//礼让
+        System.out.println(Thread.currentThread().getName()+"线程停止执行");
     }
 }
 ```
 
 ## Join
-+ Join鍚堝苟绾跨▼锛屽緟姝ょ嚎绋嬫墽琛屽畬鍚庯紝鍐嶆墽琛屽叾浠栫嚎绋嬶紝鍏朵粬绾跨▼闃诲
-+ 绾跨▼鐨勬彃闃?
++ Join合并线程，待此线程执行完后，再执行其他线程，其他线程阻塞
++ 线程的插队
 
 ```java
 package com.jie.thread;
 
-// 娴嬭瘯Join鏂规硶锛屾兂璞℃垚鎻掗槦
+// 测试Join方法，想象成插队
 public class TestJoin implements Runnable{
     @Override
     public void run() {
         for (int i = 0; i < 1000; i++) {
-            System.out.println("绾跨▼vip鏉ヤ簡-->"+i);
+            System.out.println("线程vip来了-->"+i);
         }
     }
 
@@ -16173,25 +16139,25 @@ public class TestJoin implements Runnable{
             if(i==200){
                 t1.join();
             }
-            System.out.println("涓荤嚎绋嬫墽琛?->"+i);
+            System.out.println("主线程执行-->"+i);
         }
     }
 }
 ```
 
-## 绾跨▼鐘舵€佽娴媠tate
+## 线程状态观测state
 + Thread.State
-    - NEW锛氬皻鏈惎鍔ㄧ殑绾跨▼澶勪簬姝ょ姸鎬?
-    - RUNNABLE锛氬湪Java铏氭嫙鏈轰腑鎵ц鐨勭嚎绋嬪浜庢鐘舵€?
-    - BLOCKED锛氳闃诲绛夊緟鐩戣鍣ㄩ攣瀹氱殑绾跨▼澶勪簬姝ょ姸鎬?
-    - WAITING锛氬湪绛夊緟鍙︿竴涓嚎绋嬫墽琛岀壒瀹氬姩浣滅殑绾跨▼澶勪簬姝ょ姸鎬?
-    - TIMED_WAITING锛氭鍦ㄧ瓑寰呭彟涓€涓嚎绋嬫墽琛屽姩浣滆揪鍒板埗瀹氱瓑寰呮椂闂寸殑绾跨▼澶勪簬姝ょ姸鎬?
-    - TERMINATED锛氬凡閫€鍑虹殑绾跨▼澶勪簬姝ょ姸鎬?
+    - NEW：尚未启动的线程处于此状态
+    - RUNNABLE：在Java虚拟机中执行的线程处于此状态
+    - BLOCKED：被阻塞等待监视器锁定的线程处于此状态
+    - WAITING：在等待另一个线程执行特定动作的线程处于此状态
+    - TIMED_WAITING：正在等待另一个线程执行动作达到制定等待时间的线程处于此状态
+    - TERMINATED：已退出的线程处于此状态
 
 ```java
 package com.jie.thread;
 
-//瑙傚療娴嬭瘯绾跨▼鐨勭姸鎬?
+//观察测试线程的状态
 public class TestState {
     public static void main(String[] args) {
         Thread thread = new Thread(()->{
@@ -16205,13 +16171,13 @@ public class TestState {
             System.out.println("//////////");
         });
 
-        // 绾跨▼鏈惎鍔ㄧ殑鐘舵€?
+        // 线程未启动的状态
         Thread.State state = thread.getState();
         System.out.println(state);
 
-        // 绾跨▼鍚姩鍚庣殑鐘舵€?
+        // 线程启动后的状态
         thread.start();
-        // 鏇存柊绾跨▼鐨勭姸鎬?
+        // 更新线程的状态
         state = thread.getState();
         System.out.println(state);
 
@@ -16225,7 +16191,7 @@ public class TestState {
             System.out.println(state);
         }
 
-        // 宸茬粡鍚姩鍚庣殑绾跨▼涓嶈兘鍐嶆琚惎鍔?
+        // 已经启动后的线程不能再次被启动
         thread.start();
 
     }
@@ -16233,19 +16199,19 @@ public class TestState {
 
 ```
 
-## 绾跨▼浼樺厛绾RIORITY
-+ 绾跨▼浼樺厛绾х敤鏁板瓧琛ㄧず锛岃寖鍥翠粠1`10
+## 线程优先级PRIORITY
++ 线程优先级用数字表示，范围从1`10
     - Thread.MIN_PRIORITY=1;
     - Thread.MAX_PRIORITY=10;
     - Thread.NORM_PRIORITY=5;
-+ 浣跨敤浠ヤ笅鏂瑰紡鏇存敼鎴栬幏鍙栦紭鍏堢骇
++ 使用以下方式更改或获取优先级
     - getPriority(), setPriority(int xxx)
-+ 浼樺厛绾х殑璁惧畾寤鸿鍦╯tart()璋冨害鍓?
++ 优先级的设定建议在start()调度前
 
 ```java
 package com.jie.thread;
 
-// 娴嬭瘯绾跨▼鐨勪紭鍏堢骇
+// 测试线程的优先级
 public class TestPriority {
     public static void main(String[] args) {
         System.out.println(Thread.currentThread().getName()+"-->"+Thread.currentThread().getPriority());
@@ -16283,12 +16249,12 @@ class MyPriority implements Runnable {
 }
 ```
 
-## 瀹堟姢绾跨▼ daemon
+## 守护线程 daemon
 
 
-+ 绾跨▼鍒嗕负鐢ㄦ埛绾跨▼鍜屽畧鎶ょ嚎绋?
-+ 铏氭嫙鏈哄繀椤荤‘淇濈敤鎴风嚎绋嬫墽琛屽畬姣?
-+ 铏氭嫙鏈轰笉鐢ㄧ瓑寰呭畧鎶ょ嚎绋嬫敮鎸佸畬姣?
++ 线程分为用户线程和守护线程
++ 虚拟机必须确保用户线程执行完毕
++ 虚拟机不用等待守护线程支持完毕
 
 ```java
 package com.jie.thread;
@@ -16299,7 +16265,7 @@ public class TestDaemon {
         God god = new God();
 
         Thread thread = new Thread(god);
-        thread.setDaemon(true); // 榛樿鎴慺alse 琛ㄧず鐢ㄦ埛绾跨▼
+        thread.setDaemon(true); // 默认我false 表示用户线程
         thread.start();
 
         new Thread(new You()).start();
@@ -16311,7 +16277,7 @@ class God implements Runnable {
     @Override
     public void run() {
         while (true) {
-            System.out.println("涓婂笣瀹堟姢姣忎竴澶?);
+            System.out.println("上帝守护每一天");
         }
     }
 }
@@ -16320,7 +16286,7 @@ class You implements Runnable {
     @Override
     public void run() {
         for (int i = 0; i < 100; i++) {
-            System.out.println("寮€蹇冪殑娲荤潃姣忎竴澶?);
+            System.out.println("开心的活着每一天");
         }
         System.out.println("run over");
     }
@@ -16328,27 +16294,27 @@ class You implements Runnable {
 
 ```
 
-# 绾跨▼鍚屾
-## 鍚屾閿乻ynchronized
-+ 鐢变簬鎴戜滑鍙互閫氳繃private鍏抽敭瀛楁潵淇濊瘉鏁版嵁瀵硅薄鍙兘鎲嬫柟娉曡闂紝鎵€浠ユ垜浠彧闇€瑕侀拡瀵规柟娉曟彁鍑轰竴濂楁満鍒讹紝杩欏鏈哄埗鏄?synchronized 鍏抽敭瀛楋紝 瀹冨寘鎷袱绉嶇敤娉曪細synchronized鏂规硶鍜宻ynchronized鍧?
+# 线程同步
+## 同步锁synchronized
++ 由于我们可以通过private关键字来保证数据对象只能憋方法访问，所以我们只需要针对方法提出一套机制，这套机制是 synchronized 关键字， 它包括两种用法：synchronized方法和synchronized块
 
-鏂规硶鍚屾`public synchronized void method(int args){}`
+方法同步`public synchronized void method(int args){}`
 
-+ synchronized鏂规硶鎺у埗瀵光€滃璞♀€濈殑璁块棶锛岋紝姣忎釜瀵硅薄瀵瑰簲涓€鎶婇攣锛屾瘡涓猻ynchronized鏂规硶閮藉繀椤昏幏寰楄皟鐢ㄨ鏂规硶鐨勫璞＄殑閿佹墠鑳芥墽琛岋紝鍚﹀垯绾跨▼浼氶樆濉烇紝鏂规硶涓€鏃︽墽琛岋紝灏辩嫭鍗犺閿侊紝鐩村埌璇ユ柟娉曢噴鏀鹃攣锛屽悗闈㈤樆濉炵殑绾跨▼鎵嶈兘鑾峰緱杩欎釜閿侊紝缁х画鎵ц
-+ 缂洪櫡锛氳嫢灏嗕竴涓ぇ鐨勬柟娉曞０鏄庝负synchronized浼氬奖鍝嶆晥鐜?
-+ 鏂规硶閲岄潰闇€瑕佷慨鏀圭殑鍐呭鎵嶉渶瑕侀攣锛岄攣鐨勫お澶氾紝娴垂璧勬簮
++ synchronized方法控制对“对象”的访问，，每个对象对应一把锁，每个synchronized方法都必须获得调用该方法的对象的锁才能执行，否则线程会阻塞，方法一旦执行，就独占该锁，直到该方法释放锁，后面阻塞的线程才能获得这个锁，继续执行
++ 缺陷：若将一个大的方法声明为synchronized会影响效率
++ 方法里面需要修改的内容才需要锁，锁的太多，浪费资源
 
-## 姝婚攣
-### 浜х敓姝婚攣鐨勫繀瑕佹潯浠?
-+ 浜掓枼鏉′欢锛氫竴涓祫婧愭瘡娆″彧鑳借涓€涓繘绋嬩娇鐢?
-+ 璇锋眰淇濇寔鏉′欢锛氫竴涓繘绋嬪洜璇锋眰璧勬簮鑰岄樆濉炴椂锛屽鏂硅幏寰楃殑璧勬簮淇濇寔涓嶆斁
-+ 涓嶅墺澶烘潯浠讹細杩涚▼宸茶幏寰楃殑璧勬簮锛屽湪鏈娇鐢ㄥ畬涔嬪墠涓嶈兘寮鸿鍓ュず
-+ 寰幆绛夊緟鏉′欢锛氳嫢骞茶繘绋嬩箣闂村舰鎴愪竴绉嶅ご灏剧浉杩炵殑寰幆绛夊緟璧勬簮鍏崇郴
+## 死锁
+### 产生死锁的必要条件
++ 互斥条件：一个资源每次只能被一个进程使用
++ 请求保持条件：一个进程因请求资源而阻塞时，对方获得的资源保持不放
++ 不剥夺条件：进程已获得的资源，在未使用完之前不能强行剥夺
++ 循环等待条件：若干进程之间形成一种头尾相连的循环等待资源关系
 
 ```java
 package com.jie.syn;
 
-// 澶氫釜绾跨▼鐩镐簰鎶辩潃瀵规柟闇€瑕佺殑璧勬簮锛岀劧鍚庡舰鎴愬兊鎸?
+// 多个线程相互抱着对方需要的资源，然后形成僵持
 public class DeadLock {
     public static void main(String[] args) {
         Makeup makeup = new Makeup(0,"name1");
@@ -16360,15 +16326,15 @@ public class DeadLock {
 
 }
 
-// 闀滃瓙
+// 镜子
 class Mirror{}
 
-//鍙ｇ孩
+//口红
 class Lipstice{}
 
 class Makeup extends Thread{
-    int count;    //鑾峰緱鐨勭姸鎬?
-    String name;  //鑾峰緱鐨勪汉鍚?
+    int count;    //获得的状态
+    String name;  //获得的人名
 
     public Makeup(int count,String name){
         this.count=count;
@@ -16384,25 +16350,25 @@ class Makeup extends Thread{
         }
     }
 
-    // 闇€瑕佺殑璧勬簮鍙湁涓€绉嶏紝鐢╯tatic鏉ヤ繚璇佸彧鏈変竴浠?
+    // 需要的资源只有一种，用static来保证只有一份
     static Mirror mirror = new Mirror();
     static Lipstice lipstice = new Lipstice();
 
     private void makeup() throws InterruptedException {
         if(count == 0){
             synchronized(mirror){
-                System.out.println(this.name+"閿佷綇浜嗛暅瀛?);
+                System.out.println(this.name+"锁住了镜子");
                 Thread.sleep(1000);
                 synchronized(lipstice){
-                    System.out.println(this.name+"閿佷綇浜嗗彛绾?);
+                    System.out.println(this.name+"锁住了口红");
                 }
             }
         }else{
             synchronized(lipstice){
-                System.out.println(this.name+"閿佷綇浜嗗彛绾?);
+                System.out.println(this.name+"锁住了口红");
                 Thread.sleep(2000);
                 synchronized(mirror){
-                    System.out.println(this.name+"閿佷綇浜嗛暅瀛?);
+                    System.out.println(this.name+"锁住了镜子");
                 }
             }
         }
@@ -16410,10 +16376,10 @@ class Makeup extends Thread{
 }
 ```
 
-## Lock(閿?
-+ 閫氳繃鏄惧紡瀹氫箟鍚屾閿佸璞℃潵瀹炵幇鍚屾銆傚悓姝ラ攣浣跨敤Lock瀵硅薄鍏呭綋
-+ java.util.concurrent.lock.Lock鎺ュ彛鏄帶鍒跺涓嚎绋嬪鍏变韩璧勬簮杩涜璁块棶鐨勫伐鍏枫€傞攣鎻愪緵浜嗗鍏变韩璧勬簮鐨勭嫭鍗犺闂紝姣忔鍙兘鏈変竴涓嚎绋嬪Lock瀵硅薄鍔犻攣锛岀嚎绋嬪紑濮嬭闂叡浜祫婧愪箣鍓嶅簲鍏堣幏寰桳ock瀵硅薄
-+ ReentrantLock 绫诲疄鐜颁簡Lock锛屽畠鎷ユ湁涓巗ynchronized鐩稿悓鐨勫苟鍙戝拰鍐呭瓨璇箟锛屽湪瀹炵幇瀹夊叏鐨勬帶鍒朵腑锛屾瘮杈冨父鐢ㄧ殑鏄疪eentrantLock锛屽彲浠ユ樉绀哄姞閿侊紝閲婃斁閿?
+## Lock(锁)
++ 通过显式定义同步锁对象来实现同步。同步锁使用Lock对象充当
++ java.util.concurrent.lock.Lock接口是控制多个线程对共享资源进行访问的工具。锁提供了对共享资源的独占访问，每次只能有一个线程多Lock对象加锁，线程开始访问共享资源之前应先获得Lock对象
++ ReentrantLock 类实现了Lock，它拥有与synchronized相同的并发和内存语义，在实现安全的控制中，比较常用的是ReentrantLock，可以显示加锁，释放锁
 
 ```java
 package com.jie.syn;
@@ -16421,7 +16387,7 @@ package com.jie.syn;
 
 import java.util.concurrent.locks.ReentrantLock;
 
-//娴嬭瘯Lock閿?
+//测试Lock锁
 public class TestLock {
     public static void main(String[] args) {
         Lock lock = new Lock();
@@ -16434,7 +16400,7 @@ public class TestLock {
 class Lock implements Runnable {
     int ticketNums = 10;
 
-    //瀹氫箟Lock閿?
+    //定义Lock锁
     private final ReentrantLock lock = new ReentrantLock();
 
 
@@ -16442,43 +16408,43 @@ class Lock implements Runnable {
     public void run() {
         while (true) {
             try {
-                lock.lock();  //鍔犻攣
+                lock.lock();  //加锁
                 if (ticketNums > 0) {
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    System.out.println("鑾峰緱浜? + ticketNums--);
+                    System.out.println("获得了" + ticketNums--);
                 }else {
                     break;
                 }
             }finally {
-                lock.unlock();  //瑙ｉ攣
+                lock.unlock();  //解锁
             }
         }
     }
 }
 ```
 
-## synchronized涓嶭ock鐨勬瘮杈?
-+ Lock鏄樉寮忔閿侊紙鎵嬪姩寮€鍚拰鍏抽棴锛塻ynchronized鏄殣寮忛攣锛屽嚭浜嗕綔鐢ㄥ煙鑷姩閲婃斁
-+ Lock鍙湁浠ｇ爜鍧楁湁閿侊紝synchronized鏈変唬鐮佸潡閿佸拰鏂规硶閿?
-+ 浣跨敤Lock閿侊紝JVM灏嗚姳璐硅緝灏戠殑鏃堕棿鏉ヨ皟搴︾嚎绋嬶紝鎬ц兘鏇村ソ銆傚苟涓斿叿鏈夋洿濂界殑鎵╁睍鎬?
+## synchronized与Lock的比较
++ Lock是显式死锁（手动开启和关闭）synchronized是隐式锁，出了作用域自动释放
++ Lock只有代码块有锁，synchronized有代码块锁和方法锁
++ 使用Lock锁，JVM将花费较少的时间来调度线程，性能更好。并且具有更好的扩展性
 
-# 绾跨▼閫氫俊
-## 绾跨▼涓В鍐崇嚎绋嬮€氫俊鐨勬柟娉?
-+ wait()锛氳〃绀虹嚎绋嬩竴鐩村湪绛夊緟锛岀洿鍒板叾浠栫嚎绋嬮€氱煡锛屼笌sleep涓嶅悓锛屼細閲婃斁閿?
-+ wait(long  timeout)锛氭寚瀹氱瓑寰呯殑姣鏁?
-+ notify()锛氬敜閱掍竴涓浜庣瓑寰呯姸鎬佺殑绾跨▼
-+ notifyAll()锛氬敜閱掑悓涓€涓璞′笂鎵€鏈夎皟鐢╳ait()鏂规硶鐨勭嚎绋嬶紝浼樺厛绾у埆楂樼殑绾跨▼浼樺厛璋冨害
-+ 娉ㄦ剰锛氬潎鏄疧bject绫荤殑鏂规硶锛岄兘鍙兘鍦ㄥ悓姝ユ柟娉曟垨鑰呭悓姝ヤ唬鐮佸揩涓娇鐢紝鍚﹀垯浼氭姏鍑哄紓甯窱IIegaIMonitorStateException
+# 线程通信
+## 线程中解决线程通信的方法
++ wait()：表示线程一直在等待，直到其他线程通知，与sleep不同，会释放锁
++ wait(long  timeout)：指定等待的毫秒数
++ notify()：唤醒一个处于等待状态的线程
++ notifyAll()：唤醒同一个对象上所有调用wait()方法的线程，优先级别高的线程优先调度
++ 注意：均是Object类的方法，都只能在同步方法或者同步代码快中使用，否则会抛出异常IIIegaIMonitorStateException
 
-## 绠＄悊娉?
+## 管理法
 ```java
 package com.jie.syn;
 
-// 娴嬭瘯锛氱敓浜ц€呮秷璐硅€呮ā鍨?->鍒╃敤缂撳啿鍖鸿В鍐筹細绠＄▼娉?
+// 测试：生产者消费者模型-->利用缓冲区解决：管程法
 public class TestPC {
     public static void main(String[] args) {
         SynContainer container = new SynContainer();
@@ -16488,7 +16454,7 @@ public class TestPC {
     }
 }
 
-//鐢熶骇鑰?
+//生产者
 class Productor extends Thread {
     SynContainer container;
 
@@ -16496,18 +16462,18 @@ class Productor extends Thread {
         this.container = container;
     }
     
-    // 鐢熶骇
+    // 生产
     public void run() {
         for (int i = 0; i < 100; i++) {
             container.push(new Chicken(i));
-            System.out.println("鐢熶骇浜? + i+ "鍙浮");
+            System.out.println("生产了" + i+ "只鸡");
         }
     }
 
 }
 
 
-//娑堣垂鑰?
+//消费者
 class Consumer extends Thread {
     SynContainer container;
     public Consumer(SynContainer container) {
@@ -16516,7 +16482,7 @@ class Consumer extends Thread {
 
     public void run() {
         for (int i = 0; i < 100; i++) {
-            System.out.println("娑堣垂浜?->"+ container.pop().id+"鍙浮");
+            System.out.println("消费了-->"+ container.pop().id+"只鸡");
 
         }
     }
@@ -16525,29 +16491,29 @@ class Consumer extends Thread {
 
 }
 
-//浜у搧
+//产品
 class Chicken {
-    int id; //浜у搧缂栧彿
+    int id; //产品编号
     public Chicken(int id) {
         this.id = id;
     }
 }
 
-// 缂撳啿鍖?
+// 缓冲区
 class SynContainer{
 
-    // 闇€瑕佷竴涓鍣ㄥぇ灏?
+    // 需要一个容器大小
     Chicken[] chickens = new Chicken[10];
-    //瀹瑰櫒璁℃暟鍣?
+    //容器计数器
     int count = 0;
 
 
 
-    // 闇€瑕佺敓浜ц€呮斁鍏ヤ骇鍝?
+    // 需要生产者放入产品
     public synchronized void push(Chicken chicken) {
-        // 濡傛灉瀹瑰櫒婊′簡锛屽氨闇€瑕佺瓑寰呮秷璐硅€呮秷璐?
+        // 如果容器满了，就需要等待消费者消费
         if (count == chickens.length) {
-            // 閫氱煡娑堣垂鑰呮秷璐癸紝鐢熶骇鑰呮秷璐?
+            // 通知消费者消费，生产者消费
             try {
                 this.wait();
             } catch (InterruptedException e) {
@@ -16555,39 +16521,39 @@ class SynContainer{
             }
         }
 
-        // 濡傛灉娌℃湁婊★紝灏遍渶瑕佷涪鍏ヤ骇鍝?
+        // 如果没有满，就需要丢入产品
         chickens[count] = chicken;
         count++;
 
-        // 鍙互閫氱煡 娑堣垂鑰呮秷璐逛簡
+        // 可以通知 消费者消费了
         this.notifyAll();
     }
     public synchronized Chicken pop() {
-        // 鍒ゆ柇娑堣垂鑰呰兘鍚︽秷璐?
+        // 判断消费者能否消费
         if (count == 0) {
             try {
                 this.wait();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            //绛夊緟鐢熶骇鑰呯敓浜э紝娑堣垂鑰呯瓑寰?
+            //等待生产者生产，消费者等待
         }
-        //濡傛灉鍙互娑堣垂
+        //如果可以消费
         count--;
         Chicken chicken = chickens[count];
 
-        //鍚冨畬浜嗭紝閫氱煡鐢熶骇鑰呯敓浜?
+        //吃完了，通知生产者生产
         this.notifyAll();
         return chicken;
     }
 }
 ```
 
-## 淇″彿鐏硶
+## 信号灯法
 ```java
 package com.jie.syn;
 
-// 鐢熶骇鑰呮秷璐硅€呴棶棰橈細淇″彿鐏硶
+// 生产者消费者问题：信号灯法
 public class TestPC2 {
     public static void main(String[] args) {
         TV tv = new TV();
@@ -16596,7 +16562,7 @@ public class TestPC2 {
     }
 }
 
-// 鐢熶骇鑰?->婕斿憳
+// 生产者-->演员
 class Player extends Thread {
     TV tv;
     public Player(TV tv) {
@@ -16606,15 +16572,15 @@ class Player extends Thread {
     public void run() {
         for (int i = 0; i < 20; i++) {
             if (i % 2 == 0) {
-                this.tv.play("蹇箰澶ф湰钀?);
+                this.tv.play("快乐大本营");
             }else{
-                this.tv.play("鎶栭煶锛氳褰曠編濂界敓娲?);
+                this.tv.play("抖音：记录美好生活");
             }
         }
     }
 }
 
-// 娑堣垂鑰?->瑙備紬
+// 消费者-->观众
 class Watcher extends Thread {
     TV tv;
     public Watcher(TV tv) {
@@ -16628,14 +16594,14 @@ class Watcher extends Thread {
     }
 }
 
-// 浜у搧-->鑺傜洰
+// 产品-->节目
 class TV {
-    // 婕斿憳琛ㄦ紨 瑙備紬绛夊緟
-    // 瑙備紬瑙傜湅 婕斿憳绛夊緟
-    String voice; //琛ㄦ紨鐨勮妭鐩?
+    // 演员表演 观众等待
+    // 观众观看 演员等待
+    String voice; //表演的节目
     boolean flag = true;
 
-    // 琛ㄦ紨
+    // 表演
     public synchronized void play(String voice) {
         if (!flag) {
             try {
@@ -16644,16 +16610,16 @@ class TV {
                 throw new RuntimeException(e);
             }
         }
-        System.out.println("婕斿憳琛ㄦ紨浜? + voice);
-        // 閫氱煡瑙備紬瑙傜湅
-        this.notifyAll(); //閫氱煡鍞ら啋
+        System.out.println("演员表演了" + voice);
+        // 通知观众观看
+        this.notifyAll(); //通知唤醒
         this.voice = voice;
 
         this.flag = !this.flag;
     }
 
 
-    // 瑙傜湅
+    // 观看
     public synchronized void watce() {
         if (flag) {
             try {
@@ -16662,8 +16628,8 @@ class TV {
                 throw new RuntimeException(e);
             }
         }
-        System.out.println("瑙傜湅浜? + voice);
-        // 閫氱煡婕斿憳琛ㄦ紨
+        System.out.println("观看了" + voice);
+        // 通知演员表演
         this.notifyAll();
         this.flag = !this.flag;
     }
@@ -16671,11 +16637,11 @@ class TV {
 
 ```
 
-# 绾跨▼姹?
-## 浣跨敤绾跨▼姹?
-+ 绾跨▼姹犵浉鍏矨PI锛?ExecutorService鍜孍xecutors
-+ ExecutorService锛氱湡姝ｇ殑绾跨▼姹犳帴鍙ｏ紝甯哥敤瀛愮被ThreadPoolExecutor
-+ Executors锛氬伐鍏风被锛岀嚎绋嬫睜鐨勫伐鍘傜被锛岀敤浜庡垱寤哄苟杩斿洖涓嶅悓绫诲瀷鐨勭嚎绋嬫睜
+# 线程池
+## 使用线程池
++ 线程池相关API： ExecutorService和Executors
++ ExecutorService：真正的线程池接口，常用子类ThreadPoolExecutor
++ Executors：工具类，线程池的工厂类，用于创建并返回不同类型的线程池
 
 ```java
 package com.jie.syn;
@@ -16683,11 +16649,11 @@ package com.jie.syn;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-// 娴嬭瘯绾跨▼姹?
+// 测试线程池
 public class TestPool {
     public static void main(String[] args) {
-        // 1. 鍒涘缓绾跨▼姹?
-        // newFixedThreadPool 鍙傛暟涓猴細绾跨▼姹犲ぇ灏?
+        // 1. 创建线程池
+        // newFixedThreadPool 参数为：线程池大小
         ExecutorService service = Executors.newFixedThreadPool(10);
 
         service.execute(new MyThread());
@@ -16695,7 +16661,7 @@ public class TestPool {
         service.execute(new MyThread());
         service.execute(new MyThread());
 
-        // 2.鍏抽棴杩炴帴
+        // 2.关闭连接
         service.shutdown();
     }
 }
@@ -16706,23 +16672,21 @@ class MyThread extends Thread {
     }
 }
 ```
-', NOW());
-SET @last_note_id = LAST_INSERT_ID();
+', 0, NOW());
 
-INSERT INTO 
-ote (uthor_id, 	itle, content, created_at)
-VALUES (1004, 'JavaScript', '# 蹇€熷叆闂?
-## 寮曞叆JavaScript
-+ 鍐呴儴鏍囩
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+VALUES (14, 1004, 'JavaScript', '# 快速入门
+## 引入JavaScript
++ 内部标签
 
 ```javascript
-// <!--  script 鏍囩鍐咃紝鍐欏叆JavaScript浠ｇ爜  -->
+// <!--  script 标签内，写入JavaScript代码  -->
 <script>
   alert(''Hello Wold'')
 </script>
 ```
 
-+ 澶栭儴寮曞叆
++ 外部引入
 
 abs.js
 
@@ -16736,12 +16700,12 @@ test.html
 <script src="../js/vendor/qj.js"></script>
 ```
 
-## 鍩烘湰璇硶濡傚叆闂?
+## 基本语法如入门
 ```plain
 <script>
-  // 瀹氫箟鍙橀噺  鍙橀噺绫诲瀷 鍙橀噺鍚?= 鍙橀噺鍊硷紱
+  // 定义变量  变量类型 变量名 = 变量值；
   var score = 2;
-  // 鏉′欢鎺у埗
+  // 条件控制
   if (score>60 && score < 70) {
     alert("60~70");
   } else if (score>70 && score < 80){
@@ -16750,76 +16714,76 @@ test.html
     alert("other")
   }
 
-  // console.log(score) 鍦ㄦ祻瑙堝櫒鐨勬帶鍒跺彴鎵撳嵃锛?sout
+  // console.log(score) 在浏览器的控制台打印！ sout
 </script>
 ```
 
-## 鏁版嵁绫诲瀷
-鏁板€硷紝鏂囨湰锛屽浘褰紝闊抽锛岃棰?.....
+## 数据类型
+数值，文本，图形，音频，视频......
 
-**鍙橀噺**
+**变量**
 
-JavaScript涓墍鏈夌殑鍙橀噺浣跨敤var
+JavaScript中所有的变量使用var
 
 **number**
 
-js涓嶅尯灏忔暟鍜屾暣鏁帮紝 number
+js不区小数和整数， number
 
 ```plain
-123  // 鏁存暟
-123.1 // 娴偣鏁?
-1.123e3 // 绉戝璁℃暟娉?
--99  // 澶嶆暟
+123  // 整数
+123.1 // 浮点数
+1.123e3 // 科学计数法
+-99  // 复数
 NaN // not a number
-Infinity // 琛ㄧず鏃犻檺澶?
+Infinity // 表示无限大
 ```
 
-**瀛楃涓?*
+**字符串**
 
 ''abc''   "abc"
 
-**甯冨皵鍊?*
+**布尔值**
 
 true false
 
-**涓?* **鎴?闈?*
+**与** **或 非**
 
-&&  ||  锛?
+&&  ||  ！
 
-**姣旇緝杩愮畻绗?*
+**比较运算符**
 
 ```plain
-=   // 璧嬪€?
-==  // 绛変簬 绫诲瀷涓嶄竴鏍凤紝鍊间竴鏍?缁撴灉涓簍rue
-===  // 缁濆绛変簬 绫诲瀷涓€鏍凤紝 鍊间竴鏍?缁撴灉涓簍rue
+=   // 赋值
+==  // 等于 类型不一样，值一样 结果为true
+===  // 绝对等于 类型一样， 值一样 结果为true
 ```
 
-NaN===NaNo  杩欎釜涓庢墍鏈夌殑鏁板€奸兘鐩哥瓑锛屽寘鎷嚜宸?
+NaN===NaNo  这个与所有的数值都相等，包括自己
 
 `console.log((1/3)===(1-2/3))`
 
-灏介噺閬垮厤浣跨敤娴偣鏁拌繘琛岃繍绠楋紝瀛樺湪绮惧害闂
+尽量避免使用浮点数进行运算，存在精度问题
 
 `Math.abs((1/3)===(1-2/3))<0.00000000001`
 
-**null 鍜?undefined**
+**null 和 undefined**
 
-+ null  绌?
-+ undefined   鏈畾涔?
++ null  空
++ undefined   未定义
 
-**鏁扮粍**
+**数组**
 
-JS涓笉闇€瑕佸繀椤绘槸鐩稿悓绫诲瀷
+JS中不需要必须是相同类型
 
 `var arr = [1, 2, 3, 4, ''hello'', ''str'']`
 
-鍙栨暟缁勪笅鏍?濡傛灉瓒婄晫浜?灏变細undefined
+取数组下标 如果越界了 就会undefined
 
-**瀵硅薄**
+**对象**
 
-瀵硅薄鏄ぇ鎷彿锛屾暟缁勬槸涓嫭鍙?
+对象是大括号，数组是中括号
 
-姣忎釜灞炴€у繀椤荤敤閫楀彿闅斿紑锛屾渶鍚庝竴涓笉闇€瑕佹坊鍔?
+每个属性必须用逗号隔开，最后一个不需要添加
 
 ```javascript
 var person = {
@@ -16829,123 +16793,123 @@ var person = {
 }
 ```
 
-鍙栧璞＄殑鍊?
+取对象的值
 
 ```javascript
 person.name
 person.age
 ```
 
-## 涓ユ牸妫€鏌ユā寮?
+## 严格检查模式
 ```plain
 <script>
   ''user strict''
-  // ''user strict''; 涓ユ牸妫€鏌ユā寮忥紝棰勯槻JavaScript鐨勯殢鎰忔€у€掔疆浜х敓鐨勪竴浜涢棶棰?
-  // 蹇呴』鍐欏湪JavaScript绗竴琛?
-  // 灞€閮ㄥ彉閲忓缓璁娇鐢?let 鍘诲畾涔?
-  // 鍏ㄥ眬鍙橀噺
+  // ''user strict''; 严格检查模式，预防JavaScript的随意性倒置产生的一些问题
+  // 必须写在JavaScript第一行
+  // 局部变量建议使用 let 去定义
+  // 全局变量
   i = 1;
-  // 灞€閮ㄥ彉閲?
+  // 局部变量
   let i = 1;
 </script>
 ```
 
-# 鏁版嵁绫诲瀷
-## 瀛楃涓?
-+ 姝ｅ父瀛楃涓蹭娇鐢ㄥ崟寮曞彿鎴栧弻寮曞彿鍖呰９
-+ 娉ㄦ剰杞箟瀛楃  \
+# 数据类型
+## 字符串
++ 正常字符串使用单引号或双引号包裹
++ 注意转义字符  \
     - \''
     - \n
     - \t
-    - \u####    unicode缂栫爜
-    - \x     ascll 瀛楃
-+ 澶氳瀛楃涓茬紪鍐?
+    - \u####    unicode编码
+    - \x     ascll 字符
++ 多行字符串编写
 
 ```javascript
 var msg = `
     hello
     world
-    浣犲ソya
-    浣犲ソ`
+    你好ya
+    你好`
 ```
 
-+ 妯＄増瀛楃涓?
++ 模版字符串
 
 ```javascript
 let name = "suibian";
 let age = 3;
-let msg = `浣犲ソ锛?{name}`
+let msg = `你好，${name}`
 console.log(msg)
 ```
 
-+ 瀛楃涓查暱搴?
++ 字符串长度
 
 ```javascript
 str.lenght
 ```
 
-+ 瀛楃涓茬殑鍙彉鎬э紝涓嶅彲鍙?
-+ 澶у皬鍐欒浆鎹?
-    - student.toUpperCase()  杞ぇ鍐?
-    - student.toLowerCase()   杞皬鍐?
-+ student.indexOf(''t'')  鑾峰彇瀛楃浣嶇疆/绱㈠紩
-+ student.substring(1,3)  鎴彇瀛楃涓?宸﹂棴鍙冲紑 
++ 字符串的可变性，不可变
++ 大小写转换
+    - student.toUpperCase()  转大写
+    - student.toLowerCase()   转小写
++ student.indexOf(''t'')  获取字符位置/索引
++ student.substring(1,3)  截取字符串 左闭右开 
 
-## 鏁扮粍
-+ Array鍙互鍖呭惈浠绘剰鐨勬暟鎹被鍨?
-    - var arr = [1, 2, 3, ''b'', ''string'']  // 閫氳繃涓嬫爣鍙栧€煎拰璧嬪€?
+## 数组
++ Array可以包含任意的数据类型
+    - var arr = [1, 2, 3, ''b'', ''string'']  // 通过下标取值和赋值
     - arr[2] ;
     - arr[3] = 1;
-+ 闀垮害
++ 长度
     - arr.length
-    - 濡傛灉缁檃rr.length 璧嬪€硷紝鏁扮粍澶у皬浼氬彂鐢熷彉鍖栵紝濡傛灉璧嬪€艰繃灏忥紝鍏冪礌浼氫涪澶?
-+ indexOf()   閫氳繃鍏冪礌鑾峰緱涓嬫爣绱㈠紩
-    - 瀛楃涓茬殑"1"  鍜?鏁板€?1 涓嶄竴鏍?
-+ slice()  鎴彇Array鐨勪竴閮ㄥ垎锛岃繑鍥炰竴涓柊鐨勬暟缁? 绫讳技浜嶴tring涓殑substring
-+ push锛宲op
-    - push()锛氬帇鍏ュ埌灏鹃儴
-    - pop()锛氬脊鍑哄熬閮ㄧ殑涓€涓厓绱?
-+ unshift()锛宻hift() 澶撮儴
-    - unshift()锛氬帇鍏ュ埌澶撮儴
-    - shift()锛氬脊鍑哄ご閮ㄧ殑涓€涓厓绱?
-+ 鎺掑簭 sort()
-+ 鍏冪礌鍙嶈浆 reverse()
-+ concat() 鎷兼帴
+    - 如果给arr.length 赋值，数组大小会发生变化，如果赋值过小，元素会丢失
++ indexOf()   通过元素获得下标索引
+    - 字符串的"1"  和 数值 1 不一样
++ slice()  截取Array的一部分，返回一个新的数组  类似于String中的substring
++ push，pop
+    - push()：压入到尾部
+    - pop()：弹出尾部的一个元素
++ unshift()，shift() 头部
+    - unshift()：压入到头部
+    - shift()：弹出头部的一个元素
++ 排序 sort()
++ 元素反转 reverse()
++ concat() 拼接
     - arr.concat([1, 2, 3])
-    - 骞舵病鏈変慨鏀规暟缁勶紝鍙繑鍥炴柊鐨勬暟缁?
-+ 杩炴帴绗oin()
-    - 鎵撳嵃鎷兼帴鏁扮粍锛屼娇鐢ㄧ壒瀹氱殑瀛楃涓茶繛鎺?
+    - 并没有修改数组，只返回新的数组
++ 连接符join()
+    - 打印拼接数组，使用特定的字符串连接
     - var arr = [''a'', ''b'', ''c'']
     - arr.join(''-'')
     - ''a-b-c''
-+ 澶氱淮鏁扮粍
++ 多维数组
 
-## 瀵硅薄
-+ 鑻ュ共涓敭鍊煎
+## 对象
++ 若干个键值对
 
 ```javascript
-var 瀵硅薄鍚?= {
-  灞炴€у悕: 灞炴€у€?
-  灞炴€у悕: 灞炴€у€?
-  灞炴€у悕: 灞炴€у€?
+var 对象名 = {
+  属性名: 属性值,
+  属性名: 属性值,
+  属性名: 属性值
 }
 ```
 
-+ js涓璞★紝{...}琛ㄧず涓€涓璞°€傞敭鍊煎鎻忚堪淇℃伅xxx锛歺xx锛屽涓睘鎬т娇鐢ㄩ€楀彿闅斿紑锛屾渶鍚庝竴涓睘鎬т笉鍔犻€楀彿锛?
-+ JavaScript涓殑鎵€鏈夐敭閮芥槸瀛楃涓诧紝鍊兼槸浠绘剰瀵硅薄锛?
-+ 瀵硅薄璧嬪€?
++ js中对象，{...}表示一个对象。键值对描述信息xxx：xxx，多个属性使用逗号隔开，最后一个属性不加逗号！
++ JavaScript中的所有键都是字符串，值是任意对象！
++ 对象赋值
     - person.name = "json";
-+ 浣跨敤涓€涓笉瀛樺湪鐨勫璞″睘鎬э紝涓嶄細鎶ラ敊 锛?undefined
-+ 鍔ㄦ€佸垹闄ゅ璞″睘鎬э紝閫氳繃delete鍒犻櫎瀵硅薄鐨勫睘鎬?
++ 使用一个不存在的对象属性，不会报错 ！ undefined
++ 动态删除对象属性，通过delete删除对象的属性
     - delete person.name
-+ 鍔ㄦ€佺殑娣诲姞锛岀洿鎺ョ粰鏂扮殑灞炴€ф坊鍔犲€煎嵆鍙?
++ 动态的添加，直接给新的属性添加值即可
     - person.name = "haha"
-+ 鍒ゆ柇灞炴€у€兼槸鍚﹀湪杩欎釜瀵硅薄涓? xxx  in xxx
-+ 鍒ゆ柇涓€涓睘鎬ф槸鍚︽槸杩欎釜瀵硅薄鑷韩鎷ユ湁鐨刪asOwnProperty()
++ 判断属性值是否在这个对象中  xxx  in xxx
++ 判断一个属性是否是这个对象自身拥有的hasOwnProperty()
     - person.hasOwnProperty("name")
 
-## 娴佺▼鎺у埗
-+ if鍒ゆ柇
+## 流程控制
++ if判断
 
 ```javascript
 var age = 3;
@@ -16958,7 +16922,7 @@ if (age > 3){
 }
 ```
 
-+ while寰幆锛岄伩鍏嶆寰幆
++ while循环，避免死循环
 
 ```javascript
 var age =3;
@@ -16974,7 +16938,7 @@ do {
 
 ```
 
-+ for寰幆
++ for循环
 
 ```javascript
 var age = 3;
@@ -16986,7 +16950,7 @@ for (let i = 1; i< 1; i++){
 
 ```
 
-+ forEach() 寰幆
++ forEach() 循环
 
 ```javascript
 var arr = [1231,2,12,412,4,42,22,32,32,31]
@@ -17003,35 +16967,35 @@ var arr = [1231,2,12,412,4,42,22,32,32,31]
 
 for(var num in arr){
   if (arr.hasOwnPropertu(num)){
-    console.log("瀛樺湪");
+    console.log("存在");
     console.log(arr[num]);
   }
 }
 
 ```
 
-## Map 鍜?Set
+## Map 和 Set
 map
 
 ```javascript
 var map = new Map([[''zhangsan'':  100], [''lisi'': 92]]);
 
-var name = map.get(''zhangsan''); // 鏍规嵁key鑾峰彇value
-map.set(''admin'': 123);  //鏂板鎴栦慨鏀?
-map.delete("zhangsan"); // 鍒犻櫎
+var name = map.get(''zhangsan''); // 根据key获取value
+map.set(''admin'': 123);  //新增或修改
+map.delete("zhangsan"); // 删除
 ```
 
-set锛氭棤搴忎笉閲嶅鐨勯泦鍚?
+set：无序不重复的集合
 
 ```javascript
-set.add(3);   // 娣诲姞
-set.delete(1);   // 鍒犻櫎
-console.log(set.has(3));  // 鏄惁鍖呭惈鏌愪釜鍏冪礌
+set.add(3);   // 添加
+set.delete(1);   // 删除
+console.log(set.has(3));  // 是否包含某个元素
 
 ```
 
 ## Interator
-閬嶅巻鏁扮粍
+遍历数组
 
 ```javascript
 var arr = [2, 3, 4];
@@ -17040,7 +17004,7 @@ for (let x of arr){
 }
 ```
 
-閬嶅巻Map
+遍历Map
 
 ```javascript
 var map = new Map([[''zhangsan'':  100], [''lisi'': 92]]);
@@ -17050,7 +17014,7 @@ for (let x of map){
 }
 ```
 
-閬嶅巻set
+遍历set
 
 ```javascript
 var set = new Set([3, 1, 4]);
@@ -17059,10 +17023,10 @@ for (let x of set){
 }
 ```
 
-# 鍑芥暟
-## 鍑芥暟鐨勫畾涔?
-### 瀹氫箟鏂瑰紡1
-缁濆鍊煎嚱鏁?
+# 函数
+## 函数的定义
+### 定义方式1
+绝对值函数
 
 ```javascript
 function abs(x){
@@ -17074,13 +17038,13 @@ function abs(x){
 }
 ```
 
-涓€鏃︽墽琛宺eturn浠ｈ〃鏂规硶缁撴潫锛岃繑鍥炵粨鏋滐紒
+一旦执行return代表方法结束，返回结果！
 
-濡傛灉娌℃湁鎵цreturn锛屽嚱鏁版墽琛屽畬涔熶細杩斿洖缁撴灉锛寀ndefined
+如果没有执行return，函数执行完也会返回结果，undefined
 
 
 
-### 瀹氫箟鏂瑰紡2
+### 定义方式2
 ```javascript
 var abs = function(x){
   if(x>0){
@@ -17091,24 +17055,24 @@ var abs = function(x){
 }
 ```
 
-function(x){...} 杩欐槸涓€涓尶鍚嶅嚱鏁帮紝浣嗘槸鍙互鎶婄粨鏋滆祴鍊肩粰abs锛岄€氳繃abs灏卞彲浠ヨ皟鐢ㄥ嚱鏁?
+function(x){...} 这是一个匿名函数，但是可以把结果赋值给abs，通过abs就可以调用函数
 
-### 璋冪敤鍑芥暟
+### 调用函数
 abs(10) //10
 
 abs(-10) //10
 
-### 鍙傛暟闂
-JavaScript鍙互浼犻€掍换鎰忎釜鍙傛暟锛屼篃鍙互涓嶄紶閫掑弬鏁?
+### 参数问题
+JavaScript可以传递任意个参数，也可以不传递参数
 
-鍙傛暟杩涙潵鏄惁瀛樺湪鐨勯棶棰橈紵
+参数进来是否存在的问题？
 
-鍋囪涓嶅瓨鍦ㄥ弬鏁板浣曞鐞?
+假设不存在参数如何处理
 
 ```javascript
 <script>
   var abs = function (x){
-  // 鎵嬪姩鎶涘嚭寮傚父鏉ュ垽鏂?
+  // 手动抛出异常来判断
   if (typeof x !== ''number''){
     throw ''not a number''
   }
@@ -17120,11 +17084,11 @@ JavaScript鍙互浼犻€掍换鎰忎釜鍙傛暟锛屼篃鍙互涓嶄紶�
   </script>
 ```
 
-鍋囪瀛樺湪澶氫釜鍙傛暟濡備綍澶勭悊
+假设存在多个参数如何处理
 
 **arguments**
 
-鏄竴涓猨s鍏嶈垂璧犻€佺殑鍏抽敭瀛楋細浠ｈ〃浼犻€掓墍鏈夊弬鏁帮紝鏄竴涓暟缁?
+是一个js免费赠送的关键字：代表传递所有参数，是一个数组
 
 ```javascript
 for (var i = 0; i<arguments.length; i++){
@@ -17132,7 +17096,7 @@ for (var i = 0; i<arguments.length; i++){
       }
 ```
 
-**rest 鑾峰彇鍙彉闀垮弬鏁?*
+**rest 获取可变长参数**
 
 ```javascript
     function aaa(a, b,...rest){
@@ -17142,11 +17106,11 @@ for (var i = 0; i<arguments.length; i++){
     }
 ```
 
-## 鍙橀噺鐨勪綔鐢ㄥ煙
-### 鍑芥暟鍐呭彉閲?
-鍦↗avaScript涓紝var瀹氫箟鍙橀噺瀹為檯鏄湁浣滅敤鍩熺殑
+## 变量的作用域
+### 函数内变量
+在JavaScript中，var定义变量实际是有作用域的
 
-鍋囪鍦ㄥ嚱鏁颁綋涓０鏄庯紝鍒欏湪鍑芥暟浣撳涓嶅彲浠ヤ娇鐢?
+假设在函数体中声明，则在函数体外不可以使用
 
 ```javascript
 function qjS(){
@@ -17157,17 +17121,17 @@ function qjS(){
 x = x + 2;    // Uncaught ReferenceError: x is not defined
 ```
 
-濡傛灉鍑芥暟浣跨敤浜嗙浉鍚岀殑鍙橀噺鍚嶏紝鍙鍦ㄥ嚱鏁板唴閮紝灏变笉鍐茬獊
+如果函数使用了相同的变量名，只要在函数内部，就不冲突
 
-鍐呴儴鍑芥暟鍙互璁块棶澶栭儴鍑芥暟鐨勬垚鍛橈紝鍙嶄箣鍒欎笉琛?
+内部函数可以访问外部函数的成员，反之则不行
 
-鍋囪鍐呴儴鍑芥暟鍜屽閮ㄥ嚱鏁扮殑鍙橀噺閲嶅悕锛?
+假设内部函数和外部函数的变量重名！
 
-鍋囪鍦↗avaScript涓嚱鏁版煡鎵惧彉閲忎粠鑷韩鍑芥暟寮€濮嬶紝鐢?鍐?鍚?澶?鏌ユ壘锛屽亣璁惧閮ㄥ瓨鍦ㄨ繖涓悓鍚嶇殑鍑芥暟鍙橀噺锛屽垯鍐呴儴鍑芥暟浼氬睆钄藉閮ㄥ嚱鏁扮殑鍙橀噺
+假设在JavaScript中函数查找变量从自身函数开始，由''内''向''外''查找，假设外部存在这个同名的函数变量，则内部函数会屏蔽外部函数的变量
 
-### 鍏ㄥ眬鍑芥暟
+### 全局函数
 ```javascript
-// 鍏ㄥ眬鍙橀噺
+// 全局变量
 x = 1;
 
 function f(){
@@ -17177,61 +17141,61 @@ function f(){
 console.log(x);
 ```
 
-鍏ㄥ眬瀵硅薄window
+全局对象window
 
 ```javascript
 var x = ''xxx'';
 alert(x);
-alert(window.x)  // 榛樿鎵€鏈夌殑鍏ㄥ眬鍙橀噺锛岄兘浼氳嚜鍔ㄧ粦瀹歸indow瀵硅薄涓?
+alert(window.x)  // 默认所有的全局变量，都会自动绑定window对象下
 ```
 
-alert() 杩欎釜鍑芥暟鏈韩涔熸槸涓€涓?window 瀵硅薄
+alert() 这个函数本身也是一个 window 对象
 
 ```javascript
 var x = ''xx'';
 window.alert(x);
 var old_alert = window.alert;
-// 鍙戠幇alert()澶辨晥浜?
+// 发现alert()失效了
 window.alert(''123'');
 
-// 鎭㈠
+// 恢复
 window.alert = old_alert;
 window.alert(345);
 ```
 
-JavaScript瀹為檯涓婂彧鏈変竴涓叏灞€鍙橀噺锛屼换浣曞彉閲?鍑芥暟涔熷彲浠ヨ涓哄彉閲?, 鍋囪娌℃湁鍦ㄥ嚱鏁颁綔鐢ㄨ寖鍥村唴鎵惧埌锛屽氨浼氬悜澶栨煡鎵撅紝濡傛灉鍦ㄥ叏灞€浣滅敤鍩熼兘娌℃湁鎵惧埌锛屾姤閿?RefrenceError
+JavaScript实际上只有一个全局变量，任何变量(函数也可以视为变量), 假设没有在函数作用范围内找到，就会向外查找，如果在全局作用域都没有找到，报错 RefrenceError
 
 
 
-### 瑙勮寖
-鐢变簬鎴戜滑鎵€鏈夌殑鍏ㄥ眬鍙橀噺閮戒細缁戝畾鍒版垜浠殑 window涓婂鏋滀笉鍚岀殑js鏂囦欢锛屼娇鐢ㄤ簡鐩稿悓鐨勫叏灞€鍙橀噺锛屽啿绐?>濡備綍鍑忓皯鍐茬獊锛?
+### 规范
+由于我们所有的全局变量都会绑定到我们的 window上如果不同的js文件，使用了相同的全局变量，冲突->如何减少冲突？
 
 ```javascript
-// 鍞竴鍏ㄥ眬鍙橀噺
+// 唯一全局变量
 var suibian = {};
 
-// 瀹氫箟鍏ㄥ眬鍙橀噺
+// 定义全局变量
 suibian.name = ''suibian'';
 suibian.add = function(a, b){
   return a+b;
 }
 ```
 
-鎶婅嚜宸辩殑浠ｇ爜鍏ㄩ儴鏀惧叆鑷繁瀹氫箟鐨勫敮涓€绌洪棿鍚嶅瓧涓紝闄嶄綆鍏ㄥ眬鍛藉悕鍐茬獊鐨勯棶棰?
+把自己的代码全部放入自己定义的唯一空间名字中，降低全局命名冲突的问题
 
 
 
-### 灞€閮ㄤ綔鐢ㄥ煙 let
+### 局部作用域 let
 ```javascript
 function aaa(){
   for(var i = 1; i< 100; i++){
     console.log(i);
   }
-  console.log(i+1); // 闂锛宨鍑轰簡浣滅敤鍩熻繕鑳戒娇鐢?
+  console.log(i+1); // 问题，i出了作用域还能使用
 }
 ```
 
-let 鍏抽敭瀛楋紝瑙ｅ喅灞€閮ㄤ綔鐢ㄥ煙鍐茬獊闂
+let 关键字，解决局部作用域冲突问题
 
 ```javascript
 function aaa(){
@@ -17242,19 +17206,19 @@ function aaa(){
 }
 ```
 
-寤鸿浣跨敤let鍘诲畾涔夊眬閮ㄤ綔鐢ㄥ煙鐨勫彉閲忥紱
+建议使用let去定义局部作用域的变量；
 
-### 甯搁噺 const
+### 常量 const
 ```javascript
-const PI = ''3.14'';  // 鍙鍙橀噺
+const PI = ''3.14'';  // 只读变量
 console.log(PI);
-PI = ''123'';  // TypeError锛欰ssignment to constant variable
+PI = ''123'';  // TypeError：Assignment to constant variable
 console.log(PI);
 ```
 
-## 鏂规硶
-#### 瀹氫箟鏂规硶
-鏂规硶灏辨槸鎶婂嚱鏁板彂鍦ㄥ璞＄殑閲岄潰锛屽璞″彧鏈変袱涓笢瑗匡細灞炴€у拰鏂规硶
+## 方法
+#### 定义方法
+方法就是把函数发在对象的里面，对象只有两个东西：属性和方法
 
 ```javascript
 var houjie = {
@@ -17266,38 +17230,38 @@ var houjie = {
   },
 }
 
-// 灞炴€?
+// 属性
 houjie.name
-// 鏂规硶锛屼竴瀹氳璁＄畻鎷彿
+// 方法，一定要计算括号
 houjie.age()
 ```
 
-# 鍐呴儴瀵硅薄
-## 鏍囧噯瀵硅薄 typeof
+# 内部对象
+## 标准对象 typeof
 + "number":
 + "string":
 + "boolean":
-+ NaN 鏄?"number"
-+ [], {} 鏄?"object"
-+ Math.abs ... 鏄?"function"
++ NaN 是 "number"
++ [], {} 是 "object"
++ Math.abs ... 是 "function"
 
 
 
 ## Date
-### 鍩烘湰浣跨敤
+### 基本使用
 ```javascript
 var now = new Date()
-now.getFullYear()  // 骞?
-now.getMonth()    // 鏈?
-now.getDay()      //鏄熸湡
-now.getHours()    // 鏃?
-now.getDate()    // 鏃?
-now.getMinutes()  // 鍒?
-now.getSeconds()  // 绉?
-now.getTime()    //鏃堕棿鎴?
+now.getFullYear()  // 年
+now.getMonth()    // 月
+now.getDay()      //星期
+now.getHours()    // 时
+now.getDate()    // 日
+now.getMinutes()  // 分
+now.getSeconds()  // 秒
+now.getTime()    //时间戳
 ```
 
-### 杞寲
+### 转化
 ```javascript
 now.toLocaleString()
 ''2025/4/29 20:46:19''
@@ -17306,51 +17270,51 @@ now.toGMTString()
 ```
 
 ## JSON
-### 浠€涔堟槸JSON
-+ JSON(JavaScript Object Notation, js瀵硅薄绠€璋?鏄竴绉嶈交閲忕骇鐨勬暟鎹氦鎹㈡牸寮?
-+ 绠€娲佸拰娓呮櫚鐨?*灞傛缁撴瀯**浣垮緱JSON鎴愪负鐞嗘兂鐨勬暟鎹氦鎹㈣瑷€锛?
-+ 鏄撲簬浜洪槄璇诲拰缂栧啓锛屽悓鏃朵篃鏄撲簬鏈哄櫒瑙ｆ瀽鍜岀敓鎴愶紝骞舵湁鏁堝湴鎻愬崌缃戠粶浼犺緭鏁堢巼
-+ 鍦↗avaScript涓€鍒囩殕涓哄璞★紝浠讳綍js鏀寔鐨勭被鍨嬮兘鍙互鐢↗SON鏉ヨ〃绀?
-+ 鏍煎紡
-    - 瀵硅薄閮界敤()
-    - 鏁扮粍閮界敤[]
-    - 鎵€鏈夌殑閿€煎 閮芥槸  key锛歷alue
+### 什么是JSON
++ JSON(JavaScript Object Notation, js对象简谱)是一种轻量级的数据交换格式
++ 简洁和清晰的**层次结构**使得JSON成为理想的数据交换语言，
++ 易于人阅读和编写，同时也易于机器解析和生成，并有效地提升网络传输效率
++ 在JavaScript一切皆为对象，任何js支持的类型都可以用JSON来表示
++ 格式
+    - 对象都用()
+    - 数组都用[]
+    - 所有的键值对 都是  key：value
 
-### JSON瀛楃涓插拰js瀵硅薄鐨勮浆鎹?
+### JSON字符串和js对象的转换
 ```javascript
 var user = {
   name: ''name'',
   age: 3,
-  sex: ''鐢?
+  sex: ''男''
 }
 
-// js瀵硅薄杞崲涓篔SON瀛楃涓?
+// js对象转换为JSON字符串
 var jsonuser = JSON.stringify(user)
 
-// json瀛楃涓?杞崲涓?js瀵硅薄
+// json字符串 转换为 js对象
 var jsuser = JSON.parse(jsonuser)
 ```
 
-### JSON 鍜?JS 鐨勫尯鍒?
+### JSON 和 JS 的区别
 
 
-# 闈㈠悜瀵硅薄缂栫▼
-## 浠€涔堟槸闈㈠悜瀵硅薄
-JavaScript锛?Java锛孋#銆傘€傘€傞潰鍚戝璞★紝javascript鏈変簺鍖哄埆
+# 面向对象编程
+## 什么是面向对象
+JavaScript， Java，C#。。。面向对象，javascript有些区别
 
-绫伙細妯＄増 鍘熷瀷 proto
+类：模版 原型 proto
 
-瀵硅薄锛氬叿浣撶殑瀹炰緥
+对象：具体的实例
 
-鍦↗avaScript杩欎釜闇€瑕佹崲涓€涓嬫€濈淮
+在JavaScript这个需要换一下思维
 
-鍘熷瀷锛?
+原型：
 
 ```javascript
 var user = {
   name: ''name'',
   age: 3,
-  sex: ''鐢?,
+  sex: ''男'',
   run: function (){
     console.log(this.name + "run....")
   }
@@ -17375,16 +17339,16 @@ function Student(name){
   this.name = name;
 }
 
-//缁檚tudent鏂板涓€涓柟娉?
+//给student新增一个方法
 Student.prototype.hello = function (){
   alert(''hello'')
 };
 ```
 
-## class缁ф壙
-class 鍏抽敭瀛楋紝鍦‥S6寮曞叆鐨?
+## class继承
+class 关键字，在ES6引入的
 
-1銆佸畾涔変竴涓被銆佸睘鎬с€佹柟娉?
+1、定义一个类、属性、方法
 
 ```javascript
 class Student{
@@ -17416,7 +17380,7 @@ class XiaoStudent extends Student{
   }
 
   myGrade() {
-    alert(''鎴戞槸涓€涓皬瀛︾敓'')
+    alert(''我是一个小学生'')
   }
 
 }
@@ -17424,53 +17388,53 @@ var xiaoming = new Student("xiaoming")
 var xiaohong = new XiaoStudent("xiaohong")
 ```
 
-## 鍘熷瀷閾?
+## 原型链
 <img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1746600701203-1022c6c4-2a14-44a2-84b2-dac3d0b33ff5.png" width="420" title="" crop="0,0,1,1" id="u120ff1a9" class="ne-image">
 
-# 鎿嶄綔BOM瀵硅薄
-## 娴忚鍣ㄧ畝浠?
-JavaScript鍜屾祻瑙堝櫒鐨勫叧绯?
+# 操作BOM对象
+## 浏览器简介
+JavaScript和浏览器的关系
 
-JavaScript璇炵敓灏辨槸涓轰簡鑳藉璁╁畠鍦ㄦ祻瑙堝櫒涓繍琛岋紒
+JavaScript诞生就是为了能够让它在浏览器中运行！
 
-BOM锛氭祻瑙堝櫒瀵硅薄妯″瀷
+BOM：浏览器对象模型
 
 + IE
 + CHrome
 + Safari
-+ FireFox  Linux榛樿娴忚鍣?
++ FireFox  Linux默认浏览器
 
-## window瀵硅薄
-window 浠ｈ〃 娴忚鍣ㄧ獥鍙?
+## window对象
+window 代表 浏览器窗口
 
 ```javascript
-window.alert(1)  // 寮圭獥
-window.innerHeight    // 绐楀彛鍐呴儴楂樺害
+window.alert(1)  // 弹窗
+window.innerHeight    // 窗口内部高度
 window.innerWidth
-window.outerHeight   // 绐楀彛澶栭儴楂樺害
+window.outerHeight   // 窗口外部高度
 window.outerWidth
 ```
 
-## navigator瀵硅薄
-Navigator,灏佽浜嗘祻瑙堝櫒鐨勪俊鎭?
+## navigator对象
+Navigator,封装了浏览器的信息
 
 ```javascript
-navigator.appName   // 搴旂敤鍚?
+navigator.appName   // 应用名
 ''Netscape''
-navigator.appVersion  // 搴旂敤鐗堟湰鍙?
+navigator.appVersion  // 应用版本号
 ''5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0''
-navigator.userAgent   // 鐢ㄦ埛淇℃伅
+navigator.userAgent   // 用户信息
 ''Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0''
-navigator.platform   // 绯荤粺鐗堟湰
+navigator.platform   // 系统版本
 ''Win32''
 ```
 
-澶у鏁版椂鍊欙紝涓嶄細浣跨敤navigator瀵硅薄锛屽洜涓轰細琚汉涓轰慨鏀癸紒
+大多数时候，不会使用navigator对象，因为会被人为修改！
 
-涓嶅缓璁娇鐢ㄨ繖浜涘睘鎬ф潵鍒ゆ柇鍜岀紪鍐欎唬鐮?
+不建议使用这些属性来判断和编写代码
 
-## screen瀵硅薄
-浠ｈ〃灞忓箷灏哄
+## screen对象
+代表屏幕尺寸
 
 ```javascript
 screen.height
@@ -17479,31 +17443,31 @@ screen.width
 1920
 ```
 
-## location瀵硅薄 锛堥噸瑕侊級
-location 浠ｈ〃褰撳墠椤甸潰鐨刄RL淇℃伅
+## location对象 （重要）
+location 代表当前页面的URL信息
 
 ```javascript
-// 灞炴€?
-host: "www.baidu.com"  // 涓绘満
-href: "https://www.baidu.com/"  // 浣嶇疆
-protocol: "https:"  // 鍗忚
+// 属性
+host: "www.baidu.com"  // 主机
+href: "https://www.baidu.com/"  // 位置
+protocol: "https:"  // 协议
 
-// 鏂规硶
-location.reload()  // 鍒锋柊缃戦〉
-location.assign(''https://blog.kuangstudy.com/'')  // 璁剧疆鏂扮殑浣嶇疆
+// 方法
+location.reload()  // 刷新网页
+location.assign(''https://blog.kuangstudy.com/'')  // 设置新的位置
 ```
 
-## document瀵硅薄
-document浠ｈ〃褰撳墠鐨勯〉闈紝 HTML DOM鏂囨。鏍?
+## document对象
+document代表当前的页面， HTML DOM文档树
 
 ```javascript
 document.title
-''鐧惧害涓€涓嬶紝浣犲氨鐭ラ亾''
-document.title = "鐙傜璇?
-''鐙傜璇?
+''百度一下，你就知道''
+document.title = "狂神说"
+''狂神说''
 ```
 
-鑾峰彇鍏蜂綋鐨勬枃妗ｆ爲鑺傜偣
+获取具体的文档树节点
 
 ```javascript
 <dl id="app">
@@ -17517,80 +17481,80 @@ document.title = "鐙傜璇?
 </script>
 ```
 
-鑾峰彇 cookie
+获取 cookie
 
 ```javascript
 document.cookie
 ''csrftoken=TBv5LaT8knlC3QvC3EtZeZJEiPka0bpM''
 ```
 
-鍔寔 cookie 鐨勫師鐞?
+劫持 cookie 的原理
 
 ```javascript
 <script src="aaa.js"></script>
-<!--鎭舵剰浜哄憳锛氳幏鍙栦綘鐨刢ookie涓婁紶鍒板畠鐨勬湇鍔″櫒-->
+<!--恶意人员：获取你的cookie上传到它的服务器-->
 ```
 
-鏈嶅姟鍣ㄧ鍙互璁剧疆 cookie锛歨ttpOnly
+服务器端可以设置 cookie：httpOnly
 
 
 
-## history瀵硅薄
-history浠ｈ〃娴忚鍣ㄧ殑鍘嗗彶璁板綍
+## history对象
+history代表浏览器的历史记录
 
 ```javascript
-history.back()   // 缃戦〉鍚庨€€
-history.forward()   // 缃戦〉鍓嶈繘
+history.back()   // 网页后退
+history.forward()   // 网页前进
 ```
 
-# 鎿嶄綔DOM瀵硅薄
-## 鏍稿績
-娴忚鍣ㄧ綉椤靛氨鏄竴涓狣OM鏍戝舰缁撴瀯
+# 操作DOM对象
+## 核心
+浏览器网页就是一个DOM树形结构
 
-+ 鏇存柊锛氭洿鏂癉OM鑺傜偣
-+ 閬嶅巻锛氬緱鍒癉OM鑺傜偣
-+ 鍒犻櫎锛氬垹闄や竴涓狣OM鑺傜偣
-+ 娣诲姞锛氭坊鍔犱竴涓鐨凞OM鑺傜偣
++ 更新：更新DOM节点
++ 遍历：得到DOM节点
++ 删除：删除一个DOM节点
++ 添加：添加一个行的DOM节点
 
-瑕佹搷浣滀竴涓狣OM鑺傜偣锛屽氨蹇呴』鍏堣幏寰楄繖涓狣OM鑺傜偣
+要操作一个DOM节点，就必须先获得这个DOM节点
 
-## 鑾峰緱DOM鑺傜偣
+## 获得DOM节点
 ```javascript
-var h1 =document.getElementsByTagName(''h1'')  //鏍囩鍚?
-var p1 = document.getElementById("p1")   // id閫夋嫨鍣?
-var p2 = document.getElementsByClassName("p2")  // 绫婚€夋嫨鍣?
+var h1 =document.getElementsByTagName(''h1'')  //标签名
+var p1 = document.getElementById("p1")   // id选择器
+var p2 = document.getElementsByClassName("p2")  // 类选择器
 var father = document.getElementById("father")
 
-var chidrens = father.children;  // 鑾峰彇鐖惰妭鐐逛笅鐨勬墍鏈夊瓙鑺傜偣
+var chidrens = father.children;  // 获取父节点下的所有子节点
 father.firstChild;
 father.lastChild;
 ```
 
-杩欐槸鍘熺敓浠ｇ爜锛屼箣鍚庝娇鐢╦Query
+这是原生代码，之后使用jQuery
 
 
 
-## 鏇存柊鑺傜偣
+## 更新节点
 ```javascript
 <div id="id1"></div>
 <script>
   var id1 = document.getElementById("id1");
-  // 鎿嶄綔鏂囨湰
-  id1.innerText = "123";  // 淇敼鏂囨湰鐨勫€?
-  id1.innerHTML = ''<strong>123</strong>''; //鍙互瑙ｆ瀽HTML鏂囨湰鏍囩
-  // 鎿嶄綔js
+  // 操作文本
+  id1.innerText = "123";  // 修改文本的值
+  id1.innerHTML = ''<strong>123</strong>''; //可以解析HTML文本标签
+  // 操作js
   id1.style.color = ''red'';
   id1.style.fontStyle = "20px";
   id1.style.padding = ''2em'';
 </script>
 ```
 
-## 鍒犻櫎鑺傜偣
-姝ラ锛氬厛鑾峰彇 鐖惰妭鐐?锛屽啀閫氳繃鐖惰妭鐐瑰垹闄よ嚜宸?
+## 删除节点
+步骤：先获取 父节点 ，再通过父节点删除自己
 
 ```html
 <body id="father">
-  <h1>鏍囬1</h1>
+  <h1>标题1</h1>
   <p id="p1">p1</p>
   <p class="p2">p2</p>
   <script>
@@ -17598,7 +17562,7 @@ father.lastChild;
     var father = document.getElementById("father")
     var father = p1.parentElement;
     father.removeChild(p1);
-    // 鍒犻櫎鏄竴涓姩鎬佺殑杩囩▼
+    // 删除是一个动态的过程
     father.removeChild(father.children[0]);
     father.removeChild(father.children[1]);
     father.removeChild(father.children[2]);
@@ -17606,10 +17570,10 @@ father.lastChild;
 </body>
 ```
 
-## 鎻掑叆鑺傜偣
-鑾峰緱浜嗘煇涓狣OM鑺傜偣锛屽亣璁捐繖涓狣OM鑺傜偣鏄┖鐨勶紝閫氳繃innerHTML灏卞彲浠ュ鍔犱竴涓厓绱狅紝濡傛灉杩欎釜DOM宸茬粡瀛樺湪鍏冪礌浜嗭紝浼氫骇鐢熻鐩?
+## 插入节点
+获得了某个DOM节点，假设这个DOM节点是空的，通过innerHTML就可以增加一个元素，如果这个DOM已经存在元素了，会产生覆盖
 
-杩藉姞
+追加
 
 ```html
 <p id="js">JavaScript</p>
@@ -17622,62 +17586,62 @@ father.lastChild;
 <script>
   var js = document.getElementById(''js'');
   var li = document.getElementById(''list'');
-  li.append(js);   // 杩藉姞鍒板悗闈?
+  li.append(js);   // 追加到后面
 </script>
 ```
 
-鍒涘缓涓€涓柊鐨勬爣绛撅紝瀹炵幇鎻掑叆
+创建一个新的标签，实现插入
 
 ```javascript
-var newp = document.createElement(''p'');  // 鍒涘缓涓€涓柊鐨勬爣閰?
-newp.id = ''newp'';   // 璁剧疆id
-newp.innerText = ''linux'';  // 娣诲姞鏂囨湰
-li.append(newp);  // 灏嗗垱寤哄ソ鐨勬爣绛炬坊鍔犲埌div涓?
+var newp = document.createElement(''p'');  // 创建一个新的标配
+newp.id = ''newp'';   // 设置id
+newp.innerText = ''linux'';  // 添加文本
+li.append(newp);  // 将创建好的标签添加到div中
 
-// 鍒涘缓涓€涓爣绛維tyle
+// 创建一个标签Style
 var MyStyle = document.createElement(''style'');
 MyStyle.setAttribute(''type'', ''text/css'');
 MyStyle.innerHTML = ''body{background-color: chartreuse}'';
 document.getElementsByTagName(''head'')[0].appendChild(MyStyle);
 ```
 
-insertBefore  鏌ュ埌璋佺殑鍓嶉潰
+insertBefore  查到谁的前面
 
 ```javascript
 <script>
   var ee = document.getElementById(''ee'');
   var js = document.getElementById(''js'');
   var list = document.getElementById(''list'');
-  // 瑕佸寘鍚殑鑺傜偣锛屽皢瑕佹彃鍏ユ柊鐨勮妭鐐规斁鍦ㄨ皝鐨勫墠闈nsertBefore(newNode, targetNode)
+  // 要包含的节点，将要插入新的节点放在谁的前面insertBefore(newNode, targetNode)
   list.insertBefore(js, ee);
 </script>
 ```
 
-# 鎿嶄綔琛ㄥ崟锛堥獙璇侊級
-## 琛ㄥ崟鏄粈涔?form DOM鏍?
-+ 鏂囨湰妗?text
-+ 涓嬫媺妗?<select>
+# 操作表单（验证）
+## 表单是什么 form DOM树
++ 文本框 text
++ 下拉框 <select>
     - open
-+ 鍗曢€夋   radio
-+ 澶氶€夋   checkbox
-+ 闅愯棌鍩?   hidden
-+ 瀵嗙爜妗?   password
++ 单选框   radio
++ 多选框   checkbox
++ 隐藏域    hidden
++ 密码框    password
 + .......
 
-琛ㄥ崟鐨勭洰鐨?锛氭彁浜や俊鎭?
+表单的目的 ：提交信息
 
 
 
-## 鑾峰緱鎻愪氦鐨勪俊鎭?
+## 获得提交的信息
 ```html
 <form action="#" method="post">
   <p>
-    <span>鐢ㄦ埛鍚嶏細</span><input type="text" id="username">
+    <span>用户名：</span><input type="text" id="username">
   </p>
   <p>
-    <span>鎬у埆锛?/span>
-    <input type="radio" name="sex" value="man" id="boy"> 鐢?
-    <input type="radio" name="sex" value="woman" id="girl"> 濂?
+    <span>性别：</span>
+    <input type="radio" name="sex" value="man" id="boy"> 男
+    <input type="radio" name="sex" value="woman" id="girl"> 女
   </p>
 </form>
 
@@ -17685,18 +17649,18 @@ insertBefore  鏌ュ埌璋佺殑鍓嶉潰
   var input_text = document.getElementById(''username'')
   var boy_radio = document.getElementById(''boy'')
   var girl_radio = document.getElementById(''girl'')
-  // 鑾峰緱杈撳叆妗嗙殑鍊?
+  // 获得输入框的值
   input_text.value;
-  // 淇敼杈撳叆妗嗙殑鍊?
+  // 修改输入框的值
   input_text.value = "123";
 
-  // 瀵逛簬鍗曢€夋锛屽閫夋 绛夊浐瀹氱殑鍊硷紝boy_radio.value鍙兘鍙栧埌褰撳墠鐨勫€?
-  boy_radio.checked;   // 鏌ョ湅杩斿洖鐨勭粨鏋滄槸鍚︿负true 濡傛灉鏄痶rue锛屽垯琚€変腑
+  // 对于单选框，多选框 等固定的值，boy_radio.value只能取到当前的值
+  boy_radio.checked;   // 查看返回的结果是否为true 如果是true，则被选中
   girl_radio.children;
 </script>
 ```
 
-## 鍓嶇md5鍔犲瘑
+## 前端md5加密
 ```html
 <head>
   <meta charset="UTF-8">
@@ -17705,22 +17669,22 @@ insertBefore  鏌ュ埌璋佺殑鍓嶉潰
 </head>
 <body>
 <!--
-  琛ㄥ崟缁戝畾浜嬩欢
-  onsubmit=缁戝畾涓€涓彁浜ゆ娴嬬殑鍑芥暟锛?true  false
-  灏嗚繖涓粨鏋滆繑鍥炵粰琛ㄥ崟锛屼娇鐢╫nsubmit鎺ユ敹
+  表单绑定事件
+  onsubmit=绑定一个提交检测的函数， true  false
+  将这个结果返回给表单，使用onsubmit接收
   onsubmit="return aaa()"
 -->
 <form action="#" method="post" onsubmit="return aaa()">
   <p>
-    <span>鐢ㄦ埛鍚嶏細</span><input type="text" id="username">
+    <span>用户名：</span><input type="text" id="username">
   </p>
   <p>
-    <span>瀵嗙爜锛?/span><input type="password" id="input-password">
+    <span>密码：</span><input type="password" id="input-password">
   </p>
 
   <input type="hidden" id="md5-password" name="password">
 
-  <button type="button">鎻愪氦</button>
+  <button type="button">提交</button>
 </form>
 
 <script>
@@ -17730,7 +17694,7 @@ insertBefore  鏌ュ埌璋佺殑鍓嶉潰
     var md5pwd = document.getElementById(''md5-password'')
 
     md5pwd.value = md5(pwd.value);
-    // 鍙互鍒ゆ柇琛ㄥ崟鍐呭 true 鍙互鎻愪氦锛?false 闃绘鎻愪氦
+    // 可以判断表单内容 true 可以提交， false 阻止提交
     return false;
 
   }
@@ -17738,29 +17702,29 @@ insertBefore  鏌ュ埌璋佺殑鍓嶉潰
 ```
 
 # jQuery   
-鏂囨。宸ュ叿绔欙細[http://jquery3.yanzhihui.com/index.html](http://jquery3.yanzhihui.com/index.html)
+文档工具站：[http://jquery3.yanzhihui.com/index.html](http://jquery3.yanzhihui.com/index.html)
 
-## 鍒濊瘑jQuery
-jQuery搴擄紝閲岄潰瀛樺湪澶ч噺鐨凧avaScript鍑芥暟
+## 初识jQuery
+jQuery库，里面存在大量的JavaScript函数
 
-寮曞叆jQuery   浣跨敤 jQuery 鍔犻€熷櫒
+引入jQuery   使用 jQuery 加速器
 
 ```html
  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.min.js"></script>
 ```
 
-鍙埌瀹樼綉涓嬭浇
+可到官网下载
 
-鍏紡锛?$(slector).action()
+公式： $(slector).action()
 
-+ slector锛氶€夋嫨鍣? CSS涓殑閫夋嫨鍣ㄩ兘鑳界敤
-+ action锛氫簨浠?
++ slector：选择器  CSS中的选择器都能用
++ action：事件
 
-鏂囨。宸ュ叿绔欙細[http://jquery3.yanzhihui.com/index.html](http://jquery3.yanzhihui.com/index.html)
+文档工具站：[http://jquery3.yanzhihui.com/index.html](http://jquery3.yanzhihui.com/index.html)
 
-## 浜嬩欢
-+ 榧犳爣浜嬩欢  mouse
-+ 閿洏浜嬩欢
+## 事件
++ 鼠标事件  mouse
++ 键盘事件
 
 ```html
 <!DOCTYPE html>
@@ -17780,11 +17744,11 @@ jQuery搴擄紝閲岄潰瀛樺湪澶ч噺鐨凧avaScript鍑芥暟
 <body>
 mouse: <span id="mouseMove"></span>
 <div id="divMove">
-  杩欓噷绉诲姩榧犳爣
+  这里移动鼠标
 </div>
 
 <script>
-  // 褰撶綉椤靛姞杞藉畬姣曚箣鍚庯紝鐩稿簲浜嬩欢
+  // 当网页加载完毕之后，相应事件
   $(function (){
     $(''#divMove'').mousemove(function (e){
       $(''#mouseMove'').text(''x'' + e.pageX+'',y'' + e.pageY)
@@ -17795,93 +17759,91 @@ mouse: <span id="mouseMove"></span>
 </html>
 ```
 
-## 鎿嶄綔DOM', NOW());
-SET @last_note_id = LAST_INSERT_ID();
+## 操作DOM', 0, NOW());
 
-INSERT INTO 
-ote (uthor_id, 	itle, content, created_at)
-VALUES (1004, 'Nginx', '### 馃摎 Nginx 娣卞叆瀛︿範绗旇锛堟墿灞曠増锛?
-#### 0. 鏍稿績閰嶇疆缁撴瀯鍥為【
-Nginx 鐨勯厤缃湰璐ㄤ笂鏄竴涓?*鏍戝舰涓婁笅鏂囷紙Context锛?*缁撴瀯锛?
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+VALUES (15, 1004, 'Nginx', '### 📚 Nginx 深入学习笔记（扩展版）
+#### 0. 核心配置结构回顾
+Nginx 的配置本质上是一个**树形上下文（Context）**结构：
 
-+ **Main锛堝叏灞€锛?*锛氬奖鍝嶅叏灞€鐨勬寚浠ゃ€?
-+ **Events**锛氶厤缃綉缁滆繛鎺ョ浉鍏崇殑鍙傛暟銆?
-+ **HTTP**锛氬鐞?HTTP 璇锋眰鐨勬牳蹇冨潡锛屽唴閮ㄥ彲鍖呭惈澶氫釜 `Server`銆?
-+ **Server**锛氬畾涔変竴涓櫄鎷熶富鏈猴紙缃戠珯锛夛紝鍐呴儴鍙寘鍚涓?`Location`銆?
-+ **Location**锛氬畾涔夌壒瀹氱殑 URL 鍖归厤瑙勫垯鍜屽鐞嗘柟寮忋€?
++ **Main（全局）**：影响全局的指令。
++ **Events**：配置网络连接相关的参数。
++ **HTTP**：处理 HTTP 请求的核心块，内部可包含多个 `Server`。
++ **Server**：定义一个虚拟主机（网站），内部可包含多个 `Location`。
++ **Location**：定义特定的 URL 匹配规则和处理方式。
 
-**鍏抽敭鍘熷垯锛氬瓙涓婁笅鏂囦細缁ф壙鐖朵笂涓嬫枃鐨勯厤缃紝瀛愪笂涓嬫枃鍐呯殑閰嶇疆浼樺厛绾ч珮浜庣埗绾с€?*
+**关键原则：子上下文会继承父上下文的配置，子上下文内的配置优先级高于父级。**
 
 ---
 
-### 1. 娣卞叆 Location 鍧楋細Nginx 鏈€绮惧鐨勫尮閰嶉€昏緫
-`Location` 鏄厤缃腑鏈€甯稿嚭閿欎篃鏈€鏍稿績鐨勫湴鏂癸紝瀹冪殑鍖归厤椤哄簭鍜岃娉曡嚦鍏抽噸瑕併€?
+### 1. 深入 Location 块：Nginx 最精妙的匹配逻辑
+`Location` 是配置中最常出错也最核心的地方，它的匹配顺序和语法至关重要。
 
-#### 1.1 Location 璇硶绫诲瀷
+#### 1.1 Location 语法类型
 ```nginx
-location [淇グ绗 /uri/ {
-    # 澶勭悊閫昏緫
+location [修饰符] /uri/ {
+    # 处理逻辑
 }
 ```
 
-| 淇グ绗?| 鍚箟 | 绀轰緥 |
+| 修饰符 | 含义 | 示例 |
 | :--- | :--- | :--- |
-| **鏃?* | **鍓嶇紑鍖归厤**锛屼互鎸囧畾 URI 寮€澶村嵆鍖归厤 | `location /api` 鍖归厤 `/api`, `/api/v1`, `/api/user` |
-| **=** | **绮剧‘鍖归厤**锛屽繀椤诲畬鍏ㄤ竴鑷达紝鍖归厤鍚庣珛鍗冲仠姝?| `location = /` 鍙尮閰嶆牴璺緞 `/` |
-| **~** | **姝ｅ垯鍖归厤锛堝尯鍒嗗ぇ灏忓啓锛?* | `location ~ ^/images/.*\.(jpg|png)$` |
-| **~******* | **姝ｅ垯鍖归厤锛堜笉鍖哄垎澶у皬鍐欙級** | `location ~* \.html$` 鍖归厤 `.html`, `.HTML` |
-| **^~** | **浼樺厛鍓嶇紑鍖归厤**锛屽鏋滃尮閰嶄笂锛屽垯涓嶅啀杩涜鍚庣画鐨勬鍒欏尮閰?| `location ^~ /static/` 鍖归厤 `/static/` 涓嬬殑鎵€鏈夎姹?|
+| **无** | **前缀匹配**，以指定 URI 开头即匹配 | `location /api` 匹配 `/api`, `/api/v1`, `/api/user` |
+| **=** | **精确匹配**，必须完全一致，匹配后立即停止 | `location = /` 只匹配根路径 `/` |
+| **~** | **正则匹配（区分大小写）** | `location ~ ^/images/.*\.(jpg|png)$` |
+| **~******* | **正则匹配（不区分大小写）** | `location ~* \.html$` 匹配 `.html`, `.HTML` |
+| **^~** | **优先前缀匹配**，如果匹配上，则不再进行后续的正则匹配 | `location ^~ /static/` 匹配 `/static/` 下的所有请求 |
 
 
-#### 1.2 鏍稿績鍖归厤椤哄簭锛堥潰璇曢珮棰戯紒锛?
-1. **绮惧噯鍖归厤**锛氭鏌ユ槸鍚︽湁 `=` 淇グ绗︾殑 Location銆傛湁鍒欏尮閰嶏紝鍋滄鎼滅储銆?
-2. **浼樺厛鍓嶇紑鍖归厤**锛氭鏌ユ槸鍚︽湁 `^~` 淇グ绗︾殑 Location銆傚鏋滄湁鍖归厤锛屽垯**绔嬪嵆浣跨敤锛屽苟鍋滄鍚庣画鐨勬鍒欏尮閰?*銆?
-3. **姝ｅ垯鍖归厤**锛氭寜鐓ч厤缃枃浠朵腑**鍑虹幇鐨勯『搴?*锛屼緷娆″尮閰嶅甫鏈?`~` 鎴?`~*` 鐨勬鍒?Location銆備竴鏃﹀尮閰嶏紝**绔嬪嵆浣跨敤锛屽仠姝㈡悳绱?*銆?
-4. **鏅€氬墠缂€鍖归厤**锛氬鏋滄墍鏈夋鍒欓兘娌″尮閰嶄笂锛屽垯鎵惧嚭鎵€鏈夋櫘閫氱殑鍓嶇紑鍖归厤锛堟棤淇グ绗︼級涓紝**鍖归厤搴︽渶楂橈紙鍗砋RL鏈€闀匡級** 鐨勯偅涓€?
+#### 1.2 核心匹配顺序（面试高频！）
+1. **精准匹配**：检查是否有 `=` 修饰符的 Location。有则匹配，停止搜索。
+2. **优先前缀匹配**：检查是否有 `^~` 修饰符的 Location。如果有匹配，则**立即使用，并停止后续的正则匹配**。
+3. **正则匹配**：按照配置文件中**出现的顺序**，依次匹配带有 `~` 或 `~*` 的正则 Location。一旦匹配，**立即使用，停止搜索**。
+4. **普通前缀匹配**：如果所有正则都没匹配上，则找出所有普通的前缀匹配（无修饰符）中，**匹配度最高（即URL最长）** 的那个。
 
-**璁板繂鍙ｈ瘈锛?*`=`** 浼樺厛锛?*`^~`** 鍏舵锛屾鍒欐寜椤哄簭锛屽墠缂€鐪嬫渶闀裤€?*
+**记忆口诀：**`=`** 优先，**`^~`** 其次，正则按顺序，前缀看最长。**
 
 ---
 
-### 2. Nginx 鍐呯疆鍙橀噺澶у叏锛堝父鐢ㄧ簿閫夛級
-鍙橀噺鏄?Nginx 瀹炵幇鍔ㄦ€侀厤缃殑鐏甸瓊銆傛帉鎻¤繖浜涘彉閲忥紝浣犲氨鑳藉湪 `proxy_pass`銆乣rewrite`銆乣access_log` 涓父鍒冩湁浣欍€?
+### 2. Nginx 内置变量大全（常用精选）
+变量是 Nginx 实现动态配置的灵魂。掌握这些变量，你就能在 `proxy_pass`、`rewrite`、`access_log` 中游刃有余。
 
-| 鍙橀噺鍚?| 浣滅敤 | 绀轰緥鍊?|
+| 变量名 | 作用 | 示例值 |
 | :--- | :--- | :--- |
-| `$remote_addr` | 瀹㈡埛绔?IP 鍦板潃 | `192.168.1.100` |
-| `$proxy_add_x_forwarded_for` | 鑾峰彇瀹㈡埛绔湡瀹?IP 閾撅紙X-Forward-For锛?| `100.2.3.4, 10.0.0.1` |
-| `$host` | 璇锋眰涓殑涓绘満澶达紙Host锛夛紝灏忓啓 | `www.example.com` |
-| `$request_uri` | 瀹屾暣鐨勫師濮嬭姹?URI锛堝寘鍚弬鏁帮級 | `/api/user?id=1` |
-| `$uri` | 褰撳墠璇锋眰鐨?URI锛堜笉鍖呭惈鍙傛暟锛屽凡瑙ｇ爜锛?| `/api/user` |
-| `$args` | URL 涓殑鏌ヨ鍙傛暟锛堥棶鍙峰悗鐨勯儴鍒嗭級 | `id=1` |
-| `$scheme` | 璇锋眰鍗忚锛宍http` 鎴?`https` | `https` |
-| `$http_<name>` | 鑾峰彇浠绘剰璇锋眰澶寸殑鍊硷紙灏忓啓+杩炲瓧绗﹀彉涓嬪垝绾匡級 | `$http_user_agent` 鑾峰彇 User-Agent |
-| `$status` | 鍝嶅簲鐨?HTTP 鐘舵€佺爜 | `200`, `404` |
-| `$request_time` | 璇锋眰澶勭悊鐨勬€昏€楁椂锛堢锛?| `0.023` |
+| `$remote_addr` | 客户端 IP 地址 | `192.168.1.100` |
+| `$proxy_add_x_forwarded_for` | 获取客户端真实 IP 链（X-Forward-For） | `100.2.3.4, 10.0.0.1` |
+| `$host` | 请求中的主机头（Host），小写 | `www.example.com` |
+| `$request_uri` | 完整的原始请求 URI（包含参数） | `/api/user?id=1` |
+| `$uri` | 当前请求的 URI（不包含参数，已解码） | `/api/user` |
+| `$args` | URL 中的查询参数（问号后的部分） | `id=1` |
+| `$scheme` | 请求协议，`http` 或 `https` | `https` |
+| `$http_<name>` | 获取任意请求头的值（小写+连字符变下划线） | `$http_user_agent` 获取 User-Agent |
+| `$status` | 响应的 HTTP 状态码 | `200`, `404` |
+| `$request_time` | 请求处理的总耗时（秒） | `0.023` |
 
 
 ---
 
-### 3. 楂樼骇閰嶇疆鎶€宸?
-#### 3.1 鍔ㄩ潤鍒嗙锛堟彁鍗囨€ц兘锛?
-灏嗛潤鎬佽祫婧愶紙鍥剧墖銆丆SS銆丣S锛夌洿鎺ョ敱 Nginx 澶勭悊锛屼笉杞彂缁欏悗绔簲鐢ㄦ湇鍔″櫒銆?
+### 3. 高级配置技巧
+#### 3.1 动静分离（提升性能）
+将静态资源（图片、CSS、JS）直接由 Nginx 处理，不转发给后端应用服务器。
 
 ```nginx
 server {
     listen 80;
     server_name static.example.com;
 
-    # 鍖归厤鍥剧墖銆佹牱寮忋€佽剼鏈枃浠?
+    # 匹配图片、样式、脚本文件
     location ~* \.(gif|jpg|jpeg|png|css|js|ico)$ {
-        root /var/www/static;  # 鏈湴纾佺洏璺緞
-        expires 30d;           # 璁剧疆娴忚鍣ㄧ紦瀛樿繃鏈熸椂闂翠负30澶?
-        access_log off;        # 鍏抽棴璁块棶鏃ュ織锛屽噺灏戠鐩業O
+        root /var/www/static;  # 本地磁盘路径
+        expires 30d;           # 设置浏览器缓存过期时间为30天
+        access_log off;        # 关闭访问日志，减少磁盘IO
     }
 }
 ```
 
-#### 3.2 甯歌閿欒椤甸潰浼橀泤灞曠ず
-鑷畾涔?404銆?00 绛夐敊璇〉闈紝鎻愬崌鐢ㄦ埛浣撻獙銆?
+#### 3.2 常见错误页面优雅展示
+自定义 404、500 等错误页面，提升用户体验。
 
 ```nginx
 server {
@@ -17891,26 +17853,26 @@ server {
     
     location = /404.html {
         root /usr/share/nginx/html;
-        internal; # 鍙厑璁稿唴閮ㄩ噸瀹氬悜锛岄槻姝㈢敤鎴风洿鎺ヨ闂?
+        internal; # 只允许内部重定向，防止用户直接访问
     }
 }
 ```
 
-#### 3.3 璺ㄥ煙閰嶇疆锛圕ORS锛?
-鍦ㄥ墠鍚庣鍒嗙鏋舵瀯涓紝寰€寰€闇€瑕佸湪缃戝叧灞傝В鍐宠法鍩熼棶棰樸€?
+#### 3.3 跨域配置（CORS）
+在前后端分离架构中，往往需要在网关层解决跨域问题。
 
 ```nginx
 location /api/ {
-    # 鍏佽鐨勫煙鍚嶏紝鐢熶骇鐜涓嶅缓璁敤 *
+    # 允许的域名，生产环境不建议用 *
     add_header ''Access-Control-Allow-Origin'' ''*'';
-    # 鍏佽鐨勮姹傛柟娉?
+    # 允许的请求方法
     add_header ''Access-Control-Allow_Methods'' ''GET, POST, OPTIONS'';
-    # 鍏佽鐨勮姹傚ご
+    # 允许的请求头
     add_header ''Access-Control-Allow-Headers'' ''DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization'';
-    # 棰勬璇锋眰锛圤PTIONS锛夌紦瀛樻椂闂?
+    # 预检请求（OPTIONS）缓存时间
     add_header ''Access-Control-Max-Age'' 1728000;
     
-    # 濡傛灉鏄妫€璇锋眰锛岀洿鎺ヨ繑鍥?04鎴愬姛
+    # 如果是预检请求，直接返回204成功
     if ($request_method = ''OPTIONS'') {
         return 204;
     }
@@ -17920,58 +17882,58 @@ location /api/ {
 
 ---
 
-### 4. 鎬ц兘璋冧紭瀹炶返
-#### 4.1 鏂囦欢浼犺緭浼樺寲
+### 4. 性能调优实践
+#### 4.1 文件传输优化
 ```nginx
 http {
-    # 寮€鍚浂鎷疯礉锛屽噺灏戝唴鏍告€佸埌鐢ㄦ埛鎬佺殑鏁版嵁鎷疯礉锛屾瀬澶ф彁鍗囬潤鎬佹枃浠朵紶杈撴晥鐜?
+    # 开启零拷贝，减少内核态到用户态的数据拷贝，极大提升静态文件传输效率
     sendfile on;
     
-    # 寮€鍚?TCP_NOPUSH锛圠inux锛夋垨 TCP_CORK锛屼笌 sendfile 閰嶅悎锛屽湪涓€涓綉缁滃寘涓彂閫佸搷搴斿ご鍜屾枃浠跺唴瀹?
+    # 开启 TCP_NOPUSH（Linux）或 TCP_CORK，与 sendfile 配合，在一个网络包中发送响应头和文件内容
     tcp_nopush on;
     
-    # 寮€鍚?TCP_NODELAY锛岀鐢?Nagle 绠楁硶锛屽皬鏁版嵁鍖呭彲浠ュ疄鏃跺彂閫侊紙閫傜敤浜庨暱杩炴帴锛?
+    # 开启 TCP_NODELAY，禁用 Nagle 算法，小数据包可以实时发送（适用于长连接）
     tcp_nodelay on;
 }
 ```
 
-#### 4.2 缂撳啿涓庤秴鏃惰缃?
-閫傚綋璋冩暣浠ｇ悊缂撳啿鍜岃秴鏃讹紝鍙互闃叉鍚庣鎱㈡湇鍔℃嫋鍨?Nginx銆?
+#### 4.2 缓冲与超时设置
+适当调整代理缓冲和超时，可以防止后端慢服务拖垮 Nginx。
 
 ```nginx
 http {
-    # 浠ｇ悊缂撳啿鍖哄ぇ灏?
+    # 代理缓冲区大小
     proxy_buffering on;
     proxy_buffer_size 4k;
     proxy_buffers 8 4k;
     proxy_busy_buffers_size 8k;
 
-    # 杩炴帴瓒呮椂锛堝崟浣嶏細绉掞級
-    proxy_connect_timeout 3s;   # 涓庡悗绔缓绔嬭繛鎺ョ殑瓒呮椂
-    proxy_read_timeout 30s;     # 璇诲彇鍚庣鍝嶅簲鐨勮秴鏃?
-    proxy_send_timeout 30s;     # 鍙戦€佽姹傚埌鍚庣鐨勮秴鏃?
+    # 连接超时（单位：秒）
+    proxy_connect_timeout 3s;   # 与后端建立连接的超时
+    proxy_read_timeout 30s;     # 读取后端响应的超时
+    proxy_send_timeout 30s;     # 发送请求到后端的超时
 }
 ```
 
-#### 4.3 Gzip 鍘嬬缉浼樺寲
+#### 4.3 Gzip 压缩优化
 ```nginx
 http {
-    gzip on;                   # 寮€鍚帇缂?
-    gzip_vary on;              # 鍦ㄥ搷搴斿ご涓坊鍔?Vary: Accept-Encoding锛屽憡鐭ヤ唬鐞嗘湇鍔″櫒缂撳瓨鐗堟湰
-    gzip_min_length 1k;        # 灏忎簬 1KB 鐨勬枃浠朵笉鍘嬬缉
-    gzip_comp_level 6;         # 鍘嬬缉绾у埆 1-9锛岀骇鍒秺楂樺帇缂╂瘮瓒婇珮锛屼絾娑堣€?CPU
+    gzip on;                   # 开启压缩
+    gzip_vary on;              # 在响应头中添加 Vary: Accept-Encoding，告知代理服务器缓存版本
+    gzip_min_length 1k;        # 小于 1KB 的文件不压缩
+    gzip_comp_level 6;         # 压缩级别 1-9，级别越高压缩比越高，但消耗 CPU
     gzip_types text/plain text/css text/xml text/javascript application/json application/javascript image/svg+xml;
-    # 瀵瑰浘鐗囥€佽棰戠瓑宸插帇缂╂枃浠朵笉杩涜浜屾鍘嬬缉
-    gzip_disable "msie6";      # 绂佺敤 IE6 鐨?gzip
+    # 对图片、视频等已压缩文件不进行二次压缩
+    gzip_disable "msie6";      # 禁用 IE6 的 gzip
 }
 ```
 
 ---
 
-### 5. 鏃ュ織绠＄悊涓庡垎鏋?
-鏃ュ織鏄帓鏌ラ棶棰樼殑鍒╁櫒锛屽悎鐞嗙殑鏃ュ織鏍煎紡鑳芥瀬澶ф彁鍗囨帓閿欐晥鐜囥€?
+### 5. 日志管理与分析
+日志是排查问题的利器，合理的日志格式能极大提升排错效率。
 
-#### 5.1 鑷畾涔夋棩蹇楁牸寮?
+#### 5.1 自定义日志格式
 ```nginx
 http {
     log_format main ''$remote_addr - $remote_user [$time_local] "$request" ''
@@ -17985,116 +17947,114 @@ http {
 }
 ```
 
-+ `buffer=32k flush=5s`锛氬皢鏃ュ織鍐欏叆鍐呭瓨缂撳啿鍖猴紝姣?绉掓垨缂撳啿婊℃椂鍐嶅埛鍏ョ鐩橈紝鑳芥樉钁楁彁鍗囬珮骞跺彂涓嬬殑鎬ц兘銆?
-+ **涓婃父鏃堕棿鍙橀噺**锛歚upstream_connect_time`, `upstream_header_time`, `upstream_response_time` 鏄帓鏌ュ悗绔€ц兘鐡堕鐨勭粷浣虫寚鏍囥€?
++ `buffer=32k flush=5s`：将日志写入内存缓冲区，每5秒或缓冲满时再刷入磁盘，能显著提升高并发下的性能。
++ **上游时间变量**：`upstream_connect_time`, `upstream_header_time`, `upstream_response_time` 是排查后端性能瓶颈的绝佳指标。
 
 ---
 
-### 6. Nginx 鐨勯珮鍙敤涓庡姩鎬侀厤缃?
-#### 6.1 Nginx + Keepalived 瀹炵幇楂樺彲鐢?
-Nginx 鏈韩娌℃湁涓诲鍒囨崲鍔熻兘锛岄€氬父閰嶅悎 **Keepalived** 瀹炵幇涓ゅ彴 Nginx 鏈嶅姟鍣ㄧ殑 VIP锛堣櫄鎷烮P锛夋紓绉伙紝涓€鍙颁负 Master锛屼竴鍙颁负 Backup锛屽綋 Master 瀹曟満鏃?VIP 鑷姩鍒囨崲鍒?Backup锛屼繚璇佺綉鍏冲眰鐨勯珮鍙敤銆?
+### 6. Nginx 的高可用与动态配置
+#### 6.1 Nginx + Keepalived 实现高可用
+Nginx 本身没有主备切换功能，通常配合 **Keepalived** 实现两台 Nginx 服务器的 VIP（虚拟IP）漂移，一台为 Master，一台为 Backup，当 Master 宕机时 VIP 自动切换到 Backup，保证网关层的高可用。
 
-#### 6.2 鍔ㄦ€?Upstream锛堢涓夋柟鏂规锛?
-鍘熺敓 Nginx 鐨?`upstream` 閰嶇疆鍙樻洿闇€瑕?`nginx -s reload`锛堜細鏈夌煭鏆備腑鏂級銆傚湪寰湇鍔″満鏅笅锛屽彲浠ヤ娇鐢?**Nginx Plus**锛堝晢涓氱増锛夋垨 **OpenResty / APISIX**锛屽畠浠敮鎸侀€氳繃 API 鍔ㄦ€佷慨鏀逛笂娓告湇鍔″櫒鍒楄〃锛屾棤闇€閲嶅惎銆?
-
----
-
-### 7. 瀹夊叏鍔犲浐瑕佺偣
-+ `server_tokens off;`锛氬叧闂増鏈彿鏄剧ず锛岄槻姝㈡敾鍑昏€呴€氳繃鐗堟湰婕忔礊鏀诲嚮銆?
-+ `client_max_body_size 10M;`锛氶檺鍒跺鎴风璇锋眰浣撳ぇ灏忥紝闃叉澶ф枃浠舵敾鍑汇€?
-+ `limit_conn_zone $binary_remote_addr zone=addr:10m;` 閰嶅悎 `limit_conn addr 100;`锛氶檺鍒跺悓涓€ IP 鐨勫苟鍙戣繛鎺ユ暟銆?
-+ `limit_req_zone $binary_remote_addr zone=req:10m rate=10r/s;` 閰嶅悎 `limit_req zone=req burst=20 nodelay;`锛氶檺鍒惰姹傞鐜囷紝瀹炵幇鍩虹鐨勯槻鍒蜂繚鎶ゃ€?
+#### 6.2 动态 Upstream（第三方方案）
+原生 Nginx 的 `upstream` 配置变更需要 `nginx -s reload`（会有短暂中断）。在微服务场景下，可以使用 **Nginx Plus**（商业版）或 **OpenResty / APISIX**，它们支持通过 API 动态修改上游服务器列表，无需重启。
 
 ---
 
-杩欎唤鎵╁睍绗旇瑕嗙洊浜?Nginx 浠庡熀纭€鍒拌繘闃剁殑鏍稿績鍐呭銆傚鏋滄兂鍐嶆繁鍏ユ煇涓叿浣撴柟鍚戯紝姣斿 **Lua 鑴氭湰鎵╁睍锛圤penResty锛?* 鎴?**涓?K8s Ingress 鐨勯泦鎴?*锛屽彲浠ラ殢鏃跺憡璇夋垜銆傪煒?
-', NOW());
-SET @last_note_id = LAST_INSERT_ID();
-
-INSERT INTO 
-ote (uthor_id, 	itle, content, created_at)
-VALUES (1004, 'SprngCloud', '### 馃摎 Nginx 娣卞叆瀛︿範绗旇锛堟墿灞曠増锛?
-#### 0. 鏍稿績閰嶇疆缁撴瀯鍥為【
-Nginx 鐨勯厤缃湰璐ㄤ笂鏄竴涓?*鏍戝舰涓婁笅鏂囷紙Context锛?*缁撴瀯锛?
-
-+ **Main锛堝叏灞€锛?*锛氬奖鍝嶅叏灞€鐨勬寚浠ゃ€?
-+ **Events**锛氶厤缃綉缁滆繛鎺ョ浉鍏崇殑鍙傛暟銆?
-+ **HTTP**锛氬鐞?HTTP 璇锋眰鐨勬牳蹇冨潡锛屽唴閮ㄥ彲鍖呭惈澶氫釜 `Server`銆?
-+ **Server**锛氬畾涔変竴涓櫄鎷熶富鏈猴紙缃戠珯锛夛紝鍐呴儴鍙寘鍚涓?`Location`銆?
-+ **Location**锛氬畾涔夌壒瀹氱殑 URL 鍖归厤瑙勫垯鍜屽鐞嗘柟寮忋€?
-
-**鍏抽敭鍘熷垯锛氬瓙涓婁笅鏂囦細缁ф壙鐖朵笂涓嬫枃鐨勯厤缃紝瀛愪笂涓嬫枃鍐呯殑閰嶇疆浼樺厛绾ч珮浜庣埗绾с€?*
+### 7. 安全加固要点
++ `server_tokens off;`：关闭版本号显示，防止攻击者通过版本漏洞攻击。
++ `client_max_body_size 10M;`：限制客户端请求体大小，防止大文件攻击。
++ `limit_conn_zone $binary_remote_addr zone=addr:10m;` 配合 `limit_conn addr 100;`：限制同一 IP 的并发连接数。
++ `limit_req_zone $binary_remote_addr zone=req:10m rate=10r/s;` 配合 `limit_req zone=req burst=20 nodelay;`：限制请求频率，实现基础的防刷保护。
 
 ---
 
-### 1. 娣卞叆 Location 鍧楋細Nginx 鏈€绮惧鐨勫尮閰嶉€昏緫
-`Location` 鏄厤缃腑鏈€甯稿嚭閿欎篃鏈€鏍稿績鐨勫湴鏂癸紝瀹冪殑鍖归厤椤哄簭鍜岃娉曡嚦鍏抽噸瑕併€?
+这份扩展笔记覆盖了 Nginx 从基础到进阶的核心内容。如果想再深入某个具体方向，比如 **Lua 脚本扩展（OpenResty）** 或 **与 K8s Ingress 的集成**，可以随时告诉我。😊
+', 0, NOW());
 
-#### 1.1 Location 璇硶绫诲瀷
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+VALUES (16, 1004, 'SprngCloud', '### 📚 Nginx 深入学习笔记（扩展版）
+#### 0. 核心配置结构回顾
+Nginx 的配置本质上是一个**树形上下文（Context）**结构：
+
++ **Main（全局）**：影响全局的指令。
++ **Events**：配置网络连接相关的参数。
++ **HTTP**：处理 HTTP 请求的核心块，内部可包含多个 `Server`。
++ **Server**：定义一个虚拟主机（网站），内部可包含多个 `Location`。
++ **Location**：定义特定的 URL 匹配规则和处理方式。
+
+**关键原则：子上下文会继承父上下文的配置，子上下文内的配置优先级高于父级。**
+
+---
+
+### 1. 深入 Location 块：Nginx 最精妙的匹配逻辑
+`Location` 是配置中最常出错也最核心的地方，它的匹配顺序和语法至关重要。
+
+#### 1.1 Location 语法类型
 ```nginx
-location [淇グ绗 /uri/ {
-    # 澶勭悊閫昏緫
+location [修饰符] /uri/ {
+    # 处理逻辑
 }
 ```
 
-| 淇グ绗?| 鍚箟 | 绀轰緥 |
+| 修饰符 | 含义 | 示例 |
 | :--- | :--- | :--- |
-| **鏃?* | **鍓嶇紑鍖归厤**锛屼互鎸囧畾 URI 寮€澶村嵆鍖归厤 | `location /api` 鍖归厤 `/api`, `/api/v1`, `/api/user` |
-| **=** | **绮剧‘鍖归厤**锛屽繀椤诲畬鍏ㄤ竴鑷达紝鍖归厤鍚庣珛鍗冲仠姝?| `location = /` 鍙尮閰嶆牴璺緞 `/` |
-| **~** | **姝ｅ垯鍖归厤锛堝尯鍒嗗ぇ灏忓啓锛?* | `location ~ ^/images/.*\.(jpg|png)$` |
-| **~******* | **姝ｅ垯鍖归厤锛堜笉鍖哄垎澶у皬鍐欙級** | `location ~* \.html$` 鍖归厤 `.html`, `.HTML` |
-| **^~** | **浼樺厛鍓嶇紑鍖归厤**锛屽鏋滃尮閰嶄笂锛屽垯涓嶅啀杩涜鍚庣画鐨勬鍒欏尮閰?| `location ^~ /static/` 鍖归厤 `/static/` 涓嬬殑鎵€鏈夎姹?|
+| **无** | **前缀匹配**，以指定 URI 开头即匹配 | `location /api` 匹配 `/api`, `/api/v1`, `/api/user` |
+| **=** | **精确匹配**，必须完全一致，匹配后立即停止 | `location = /` 只匹配根路径 `/` |
+| **~** | **正则匹配（区分大小写）** | `location ~ ^/images/.*\.(jpg|png)$` |
+| **~******* | **正则匹配（不区分大小写）** | `location ~* \.html$` 匹配 `.html`, `.HTML` |
+| **^~** | **优先前缀匹配**，如果匹配上，则不再进行后续的正则匹配 | `location ^~ /static/` 匹配 `/static/` 下的所有请求 |
 
 
-#### 1.2 鏍稿績鍖归厤椤哄簭锛堥潰璇曢珮棰戯紒锛?
-1. **绮惧噯鍖归厤**锛氭鏌ユ槸鍚︽湁 `=` 淇グ绗︾殑 Location銆傛湁鍒欏尮閰嶏紝鍋滄鎼滅储銆?
-2. **浼樺厛鍓嶇紑鍖归厤**锛氭鏌ユ槸鍚︽湁 `^~` 淇グ绗︾殑 Location銆傚鏋滄湁鍖归厤锛屽垯**绔嬪嵆浣跨敤锛屽苟鍋滄鍚庣画鐨勬鍒欏尮閰?*銆?
-3. **姝ｅ垯鍖归厤**锛氭寜鐓ч厤缃枃浠朵腑**鍑虹幇鐨勯『搴?*锛屼緷娆″尮閰嶅甫鏈?`~` 鎴?`~*` 鐨勬鍒?Location銆備竴鏃﹀尮閰嶏紝**绔嬪嵆浣跨敤锛屽仠姝㈡悳绱?*銆?
-4. **鏅€氬墠缂€鍖归厤**锛氬鏋滄墍鏈夋鍒欓兘娌″尮閰嶄笂锛屽垯鎵惧嚭鎵€鏈夋櫘閫氱殑鍓嶇紑鍖归厤锛堟棤淇グ绗︼級涓紝**鍖归厤搴︽渶楂橈紙鍗砋RL鏈€闀匡級** 鐨勯偅涓€?
+#### 1.2 核心匹配顺序（面试高频！）
+1. **精准匹配**：检查是否有 `=` 修饰符的 Location。有则匹配，停止搜索。
+2. **优先前缀匹配**：检查是否有 `^~` 修饰符的 Location。如果有匹配，则**立即使用，并停止后续的正则匹配**。
+3. **正则匹配**：按照配置文件中**出现的顺序**，依次匹配带有 `~` 或 `~*` 的正则 Location。一旦匹配，**立即使用，停止搜索**。
+4. **普通前缀匹配**：如果所有正则都没匹配上，则找出所有普通的前缀匹配（无修饰符）中，**匹配度最高（即URL最长）** 的那个。
 
-**璁板繂鍙ｈ瘈锛?*`=`** 浼樺厛锛?*`^~`** 鍏舵锛屾鍒欐寜椤哄簭锛屽墠缂€鐪嬫渶闀裤€?*
+**记忆口诀：**`=`** 优先，**`^~`** 其次，正则按顺序，前缀看最长。**
 
 ---
 
-### 2. Nginx 鍐呯疆鍙橀噺澶у叏锛堝父鐢ㄧ簿閫夛級
-鍙橀噺鏄?Nginx 瀹炵幇鍔ㄦ€侀厤缃殑鐏甸瓊銆傛帉鎻¤繖浜涘彉閲忥紝浣犲氨鑳藉湪 `proxy_pass`銆乣rewrite`銆乣access_log` 涓父鍒冩湁浣欍€?
+### 2. Nginx 内置变量大全（常用精选）
+变量是 Nginx 实现动态配置的灵魂。掌握这些变量，你就能在 `proxy_pass`、`rewrite`、`access_log` 中游刃有余。
 
-| 鍙橀噺鍚?| 浣滅敤 | 绀轰緥鍊?|
+| 变量名 | 作用 | 示例值 |
 | :--- | :--- | :--- |
-| `$remote_addr` | 瀹㈡埛绔?IP 鍦板潃 | `192.168.1.100` |
-| `$proxy_add_x_forwarded_for` | 鑾峰彇瀹㈡埛绔湡瀹?IP 閾撅紙X-Forward-For锛?| `100.2.3.4, 10.0.0.1` |
-| `$host` | 璇锋眰涓殑涓绘満澶达紙Host锛夛紝灏忓啓 | `www.example.com` |
-| `$request_uri` | 瀹屾暣鐨勫師濮嬭姹?URI锛堝寘鍚弬鏁帮級 | `/api/user?id=1` |
-| `$uri` | 褰撳墠璇锋眰鐨?URI锛堜笉鍖呭惈鍙傛暟锛屽凡瑙ｇ爜锛?| `/api/user` |
-| `$args` | URL 涓殑鏌ヨ鍙傛暟锛堥棶鍙峰悗鐨勯儴鍒嗭級 | `id=1` |
-| `$scheme` | 璇锋眰鍗忚锛宍http` 鎴?`https` | `https` |
-| `$http_<name>` | 鑾峰彇浠绘剰璇锋眰澶寸殑鍊硷紙灏忓啓+杩炲瓧绗﹀彉涓嬪垝绾匡級 | `$http_user_agent` 鑾峰彇 User-Agent |
-| `$status` | 鍝嶅簲鐨?HTTP 鐘舵€佺爜 | `200`, `404` |
-| `$request_time` | 璇锋眰澶勭悊鐨勬€昏€楁椂锛堢锛?| `0.023` |
+| `$remote_addr` | 客户端 IP 地址 | `192.168.1.100` |
+| `$proxy_add_x_forwarded_for` | 获取客户端真实 IP 链（X-Forward-For） | `100.2.3.4, 10.0.0.1` |
+| `$host` | 请求中的主机头（Host），小写 | `www.example.com` |
+| `$request_uri` | 完整的原始请求 URI（包含参数） | `/api/user?id=1` |
+| `$uri` | 当前请求的 URI（不包含参数，已解码） | `/api/user` |
+| `$args` | URL 中的查询参数（问号后的部分） | `id=1` |
+| `$scheme` | 请求协议，`http` 或 `https` | `https` |
+| `$http_<name>` | 获取任意请求头的值（小写+连字符变下划线） | `$http_user_agent` 获取 User-Agent |
+| `$status` | 响应的 HTTP 状态码 | `200`, `404` |
+| `$request_time` | 请求处理的总耗时（秒） | `0.023` |
 
 
 ---
 
-### 3. 楂樼骇閰嶇疆鎶€宸?
-#### 3.1 鍔ㄩ潤鍒嗙锛堟彁鍗囨€ц兘锛?
-灏嗛潤鎬佽祫婧愶紙鍥剧墖銆丆SS銆丣S锛夌洿鎺ョ敱 Nginx 澶勭悊锛屼笉杞彂缁欏悗绔簲鐢ㄦ湇鍔″櫒銆?
+### 3. 高级配置技巧
+#### 3.1 动静分离（提升性能）
+将静态资源（图片、CSS、JS）直接由 Nginx 处理，不转发给后端应用服务器。
 
 ```nginx
 server {
     listen 80;
     server_name static.example.com;
 
-    # 鍖归厤鍥剧墖銆佹牱寮忋€佽剼鏈枃浠?
+    # 匹配图片、样式、脚本文件
     location ~* \.(gif|jpg|jpeg|png|css|js|ico)$ {
-        root /var/www/static;  # 鏈湴纾佺洏璺緞
-        expires 30d;           # 璁剧疆娴忚鍣ㄧ紦瀛樿繃鏈熸椂闂翠负30澶?
-        access_log off;        # 鍏抽棴璁块棶鏃ュ織锛屽噺灏戠鐩業O
+        root /var/www/static;  # 本地磁盘路径
+        expires 30d;           # 设置浏览器缓存过期时间为30天
+        access_log off;        # 关闭访问日志，减少磁盘IO
     }
 }
 ```
 
-#### 3.2 甯歌閿欒椤甸潰浼橀泤灞曠ず
-鑷畾涔?404銆?00 绛夐敊璇〉闈紝鎻愬崌鐢ㄦ埛浣撻獙銆?
+#### 3.2 常见错误页面优雅展示
+自定义 404、500 等错误页面，提升用户体验。
 
 ```nginx
 server {
@@ -18104,26 +18064,26 @@ server {
     
     location = /404.html {
         root /usr/share/nginx/html;
-        internal; # 鍙厑璁稿唴閮ㄩ噸瀹氬悜锛岄槻姝㈢敤鎴风洿鎺ヨ闂?
+        internal; # 只允许内部重定向，防止用户直接访问
     }
 }
 ```
 
-#### 3.3 璺ㄥ煙閰嶇疆锛圕ORS锛?
-鍦ㄥ墠鍚庣鍒嗙鏋舵瀯涓紝寰€寰€闇€瑕佸湪缃戝叧灞傝В鍐宠法鍩熼棶棰樸€?
+#### 3.3 跨域配置（CORS）
+在前后端分离架构中，往往需要在网关层解决跨域问题。
 
 ```nginx
 location /api/ {
-    # 鍏佽鐨勫煙鍚嶏紝鐢熶骇鐜涓嶅缓璁敤 *
+    # 允许的域名，生产环境不建议用 *
     add_header ''Access-Control-Allow-Origin'' ''*'';
-    # 鍏佽鐨勮姹傛柟娉?
+    # 允许的请求方法
     add_header ''Access-Control-Allow_Methods'' ''GET, POST, OPTIONS'';
-    # 鍏佽鐨勮姹傚ご
+    # 允许的请求头
     add_header ''Access-Control-Allow-Headers'' ''DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization'';
-    # 棰勬璇锋眰锛圤PTIONS锛夌紦瀛樻椂闂?
+    # 预检请求（OPTIONS）缓存时间
     add_header ''Access-Control-Max-Age'' 1728000;
     
-    # 濡傛灉鏄妫€璇锋眰锛岀洿鎺ヨ繑鍥?04鎴愬姛
+    # 如果是预检请求，直接返回204成功
     if ($request_method = ''OPTIONS'') {
         return 204;
     }
@@ -18133,58 +18093,58 @@ location /api/ {
 
 ---
 
-### 4. 鎬ц兘璋冧紭瀹炶返
-#### 4.1 鏂囦欢浼犺緭浼樺寲
+### 4. 性能调优实践
+#### 4.1 文件传输优化
 ```nginx
 http {
-    # 寮€鍚浂鎷疯礉锛屽噺灏戝唴鏍告€佸埌鐢ㄦ埛鎬佺殑鏁版嵁鎷疯礉锛屾瀬澶ф彁鍗囬潤鎬佹枃浠朵紶杈撴晥鐜?
+    # 开启零拷贝，减少内核态到用户态的数据拷贝，极大提升静态文件传输效率
     sendfile on;
     
-    # 寮€鍚?TCP_NOPUSH锛圠inux锛夋垨 TCP_CORK锛屼笌 sendfile 閰嶅悎锛屽湪涓€涓綉缁滃寘涓彂閫佸搷搴斿ご鍜屾枃浠跺唴瀹?
+    # 开启 TCP_NOPUSH（Linux）或 TCP_CORK，与 sendfile 配合，在一个网络包中发送响应头和文件内容
     tcp_nopush on;
     
-    # 寮€鍚?TCP_NODELAY锛岀鐢?Nagle 绠楁硶锛屽皬鏁版嵁鍖呭彲浠ュ疄鏃跺彂閫侊紙閫傜敤浜庨暱杩炴帴锛?
+    # 开启 TCP_NODELAY，禁用 Nagle 算法，小数据包可以实时发送（适用于长连接）
     tcp_nodelay on;
 }
 ```
 
-#### 4.2 缂撳啿涓庤秴鏃惰缃?
-閫傚綋璋冩暣浠ｇ悊缂撳啿鍜岃秴鏃讹紝鍙互闃叉鍚庣鎱㈡湇鍔℃嫋鍨?Nginx銆?
+#### 4.2 缓冲与超时设置
+适当调整代理缓冲和超时，可以防止后端慢服务拖垮 Nginx。
 
 ```nginx
 http {
-    # 浠ｇ悊缂撳啿鍖哄ぇ灏?
+    # 代理缓冲区大小
     proxy_buffering on;
     proxy_buffer_size 4k;
     proxy_buffers 8 4k;
     proxy_busy_buffers_size 8k;
 
-    # 杩炴帴瓒呮椂锛堝崟浣嶏細绉掞級
-    proxy_connect_timeout 3s;   # 涓庡悗绔缓绔嬭繛鎺ョ殑瓒呮椂
-    proxy_read_timeout 30s;     # 璇诲彇鍚庣鍝嶅簲鐨勮秴鏃?
-    proxy_send_timeout 30s;     # 鍙戦€佽姹傚埌鍚庣鐨勮秴鏃?
+    # 连接超时（单位：秒）
+    proxy_connect_timeout 3s;   # 与后端建立连接的超时
+    proxy_read_timeout 30s;     # 读取后端响应的超时
+    proxy_send_timeout 30s;     # 发送请求到后端的超时
 }
 ```
 
-#### 4.3 Gzip 鍘嬬缉浼樺寲
+#### 4.3 Gzip 压缩优化
 ```nginx
 http {
-    gzip on;                   # 寮€鍚帇缂?
-    gzip_vary on;              # 鍦ㄥ搷搴斿ご涓坊鍔?Vary: Accept-Encoding锛屽憡鐭ヤ唬鐞嗘湇鍔″櫒缂撳瓨鐗堟湰
-    gzip_min_length 1k;        # 灏忎簬 1KB 鐨勬枃浠朵笉鍘嬬缉
-    gzip_comp_level 6;         # 鍘嬬缉绾у埆 1-9锛岀骇鍒秺楂樺帇缂╂瘮瓒婇珮锛屼絾娑堣€?CPU
+    gzip on;                   # 开启压缩
+    gzip_vary on;              # 在响应头中添加 Vary: Accept-Encoding，告知代理服务器缓存版本
+    gzip_min_length 1k;        # 小于 1KB 的文件不压缩
+    gzip_comp_level 6;         # 压缩级别 1-9，级别越高压缩比越高，但消耗 CPU
     gzip_types text/plain text/css text/xml text/javascript application/json application/javascript image/svg+xml;
-    # 瀵瑰浘鐗囥€佽棰戠瓑宸插帇缂╂枃浠朵笉杩涜浜屾鍘嬬缉
-    gzip_disable "msie6";      # 绂佺敤 IE6 鐨?gzip
+    # 对图片、视频等已压缩文件不进行二次压缩
+    gzip_disable "msie6";      # 禁用 IE6 的 gzip
 }
 ```
 
 ---
 
-### 5. 鏃ュ織绠＄悊涓庡垎鏋?
-鏃ュ織鏄帓鏌ラ棶棰樼殑鍒╁櫒锛屽悎鐞嗙殑鏃ュ織鏍煎紡鑳芥瀬澶ф彁鍗囨帓閿欐晥鐜囥€?
+### 5. 日志管理与分析
+日志是排查问题的利器，合理的日志格式能极大提升排错效率。
 
-#### 5.1 鑷畾涔夋棩蹇楁牸寮?
+#### 5.1 自定义日志格式
 ```nginx
 http {
     log_format main ''$remote_addr - $remote_user [$time_local] "$request" ''
@@ -18198,109 +18158,105 @@ http {
 }
 ```
 
-+ `buffer=32k flush=5s`锛氬皢鏃ュ織鍐欏叆鍐呭瓨缂撳啿鍖猴紝姣?绉掓垨缂撳啿婊℃椂鍐嶅埛鍏ョ鐩橈紝鑳芥樉钁楁彁鍗囬珮骞跺彂涓嬬殑鎬ц兘銆?
-+ **涓婃父鏃堕棿鍙橀噺**锛歚upstream_connect_time`, `upstream_header_time`, `upstream_response_time` 鏄帓鏌ュ悗绔€ц兘鐡堕鐨勭粷浣虫寚鏍囥€?
++ `buffer=32k flush=5s`：将日志写入内存缓冲区，每5秒或缓冲满时再刷入磁盘，能显著提升高并发下的性能。
++ **上游时间变量**：`upstream_connect_time`, `upstream_header_time`, `upstream_response_time` 是排查后端性能瓶颈的绝佳指标。
 
 ---
 
-### 6. Nginx 鐨勯珮鍙敤涓庡姩鎬侀厤缃?
-#### 6.1 Nginx + Keepalived 瀹炵幇楂樺彲鐢?
-Nginx 鏈韩娌℃湁涓诲鍒囨崲鍔熻兘锛岄€氬父閰嶅悎 **Keepalived** 瀹炵幇涓ゅ彴 Nginx 鏈嶅姟鍣ㄧ殑 VIP锛堣櫄鎷烮P锛夋紓绉伙紝涓€鍙颁负 Master锛屼竴鍙颁负 Backup锛屽綋 Master 瀹曟満鏃?VIP 鑷姩鍒囨崲鍒?Backup锛屼繚璇佺綉鍏冲眰鐨勯珮鍙敤銆?
+### 6. Nginx 的高可用与动态配置
+#### 6.1 Nginx + Keepalived 实现高可用
+Nginx 本身没有主备切换功能，通常配合 **Keepalived** 实现两台 Nginx 服务器的 VIP（虚拟IP）漂移，一台为 Master，一台为 Backup，当 Master 宕机时 VIP 自动切换到 Backup，保证网关层的高可用。
 
-#### 6.2 鍔ㄦ€?Upstream锛堢涓夋柟鏂规锛?
-鍘熺敓 Nginx 鐨?`upstream` 閰嶇疆鍙樻洿闇€瑕?`nginx -s reload`锛堜細鏈夌煭鏆備腑鏂級銆傚湪寰湇鍔″満鏅笅锛屽彲浠ヤ娇鐢?**Nginx Plus**锛堝晢涓氱増锛夋垨 **OpenResty / APISIX**锛屽畠浠敮鎸侀€氳繃 API 鍔ㄦ€佷慨鏀逛笂娓告湇鍔″櫒鍒楄〃锛屾棤闇€閲嶅惎銆?
-
----
-
-### 7. 瀹夊叏鍔犲浐瑕佺偣
-+ `server_tokens off;`锛氬叧闂増鏈彿鏄剧ず锛岄槻姝㈡敾鍑昏€呴€氳繃鐗堟湰婕忔礊鏀诲嚮銆?
-+ `client_max_body_size 10M;`锛氶檺鍒跺鎴风璇锋眰浣撳ぇ灏忥紝闃叉澶ф枃浠舵敾鍑汇€?
-+ `limit_conn_zone $binary_remote_addr zone=addr:10m;` 閰嶅悎 `limit_conn addr 100;`锛氶檺鍒跺悓涓€ IP 鐨勫苟鍙戣繛鎺ユ暟銆?
-+ `limit_req_zone $binary_remote_addr zone=req:10m rate=10r/s;` 閰嶅悎 `limit_req zone=req burst=20 nodelay;`锛氶檺鍒惰姹傞鐜囷紝瀹炵幇鍩虹鐨勯槻鍒蜂繚鎶ゃ€?
+#### 6.2 动态 Upstream（第三方方案）
+原生 Nginx 的 `upstream` 配置变更需要 `nginx -s reload`（会有短暂中断）。在微服务场景下，可以使用 **Nginx Plus**（商业版）或 **OpenResty / APISIX**，它们支持通过 API 动态修改上游服务器列表，无需重启。
 
 ---
 
-杩欎唤鎵╁睍绗旇瑕嗙洊浜?Nginx 浠庡熀纭€鍒拌繘闃剁殑鏍稿績鍐呭銆傚鏋滄兂鍐嶆繁鍏ユ煇涓叿浣撴柟鍚戯紝姣斿 **Lua 鑴氭湰鎵╁睍锛圤penResty锛?* 鎴?**涓?K8s Ingress 鐨勯泦鎴?*锛屽彲浠ラ殢鏃跺憡璇夋垜銆傪煒?
-', NOW());
-SET @last_note_id = LAST_INSERT_ID();
+### 7. 安全加固要点
++ `server_tokens off;`：关闭版本号显示，防止攻击者通过版本漏洞攻击。
++ `client_max_body_size 10M;`：限制客户端请求体大小，防止大文件攻击。
++ `limit_conn_zone $binary_remote_addr zone=addr:10m;` 配合 `limit_conn addr 100;`：限制同一 IP 的并发连接数。
++ `limit_req_zone $binary_remote_addr zone=req:10m rate=10r/s;` 配合 `limit_req zone=req burst=20 nodelay;`：限制请求频率，实现基础的防刷保护。
 
-INSERT INTO 
-ote (uthor_id, 	itle, content, created_at)
-VALUES (1004, '常用类', '# Object绫?
-## getClass鏂规硶
-+ 杩斿洖绫诲璞?
+---
+
+这份扩展笔记覆盖了 Nginx 从基础到进阶的核心内容。如果想再深入某个具体方向，比如 **Lua 脚本扩展（OpenResty）** 或 **与 K8s Ingress 的集成**，可以随时告诉我。😊
+', 0, NOW());
+
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+VALUES (17, 1004, '常用类', '# Object类
+## getClass方法
++ 返回类对象
 
 ```java
 Class c1 = s1.getClass();
 ```
 
-## hashCode()鏂规硶
+## hashCode()方法
 + public int hashCode(){}
-+ 杩斿洖璇ュ璞＄殑娉曠郴鐮佸€?
-+ 鍝堝笇鍊兼牴鎹璞″湴鍧€鎴栧瓧绗︿覆鎴栨暟瀛椾娇鐢╤ash绠楁硶璁＄畻鍑烘潵鐨刬nt绫诲瀷鐨勬暟鍊?
-+ 涓€鑸儏鍐典笅鐩稿悓瀵硅薄杩斿洖鐩稿悓鐨勫搱甯岀爜鍊?
++ 返回该对象的法系码值
++ 哈希值根据对象地址或字符串或数字使用hash算法计算出来的int类型的数值
++ 一般情况下相同对象返回相同的哈希码值
 
 ```java
 s1.hashCode();
 ```
 
-## toString()鏂规硶
+## toString()方法
 + public String toString(){}
-+ 杩斿洖璇ュ璞＄殑瀛楃涓诧紙琛ㄧず褰㈠紡锛?
-+ 鍙互鏍规嵁绋嬪簭闇€姹傝鐩栬鏂规硶锛屽锛氬睍绀哄璞＄殑鍚勪釜灞炴€у€?
++ 返回该对象的字符串（表示形式）
++ 可以根据程序需求覆盖该方法，如：展示对象的各个属性值
 
 ```java
 s1.toString();
 ```
 
-## equals()鏂规硶
+## equals()方法
 + public boolean equals(Object obj){}
-+ 榛樿瀹炵幇涓?this == obj)锛屾瘮杈冧袱涓璞″湴鍧€鏄惁鐩稿悓
-+ 鍙繘琛岃鐩栵紝姣旇緝涓や釜瀵硅薄鐨勫唴瀹规槸鍚︾浉鍚?
++ 默认实现为(this == obj)，比较两个对象地址是否相同
++ 可进行覆盖，比较两个对象的内容是否相同
 
 ```java
 s1.equals(s2);
 ```
 
-# String绫?
-## 姒傝堪
-+ 瀛楃涓叉槸甯搁噺锛屽垱寤轰箣鍚庝笉鍙敼鍙?
-+ 瀛楃涓插瓧闈㈠€煎瓨鍌ㄥ湪瀛楃涓叉睜涓紝涔熷彲鍏变韩
-+ String s = "Hello"; 浜х敓涓€涓璞★紝瀛楃涓叉睜涓瓨鍌?
-+ String s = new String("Hello"); 浜х敓涓や釜瀵硅薄锛屽爢锛屽悆涓瓨鍌ㄤ竴涓?
+# String类
+## 概述
++ 字符串是常量，创建之后不可改变
++ 字符串字面值存储在字符串池中，也可共享
++ String s = "Hello"; 产生一个对象，字符串池中存储
++ String s = new String("Hello"); 产生两个对象，堆，吃个存储一个
 
-## 甯哥敤鏂规硶
-+ public int length()锛氳繑鍥炲瓧绗︿覆鐨勯暱搴?
-+ public char charAt(int index)锛氭牴鎹笅鏍囪幏鍙栧瓧绗︿覆
-+ public boolean contains(String str)锛氬垽鏂綋鍓嶅瓧绗︿覆涓槸鍚﹀寘鍚玸tr
-+ pulic char[] toCharArray()锛氬皢瀛楃涓茶浆涓烘暟缁?
-+ public int indexOf(String str)锛氭煡鎵緎tr棣栨鍑虹幇鐨勪笅鏍囷紝瀛樺湪鍒欒繑鍥炶涓嬫爣锛屼笉瀛樺湪锛屽垯杩斿洖-1
-+ public int lastIndexOf(String str)锛氭煡鎵緎tr鍦ㄥ瓧绗︿覆涓渶鍚庝竴娆″嚭鐜扮殑涓嬫爣
-+ public String trim()锛氬幓鎺夊瓧绗︿覆鍓嶅悗鐨勭┖鏍?
-+ public String toUpperCase()锛氬皢灏忓啓杞崲鎴愬ぇ鍐?
-+ public String endWith(String str)锛氬垽鏂瓧绗︿覆鏄惁浠tr缁撳熬
-+ public String replace(char oldChar,char newChar)锛氬皢灏卞瓧绗︿覆杞崲涓烘柊瀛楃涓?
-+ public String[] split(String str)锛氭牴鎹畇tr鍋氭媶鍒?
-', NOW());
-SET @last_note_id = LAST_INSERT_ID();
+## 常用方法
++ public int length()：返回字符串的长度
++ public char charAt(int index)：根据下标获取字符串
++ public boolean contains(String str)：判断当前字符串中是否包含str
++ pulic char[] toCharArray()：将字符串转为数组
++ public int indexOf(String str)：查找str首次出现的下标，存在则返回该下标，不存在，则返回-1
++ public int lastIndexOf(String str)：查找str在字符串中最后一次出现的下标
++ public String trim()：去掉字符串前后的空格
++ public String toUpperCase()：将小写转换成大写
++ public String endWith(String str)：判断字符串是否以str结尾
++ public String replace(char oldChar,char newChar)：将就字符串转换为新字符串
++ public String[] split(String str)：根据str做拆分
+', 0, NOW());
 
-INSERT INTO 
-ote (uthor_id, 	itle, content, created_at)
-VALUES (1005, 'JavaWeb', '# Tomcat
-## 鐢╰omcat鍙戝竷涓€涓綉绔?
-灏嗚嚜宸卞啓鐨勭綉绔欙紝鏀惧埌鏈嶅姟鍣紙tomcat锛変腑鎸囧畾鐨剋eb搴旂敤鐨勬枃浠跺す锛坵ebapps锛変笅锛屽氨鍙互璁块棶浜?
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+VALUES (18, 1005, 'JavaWeb', '# Tomcat
+## 用tomcat发布一个网站
+将自己写的网站，放到服务器（tomcat）中指定的web应用的文件夹（webapps）下，就可以访问了
 
-缃戠粶搴旇鏈夌殑缁撴瀯
+网络应该有的结构
 
 ```plain
---webapps: Tomcat鏈嶅姟鍣ㄧ殑web鐩綍
+--webapps: Tomcat服务器的web目录
   --ROOT
-  --kuangstduy :缃戠珯鐨勭洰褰曞悕
+  --kuangstduy :网站的目录名
     - WEB-INF
-      -classes :java绋嬪簭
-      -lib :web搴旂敤鎵€渚濊禆鐨刯ar鍖?
-      -web.xml :缃戠珯鐨勯厤缃枃浠?
-    -index.html 榛樿鐨勯椤?
+      -classes :java程序
+      -lib :web应用所依赖的jar包
+      -web.xml :网站的配置文件
+    -index.html 默认的首页
     -static
       -css
       -js
@@ -18309,21 +18265,21 @@ VALUES (1005, 'JavaWeb', '# Tomcat
 ```
 
 # Servlet
-## 缂栧啓涓€涓猄ervlet绋嬪簭
-+ 鍒涘缓涓€涓櫘閫氱殑Maven椤圭洰锛屽垹闄rc鏂囦欢
-+ 鍒涘缓涓€涓狹odule
-    - Module涓彲浠ョ户鎵跨埗椤圭洰涓殑jar鍖?
-+ Maven鐜浼樺寲
-+ 缂栧啓涓€涓猄ervlet鐨勭▼搴?
+## 编写一个Servlet程序
++ 创建一个普通的Maven项目，删除src文件
++ 创建一个Module
+    - Module中可以继承父项目中的jar包
++ Maven环境优化
++ 编写一个Servlet的程序
 
 ```plain
 public class HelloServlet extends HttpServlet {
 
-    // 鐢变簬get鎴杙ost鍙兘璇锋眰瀹炵幇鐨勪笉鍚岀殑鏂瑰紡锛屽彲浠ョ浉浜掕皟鐢紝涓氬姟閫昏緫閮戒竴鏍?
+    // 由于get或post只能请求实现的不同的方式，可以相互调用，业务逻辑都一样
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // ServletOutputStream outputStream = resp.getOutputStream();
-        PrintWriter out = resp.getWriter();   // 鍝嶅簲娴?
+        PrintWriter out = resp.getWriter();   // 响应流
 
         out.print("Hello Servlet");
     }
@@ -18335,18 +18291,18 @@ public class HelloServlet extends HttpServlet {
 }
 ```
 
-+ 缂栧啓Servlet鐨勬槧灏?
-    - 涓轰粈涔堥渶瑕佹槧灏勶細鎴戜滑鍐欑殑鏄痡ava绋嬪簭锛岃閫氳繃娴忚鍣ㄨ闂紝鑰屾祻瑙堝櫒闇€瑕侀摼鎺eb鏈嶅姟鍣紝鎵€浠ユ垜浠渶瑕佸湪web鏈嶅姟鍣ㄤ腑娉ㄥ唽鎴戝啓鐨凷ervlet锛岃繕闇€缁欎粬涓€涓祻瑙堝櫒鑳藉璁块棶鐨勮矾寰勶紱
++ 编写Servlet的映射
+    - 为什么需要映射：我们写的是java程序，要通过浏览器访问，而浏览器需要链接web服务器，所以我们需要在web服务器中注册我写的Servlet，还需给他一个浏览器能够访问的路径；
 
 ```xml
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-  <!--  娉ㄥ唽Servlet-->
+  <!--  注册Servlet-->
   <servlet>
     <servlet-name>hello</servlet-name>
     <servlet-class>com.jie.servlet.HelloServlet</servlet-class>
   </servlet>
-  <!-- Servlet璇锋眰鐨勮矾寰?->
+  <!-- Servlet请求的路径-->
   <servlet-mapping>
     <servlet-name>hello</servlet-name>
     <url-pattern>/hello</url-pattern>
@@ -18354,16 +18310,16 @@ public class HelloServlet extends HttpServlet {
 </web-app>
 ```
 
-+ 閰嶇疆Tomcat
++ 配置Tomcat
 + <img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1747377923221-b238db4e-015d-4a31-95fe-4bf1663ef059.png" width="593" title="" crop="0,0,1,1" id="u5044518f" class="ne-image">
 
-## Servlet鍘熺悊
-Servlet鏄敱Web鏈嶅姟鍣ㄨ皟鐢紝web鏈嶅姟鍣ㄥ湪鏀跺埌娴忚鍣ㄨ姹備箣鍚庯紝浼氾細
+## Servlet原理
+Servlet是由Web服务器调用，web服务器在收到浏览器请求之后，会：
 
 <img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1747379394800-f0d62945-270b-4fdf-a886-0081173b9c31.png" width="808.8" title="" crop="0,0,1,1" id="u6d1bf402" class="ne-image">
 
-## Mapping闂
-涓€涓猄ervlet鍙互鎸囧畾涓€涓槧灏勮矾寰?
+## Mapping问题
+一个Servlet可以指定一个映射路径
 
 ```xml
 <servlet-mapping>
@@ -18372,36 +18328,36 @@ Servlet鏄敱Web鏈嶅姟鍣ㄨ皟鐢紝web鏈嶅姟鍣ㄥ湪鏀跺埌娴�
 </servlet-mapping>
 ```
 
-涓€涓猄ervlet鍙互鎸囧畾澶氫釜涓槧灏勮矾寰?
+一个Servlet可以指定多个个映射路径
 
-涓€涓猄ervlet鍙互鎸囧畾閫氱敤鏄犲皠璺緞
+一个Servlet可以指定通用映射路径
 
-涓€涓寚瀹氫竴浜涘悗缂€鎴栬€呭墠缂€绛夌瓑鈥︹€?
+一个指定一些后缀或者前缀等等……
 
 ## getServletContext
-### 鍏变韩鏁版嵁
-web瀹瑰櫒鍦ㄥ惎鍔ㄧ殑鏃跺€欙紝瀹冧細涓烘瘡涓獁eb绋嬪簭閮藉垱寤轰竴涓搴旂殑ServletContext瀵硅薄锛屽畠浠ｈ〃浜嗗綋鍓嶇殑web搴旂敤锛?
+### 共享数据
+web容器在启动的时候，它会为每个web程序都创建一个对应的ServletContext对象，它代表了当前的web应用；
 
-+ 鍏变韩鏁版嵁
-    - 鎴戝湪杩欎釜Servlet涓繚瀛樼殑鏁版嵁锛屽彲浠ュ湪鍙︿竴涓猄ervlet涓嬁鍒帮紱
-+ 鏀剧疆鏁版嵁鐨勭被
++ 共享数据
+    - 我在这个Servlet中保存的数据，可以在另一个Servlet中拿到；
++ 放置数据的类
 
 ```java
 public class HelloServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //        this.getInitParameter("name");   // 鍒濆鍖栧弬鏁?
-        //        this.getServletConfig()          // Servlet閰嶇疆
-        //        this.getServletContext()         // Servlet涓婁笅鏂?
+        //        this.getInitParameter("name");   // 初始化参数
+        //        this.getServletConfig()          // Servlet配置
+        //        this.getServletContext()         // Servlet上下文
         ServletContext context = this.getServletContext();
-        String name = "jie";    // 鏁版嵁
-        // 灏嗕竴涓暟鎹繚瀛樺埌浜哠ervletContext涓紝鍚嶅瓧涓簎sername锛屽彧涓簄ame
+        String name = "jie";    // 数据
+        // 将一个数据保存到了ServletContext中，名字为username，只为name
         context.setAttribute("username", name);
     }
 }
 ```
 
-+ 璇诲彇鏁版嵁鐨勭被
++ 读取数据的类
 
 ```java
 public class GetServlet extends HttpServlet {
@@ -18417,7 +18373,7 @@ public class GetServlet extends HttpServlet {
 }
 ```
 
-+ 閰嶇疆璺敱
++ 配置路由
 
 ```xml
 <servlet>
@@ -18441,11 +18397,11 @@ public class GetServlet extends HttpServlet {
 </servlet-mapping>
 ```
 
-+ 娴嬭瘯璁块棶缁撴灉
++ 测试访问结果
 
 
 
-### 鍒濆鍖栧弬鏁?
+### 初始化参数
 ```xml
   <context-param>
     <param-name>url</param-name>
@@ -18474,32 +18430,32 @@ public class ServletDemo03 extends HttpServlet {
 }
 ```
 
-### 璇锋眰杞彂
+### 请求转发
 ```java
 public class ServletDemo04 extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ServletContext context = this.getServletContext();
-//        RequestDispatcher requestDispatcher = context.getRequestDispatcher("/damo03");   // 杞彂璇锋眰鐨勮矾寰?
-//        requestDispatcher.forward(req, resp);  // 璋冪敤forward瀹炵幇璇锋眰杞彂
-        System.out.println("杩涘叆浜嗚繖閲?);
+//        RequestDispatcher requestDispatcher = context.getRequestDispatcher("/damo03");   // 转发请求的路径
+//        requestDispatcher.forward(req, resp);  // 调用forward实现请求转发
+        System.out.println("进入了这里");
         context.getRequestDispatcher("/damo03").forward(req, resp);
     }
 }
 ```
 
-### 璇诲彇璧勬簮鏂囦欢
+### 读取资源文件
 Properties
 
-+ 鍦╦ava鐩綍涓嬫柊寤簆roperties
-+ 瀛愬晩resources鐩綍涓嬫柊寤簆roperties
++ 在java目录下新建properties
++ 子啊resources目录下新建properties
 
-鍙戠幇锛氶兘琚墦鍖呯殑浜嗙粺涓€璺緞涓嬶細classes锛屾垜浠織绉拌繖涓矾寰勪负classpath
+发现：都被打包的了统一路径下：classes，我们俗称这个路径为classpath
 
-鎬濊矾锛?
+思路：
 
-+ 闇€瑕佷竴涓枃浠舵祦锛?
++ 需要一个文件流：
 
 ```java
 public class ServletDamo05 extends HttpServlet {
@@ -18519,34 +18475,34 @@ public class ServletDamo05 extends HttpServlet {
 ```
 
 ## HttpServletResponse
-### 绠€鍗曞垎绫?
-web鏈嶅姟鍣ㄨ繛鎺ユ敹鍒扮殑瀹㈡埛绔殑http璇锋眰锛岄拡瀵硅繖涓姹傦紝鍒嗗埆鍒涘缓涓€涓唬琛ㄨ姹傜殑HttpServletResponse瀵硅薄锛屼唬琛ㄥ搷搴斾竴涓紱
+### 简单分类
+web服务器连接收到的客户端的http请求，针对这个请求，分别创建一个代表请求的HttpServletResponse对象，代表响应一个；
 
-+ 濡傛灉瑕佽幏鍙栧鎴风璇锋眰鏉ョ殑鍙傛暟锛屾壘HttpServletRequest
-+ 濡傛湡瀹㈡埛绔搷搴斾竴浜涙秷鎭壘锛欻ttpServletResponse
++ 如果要获取客户端请求来的参数，找HttpServletRequest
++ 如期客户端响应一些消息找：HttpServletResponse
 
-鍚戞祻瑙堝櫒鍙戦€佹暟鎹殑鏂规硶
+向浏览器发送数据的方法
 
 ```java
 ServletOutputStream getOutputStream() throw IOException;
 PrintWriter getWriter() throw IOException;
 ```
 
-璐熻矗鍚戞祻瑙堝櫒鍙戦€佸搷搴斿ご鐨勬柟娉?
+负责向浏览器发送响应头的方法
 
-鍝嶅簲鐨勭姸鎬佺爜
+响应的状态码
 
-### 甯歌搴旂敤
-1. 鍚戞祻瑙堝櫒杈撳嚭娑堟伅
-2. 涓嬭浇鏂囦欢
-    1. 瑕佽幏鍙栨枃浠剁殑璺緞
-    2. 涓嬭浇鐨勬枃浠跺悕鏄暐锛?
-    3. 璁剧疆鍚戝姙娉曡鍒樻祻瑙堝櫒鑳藉鏀寔涓嬭浇鎴戜滑闇€瑕佺殑涓滆タ
-    4. 鑾峰彇涓嬭浇鏂囦欢鐨勮緭鍏ユ祦
-    5. 鍒涘缓缂撳啿鍖?
-    6. 鑾峰彇OutputStream瀵硅薄
-    7. 灏咶ileOutputStream鍒楀叆鍒癰uffer缂撳啿鍖?
-    8. 浣跨敤OutputStream灏嗙紦鍐插尯涓殑鏁版嵁杈撳嚭鍒板鎴风
+### 常见应用
+1. 向浏览器输出消息
+2. 下载文件
+    1. 要获取文件的路径
+    2. 下载的文件名是啥？
+    3. 设置向办法让刘浏览器能够支持下载我们需要的东西
+    4. 获取下载文件的输入流
+    5. 创建缓冲区
+    6. 获取OutputStream对象
+    7. 将FileOutputStream列入到buffer缓冲区
+    8. 使用OutputStream将缓冲区中的数据输出到客户端
 
 ```java
 package com.jie.response;
@@ -18563,20 +18519,20 @@ import java.io.IOException;
 public class FileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // 鑾峰彇涓嬭浇鏂囦欢鐨勮矾寰?
+        // 获取下载文件的路径
         String realPath = this.getServletContext().getRealPath("1.png");
-        // 涓嬭浇鐨勬枃浠跺悕鏄暐锛?
+        // 下载的文件名是啥？
         String fileName = realPath.substring(realPath.lastIndexOf("/") + 1);
-        // 璁剧疆鎯冲姙娉曡娴忚鍣ㄦ敮鎸佷笅杞界殑闇€瑕佺殑涓滆タ
+        // 设置想办法让浏览器支持下载的需要的东西
         resp.setHeader("Content-Disposition", "attachment; filename=" + fileName);
-        // 鑾峰彇涓嬭浇鏂囦欢鐨勮緭鍏ユ祦
+        // 获取下载文件的输入流
         FileInputStream in = new FileInputStream(realPath);
-        // 鍒涘缓缂撳啿鍖?
+        // 创建缓冲区
         int len = 0;
         byte[] buffer = new byte[1024];
-        // 鑾峰彇杈撳嚭娴佸璞?
+        // 获取输出流对象
         ServletOutputStream out = resp.getOutputStream();
-        // 灏咶ileOutputStream娴佸啓鍏ュ埌buffer涓?
+        // 将FileOutputStream流写入到buffer中
         while ((len = in.read(buffer)) != -1) {
             out.write(buffer, 0, len);
         }
@@ -18595,66 +18551,66 @@ public class FileServlet extends HttpServlet {
 ```
 
 # Cookie/Session
-## 浼氳瘽
-**浼氳瘽**锛氱敤鎴锋墦寮€涓€涓祻瑙堝櫒锛岀偣鍑讳簡寰堝瓒呴摼鎺ワ紝璁块棶澶氫釜鏂囨湰璧勬簮锛屽叧闂祻瑙堝櫒锛岃繖涓繃绋嬬О涔嬩负浼氳瘽
+## 会话
+**会话**：用户打开一个浏览器，点击了很多超链接，访问多个文本资源，关闭浏览器，这个过程称之为会话
 
-**鏈夌姸鎬佸洖璇?*锛氫竴涓悓瀛︽潵杩囨暀瀹わ紝涓嬫鍐嶆潵鏁欏锛屾垜浠細鐭ラ亾杩欎釜鍚屽锛屾浘缁忔潵杩囷紝绉颁箣涓烘湁鐘舵€佸洖璇?
+**有状态回话**：一个同学来过教室，下次再来教室，我们会知道这个同学，曾经来过，称之为有状态回话
 
-## 淇濆瓨浼氳瘽鐨勪袱绉嶆妧鏈?
+## 保存会话的两种技术
 **Cookie**
 
-+ 瀹㈡埛绔妧鏈紙鍝嶅簲锛岃姹傦級
++ 客户端技术（响应，请求）
 
 session
 
-+ 鏈嶅姟鍣ㄦ妧鏈紝鍒╃敤杩欎釜鎶€鏈紝鍙互淇濇寔鐢ㄦ埛鐨勫洖璇濅俊鎭紝鎴戜滑鍙互鎶婃暟鎹垨淇℃伅鏀惧湪session涓?
++ 服务器技术，利用这个技术，可以保持用户的回话信息，我们可以把数据或信息放在session中
 
-甯歌鍦烘櫙锛氱綉绔欑櫥褰曚箣鍚庯紝涓嬫涓嶇敤鍐嶇櫥褰曚簡锛?
+常见场景：网站登录之后，下次不用再登录了，
 
 ## Cookie
-1. 浠庤姹備腑鎷垮埌Cookie淇℃伅
-2. 鏈嶅姟鍣ㄥ搷搴旂粰瀹㈡埛绔疌ookie
+1. 从请求中拿到Cookie信息
+2. 服务器响应给客户端Cookie
 
-<details class="lake-collapse"><summary id="u2175f3d9"><span class="ne-text">Cookie鏂规硶</span></summary><p id="ua8aab64b" class="ne-p"><span class="ne-text">req.getCookies(); // 鑾峰緱Cookie<br /></span><span class="ne-text">cookie.getName();  // 鑾峰緱Cookie鐨刱ey<br /></span><span class="ne-text">cookie.getValue();  // 鑾峰緱cookie鐨剉alue<br /></span><span class="ne-text">// 鏂板缓涓€涓猚ookie<br /></span><span class="ne-text">new Cookie(&quot;lastLoginTime&quot;, System.currentTimeMillis() + &quot;&quot;);<br /></span><span class="ne-text">Cookie.setMaxAge(24*60*60); // 璁剧疆cookie鐨勬湁鏁堟湡<br /></span><span class="ne-text">resp.addCookie(cookie);  // 鍝嶅簲缁欏鎴风涓€涓狢ookie<br /></span></p></details>
-涓€涓綉绔機ookie鏄惁瀛樺湪涓婇檺锛?
+<details class="lake-collapse"><summary id="u2175f3d9"><span class="ne-text">Cookie方法</span></summary><p id="ua8aab64b" class="ne-p"><span class="ne-text">req.getCookies(); // 获得Cookie<br /></span><span class="ne-text">cookie.getName();  // 获得Cookie的key<br /></span><span class="ne-text">cookie.getValue();  // 获得cookie的value<br /></span><span class="ne-text">// 新建一个cookie<br /></span><span class="ne-text">new Cookie(&quot;lastLoginTime&quot;, System.currentTimeMillis() + &quot;&quot;);<br /></span><span class="ne-text">Cookie.setMaxAge(24*60*60); // 设置cookie的有效期<br /></span><span class="ne-text">resp.addCookie(cookie);  // 响应给客户端一个Cookie<br /></span></p></details>
+一个网站Cookie是否存在上限！ 
 
-+ 涓€涓狢ookie鍙兘淇濆瓨涓€涓俊鎭紱
-+ 涓€涓獁eb缃戠珯鐐瑰彲浠ョ粰娴忚鍣ㄥ彂閫佸涓狢ookie锛屾渶澶氬瓨鏀?0涓狢ookie锛?
-+ Cookie澶у皬鏈変笂闄?
-+ 300涓狢ookie娴忚鍣ㄤ笂闄?
++ 一个Cookie只能保存一个信息；
++ 一个web网站点可以给浏览器发送多个Cookie，最多存放20个Cookie；
++ Cookie大小有上限
++ 300个Cookie浏览器上限
 
-鍒犻櫎Cookie
+删除Cookie
 
-+ 涓嶈缃湁鏁堟湡锛屽叧闂祻瑙堝櫒锛岃嚜鍔ㄥけ鏁堬紱
-+ 璁剧疆鏈夋晥鏈熸椂闂翠负0锛?
++ 不设置有效期，关闭浏览器，自动失效；
++ 设置有效期时间为0；
 
-缂栫爜瑙ｇ爜
+编码解码
 
 ```java
-URLEncoder.encode("绉︾枂", "utf-8");
+URLEncoder.encode("秦疆", "utf-8");
 URLDecoder.decoder(cookie.getValue(), "utf-8");
 ```
 
 ## Session
-浠€涔堟槸session锛?
+什么是session：
 
-+ 鏈嶅姟鍣ㄤ細涓瘡涓€涓敤鎴凤紙娴忚鍣級鍒涘缓涓€涓猻ession
-+ 涓€涓猻ession鐙崰涓€涓祻瑙堝櫒锛屽彧瑕佹祻瑙堝櫒娌″叧锛岃繖涓猻ession灏卞瓨鍦?
-+ 鐢ㄦ埛鐧诲綍涔嬪悗锛屾暣涓綉绔欓兘鍙互璁块棶锛?-> 淇濆瓨鐢ㄦ埛鐨勪俊鎭紝淇濆瓨璐墿杞︾殑淇℃伅鈥︹€?
++ 服务器会个每一个用户（浏览器）创建一个session
++ 一个session独占一个浏览器，只要浏览器没关，这个session就存在
++ 用户登录之后，整个网站都可以访问，--> 保存用户的信息，保存购物车的信息……
 
-session鍜孋ookie鐨勫尯鍒?
+session和Cookie的区别
 
-+ Cookie鏄妸鐢ㄦ埛鐨勬暟鎹啓缁欑敤鎴风殑娴忚鍣紝娴忚鍣ㄤ繚瀛?
-+ session鏄妸鐢ㄦ埛鐨勬暟鎹啓鍒扮敤鎴风嫭鍗爏ession涓紝鏈嶅姟鍣ㄧ淇濆瓨锛坆淇濆瓨閲嶈鐨勪俊鎭紝鍧氬畧鏈嶅姟鍣ㄨ祫婧愮殑娴垂锛?
-+ Session瀵硅薄鐢辨湇鍔″垱寤?
++ Cookie是把用户的数据写给用户的浏览器，浏览器保存
++ session是把用户的数据写到用户独占session中，服务器端保存（b保存重要的信息，坚守服务器资源的浪费）
++ Session对象由服务创建
 
-浣跨敤鍦烘櫙
+使用场景
 
-+ 淇濆瓨涓€涓櫥褰曠敤鎴风殑淇℃伅
-+ 璐墿杞︿俊鎭?
-+ 鍦ㄦ暣涓綉绔欎腑缁忓父浣跨敤鐨勬暟鎹紝灏嗕粬浠繚鎸佸湪Session涓?
++ 保存一个登录用户的信息
++ 购物车信息
++ 在整个网站中经常使用的数据，将他们保持在Session中
 
-浣跨敤Session
+使用Session
 
 ```java
 package com.jie.cookie;
@@ -18669,27 +18625,27 @@ public class SessionDamo01 extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // 瑙ｅ喅涔辩爜闂
+        // 解决乱码问题
         req.setCharacterEncoding("GBK");
         resp.setCharacterEncoding("GBK");
         resp.setContentType("text/html;charset=UTF-8");
 
-        // 寰楀埌Session
+        // 得到Session
         HttpSession session = req.getSession();
-        // 缁橲ession涓瓨涓滆タ
-        session.setAttribute("name", "绉︾枂");
+        // 给Session中存东西
+        session.setAttribute("name", "秦疆");
 
-        // 鑾峰彇session鐨刬d
+        // 获取session的id
         String id = session.getId();
 
-        // 鍒ゆ柇Session鏄笉鏄柊寤?
+        // 判断Session是不是新建
         if (session.isNew()) {
             resp.getWriter().write("session is a new,ID:"+id);
         } else {
             resp.getWriter().write("session is a old,ID:"+id);
         }
 
-        // session鍒涘缓鐨勬椂鍊欏仛浜嗕粈涔?
+        // session创建的时候做了什么
         Cookie cookie = new Cookie("JSESSIONID", id);
         resp.addCookie(cookie);
     }
@@ -18697,61 +18653,61 @@ public class SessionDamo01 extends HttpServlet {
 
 ```
 
-浼氳瘽鑷姩杩囨湡
+会话自动过期
 
 ```xml
-<!--  璁剧疆session榛樿鐨勬敞閿€鏃堕棿-->
+<!--  设置session默认的注销时间-->
 <session-config>
-  <!--    浠ュ垎閽熶负鍗曚綅-->
+  <!--    以分钟为单位-->
   <session-timeout>1</session-timeout>
 </session-config>
 ```
 
 # JSP
-## 浠€涔堟槸JSP
-Java Server Pages锛欽ava鏈嶅姟鍣ㄧ椤甸潰锛屼篃鍜孲ervlet涓€鏍凤紝鐢ㄤ簬鍔ㄦ€乄eb鎶€鏈?
+## 什么是JSP
+Java Server Pages：Java服务器端页面，也和Servlet一样，用于动态Web技术
 
-鏈€澶х殑鎻愮偣
+最大的提点
 
-+ 鍐橨SP灏卞儚鍐橦TML
-+ 鍖哄埆
-    - HTML鍙兘缁欑敤鎴锋彁渚涢潤鎬佺殑鏁版嵁
-    - JSP椤甸潰涓彲浠ュ祵鍏ava浠ｇ爜锛屼负鐢ㄦ埛鎻愪緵鍔ㄦ€佹暟鎹紱
++ 写JSP就像写HTML
++ 区别
+    - HTML只能给用户提供静态的数据
+    - JSP页面中可以嵌入Java代码，为用户提供动态数据；
 
-## JSP鍘熺悊
-鎬濊矾锛欽SP鍒板簳鏄€庝箞鎵ц鐨?
+## JSP原理
+思路：JSP到底是怎么执行的
 
-+ 浠ｇ爜灞傞潰娌＄敤浠讳綍闂
-+ 鏈嶅姟鍣ㄥ唴閮ㄥ伐浣?
-    - Tomcat涓湁涓€涓獁ork鐩綍
-    - IDEA涓娇鐢═omcat鐨勪細鍦↖DEA鐨処DEA涓骇鐢熶竴涓獁ork鐩綍
++ 代码层面没用任何问题
++ 服务器内部工作
+    - Tomcat中有一个work目录
+    - IDEA中使用Tomcat的会在IDEA的IDEA中产生一个work目录
 
-娴忚鍣ㄥ悜鏈嶅姟鍣ㄥ彂閫佽姹傦紝涓嶇璁块棶浠€涔堣祫婧愶紝鍏跺疄閮芥槸鍦ㄨ闂甋ervlet
+浏览器向服务器发送请求，不管访问什么资源，其实都是在访问Servlet
 
-jsp鏈€缁堝澹跺彉鎴愪负涓€涓狫ava绫?
+jsp最终夜壶变成为一个Java类
 
-jsp鏈川灏辨槸涓€涓猄ervlet
+jsp本质就是一个Servlet
 
 ```java
-// 鍒濆鍖?
+// 初始化
 public void _jspInit() {}
-// 閿€姣?
+// 销毁
 public void _jspDestory() {}
 // JSPService
 public void _jspService(.HttpServletRequest request, HttpServletResponse response)
 ```
 
-1. 鍒ゆ柇璇锋眰
-2. 鍐呯疆浜嗕竴浜涘璞?
-3. 杈撳嚭椤甸潰鍓嶅鍔犵殑浠ｇ爜
-4. 鍦↗SP椤甸潰涓紝鍙鏄痡ava浠ｇ爜灏变細鍘熷皝涓嶅姩鐨勮緭鍑猴紝濡傛槸HTML浠ｇ爜锛屽氨浼氳杞崲涓篳out.writer("<html>")`
+1. 判断请求
+2. 内置了一些对象
+3. 输出页面前增加的代码
+4. 在JSP页面中，只要是java代码就会原封不动的输出，如是HTML代码，就会被转换为`out.writer("<html>")`
 
-## 鍩虹璇硶
-浠讳綍璇█閮芥湁鑷繁鐨勮娉曪紝JSP浣滀负java鎶€鏈殑搴旂敤锛屽畠鎷ユ湁涓€浜涜嚜宸辨墿鍏呯殑璇硶锛宩ava鎵€鏈夌殑璇硶閮芥敮鎸侊紒
+## 基础语法
+任何语言都有自己的语法，JSP作为java技术的应用，它拥有一些自己扩充的语法，java所有的语法都支持！
 
-JSP琛ㄨ揪寮?
+JSP表达式
 
-JSP澹版槑
+JSP声明
 
 ```jsx
 <%!
@@ -18768,23 +18724,23 @@ JSP澹版槑
 %>
 ```
 
-jsp澹版槑锛氫細琚紪璇戝埌jsp鐢熸垚鐨刯ava浜嗙被涓紝鍏朵粬鐨勶紝灏变細琚敓鎴愬埌_jspService鏂规硶涓?
+jsp声明：会被编译到jsp生成的java了类中，其他的，就会被生成到_jspService方法中
 
-鍦╦sp锛屽祵鍏ava浠ｇ爜鍗冲彲锛?
+在jsp，嵌入java代码即可！
 
 ```jsx
-<%%>  // 鐗囨
-<%= %>  // 琛ㄨ揪寮忚緭鍑轰竴涓€?
-<%--  --%>  // 杩欐槸娉ㄩ噴
+<%%>  // 片段
+<%= %>  // 表达式输出一个值
+<%--  --%>  // 这是注释
 ```
 
-jsp鐨勬敞閲婁笉浼氬湪瀹㈡埛绔樉绀?
+jsp的注释不会在客户端显示
 
-## JSP鎸囦护
-鑷畾涔夋寚浠ら敊璇?
+## JSP指令
+自定义指令错误
 
 ```jsx
-<%--鑷畾涔夐敊璇〉闈?-%>
+<%--自定义错误页面--%>
   <%@ page errorPage="error/500.jsp" %>
 ```
 
@@ -18800,45 +18756,45 @@ jsp鐨勬敞閲婁笉浼氬湪瀹㈡埛绔樉绀?
 </error-page>
 ```
 
-jsp鏍囩
+jsp标签
 
 ```jsx
-// 瀵煎叆鍙︿竴涓枃浠剁殑鍐呭
+// 导入另一个文件的内容
 <jsp:include page="common/header.jsp"/>
 ```
 
-jsp 璁剧疆EL琛ㄨ揪寮?
+jsp 设置EL表达式
 
 ```jsx
-// true琛ㄧず蹇界暐EL琛ㄨ揪寮?
+// true表示忽略EL表达式
 <%@ page isELIgnored="false" %>
 ```
 
-## 鍐呯疆鐨?澶у璞?
-+ PageContext    // 椤甸潰涓婁笅鏂?
-+ Request       // 璇锋眰
-+ Response    // 鍝嶅簲
+## 内置的9大对象
++ PageContext    // 页面上下文
++ Request       // 请求
++ Response    // 响应
 + Session      // session
-+ Application  銆怱ervletContext銆?
-+ config   銆怱ervletConfig銆?
++ Application  【ServletContext】
++ config   【ServletConfig】
 + out
-+ page       // 褰撳墠
++ page       // 当前
 + Exception
 
-浣滅敤鍩?
+作用域
 
 ```java
 public static final int PAGE_SCOPE = 1;
 public static final int REQUEST_SCOPE = 2;
 public static final int SESSION_SCOPE = 3;
 public static final int APPLICATION_SCOPE = 4;
-pageContext.setAttribute("name1","濮撳悕1");   // 淇濆瓨鐨勬暟鎹彧鍦ㄤ竴涓〉闈腑鏈夋晥
-request.setAttribute("name2","濮撳悕2");       // 淇濆瓨鐨勬暟鎹彧鍦ㄤ竴娆¤姹備腑鏈夋晥锛岃姹傝浆鍙戜細鎼哄甫杩欎釜杩欎釜鏁版嵁
-session.setAttribute("name3","濮撳悕3");       // 淇濆瓨鐨勬暟鎹彧鍦ㄤ竴娆′細璇濅腑鏈夋晥銆備粠娴忚鍣ㄦ墦寮€鍒版祻瑙堝櫒鍏抽棴
-application.setAttribute("name4","濮撳悕4");   // 淇濆瓨鐨勬暟鎹彧鍦ㄦ湇鍔″櫒涓湁鏁堬紝浠庢墦寮€鏈嶅姟鍣ㄥ埌鍏抽棴鏈嶅姟鍣?
+pageContext.setAttribute("name1","姓名1");   // 保存的数据只在一个页面中有效
+request.setAttribute("name2","姓名2");       // 保存的数据只在一次请求中有效，请求转发会携带这个这个数据
+session.setAttribute("name3","姓名3");       // 保存的数据只在一次会话中有效。从浏览器打开到浏览器关闭
+application.setAttribute("name4","姓名4");   // 保存的数据只在服务器中有效，从打开服务器到关闭服务器
 ```
 
-## JSP鏍囩锛孞STL鏍囩锛孍L琛ㄨ揪寮?
+## JSP标签，JSTL标签，EL表达式
 ```xml
 <dependency>
     <groupId>javax.servlet.jsp.jstl</groupId>
@@ -18852,47 +18808,47 @@ application.setAttribute("name4","濮撳悕4");   // 淇濆瓨鐨勬暟鎹彧
 </dependency>
 ```
 
-EL** 琛ㄨ揪寮忥細${}**
+EL** 表达式：${}**
 
-+ **鑾峰彇鏁版嵁**
-+ **鎵ц杩愮畻**
-+ **鑾峰彇web寮€鍙戠殑甯哥敤瀵硅薄**
++ **获取数据**
++ **执行运算**
++ **获取web开发的常用对象**
 
-**jsp鏍囩**
+**jsp标签**
 
 ```xml
 <!--  -->
 <jsp: include></jsp:>
-<!-- http://localhost:8080/hello1.jsp?name1=鍚嶅瓧1&name2=鍚嶅瓧2 -->
+<!-- http://localhost:8080/hello1.jsp?name1=名字1&name2=名字2 -->
 <jsp:forward page="hello1.jsp">
-  <jsp:param name="name1" value="鍚嶅瓧1"/>
-  <jsp:param name="name2" value="鍚嶅瓧2"/>
+  <jsp:param name="name1" value="名字1"/>
+  <jsp:param name="name2" value="名字2"/>
 </jsp:forward>
 ```
 
-**JSTL鏍囩**
+**JSTL标签**
 
-[**鑿滈笩鏁欑▼**](https://www.runoob.com/jsp/jsp-jstl.html)** 鏌ョ湅鏍囩**
+[**菜鸟教程**](https://www.runoob.com/jsp/jsp-jstl.html)** 查看标签**
 
-JSTL 鏍囩搴撶殑浣跨敤灏辨槸涓轰簡寮ヨˉHTML鏍囩鐨勪笉瓒筹紱瀹冭嚜瀹氫箟浜嗚澶氭爣绛撅紝鍙互渚涙垜浠娇鐢紝鏍囩鐨勫姛鑳藉拰java浠ｇ爜涓€鏍凤紒
+JSTL 标签库的使用就是为了弥补HTML标签的不足；它自定义了许多标签，可以供我们使用，标签的功能和java代码一样！
 
-+ 鏍稿績鏍囩
-+ 鏍煎紡鍖栨爣绛?
-+ SQL鏍囩
-+ XML鏍囩
++ 核心标签
++ 格式化标签
++ SQL标签
++ XML标签
 
-jstl鏍囩搴撲娇鐢ㄦ楠?
+jstl标签库使用步骤
 
-+ 寮曞叆瀵瑰簲鐨則aglib
-+ 浣跨敤鍏朵腑鐨勬柟娉?
-+ 鍦╰omcat涔熼渶瑕佸紩鍏stl鐨勫寘锛屽惁鍒欎細鎶ラ敊锛歫stl瑙ｆ瀽閿欒
++ 引入对应的taglib
++ 使用其中的方法
++ 在tomcat也需要引入jstl的包，否则会报错：jstl解析错误
 
 c:if c:choose c:when c:forEach
 
 ```html
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
-<%--寮曞叆鏍稿績鏍囩搴擄紝鎵嶈兘浣跨敤鏍稿績鏍囩 core--%>
+<%--引入核心标签库，才能使用核心标签 core--%>
 <%--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>--%>
 <html>
 <head>
@@ -18902,22 +18858,22 @@ c:if c:choose c:when c:forEach
 
 <form action="damo02.jsp" method="get">
     <input type="text" name="username" value="${param.username}">
-    <input type="submit" value="鐧诲綍">
+    <input type="submit" value="登录">
 </form>
-<!-- if 娴嬭瘯 -->
+<!-- if 测试 -->
 <c:if test="${param.username==''admin''}" var="isAdmin">
-    <c:out value="绠＄悊鍛樼櫥褰曟垚鍔? />
+    <c:out value="管理员登录成功" />
 </c:if>
 
 <c:out value="${isAdmin}" />
 
 
 <%--
-var 姣忎竴娆￠亶鍘嗗嚭鏉ョ殑鍙橀噺
-items 瑕侀亶鍘嗙殑瀵硅薄
-begin 璧峰鍊?
-end 缁撴潫鍊?
-step 姝ラ暱
+var 每一次遍历出来的变量
+items 要遍历的对象
+begin 起始值
+end 结束值
+step 步长
 --%>
 <c:forEach var="people" items="${list}" begin="1" end="3" step="2">
     <c:out value="${people}"/> <br>
@@ -18929,39 +18885,39 @@ step 姝ラ暱
 ```
 
 ## JavaBean
-瀹炰綋绫?
+实体类
 
-JavaBean鏈夌壒瀹氱殑鍐欐硶锛?
+JavaBean有特定的写法：
 
-+ 蹇呴』鏈変竴涓棤鍙傛瀯閫?
-+ 灞炴€у繀椤荤鏈夊寲
-+ 蹇呴』鏈夊搴旂殑get/set鏂规硶
++ 必须有一个无参构造
++ 属性必须私有化
++ 必须有对应的get/set方法
 
-涓€鑸敤鏉ュ拰鏁版嵁搴撶殑瀛楁鍋氳繛鎺?
+一般用来和数据库的字段做连接
 
 ```html
 <body>
 
 <jsp:useBean id="people" class="com.jie.jsp.People" scope="page"/>
 
-<jsp:setProperty name="people" property="address" value="闀挎睙"/>
+<jsp:setProperty name="people" property="address" value="长江"/>
 <jsp:setProperty name="people" property="age" value="18"/>
 <jsp:setProperty name="people" property="id" value="1"/>
-<jsp:setProperty name="people" property="name" value="寮犱笁"/>
+<jsp:setProperty name="people" property="name" value="张三"/>
 
-鍦板潃锛?jsp:getProperty name="people" property="address"/>
+地址：<jsp:getProperty name="people" property="address"/>
 id: <jsp:getProperty name="people" property="id"/>
 name: <jsp:getProperty name="people" property="name"/>
-骞撮緞锛?jsp:getProperty name="people" property="age"/>
+年龄：<jsp:getProperty name="people" property="age"/>
 </body>
 ```
 
 ```java
 People people = new people();
 people.setid("1");
-people.setname("寮犱笁");
+people.setname("张三");
 people.setage("18");
-people.setaddress("闀挎睙");
+people.setaddress("长江");
 
 people.getid();
 people.getname();
@@ -18969,83 +18925,83 @@ people.getage();
 people.getaddress();
 ```
 
-# MVC涓夊眰鏋舵瀯
-## 涓ゅ眰鏋舵瀯
+# MVC三层架构
+## 两层架构
 <img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1747821299842-6b134002-ce53-414e-9b42-84c26585a488.png" width="945.6" title="" crop="0,0,1,1" id="uf44931e8" class="ne-image">
 
-鐢ㄦ埛鐩存帴璁块棶鎺у埗灞傦紝鎺у埗灞傚氨鍙互鐩存帴鎿嶄綔鏁版嵁搴擄紱
+用户直接访问控制层，控制层就可以直接操作数据库；
 
 ```plain
-servlet --> CRUD --> 鏁版嵁搴?
-寮婄锛氱▼搴忓崄鍒嗚噧鑲匡紝涓嶅埄浜庣淮鎶?
-Servlet涓殑浠ｇ爜锛氬鐞嗚姹傦紝鍝嶅簲锛岃鍥捐烦杞紝澶勭悊jdbc锛屽鐞嗕笟鍔′腑鐨勪唬鐮侊紝澶勭悊閫昏緫浠ｇ爜
+servlet --> CRUD --> 数据库
+弊端：程序十分臃肿，不利于维护
+Servlet中的代码：处理请求，响应，视图跳转，处理jdbc，处理业务中的代码，处理逻辑代码
 ```
 
-## 涓夊眰鏋舵瀯
+## 三层架构
 <img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1747821531421-5b6ced94-5d37-41ee-ab43-3350b4e70785.png" width="1034.4" title="" crop="0,0,1,1" id="u94af92f5" class="ne-image">
 
 Model
 
-+ 涓氬姟澶勭悊锛氫笟鍔￠€昏緫 锛圫ervlet锛?
-+ 鏁版嵁鎸佷箙灞傦細CRUD 锛圖ao锛?
++ 业务处理：业务逻辑 （Servlet）
++ 数据持久层：CRUD （Dao）
 
 VIew
 
-+ 灞曠ず鏁版嵁
-+ 鎻愪緵閾炬帴鍙戣捣Servlet璇锋眰 锛坅锛宖orm锛宨mg....锛?
++ 展示数据
++ 提供链接发起Servlet请求 （a，form，img....）
 
-Controller 锛圫ervlet锛?
+Controller （Servlet）
 
-+ 鎺ユ敹鐢ㄦ埛鐨勮姹傦細 锛坮eq锛氳姹傚弬鏁帮紝Session淇℃伅鈥︹€︼級
-+ 浜ょ粰涓氬姟灞傚鐞嗗搴旂殑浠ｇ爜
-+ 鎺у埗瑙嗗浘鐨勮烦杞?
++ 接收用户的请求： （req：请求参数，Session信息……）
++ 交给业务层处理对应的代码
++ 控制视图的跳转
 
-# 杩囨护鍣紝鐩戝惉鍣?
+# 过滤器，监听器
 ## Filter
-Filter锛氳繃婊ゅ櫒锛岀敤鏉ヨ繃婊ょ綉绔欑殑鏁版嵁
+Filter：过滤器，用来过滤网站的数据
 
-+ 澶勭悊涓枃涔辩爜
-+ 鐧诲綍楠岃瘉
++ 处理中文乱码
++ 登录验证
 
-Filter寮€鍙戞楠?
+Filter开发步骤
 
-+ 瀵煎寘
-+ 缂栧啓杩囨护鍣?
++ 导包
++ 编写过滤器
 
 ```java
 public class CharacterEncodingFilter implements jakarta.servlet.Filter {
-    // 鍒濆鍖?
+    // 初始化
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        System.out.println("CharacterEncodingFilter鍒濆鍖?);
+        System.out.println("CharacterEncodingFilter初始化");
     }
 
-    // chain : 閾?
+    // chain : 链
     /**
-    杩囨护涓殑鎵€鏈夊簳浠ｇ爜锛屽湪杩囨护寰呭畾璇锋眰鐨勬椂鍊欓兘浼氭墽琛?
-    蹇呴』璁╅【铏戝幓缁х画鎵ц鍚岃
+    过滤中的所有底代码，在过滤待定请求的时候都会执行
+    必须让顾虑去继续执行同行
     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        System.out.println("CharacterEncodingFilter鎵ц鍓?);
-        // 绋嬪簭浠庢澶勫紑濮嬫嫤鎴?
-        chain.doFilter(request, response);  // 璁╄繃婊ゅ櫒鎺ョ潃寰€涓嬭蛋
-        System.out.println("CharacterEncodingFilter鎵ц鍚?);
+        System.out.println("CharacterEncodingFilter执行前");
+        // 程序从此处开始拦截
+        chain.doFilter(request, response);  // 让过滤器接着往下走
+        System.out.println("CharacterEncodingFilter执行后");
     }
 
-    // 閿€姣?
+    // 销毁
     @Override
     public void destroy() {
-        System.out.println("CharacterEncodingFilter閿€姣?);
+        System.out.println("CharacterEncodingFilter销毁");
     }
 }
 
 ```
 
-+ 鍦╳eb.xml涓厤缃瓼ilter杩囨护鍣?
++ 在web.xml中配置Filter过滤器
 
 ```xml
 <web-app>
@@ -19069,7 +19025,7 @@ public class CharacterEncodingFilter implements jakarta.servlet.Filter {
 
   <filter-mapping>
     <filter-name>CharacterEncodingFilter</filter-name>
-    <!-- 鍙鏄?servlet鐨勪换浣曡姹傞兘浼氱粡杩囪繖涓繃婊ゅ櫒  -->
+    <!-- 只要是/servlet的任何请求都会经过这个过滤器  -->
     <url-pattern>/servlet/*</url-pattern>
   </filter-mapping>
 
@@ -19079,15 +19035,15 @@ public class CharacterEncodingFilter implements jakarta.servlet.Filter {
 +
 
 ## Listener
-瀹炵幇鐩戝惉鍣ㄧ殑鎺ュ彛锛涘緢澶?
+实现监听器的接口；很多
 
-+ 缂栧啓涓€涓洃鍚櫒锛屽疄鐜扮洃鍚櫒鐨勬帴鍙?
++ 编写一个监听器，实现监听器的接口
 
 ```java
 public class OnlineCountListener implements HttpSessionListener {
 
-    // 鍒涘缓Session鐩戝惉锛?
-    // 涓€鏃﹀垱寤轰竴涓猄ession灏变細瑙﹀彂涓€娆¤繖涓簨浠?
+    // 创建Session监听：
+    // 一旦创建一个Session就会触发一次这个事件
     @Override
     public void sessionCreated(HttpSessionEvent se) {
         System.out.println(se.getSession().getId());
@@ -19104,8 +19060,8 @@ public class OnlineCountListener implements HttpSessionListener {
 
     }
 
-    // 閿€姣?
-    // 涓€鏃﹂攢姣佷竴涓猄ession灏变細瑙﹀彂涓€娆¤繖涓簨浠?
+    // 销毁
+    // 一旦销毁一个Session就会触发一次这个事件
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
         ServletContext ctx = se.getSession().getServletContext();
@@ -19121,34 +19077,34 @@ public class OnlineCountListener implements HttpSessionListener {
 }
 ```
 
-+ web.xml娉ㄥ唽鐩戝惉鍣?
++ web.xml注册监听器
 
 ```java
-<!-- 娉ㄥ唽鐩戝惉鍣?-->
+<!-- 注册监听器 -->
   <listener>
     <listener-class>com.jie.listener.OnlineCountListener</listener-class>
   </listener>
 ```
 
-+ 鐪嬫儏鍐垫槸鍚︿娇鐢ㄧ洃鍚櫒
++ 看情况是否使用监听器
 
 
 
-## 甯歌搴旂敤
-鐢ㄦ埛鐧诲綍涔嬪悗鎵嶈兘杩涘叆涓婚〉锛佺敤鎴锋敞閿€鍚庡氨涓嶈兘杩涘叆涓婚〉浜嗭紒
+## 常见应用
+用户登录之后才能进入主页！用户注销后就不能进入主页了！
 
-1. 鐢ㄦ埛鐧诲綍涔嬪悗锛屽悜session涓斁鍏ョ敤鎴风殑鏁版嵁
-2. 杩涘叆涓婚〉鐨勬椂鍊欒鍒ゆ柇鏄惁宸茬粡鐧诲綍,鍦ㄤ富椤靛拰杩囨护鍣ㄤ腑閮藉彲浠ュ疄鐜?
+1. 用户登录之后，向session中放入用户的数据
+2. 进入主页的时候要判断是否已经登录,在主页和过滤器中都可以实现
 
 ```java
 protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // 鑾峰彇鍓嶇璇锋眰鐨勫弬鏁?
+        // 获取前端请求的参数
         String username = req.getParameter("username");
 
-        if (username.equals("admin")) {  // 鐧诲綍鎴愬姛
+        if (username.equals("admin")) {  // 登录成功
             req.getSession().setAttribute(Contanst.USER_SESSION,  req.getSession().getId());
             resp.sendRedirect("/sys/success.jsp");
-        } else {    // 鐧诲綍澶辫触
+        } else {    // 登录失败
             resp.sendRedirect("/error.jsp");
         }
     }
@@ -19203,7 +19159,7 @@ public void doFilter(ServletRequest servletRequest, ServletResponse servletRespo
 
 ```html
 <body>
-<h1>鐧诲綍</h1>
+<h1>登录</h1>
 <form action="servlet/login">
   <input type="text" name="username">
   <input type="submit">
@@ -19212,10 +19168,10 @@ public void doFilter(ServletRequest servletRequest, ServletResponse servletRespo
 ```
 
 ```html
-<h1>閿欒椤甸潰</h1>
-<h3>娌℃湁鏉冮檺锛岀敤鎴峰悕閿欒</h3>
+<h1>错误页面</h1>
+<h3>没有权限，用户名错误</h3>
 
-<a href="/login.jsp">杩斿洖鐧诲綍椤甸潰</a>
+<a href="/login.jsp">返回登录页面</a>
 ```
 
 ```html
@@ -19228,14 +19184,14 @@ public void doFilter(ServletRequest servletRequest, ServletResponse servletRespo
     }
 
 %>
-<h1>涓婚〉</h1>
-<a href="/servlet/logout" >娉ㄩ攢</a>
+<h1>主页</h1>
+<a href="/servlet/logout" >注销</a>
 </body>
 ```
 
 # JDBC
-## 娴佺▼
-1. 瀵煎叆渚濊禆
+## 流程
+1. 导入依赖
 
 ```xml
 <dependency>
@@ -19245,18 +19201,18 @@ public void doFilter(ServletRequest servletRequest, ServletResponse servletRespo
 </dependency>
 ```
 
-2. IDEA涓繛鎺ユ暟鎹簱
-3. 浣跨敤JDBC
-    1. 鍔犺浇椹卞姩
-    2. 杩炴帴鏁版嵁搴?
-    3. 鍚戞暟鎹簱鍙戦€丼QL鐨勫璞tatement锛孭repareStatement
-    4. 缂栧啓SQL
-    5. 鎵цSQL
-    6. 鍏抽棴杩炴帴
+2. IDEA中连接数据库
+3. 使用JDBC
+    1. 加载驱动
+    2. 连接数据库
+    3. 向数据库发送SQL的对象Statement，PrepareStatement
+    4. 编写SQL
+    5. 执行SQL
+    6. 关闭连接
 
-# 鏂囦欢涓婁紶涓嬭浇
-## 鍑嗗宸ヤ綔
-+ 闇€瑕佸鍏ョ殑jar鍖?
+# 文件上传下载
+## 准备工作
++ 需要导入的jar包
 
 ```xml
 <dependency>
@@ -19271,25 +19227,25 @@ public void doFilter(ServletRequest servletRequest, ServletResponse servletRespo
 </dependency>
 ```
 
-+ 鏂囦欢涓婁紶鐨勬敞鎰忎簨椤?
-    - 涓轰繚璇佹湇鍔″櫒鐨勫畨鍏紝涓婁紶鏂囦欢搴旇鏀惧湪澶栫晫鏃犳硶鐩存帴璁块棶鐨勭洰褰曚笅锛屾瘮濡傛斁浜嶹EB-INF鐩綍涓?
-    - 涓洪槻姝㈡枃浠惰鐩栫殑鐜拌薄鍙戠敓锛岃涓轰笂浼犳枃浠朵骇鐢熶竴涓敮涓€鐨勬枃浠跺悕
-    - 瑕侀檺鍒舵枃浠朵笂浼犵殑鏈€澶у€?
-    - 鍙互闄愬埗涓婁紶鏂囦欢鐨勭被鍨嬶紝鍦ㄦ敹鍒颁笂浼犳枃浠跺悕鏃讹紝鍒ゆ柇鍚庣紑鍚嶆槸鍚﹀悎娉?
-+ 闇€瑕佺敤鍒扮殑绫昏瑙?
-    - ServletFIleUpload锛氳礋璐ｅ鐞嗕笂浼犳枃浠舵暟鎹紝骞跺皢琛ㄥ崟涓瘡涓緭鍏ラ」灏佽鎴愪竴涓狥ileItem瀵硅薄锛屽湪浣跨敤ServletFIleUpload瀵硅薄瑙ｆ瀽璇锋眰鏃堕渶瑕丏iskFIleItemFactory瀵硅薄銆傛墍浠ワ紝闇€瑕佸湪杩涜瑙ｆ瀽宸ヤ綔鍓嶆瀯閫犲ソDiskFileItemFactory瀵硅薄锛岄€氳繃ServletFIleUpload瀵硅薄鐨勬瀯閫犳柟娉曟垨setFileItemFactory()鏂规硶璁剧疆ServletFIleUpload瀵硅薄鐨刦ileItemFactory灞炴€?
++ 文件上传的注意事项
+    - 为保证服务器的安全，上传文件应该放在外界无法直接访问的目录下，比如放于WEB-INF目录下
+    - 为防止文件覆盖的现象发生，要为上传文件产生一个唯一的文件名
+    - 要限制文件上传的最大值
+    - 可以限制上传文件的类型，在收到上传文件名时，判断后缀名是否合法
++ 需要用到的类详解
+    - ServletFIleUpload：负责处理上传文件数据，并将表单中每个输入项封装成一个FileItem对象，在使用ServletFIleUpload对象解析请求时需要DiskFIleItemFactory对象。所以，需要在进行解析工作前构造好DiskFileItemFactory对象，通过ServletFIleUpload对象的构造方法或setFileItemFactory()方法设置ServletFIleUpload对象的fileItemFactory属性
 
-## FileItem绫?
-+ 鍦℉TML椤甸潰input蹇呴』鏈塶ame`<input type="file" name="filename">`
-+ 琛ㄥ崟濡傛灉鍖呭惈涓€涓枃浠惰緭鍏ラ」鐨勮瘽锛岃繖涓〃鍗曠殑enctype灞炴€у氨蹇呴』璁剧疆涓篳multipart/form-data`
+## FileItem类
++ 在HTML页面input必须有name`<input type="file" name="filename">`
++ 表单如果包含一个文件输入项的话，这个表单的enctype属性就必须设置为`multipart/form-data`
 
 ```html
-<%--閫氳繃琛ㄥ崟涓婁紶鏂囦欢
-  get锛氫笂浼犳枃浠跺ぇ灏忔湁闄愬埗
-  post锛氫笂浼犳枃浠舵病鏈夐檺鍒?
+<%--通过表单上传文件
+  get：上传文件大小有限制
+  post：上传文件没有限制
   --%>
   <form action="" enctype="multipart/form-data" method="post">
-    涓婁紶鐢ㄦ埛锛?input type="text" name="username"><br/>
+    上传用户：<input type="text" name="username"><br/>
     <p><input type="file" name="file1"></p>
     <p><input type="file" name="file2"></p>
 
@@ -19298,163 +19254,163 @@ public void doFilter(ServletRequest servletRequest, ServletResponse servletRespo
   
 ```
 
-+ 甯哥敤鏂规硶浠嬬粛
++ 常用方法介绍
 
 ```java
-//鏄櫘閫氳〃鍗曞瓧娈碉紵锛坱rue锛夋枃浠朵笂浼犲瓧娈?false)
+//是普通表单字段？（true）文件上传字段(false)
 boolean isFormField();
-//鐢ㄤ簬杩斿洖琛ㄥ崟鏍囩name灞炴€х殑鍊?
+//用于返回表单标签name属性的值
 String getFieldName();
-//鐢ㄤ簬灏咶ileItem瀵硅薄涓繚瀛樼殑鏁版嵁娴佸唴瀹逛互涓€涓瓧绗︿覆杩斿洖
+//用于将FileItem对象中保存的数据流内容以一个字符串返回
 String getString(String encoding) throws UnsupportedEncodingException;
-//鏂囦欢涓婁紶瀛楁鐨勬枃浠跺悕 IE鏄剧ず锛氳矾寰?鏂囦欢鍚嶏紙C:\1.txt锛?鍏朵粬锛?.txt
+//文件上传字段的文件名 IE显示：路径+文件名（C:\1.txt） 其他：1.txt
 String getName();
-//杈撳叆娴佽繑鍥炰笂浼犳枃浠舵暟鎹?
+//输入流返回上传文件数据
 InputStream getInputStream() throws IOException;
-//娓呯┖Fileitem淇濆瓨鍐呭
+//清空Fileitem保存内容
 void delete();
-//涓婁紶鏂囦欢澶у皬
+//上传文件大小
 long getSize();
-//鍦ㄥ唴瀛橈紵锛坱rue锛?
+//在内存？（true）
 boolean isInMemory();
-//鍐欏叆鏂囦欢
+//写入文件
 void write(File file) throws Exception
 ```
 
-## ServletFileUpload绫?
-ServletFileUpload璐熻矗澶勭悊涓婁紶鐨勬枃浠剁殑鏁版嵁锛屽苟灏嗚〃鍗曚腑鐨勬瘡涓緭鍏ラ」灏佽鎴愪竴涓狥ileItem瀵硅薄涓紝浣跨敤鍏秔arseRequest(HttpServletRequest)鏂规硶锛屽彲浠ュ皢鍏叡琛ㄥ崟涓殑姣忎竴涓狧TML鏍囩鎻愪氦鐨勬暟鎹皝瑁呮垚涓€涓狥ileItem瀵硅薄锛岀劧鍚庝互List鍒楄〃鐨勫舰寮忚繑鍥烇紝浣跨敤璇ユ柟娉曞鐞嗕笂浼犳垜閭ｄ欢绠€鍗曟槗鐢?
+## ServletFileUpload类
+ServletFileUpload负责处理上传的文件的数据，并将表单中的每个输入项封装成一个FileItem对象中，使用其parseRequest(HttpServletRequest)方法，可以将公共表单中的每一个HTML标签提交的数据封装成一个FileItem对象，然后以List列表的形式返回，使用该方法处理上传我那件简单易用
 
-## 瀹屾暣浠ｇ爜
+## 完整代码
 ```java
 public class FIleServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        // 鍒ゆ柇涓婁紶鐨勬枃浠舵槸鏅€氳〃鍗曡繕鏄緟鏂囦欢鐨勮〃鍗?
+        // 判断上传的文件是普通表单还是待文件的表单
         if (ServletFileUpload.isMultipartContent((RequestContext) req)){
-            return;  // 缁堟鏂规硶杩愯锛岃鏄庤繖鏄竴涓櫘宸ョ殑琛ㄥ崟锛岀洿鎺ヨ繑鍥?
+            return;  // 终止方法运行，说明这是一个普工的表单，直接返回
         }
 
-        // 鍒涘缓涓婁紶鏂囦欢鐨勪繚瀛樿矾寰勶紝寤鸿鍦╓EB-INF璺緞涓嬶紝瀹夊叏锛岀敤鎴锋棤娉曠洿鎺ヨ闂笂浼犵殑鏂囦欢
+        // 创建上传文件的保存路径，建议在WEB-INF路径下，安全，用户无法直接访问上传的文件
         String uploadPath = this.getServletContext().getRealPath("/WEB-INF/upload");
         File uploadFile = new File(uploadPath);
         if (!uploadFile.exists()){
-            uploadFile.mkdirs();   // 鍒涘缓杩欎釜鐩綍
-            System.out.println("涓嬭浇鐩綍鍒涘缓鎴愬姛");
+            uploadFile.mkdirs();   // 创建这个目录
+            System.out.println("下载目录创建成功");
         }
 
-        // 缂撳瓨锛屼复鏃舵枃浠?
-        // 涓存椂璺緞锛屽亣濡傛枃浠惰秴杩囦簡棰勬湡鐨勫ぇ灏忥紝鎴戜滑灏辨妸瀹冩斁鍒颁竴涓复鏃舵枃浠朵腑锛岃繃鍑犲ぉ鑷姩鍒犻櫎锛屾垨鑰呮彁閱掔敤鎴疯浆涓烘案涔呮枃浠?
+        // 缓存，临时文件
+        // 临时路径，假如文件超过了预期的大小，我们就把它放到一个临时文件中，过几天自动删除，或者提醒用户转为永久文件
         String temPath = this.getServletContext().getRealPath("/WEB-INF/temp");
         File temFile = new File(temPath);
         if (!temFile.exists()){
-            temFile.mkdirs();   // 鍒涘缓杩欎釜涓存椂鐩綍
-            System.out.println("涓存椂鐩綍鍒涘缓鎴愬姛");
+            temFile.mkdirs();   // 创建这个临时目录
+            System.out.println("临时目录创建成功");
         }
 
-        // 澶勭悊涓婁紶鐨勬枃浠讹紝涓€鑸兘闇€瑕侀€氳繃娴佹潵鑾峰彇
-        // 鍙互浣跨敤request.getInputStream(),鍘熺敓鎬佺殑鏂囦欢涓婁紶娴佽幏鍙栵紝姣旇緝楹荤儲
-        // 寤鸿浣跨敤Apache鐨勬枃浠朵笂浼犵粍浠舵潵瀹炵幇
-        // common-fileupload锛屽ぇ闇€瑕佷緷璧栦簬 commons-io 缁勪欢
+        // 处理上传的文件，一般都需要通过流来获取
+        // 可以使用request.getInputStream(),原生态的文件上传流获取，比较麻烦
+        // 建议使用Apache的文件上传组件来实现
+        // common-fileupload，大需要依赖于 commons-io 组件
 
-        // 1.鍒涘缓DiskFileItemFactory瀵硅薄锛屽鐞嗘枃浠朵笂浼犺矾寰勬垨鑰呭ぇ灏忛檺鍒剁殑
+        // 1.创建DiskFileItemFactory对象，处理文件上传路径或者大小限制的
         DiskFileItemFactory factory = new DiskFileItemFactory();
-        // 閫氳繃杩欎釜宸ュ巶璁剧疆涓€涓紦鍐插尯锛屽綋涓婁紶鐨勬枃浠跺ぇ浜庤繖涓紦鍐插尯鐨勬椂鍊欙紝灏嗕粬鏀惧埌涓存椂鏂囦欢涓?
-        factory.setSizeThreshold(1024*1024); // 缂撳啿鍖哄ぇ灏忎负1M
-        factory.setRepository(temFile);  // 涓存椂鐩綍鐨勪繚瀛樼洰褰曪紝闇€瑕佷竴涓狥ile
+        // 通过这个工厂设置一个缓冲区，当上传的文件大于这个缓冲区的时候，将他放到临时文件中
+        factory.setSizeThreshold(1024*1024); // 缓冲区大小为1M
+        factory.setRepository(temFile);  // 临时目录的保存目录，需要一个File
 
-        // 2. 鑾峰彇ServletFileUpload
+        // 2. 获取ServletFileUpload
         ServletFileUpload upload = new ServletFileUpload(factory);
 
-        // 鐩戝惉鏂囦欢涓婁紶杩涘害
+        // 监听文件上传进度
         upload.setProgressListener(new ProgressListener() {
             @Override
-            // pBytesRead: 宸茬粡璇诲彇鍒扮殑鏂囦欢澶у皬
-            // pContentLength锛?鏂囦欢澶у皬
+            // pBytesRead: 已经读取到的文件大小
+            // pContentLength： 文件大小
             public void update(long pBytesRead, long pContentLength, int i) {
-                System.out.println("鎬诲ぇ灏?+pContentLength+"宸蹭笂浼?+pBytesRead);
+                System.out.println("总大小"+pContentLength+"已上传"+pBytesRead);
             }
         });
-        // 澶勭悊涔辩爜闂
+        // 处理乱码问题
         upload.setHeaderEncoding("UTF-8");
-        // 璁剧疆鍗曚釜鏂囦欢鐨勬渶澶у€?
+        // 设置单个文件的最大值
         upload.setFileSizeMax(1024*1024*10);
-        // 璁剧疆鎬诲叡鑳藉涓婁紶鏂囦欢鐨勫ぇ灏?
+        // 设置总共能够上传文件的大小
         // 1024 = 1kb * 1024
         upload.setSizeMax(1024*1024*10);
 
-        // 3.澶勭悊涓婁紶鐨勬枃浠?
-        String msg = "鏂囦欢涓婁紶澶辫触";
+        // 3.处理上传的文件
+        String msg = "文件上传失败";
         try {
-            // 鎶婂墠绔姹傝В鏋愶紝灏佽鎴愪竴涓狥ileItem瀵硅薄锛?闇€瑕佷粠ServletFileUpload瀵硅薄涓幏鍙?
+            // 把前端请求解析，封装成一个FileItem对象， 需要从ServletFileUpload对象中获取
             List<FileItem> fileItems = upload.parseRequest((RequestContext) req);
-            // FileItem 姣忎竴涓〃鍗曞璞?
+            // FileItem 每一个表单对象
             for (FileItem item : fileItems) {
-                // 鍒ゆ柇涓婁紶鏂囦欢鏄櫘閫氱殑琛ㄥ崟杩樻槸甯︽枃浠剁殑琛ㄥ崟
+                // 判断上传文件是普通的表单还是带文件的表单
                 if (item.isFormField()) {
                     String name = item.getFieldName();
-                    String value = item.getString("UTF-8");  // 澶勭悊涔辩爜
-                    System.out.println(name + "锛? + value);
-                } else {  // 鏂囦欢鐨勬儏鍐典笅
+                    String value = item.getString("UTF-8");  // 处理乱码
+                    System.out.println(name + "：" + value);
+                } else {  // 文件的情况下
 
-                    //========================澶勭悊鏂囦欢=================================
+                    //========================处理文件=================================
                     String uploadFileName = item.getName();
-                    // 鍙兘瀛樺湪鏂囦欢鍚嶄笉鍚堟硶鐨勫彲鑳?
+                    // 可能存在文件名不合法的可能
                     if (uploadFileName.trim().equals("")||uploadFileName==null){
                         continue;
                     }
 
-                    // 鑾峰彇涓婁紶鐨勬枃浠跺悕锛?substring鎴彇瀛楃涓诧細浠庢枃浠惰矾寰勬渶鍚庝竴涓?/ +1 鐨勪綅缃紑濮?
+                    // 获取上传的文件名， substring截取字符串：从文件路径最后一个 / +1 的位置开始
                     String fileName = uploadFileName.substring(uploadFileName.lastIndexOf("/") + 1);
-                    // 鑾峰彇鏂囦欢鐨勫悗缂€鍚?  浠庢渶鍚庝竴涓?. +1 鐨勪綅缃紑濮嬫埅鍙?
+                    // 获取文件的后缀名   从最后一个 . +1 的位置开始截取
                     String fileExtName = fileName.substring(fileName.lastIndexOf(".") + 1);
 
-                    // 鍙互浣跨敤UUID锛堝敮涓€璇嗗埆閫氱敤鐮侊級锛屼繚璇佹枃浠跺悕鍞竴
-                    // UUID.randomUUID()锛岄殢鏈虹敓涓€涓敮涓€璇嗗埆鐨勯€氱敤鐮?
+                    // 可以使用UUID（唯一识别通用码），保证文件名唯一
+                    // UUID.randomUUID()，随机生一个唯一识别的通用码
 
-                    // 缃戠粶浼犺緭涓殑涓滆タ锛岄兘闇€瑕佸簭鍒楀寲
-                    // POJO锛屽疄浣撶被锛屽鏋滄兂瑕佸湪澶氫釜鐢佃剳涓婅繍琛岋紝浼犺緭===>闇€瑕佹妸瀵硅薄閮藉簭鍒楀寲浜?
-                    // implements Serializable  锛?鏍囪鎺ュ彛锛孞VM---> Java鏍?鏈湴鏂规硶鏍?native --> C++
+                    // 网络传输中的东西，都需要序列化
+                    // POJO，实体类，如果想要在多个电脑上运行，传输===>需要把对象都序列化了
+                    // implements Serializable  ： 标记接口，JVM---> Java栈 本地方法栈 native --> C++
                     String uuid = UUID.randomUUID().toString();
 
-                    //========================瀛樻斁鍦板潃=================================
+                    //========================存放地址=================================
 
-                    // 瀛樺埌鍝紵 uploadPath
-                    // 鏂囦欢鐪熷疄瀛樺湪鐨勮矾寰?realPath
+                    // 存到哪？ uploadPath
+                    // 文件真实存在的路径 realPath
                     String realPath = uploadPath + "/" + uuid;
-                    // 缁欐瘡涓€涓枃浠跺垱寤轰竴涓搴旂殑鏂囦欢澶?
+                    // 给每一个文件创建一个对应的文件夹
                     File realPathFIle = new File(realPath);
                     if (!realPathFIle.exists()){
                         realPathFIle.mkdirs();
                     }
 
-                    //========================鏂囦欢浼犺緭=================================
-                    // 鑾峰彇鏂囦欢涓婁紶鐨勬祦
+                    //========================文件传输=================================
+                    // 获取文件上传的流
                     InputStream inputStream = item.getInputStream();
 
-                    // 鍒涘缓涓€涓枃浠惰緭鍑烘祦
-                    // realPath = 鐪熷疄鐨勬枃浠跺す锛?
-                    // 宸竴涓枃浠讹紱鍔犱笂杈撳嚭鏂囦欢鐨勫悕瀛? 鈥?鈥?+ uuid
+                    // 创建一个文件输出流
+                    // realPath = 真实的文件夹；
+                    // 差一个文件；加上输出文件的名字+ “/” + uuid
                     FileOutputStream outputStream = new FileOutputStream(realPath+"/"+fileName);
 
-                    // 鍒涘缓涓€涓紦鍐插尯
+                    // 创建一个缓冲区
                     byte[] buffer = new byte[1024*1024];
 
-                    // 鍒ゆ柇鏄惁璇诲彇瀹屾瘯
+                    // 判断是否读取完毕
                     int len = 0;
-                    // 濡傛灉澶т簬0璇存槑杩樺瓨鍦ㄦ暟鎹紱
+                    // 如果大于0说明还存在数据；
                     while ((len = inputStream.read(buffer)) > 0) {
                         outputStream.write(buffer, 0, len);
                     }
 
-                    // 鍏抽棴娴?
+                    // 关闭流
                     inputStream.close();
                     outputStream.close();
 
-                    msg = "鏂囦欢涓婁紶鎴愬姛";
+                    msg = "文件上传成功";
 
-                    item.delete();  // 涓婁紶鎴愬姛锛屾竻闄や复鏃舵枃浠?
+                    item.delete();  // 上传成功，清除临时文件
 
                 }
             }
@@ -19468,12 +19424,12 @@ public class FIleServlet extends HttpServlet {
         req.getRequestDispatcher("info.jsp").forward(req, resp);
 
         /*
-        // 鍙互鐩存帴灏嗕笂闈?姝ュ皝瑁呮垚鏂规硶
-        // 1.鍒涘缓DiskFileItemFactory瀵硅薄锛屽鐞嗘枃浠朵笂浼犺矾寰勬垨鑰呭ぇ灏忛檺鍒剁殑
+        // 可以直接将上面3步封装成方法
+        // 1.创建DiskFileItemFactory对象，处理文件上传路径或者大小限制的
         DiskFileItemFactory factory = getDiskFileItemFactory(file);
-        // 2. 鑾峰彇ServletFileUpload
+        // 2. 获取ServletFileUpload
         ServletFileUpload upload = getSevletFileUpload(factory);
-        // 3.澶勭悊涓婁紶鐨勬枃浠?
+        // 3.处理上传的文件
         String msg = uploadParseRequest(upload, req, uploadPath);
         */
 
@@ -19493,13 +19449,13 @@ public class FIleServlet extends HttpServlet {
 <html>
 <body>
 <h2>Hello World!</h2>
-<%--閫氳繃琛ㄥ崟涓婁紶鏂囦欢
-    get锛氫笂浼犳枃浠跺ぇ灏忔湁闄愬埗
-    post锛氫笂浼犳枃浠舵病鏈夐檺鍒?
-    ${pageContext.request.contextPath}  鑾峰彇鏈嶅姟鍣ㄨ矾寰?
+<%--通过表单上传文件
+    get：上传文件大小有限制
+    post：上传文件没有限制
+    ${pageContext.request.contextPath}  获取服务器路径
 --%>
 <form action="/upload.do" enctype="multipart/form-data" method="post">
-    涓婁紶鐢ㄦ埛锛?input type="text" name="username"><br/>
+    上传用户：<input type="text" name="username"><br/>
     <p><input type="file" name="file1"></p>
     <p><input type="file" name="file2"></p>
 
@@ -19510,17 +19466,17 @@ public class FIleServlet extends HttpServlet {
 
 ```
 
-## 鏂囦欢涓嬭浇
-1. 鍚戞祻瑙堝櫒杈撳嚭娑堟伅
-2. 涓嬭浇鏂囦欢
-    1. 瑕佽幏鍙栨枃浠剁殑璺緞
-    2. 涓嬭浇鐨勬枃浠跺悕鏄暐锛?
-    3. 璁剧疆鍚戝姙娉曡鍒樻祻瑙堝櫒鑳藉鏀寔涓嬭浇鎴戜滑闇€瑕佺殑涓滆タ
-    4. 鑾峰彇涓嬭浇鏂囦欢鐨勮緭鍏ユ祦
-    5. 鍒涘缓缂撳啿鍖?
-    6. 鑾峰彇OutputStream瀵硅薄
-    7. 灏咶ileOutputStream鍒楀叆鍒癰uffer缂撳啿鍖?
-    8. 浣跨敤OutputStream灏嗙紦鍐插尯涓殑鏁版嵁杈撳嚭鍒板鎴风
+## 文件下载
+1. 向浏览器输出消息
+2. 下载文件
+    1. 要获取文件的路径
+    2. 下载的文件名是啥？
+    3. 设置向办法让刘浏览器能够支持下载我们需要的东西
+    4. 获取下载文件的输入流
+    5. 创建缓冲区
+    6. 获取OutputStream对象
+    7. 将FileOutputStream列入到buffer缓冲区
+    8. 使用OutputStream将缓冲区中的数据输出到客户端
 
 ```java
 package com.jie.response;
@@ -19537,20 +19493,20 @@ import java.io.IOException;
 public class FileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // 鑾峰彇涓嬭浇鏂囦欢鐨勮矾寰?
+        // 获取下载文件的路径
         String realPath = this.getServletContext().getRealPath("1.png");
-        // 涓嬭浇鐨勬枃浠跺悕鏄暐锛?
+        // 下载的文件名是啥？
         String fileName = realPath.substring(realPath.lastIndexOf("/") + 1);
-        // 璁剧疆鎯冲姙娉曡娴忚鍣ㄦ敮鎸佷笅杞界殑闇€瑕佺殑涓滆タ
+        // 设置想办法让浏览器支持下载的需要的东西
         resp.setHeader("Content-Disposition", "attachment; filename=" + fileName);
-        // 鑾峰彇涓嬭浇鏂囦欢鐨勮緭鍏ユ祦
+        // 获取下载文件的输入流
         FileInputStream in = new FileInputStream(realPath);
-        // 鍒涘缓缂撳啿鍖?
+        // 创建缓冲区
         int len = 0;
         byte[] buffer = new byte[1024];
-        // 鑾峰彇杈撳嚭娴佸璞?
+        // 获取输出流对象
         ServletOutputStream out = resp.getOutputStream();
-        // 灏咶ileOutputStream娴佸啓鍏ュ埌buffer涓?
+        // 将FileOutputStream流写入到buffer中
         while ((len = in.read(buffer)) != -1) {
             out.write(buffer, 0, len);
         }
@@ -19568,304 +19524,302 @@ public class FileServlet extends HttpServlet {
 
 ```
 
-# 閭欢鍙戦€?
-## 鍩烘湰鍘熺悊
+# 邮件发送
+## 基本原理
 <img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1748864219279-83263ed3-a2aa-4ade-8c65-e9f624e91488.png" width="1038.4" title="" crop="0,0,1,1" id="uba02b2c0" class="ne-image">
 
 <img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1748864779429-3330453f-76b5-4288-9e30-ec423a34fef6.png" width="1317.6" title="" crop="0,0,1,1" id="u58d78310" class="ne-image">
 
-## 闇€瑕佺殑jar鍖?
-+ 闇€瑕佸鍏ョ殑jar鍖?
+## 需要的jar包
++ 需要导入的jar包
 
 <img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1748865022050-97089895-da63-40e4-8121-0db9b879010c.png" width="429.79998779296875" title="" crop="0,0,1,1" id="u4e7e8d3e" class="ne-image">
 
-## 鏅€氶偖浠舵祦绋?
-+ 鍩烘湰娴佺▼
+## 普通邮件流程
++ 基本流程
 
 <img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1748865444223-415d8dc6-0ad6-40c4-9ba3-6c3313418751.png" width="751.2" title="" crop="0,0,1,1" id="u98c5f62b" class="ne-image">
 
-+ 1.鍒涘缓瀹氫箟鏁翠釜搴旂敤绋嬪簭鎵€闇€鐨勭幆澧冧俊鎭殑 Session 瀵硅薄
++ 1.创建定义整个应用程序所需的环境信息的 Session 对象
 
 ```java
-// QQ 鎵嶆湁锛屽叾浠栭偖绠卞氨涓嶇敤
+// QQ 才有，其他邮箱就不用
 Session session = Session.getDefaultInstance(prop, new Authenticator() {
     public PasswordAuthentication getPasswordAuthentication() {
-        // 鍙戦€佷汉閭鐢ㄦ埛鍚嶏紝鎺堟潈鐮?
-        return new PasswordAuthentication("鐢ㄦ埛鍚?, "鎺堟潈鐮?);
+        // 发送人邮箱用户名，授权码
+        return new PasswordAuthentication("用户名", "授权码");
     }
 })
 
-// 寮€鍚痵ession鐨刣ebug妯″紡锛岃繖鐢ㄥ氨鍙互浜х绋嬪簭鍙戦€丒mail鐨勮繍鍔ㄧ姸鎬?
+// 开启session的debug模式，这用就可以产科程序发送Email的运动状态
 session.setDebug(True);
 ```
 
-+ 2.閫氳繃Session寰楀埌transport瀵硅薄
++ 2.通过Session得到transport对象
 
 ```java
 Transport ts = session.getTransport();
 ```
 
-+ 3.浣跨敤閭鐨勭敤鎴峰悕鍜屾巿鏉冪爜杩炰笂閭鐨勬湇鍔″櫒
++ 3.使用邮箱的用户名和授权码连上邮箱的服务器
 
 ```java
 // host    user    password
-ts.connect("smtp.qq.com", "2746325155@qq.com", "鎺堟潈鐮?);
+ts.connect("smtp.qq.com", "2746325155@qq.com", "授权码");
 ```
 
-+ 4.鍒涘缓閭欢
++ 4.创建邮件
 
 ```java
-// 娉ㄦ剰闇€瑕佷紶閫抯ession
+// 注意需要传递session
 MimeMessage message = new MimeMessage(session)
-// 鎸囨槑閭欢鐨勫彂閫佷汉
-message.setFrom(new InternetAddress("璐﹀彿"));
-// 鎸囨槑閭欢鐨勬敹浠朵汉锛岀幇鍦ㄥ彂浠朵汉鍜屾敹浠朵汉鏄竴鏍风殑锛屽氨鏄嚜宸卞彂缁欒嚜宸?
-message.setRecipient(Message.RecipientType.TO, new InternetAdderss("璐﹀彿");
-// 閭欢鐨勬爣棰?
-message.setContent("<h1 style=''color: red''>鏍囬</h1>", "text/html;charset=utf-8");
+// 指明邮件的发送人
+message.setFrom(new InternetAddress("账号"));
+// 指明邮件的收件人，现在发件人和收件人是一样的，就是自己发给自己
+message.setRecipient(Message.RecipientType.TO, new InternetAdderss("账号");
+// 邮件的标题
+message.setContent("<h1 style=''color: red''>标题</h1>", "text/html;charset=utf-8");
 
 ```
 
-+ 5.鍙戦€侀偖浠?
++ 5.发送邮件
 
 ```java
 ts.sendMessage(message, message.getAllRecipients());
 ```
 
-+ 6.鍏抽棴杩炴帴
++ 6.关闭连接
 
 ```java
 ts.close();
 ```
 
-## 澶嶆潅閭欢', NOW());
-SET @last_note_id = LAST_INSERT_ID();
+## 复杂邮件', 0, NOW());
 
-INSERT INTO 
-ote (uthor_id, 	itle, content, created_at)
-VALUES (1005, 'Numpy', '### array鍒涘缓缁?
-璇硶鏍煎紡濡備笅
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+VALUES (19, 1005, 'Numpy', '### array创建组
+语法格式如下
 
 numpy.array(object, dtupe=None, copy=True, order=None)
 
-+ object锛氭暟缁勬垨宓屽鐨勬暟鍒楋紝鍙互鏄暟鍊煎瀷鍒楄〃
-+ dtype锛氭暟缁勫厓绱犵殑鏁版嵁绫诲瀷锛屽彲閫夛紝甯哥敤鐨勬湁int锛宖loat
-+ copy锛氬娲楁尽姝屾槸鍚﹂渶瑕佸鍒讹紝鍙€?
-+ order锛氬垱寤烘暟缁勭殑鏍峰紡锛孋涓鸿鏂瑰悜锛孎涓哄垪鏂瑰悜锛孉涓轰换鎰忔柟鍚戯紙榛樿锛?
-+ subok锛氶粯璁よ繑鍥炰竴涓笌鍩虹被绫诲瀷涓€鑷寸殑鏁扮粍
-+ ndmin锛氭寚瀹氱敓鎴愭暟缁勭殑鏈€灏忕淮搴?
++ object：数组或嵌套的数列，可以是数值型列表
++ dtype：数组元素的数据类型，可选，常用的有int，float
++ copy：对洗澡歌是否需要复制，可选
++ order：创建数组的样式，C为行方向，F为列方向，A为任意方向（默认）
++ subok：默认返回一个与基类类型一致的数组
++ ndmin：指定生成数组的最小维度
 
 ```python
 import numpy as np
-# 涓€缁存暟缁?
+# 一维数组
 np.array([1,2,3,4,5])
-#浜岀淮鏁扮粍
+#二维数组
 np.array([
     [1,2,3],
     [4,5,6],
     [7,8,9]])
-# 鎸囧畾缁村害
-np.array([1,2,3], ndmin=3)  # 鐢熸垚涓夌淮鏁扮粍
-# 鎸囧畾鏁扮粍鐨勬暟鎹被鍨?
+# 指定维度
+np.array([1,2,3], ndmin=3)  # 生成三维数组
+# 指定数组的数据类型
 np.array([1,2,3,4,5], dtype=np.int)
 
 ```
 
 
 
-### arange鍒涘缓鏁扮粍
-鏍煎紡
+### arange创建数组
+格式
 
 numpy.arange(start, stop, step, stype)
 
-+ start锛氳捣濮嬪€?
-+ stop锛氱粓姝㈠€硷紙涓嶅寘鍚級
-+ step锛氭闀匡紝榛樿涓?
-+ dtype锛氳繑鍥瀗darray鐨勬暟缁勭被鍨嬶紝濡傛灉娌℃湁鎻愪緵锛屽垯浼氫娇鐢ㄨ緭鍏ユ暟鎹殑绫诲瀷
++ start：起始值
++ stop：终止值（不包含）
++ step：步长，默认为1
++ dtype：返回ndarray的数组类型，如果没有提供，则会使用输入数据的类型
 
 ```python
-# arange鍒涘缓鏁扮粍
-# 涓€缁存暟缁?
+# arange创建数组
+# 一维数组
 import numpy as np
 np.arange(1,6,2,dtype=float)
-# 浜岀淮鏁扮粍
+# 二维数组
 np.array([np.arange(1,4),np.arange(4,8)])
 ```
 
 
 
-### random鍒涘缓闅忔満鏁扮粍
-numpy涓殑random妯″潡鍖呭惈浜嗗緢澶氭柟娉曞彲浠ョ敤鏉ヤ骇鐢熼殢鏈烘暟
+### random创建随机数组
+numpy中的random模块包含了很多方法可以用来产生随机数
 
-+ seed锛氱‘瀹氶殢鏈虹敓鎴愬櫒绉嶅瓙
-+ permutation锛氳繑鍥炰竴涓簭鍒楃殑闅忔満鎺掑垪鎴栬繑鍥炰竴涓殢鏈烘帓鍒楃殑鑼冨洿
-+ shuffle锛氬涓€涓簭鍒楀氨鍦伴殢鏈烘帓闆?
-+ rand锛氫骇鐢熷潎鍖€鍒嗗竷鐨勬牱鏈€?
-+ randint锛氳鏂规硶鏈変笁涓弬鏁發ow銆乭igh锛宻ize锛岄粯璁igh鏄疦one锛屽鏋滃彧鏈塴ow锛岄偅鑼冨洿灏辨槸[0,low), 濡傛灉鏈塰igh锛岃寖鍥村氨鏄痆low,high)
-+ random锛坰ize=None锛夛細璇ユ柟娉曡繑鍥?0.0,1.0)鑼冨洿鐨勯殢鏈烘暟
-+ randn锛坉0,d1,d2,.....,dn锛?randn鍑芥暟杩斿洖涓€涓垨涓€缁勬牱鏈紝鍏锋湁鏍囧噯姝ｆ€佸垎甯?鏈熸湜涓?锛屾柟宸负1)锛宒n琛ㄦ牸姣忎釜缁村害锛岃繑鍥炲€艰寖鍥存寚瀹氱淮搴︾殑array
-+ normal(loc, scale,size)锛氱敓鎴愭鎬佸垎甯冩暟缁勶紝loc锛氭湡鏈涳紝scale锛氭柟宸紝size锛氬舰鐘?
++ seed：确定随机生成器种子
++ permutation：返回一个序列的随机排列或返回一个随机排列的范围
++ shuffle：对一个序列就地随机排雷
++ rand：产生均匀分布的样本值
++ randint：该方法有三个参数low、high，size，默认high是None，如果只有low，那范围就是[0,low), 如果有high，范围就是[low,high)
++ random（size=None）：该方法返回(0.0,1.0)范围的随机数
++ randn（d0,d1,d2,.....,dn）:randn函数返回一个或一组样本，具有标准正态分布(期望为0，方差为1)，dn表格每个维度，返回值范围指定维度的array
++ normal(loc, scale,size)：生成正态分布数组，loc：期望，scale：方差，size：形状
 
 ```python
 impart numpy as np
-# 闅忔満鐢熸垚鍣ㄧ瀛愶紝浣跨敓鎴愮殑闅忔満鏁版瘡娆￠兘涓€鏍?
+# 随机生成器种子，使生成的随机数每次都一样
 np.random.seed(0)
-# size鍙‘瀹氭暟缁勭殑褰㈢姸
-# np.random.random() 鏁板€艰寖鍥村湪(0.0,1.0)
-np.random.random(size=(2,5))  # 2琛?鍒?
+# size可确定数组的形状
+# np.random.random() 数值范围在(0.0,1.0)
+np.random.random(size=(2,5))  # 2行5列
 
 # np.random.randint(low, high, size)
-# low:鏈€灏忓€?high:鏈€澶у€?size褰㈢姸
+# low:最小值,high:最大值,size形状
 np.random.randint(2, 5, size(4, 5))
-# .shape 鑾峰彇鏁扮粍鐨勫舰鐘?
+# .shape 获取数组的形状
 
-#  np.random.randn(d0,d1,...,dn)鏍囧噯姝ｆ€佸垎甯冩暟缁?dn鏁扮粍缁村害
-np.random.randn(2,3,4) # 4缁存暟缁?
+#  np.random.randn(d0,d1,...,dn)标准正态分布数组,dn数组维度
+np.random.randn(2,3,4) # 4维数组
 
-# 鐢熸垚姝ｆ€佸垎甯冩暟缁?
+# 生成正态分布数组
 np.random.normal(loc=2, scale=1, size(3,2))
 ```
 
-### ndarray瀵硅薄鐨勫睘鎬?
-+ .ndim锛氱З锛屽嵆杞寸殑鏁伴噺鎴栫淮搴︾殑鏁伴噺
-+ .shape锛歯darray瀵硅薄鐨勫昂搴︼紝瀵逛簬鐭╅樀锛宯琛宮鍒?
-+ .size锛歯darray瀵硅薄鍏冪礌鐨勪釜鏁帮紝鐩稿綋浜?shape涓璶*m
-+ .dtype锛歯darray瀵硅薄鐨勫厓绱犵被鍨?
-+ .itemsize锛歯darray瀵硅薄涓瘡涓厓绱犵殑澶у皬锛屼互瀛楄妭涓哄崟浣?
+### ndarray对象的属性
++ .ndim：秩，即轴的数量或维度的数量
++ .shape：ndarray对象的尺度，对于矩阵，n行m列
++ .size：ndarray对象元素的个数，相当于.shape中n*m
++ .dtype：ndarray对象的元素类型
++ .itemsize：ndarray对象中每个元素的大小，以字节为单位
 
-### zeros鍒涘缓鍏?鏁扮粍锛宱nes鍒涘缓鍏ㄤ负1鐨勬暟缁?
+### zeros创建全0数组，ones创建全为1的数组
 numpy.zeros(shape, dtype=float, order=''C'')
 
 numpy.ones(shape, dtype=float, order=''C'')
 
-+ shape锛氭暟缁勫舰鐘讹紝
-+ dtype锛氭暟缁勫厓绱犳暟鎹被鍨嬶紝鍙€夛紝榛樿涓篺loat
-+ order锛?font style="color:rgb(6, 6, 7);">鐢ㄤ簬鎸囧畾鏁扮粍鍦ㄥ唴瀛樹腑鐨勫瓨鍌ㄩ『搴忥紝鍙€夛紝''C'', ''F'', ''A''</font>
++ shape：数组形状，
++ dtype：数组元素数据类型，可选，默认为float
++ order：<font style="color:rgb(6, 6, 7);">用于指定数组在内存中的存储顺序，可选，''C'', ''F'', ''A''</font>
 
-numpy.zeros_like(z)锛氭牴鎹紶鍏ユ暟缁勭殑鐨勫舰鐘跺垱寤哄叏涓洪浂鐨勬暟缁?
+numpy.zeros_like(z)：根据传入数组的的形状创建全为零的数组
 
-numpy.zones_like(z)锛氭牴鎹紶鍏ユ暟缁勭殑鐨勫舰鐘跺垱寤哄叏涓洪浂鐨勬暟缁?
+numpy.zones_like(z)：根据传入数组的的形状创建全为零的数组
 
-### empty鍒涘缓鎸囧畾褰㈢姸鐨勬暟缁勶紝鍙～鍏呮暟鎹?
+### empty创建指定形状的数组，可填充数据
 numpy.empty(shape, dtype=float, order="C")
 
-+ shape锛氭寚瀹氭暟缁勭殑褰㈢姸
-+ dtype锛氭湭鍒濆鍖栨暟缁勭殑鏁版嵁绫诲瀷锛屽彲閫夛紝榛樿涓篺loat
-+ order锛?font style="color:rgb(6, 6, 7);">鐢ㄤ簬鎸囧畾鏁扮粍鍦ㄥ唴瀛樹腑鐨勫瓨鍌ㄩ『搴忥紝鍙€夛紝''C'', ''F'', ''A''</font>
++ shape：指定数组的形状
++ dtype：未初始化数组的数据类型，可选，默认为float
++ order：<font style="color:rgb(6, 6, 7);">用于指定数组在内存中的存储顺序，可选，''C'', ''F'', ''A''</font>
 
-numpyempty_like(z)锛氭牴鎹紶鍏ユ暟缁勭殑鐨勫舰鐘跺垱寤烘湭鍒濆鍖栨暟缁?
+numpyempty_like(z)：根据传入数组的的形状创建未初始化数组
 
-### full鍒涘缓鎸囧畾褰㈢姸锛屾寚瀹氬€肩殑鏁扮粍
+### full创建指定形状，指定值的数组
 numpy.full(shape,fill_value)
 
-+ shape锛氭寚瀹氭暟缁勭殑褰㈢姸
-+ fill_value锛氭寚瀹氬€?
++ shape：指定数组的形状
++ fill_value：指定值
 
-numpy.full_like(a,fill_value): 瀵规寚瀹氭暟缁勭殑鍊煎叏鏀逛负fill_value
+numpy.full_like(a,fill_value): 对指定数组的值全改为fill_value
 
-### 鍒涘缓鍗曚綅鐭╅樀eye,identity
-瀵硅绾垮叏涓?锛屽叾浣欏€煎叏涓?鐨勭煩闃碉紝浠讳綍鐭╅樀涓庝箣鐩镐箻閮界瓑浜庡叾鏈韩
+### 创建单位矩阵eye,identity
+对角线全为1，其余值全为0的矩阵，任何矩阵与之相乘都等于其本身
 
 eye(shape,dtype=float)
 
 identity(shape,dtype=float)
 
-+ shape锛氭暟缁勭殑缁村害
-+ dtype锛氭暟缁勭殑鏁版嵁绫诲瀷锛屽彲閫夛紝榛樿涓篺loat
++ shape：数组的维度
++ dtype：数组的数据类型，可选，默认为float
 
-### linspace鍒涘缓绛夊樊涓€缁存暟缁?logspace鍒涘缓绛夋瘮鏁板垪
-np.linspace(start,stop,num=50,endpoing=True,retstep=False锛宒type=float)
+### linspace创建等差一维数组,logspace创建等比数列
+np.linspace(start,stop,num=50,endpoing=True,retstep=False，dtype=float)
 
 np.logspace(start,stop,num=50,endpoing=True,base=10.0,dtype=float)
 
-+ start锛氳捣濮嬪€? base**start
-+ stop锛氱粓姝㈠€硷紝base**stop锛屽鏋渆ndpoing=true锛岃鍊煎寘鍚簬鏁板垪涓?
-+ num锛氳鐢熸垚绛夋闀跨殑鏍锋湰鏁伴噺锛岄粯璁や负50
-+ endpoint锛歍rue锛氳〃绀鸿鍊煎寘鍚簬鏁板垪涓紝False锛氫笌涔嬬浉鍙嶏紝榛樿涓篢rue
-+ retstep锛氬鏋滀负True锛岀敓鎴愮殑鏁扮粍涓細鏄剧ず闂磋窛锛屽弽涔嬩笉鏄剧ず锛岄粯璁や负False
-+ base锛氬鏁發og鐨勫簳鏁?
-+ dtype锛歯darry鐨勬暟鎹被鍨嬶紝榛樿涓篺loat
++ start：起始值, base**start
++ stop：终止值，base**stop，如果endpoing=true，该值包含于数列中
++ num：要生成等步长的样本数量，默认为50
++ endpoint：True：表示该值包含于数列中，False：与之相反，默认为True
++ retstep：如果为True，生成的数组中会显示间距，反之不显示，默认为False
++ base：对数log的底数
++ dtype：ndarry的数据类型，默认为float
 
 
 
-### 涓€缁存暟缁勭储寮曞拰鍒囩墖
-绱㈠紩锛氬彲浠ュ熀浜?-n鐨勪笅鏍囪繘琛岀储寮曪紝**arr[a]**
+### 一维数组索引和切片
+索引：可以基于0-n的下标进行索引，**arr[a]**
 
-鍒囩墖锛氬苟璁剧疆start锛宻top锛宻tep,浠庡師鏁扮粍涓垏鍓蹭竴涓柊鐨勬暟缁?
+切片：并设置start，stop，step,从原数组中切割一个新的数组
 
-**arr[start:stop:step]锛宎rr[start:stop]**
+**arr[start:stop:step]，arr[start:stop]**
 
-+ start锛氳捣浣嶇疆锛岄粯璁や负0
-+ stop锛氱粓姝綅缃紝榛樿涓烘渶鍚庝竴涓綅缃?
-+ step锛氭闀匡紝榛樿涓?, 褰撲负璐熸暟鏃讹紝浠庡悗寰€鍓嶅紑濮嬪垏鐗?
++ start：起位置，默认为0
++ stop：终止位置，默认为最后一个位置
++ step：步长，默认为1, 当为负数时，从后往前开始切片
 
 ****
 
-### 浜岀淮鏁扮粍绱㈠紩鍜屽垏鐗?
-鏍规嵁涓嬫爣杩涜绱㈠紩
+### 二维数组索引和切片
+根据下标进行索引
 
-瀵硅鍜屽垪杩涜鍒囩墖 arr[琛岀储寮曪紝鍒楃储寮昡
+对行和列进行切片 arr[行索引，列索引]
 
 **arr[start:stop:step, start:stop:step]**
 
 ```python
 import numpy as np
 x = np.arange(1,10).reshape#(3,3)
-# 鑾峰彇绗簩琛?
+# 获取第二行
 x[1]
-# 鑾峰彇绗簩琛岀涓夊垪
+# 获取第二行第三列
 x[1][2]
 x[1,2]
-# 鑾峰彇鐨勪簩鍒?
+# 获取的二列
 x[:2]
-# 鑾峰彇绗簩鍒颁笁琛岋紝绗竴鍒颁笁鍒?
+# 获取第二到三行，第一到三列
 x[1:2,0:2]
-# 鍚屾椂鑾峰彇澶氫釜鏁版嵁鏃?绗簩琛岀涓夊垪锛岀涓夎绗笁鍒楃殑鏁版嵁
+# 同时获取多个数据时,第二行第三列，第三行第三列的数据
 x[(1,2), (2,2)]
 ```
 
-浜岀淮鏁版嵁涔熸敮鎸佽礋绱㈠紩
+二维数据也支持负索引
 
-瀵规暟缁勭储寮曟垨鍒囩墖鍚庣殑鍊艰繘琛屼慨鏀瑰悗锛屽師鏁扮粍鐨勫€间篃浼氫竴璧疯淇敼
+对数组索引或切片后的值进行修改后，原数组的值也会一起被修改
 
-濡傛灉瀵规暟缁勮繘琛屾嫹璐漙np.copy`鍚庯紝淇敼鏂版暟缁勭殑鍊兼椂锛屽師鏁扮粍鐨勫€间笉浼氫慨鏀?
+如果对数组进行拷贝`np.copy`后，修改新数组的值时，原数组的值不会修改
 
-### 鏀瑰彉鏁扮粍鐨勭淮搴?
-娉ㄦ剰锛氬墠鍚庢暟缁勭殑鍏冪礌涓暟涓嶈兘鏀瑰彉
+### 改变数组的维度
+注意：前后数组的元素个数不能改变
 
-**arr.reshape()**锛氬皢涓€缁存暟缁勮浆鎹负浜岀淮锛屼笁缁存垨鏇村缁村害鐨勬暟缁勶紝涔熷彲灏嗗缁存暟缁勮浆鎹綅涓€缁存暟缁?
+**arr.reshape()**：将一维数组转换为二维，三维或更多维度的数组，也可将多维数组转换位一维数组
 
-**arr.ravel():**灏嗕笁缁存暟缁勮浆鎹负涓€缁存暟缁?
+**arr.ravel():**将三维数组转换为一维数组
 
-**arr.flatten():**灏嗕簩缁存暟缁勮浆鎹负涓€缁存暟缁?
+**arr.flatten():**将二维数组转换为一维数组
 
-**arr.shape=(6,4):**鍒╃敤shape灞炴€у皢涓夌淮鏁扮粍arr杞崲涓轰簩缁存暟缁?6琛岋紝4鍒?
+**arr.shape=(6,4):**利用shape属性将三维数组arr转换为二维数组(6行，4列)
 
-**arr.resize((2,12)):**浣跨敤resize淇敼鏁扮粍鐨勭淮搴?
+**arr.resize((2,12)):**使用resize修改数组的维度
 
 
 
-### 鏁扮粍鐨勬嫾鎺?
-甯哥敤鐨勫嚱鏁?
+### 数组的拼接
+常用的函数
 
 1. concatenate((arr1,arr2,...), axis=0)
-    - (arr1,arr2,...)锛氱浉鍚岀被鍨嬬殑鏁扮粍
-    - axis锛氭部鐫€瀹冭繛鎺ユ暟缁勭殑杞达紝0锛氱涓€涓淮搴︼紝1锛氱浜屼釜缁村害锛屸€︹€︼紝榛樿涓?
+    - (arr1,arr2,...)：相同类型的数组
+    - axis：沿着它连接数组的轴，0：第一个维度，1：第二个维度，……，默认为0
 
-**娉ㄦ剰锛氬缁存暟缁勬嫾鎺ユ椂闇€瑕佹暟缁勭殑褰㈢姸鐩稿悓**
+**注意：多维数组拼接时需要数组的形状相同**
 
-2. hstack()锛氭按骞冲爢鍙犲簭鍒椾腑鐨勬暟缁勶紙鍒楁柟鍚戝嵆琛屼笉鍙樺嵆axis=0锛?
-3. vstack()锛氱珫鐩村爢鍙犲簭鍒椾腑鐨勬暟缁勶紙琛屾柟鍚戝嵆鍒椾笉鍙樺嵆axis=1锛?
-4. dstack()锛氬嵆axis=3
+2. hstack()：水平堆叠序列中的数组（列方向即行不变即axis=0）
+3. vstack()：竖直堆叠序列中的数组（行方向即列不变即axis=1）
+4. dstack()：即axis=3
 
-### 鏁扮粍鐨勮浆缃?
-浜岀淮鏁扮粍鍙互浣跨敤arr.T杩涜瀵规暟缁勭殑杞疆
+### 数组的转置
+二维数组可以使用arr.T进行对数组的转置
 
-浣跨敤transpose杩涜澶氱淮鏁扮粍杞疆
+使用transpose进行多维数组转置
 
-transpose(arr, 鍒楄〃/鍏冪粍)
+transpose(arr, 列表/元组)
 
-鍒楄〃/鍏冪粍锛氳〃绀烘兂瑕佽浆缃暟缁勭殑褰㈢姸
+列表/元组：表示想要转置数组的形状
 
 ```python
 import numpy as np
@@ -19873,45 +19827,45 @@ import numpy as np
 arr = np.arange(1,37).reshape(2,6,3)
 arr2 = np.transpose(arr,(0,2,1))
 print(arr2.shape)
-# 杈撳嚭缁撴灉涓?2,3,6)
+# 输出结果为(2,3,6)
 ```
 
-### 鏁扮粍鐨勫垎闅?
+### 数组的分隔
 numpy.split(ary, indices_or_sections, axis)
 
-+ ary锛氳鍒嗗壊鐨勬暟缁?
-+ indices_or_sections锛氬鏋滄槸涓€涓暣鏁帮紝灏辩敤璇ユ暟杩涜骞冲潎鍒嗗壊锛屽嵆鍒嗘垚澶氬皯鍒嗭紱濡傛灉鏄竴涓暟缁勶紝涓烘部杞村垏鍒嗛殧鐨勪綅缃?宸﹀紑鍙抽棴)
-+ axis锛氭部鐫€鍝釜缁村害杩涜鍒囧悜锛岄粯璁や负0
++ ary：被分割的数组
++ indices_or_sections：如果是一个整数，就用该数进行平均分割，即分成多少分；如果是一个数组，为沿轴切分隔的位置(左开右闭)
++ axis：沿着哪个维度进行切向，默认为0
 
 ```python
 import numpy as np
 arr = np.arange(1,37).reshape(6,6)
-# 浼犲叆鏁存暟锛屽钩鍧囧垎鎴愪笁涓暟缁?
+# 传入整数，平均分成三个数组
 np.split(arr, 3)
-# 浼犲叆鏁扮粍
+# 传入数组
 np.split(arr, [2,5])
 
 ```
 
 
 
-### Numpy涓殑甯哥敤鍑芥暟
-#### 鏁板鍑芥暟
-+ np.abs(), np.fags()锛氳绠楁暣鏁帮紝娴偣鏁扮殑缁濆鍊?
-+ np.sqrt()锛氳绠楀悇鍏冪礌鐨勫钩鏂规牴
-+ np.reciprocal()锛氳绠楀悇鍏冪礌鐨勫€掓暟
-+ np.square()锛氳绠楀悇鍏冪礌鐨勫钩鏂?
-+ np.exp锛氳绠楀悇鍏冪礌鐨勬寚鏁癳x
-+ np.log(), np.log10(), np.log2()锛氳绠楀悇鍏冪礌鐨勮嚜鐒跺鏁帮紝浠?0涓哄簳鐨勫鏁帮紝浠?涓哄簳鐨勫鏁?
-+ np.slgn()锛氳绠楀悇鍏冪礌鐨勭鍙凤紝1锛堟暣鏁帮級锛?锛堥浂锛夛紝-1锛堣礋鏁帮級
-+ np.cell(), np.floor(), np.rint()锛氬鍚勪釜鍏冪礌鍒嗗埆鍚戜笂锛屽悜涓嬪彇鏁达紝鍥涜垗浜斿叆
-+ np.modf()锛氬皢鍚勪釜鍏冪礌鐨勫皬鏁伴儴鍒嗗拰鏁存暟閮ㄥ垎浠ヤ袱涓嫭绔嬬殑鏁扮粍杩斿洖
-+ np.cos(), np.sin(), np.tan()锛氭眰鍚勪釜鍏冪礌鐨勪笁瑙掑嚱鏁?
+### Numpy中的常用函数
+#### 数学函数
++ np.abs(), np.fags()：计算整数，浮点数的绝对值
++ np.sqrt()：计算各元素的平方根
++ np.reciprocal()：计算各元素的倒数
++ np.square()：计算各元素的平方
++ np.exp：计算各元素的指数ex
++ np.log(), np.log10(), np.log2()：计算各元素的自然对数，以10为底的对数，以2为底的对数
++ np.slgn()：计算各元素的符号，1（整数），0（零），-1（负数）
++ np.cell(), np.floor(), np.rint()：对各个元素分别向上，向下取整，四舍五入
++ np.modf()：将各个元素的小数部分和整数部分以两个独立的数组返回
++ np.cos(), np.sin(), np.tan()：求各个元素的三角函数
 
-#### 绠楁暟鍑芥暟
-+ np.add(), np.subtract(), np.multiply(), np.divide()锛氬涓や釜鏁扮粍鐨勫悇涓厓绱犺繘琛屽姞锛坅+b锛夛紝鍑?a-b)锛屼箻(a*b)锛岄櫎(a/b)
+#### 算数函数
++ np.add(), np.subtract(), np.multiply(), np.divide()：对两个数组的各个元素进行加（a+b），减(a-b)，乘(a*b)，除(a/b)
 
-out鍙傛暟鐨勪娇鐢細灏嗚绠楀悗鐨勬暟鎹紶鍏ユ寚瀹氱殑鏈垵濮嬪寲鐨勭浉鍚屾暟缁?
+out参数的使用：将计算后的数据传入指定的未初始化的相同数组
 
 ```python
 import numpy as np
@@ -19921,106 +19875,106 @@ result = empty_like(a)
 np.addd(a,b,out=result)
 ```
 
-#### 缁熻鍑芥暟
-+ np.sum(), np.mean(), np.prod()锛氭眰鍜岋紝姹傚钩鍧囧€硷紝姹傛墍鏈夊厓绱犵殑涔樼Н
-+ np.std(), np.var(), np.median()锛氭眰鏍囧噯宸紝姹傛柟宸紝姹備腑浣嶆暟
-+ np.power(arr, a, out=new_arr), np.sqrt(arr, a, out=new_arr)锛氬箓杩愮畻锛屽紑鏂?
-+ np.min(), np.max()锛氭渶灏忓€硷紝鏈€澶у€?
-+ np.argmin(), np.argmax()锛氭渶灏忓€间笅鏍囷紝鏈€澶у€间笅鏍?
-+ np.cumsum()锛氬鏁扮粍涓厓绱犵疮鍔犳眰鍜岋紝鍙寚瀹氳酱鍚?
-+ np.cumprod()锛氬鏁扮粍涓厓绱犵疮绉眰鍜岋紝鍙寚瀹氳酱鍚?
-+ np.ptp()锛氳绠椾竴缁勬暟涓渶澶у€间笌鏈€灏忓€硷紝鍙寚瀹氳酱鍚?
-+ np.unigue()锛氬垹闄ゆ暟缁勪腑閲嶅鏁版嵁锛屽苟瀵规暟鎹繘琛屾帓搴?
-+ np.nonzero()锛氳繑鍥炴暟缁勪腑闈為浂鍏冪礌鐨勭储寮?
+#### 统计函数
++ np.sum(), np.mean(), np.prod()：求和，求平均值，求所有元素的乘积
++ np.std(), np.var(), np.median()：求标准差，求方差，求中位数
++ np.power(arr, a, out=new_arr), np.sqrt(arr, a, out=new_arr)：幂运算，开方
++ np.min(), np.max()：最小值，最大值
++ np.argmin(), np.argmax()：最小值下标，最大值下标
++ np.cumsum()：对数组中元素累加求和，可指定轴向
++ np.cumprod()：对数组中元素累积求和，可指定轴向
++ np.ptp()：计算一组数中最大值与最小值，可指定轴向
++ np.unigue()：删除数组中重复数据，并对数据进行排序
++ np.nonzero()：返回数组中非零元素的索引
 
-numpy.power()锛氬皢绗竴涓緭鍏ユ暟缁勪腑鐨勫厓绱犱綔涓哄簳鏁帮紝璁＄畻浠栦笌绗簩涓緭鍏ユ暟缁勪腑瀵瑰簲鍏冪礌鐨勫箓
+numpy.power()：将第一个输入数组中的元素作为底数，计算他与第二个输入数组中对应元素的幂
 
-瀵逛簬澶氱淮鏁扮粍鍙敤axis鍙傛暟鎸囧畾杞村悜
+对于多维数组可用axis参数指定轴向
 
-#### 鍏朵粬甯哥敤鍑芥暟
-+ np.tile()锛氬皢鏁扮粍鐨勬暟鎹寜鐓ц鍒楀鍒舵墿灞?
+#### 其他常用函数
++ np.tile()：将数组的数据按照行列复制扩展
 
 ```python
 import numpy as np
 arr = np.array([1,2,3,4])
-# 灏嗘暟缁勬墿灞曞鍒朵袱娆★紝鐢熸垚涓€涓柊鐨勬暟缁?
+# 将数组扩展复制两次，生成一个新的数组
 arr2 = np.tile(arr, 2)
-# 灏嗘暟缁勫湪鍒椾笂鎵╁睍涓ゆ锛屽湪琛屼笂鎵╁睍涓夋
+# 将数组在列上扩展两次，在行上扩展三次
 arr3 = np.tile(arr, (2, 3))
 ```
 
-+ np.repeat(arr, num, axis=0)锛氬皢鏁扮粍涓殑姣忎釜鍏冪礌閲嶅鑻ュ共娆★紝娌℃湁鎸囧畾axis鏃讹紝鐢熸垚涓€缁存暟缁?
++ np.repeat(arr, num, axis=0)：将数组中的每个元素重复若干次，没有指定axis时，生成一维数组
 
 ```python
 import numpy as np
 arr = np.array([1,2,3,4])
-# 灏嗘瘡涓厓绱犻噸澶?娆?
+# 将每个元素重复3次
 arr2 = np.repeat(arr, 3)
 ```
 
-+ np.roll(arr锛宻um锛宎xis=0)锛氬鏁扮粍鍏冪礌杩涜绉讳綅锛宻um澶т簬0鍚戝悗锛宻um灏忎簬0鍚戝墠锛屾寚瀹歛xis鏃讹紝浼氬皢鏁翠釜缁村害鐨勬暟鍚戝悗绉讳綅
++ np.roll(arr，sum，axis=0)：对数组元素进行移位，sum大于0向后，sum小于0向前，指定axis时，会将整个维度的数向后移位
 
 ```python
 import numpy as np
 arr = np.array([1,2,3,4])
-# 灏嗘瘡涓厓绱犲悜鍚庤皟2浣?
+# 将每个元素向后调2位
 arr2 = np.roll(arr, 2)
 ```
 
-+ resize()锛氶噸鏂拌皟鏁存暟缁勭殑澶у皬锛屾暟缁勫厓绱犲彲浠ヤ笉鍚?
-+ place()/put()锛氬皢鏁扮粍涓弧瓒虫潯浠剁殑鍏冪礌/鎸囧畾鐨勫厓绱犵殑绱㈠紩鏇挎崲涓烘寚瀹氱殑鍊?
++ resize()：重新调整数组的大小，数组元素可以不同
++ place()/put()：将数组中满足条件的元素/指定的元素的索引替换为指定的值
 
 ```python
 import numpy as np
 arr = np.array([1,2,3,4])
-# 灏嗘暟缁勪腑灏忎簬5鐨勬暟鐢?鏇挎崲
+# 将数组中小于5的数用0替换
 np.place(arr, arr<5, 0)
-# 灏嗙储寮曚负2鐨勫€兼浛鎹㈡帀
+# 将索引为2的值替换掉
 np.put(arr, 2, 1000)
 ```
 
-+ np.savetxt(path, arr, fmt=None)锛氬皢鏁版嵁淇濆瓨鍒皌xt鏂囦欢涓?
-    - path锛氭枃浠惰矾寰?
-    - arr锛氭暟缁?
-    - fmt锛氭暟鎹殑鏁版嵁绫诲瀷, %d, %f
-+ np.roadtxt(path, dtype=float, delimiter='',''锛?skiprows=0, <font style="color:rgb(6, 6, 7);">usecols=None</font>)锛氫粠鏂囦欢涓姞杞芥暟鎹?
-    - path锛氭枃浠惰矾寰?
-    - dtype锛氭暟鎹被鍨嬶紝 榛樿涓篺loat
-    - delimeiter锛氭寚瀹氬垎闅旂
-    - skiprows锛氳烦杩囨枃浠跺紑澶寸殑琛屾暟锛岄粯璁や负0
-    - usecols锛氭寚瀹氶渶瑕佽鍙栫殑鍒楋紝榛樿涓篘one锛岃〃绀鸿鍙栨墍鏈夊垪
-+ np.genfromtxt()锛氭牴鎹枃浠跺唴瀹圭敓鎴愭暟鎹紝鍙互鎸囧畾缂哄け鍊肩殑澶勭悊绛?
-+ np.any()锛氬鏋滄暟缁勪腑瀛樺湪涓€涓负True鐨勫厓绱狅紙鎴栬€呰兘杞负True鐨勫厓绱狅級锛岃繑鍥濼rue
-+ np.all()锛氬鏋滄暟缁勪腑鎵€鏈夊厓绱犻兘涓篢rue鐨勫厓绱狅紙鎴栬€呰兘杞负True鐨勫厓绱狅級锛岃繑鍥濼rue
-+ np.where(鏉′欢, x, y)锛氬皢姣忎釜鍏冪礌杩涜鍒ゆ柇锛屽鏋滄潯浠朵负True锛屽搴斿€间负x锛屽惁鍒欏搴斿€间负y
-+ np.dot()锛氬皢鐭╅樀鐩镐箻
-+ np.sort(arr锛宎xis=1)锛氬鏁扮粍杩涜浠庡皬鍒板ぇ鎺掑簭锛岃繑鍥炰竴涓柊鐨勬帓濂藉簭鐨勬暟缁勶紝axis榛樿涓?锛屽師鏁扮粍涓嶅彉
-+ np.argsort()锛氳繑鍥炵殑鏄暟缁勫€间粠灏忓埌澶ф帓搴忓悗鍏冪礌瀵瑰簲鐨勭储寮曞€?
++ np.savetxt(path, arr, fmt=None)：将数据保存到txt文件中
+    - path：文件路径
+    - arr：数组
+    - fmt：数据的数据类型, %d, %f
++ np.roadtxt(path, dtype=float, delimiter='',''， skiprows=0, <font style="color:rgb(6, 6, 7);">usecols=None</font>)：从文件中加载数据
+    - path：文件路径
+    - dtype：数据类型， 默认为float
+    - delimeiter：指定分隔符
+    - skiprows：跳过文件开头的行数，默认为0
+    - usecols：指定需要读取的列，默认为None，表示读取所有列
++ np.genfromtxt()：根据文件内容生成数据，可以指定缺失值的处理等
++ np.any()：如果数组中存在一个为True的元素（或者能转为True的元素），返回True
++ np.all()：如果数组中所有元素都为True的元素（或者能转为True的元素），返回True
++ np.where(条件, x, y)：将每个元素进行判断，如果条件为True，对应值为x，否则对应值为y
++ np.dot()：将矩阵相乘
++ np.sort(arr，axis=1)：对数组进行从小到大排序，返回一个新的排好序的数组，axis默认为1，原数组不变
++ np.argsort()：返回的是数组值从小到大排序后元素对应的索引值
 
-### Numpy骞挎挱鏈哄埗
-1. **<font style="color:rgb(6, 6, 7);">濡傛灉涓や釜鏁扮粍鐨勭淮搴︽暟涓嶅悓锛屽舰鐘惰緝灏忕殑鏁扮粍浼氬湪鏈€宸﹁竟琛?1</font>**<font style="color:rgb(6, 6, 7);">锛岀洿鍒颁袱涓暟缁勭殑缁村害鏁扮浉鍚屻€?/font>
-2. **<font style="color:rgb(6, 6, 7);">浠庡彸鍚戝乏姣旇緝涓や釜鏁扮粍鐨勫舰鐘?/font>**<font style="color:rgb(6, 6, 7);">锛屽鏋滄煇涓淮搴︾殑澶у皬涓嶅悓锛屼笖鍏朵腑涓€涓暟缁勫湪璇ョ淮搴︾殑澶у皬涓?1锛屽垯璇ユ暟缁勪細鍦ㄨ缁村害涓婅繘琛屾墿灞曪紝浠ュ尮閰嶅彟涓€涓暟缁勭殑澶у皬銆?/font>
-3. **<font style="color:rgb(6, 6, 7);">濡傛灉鏌愪釜缁村害鐨勫ぇ灏忎笉鍚岋紝涓斾袱涓暟缁勫湪璇ョ淮搴︾殑澶у皬鍧囦笉涓?1锛屽垯浼氭姏鍑洪敊璇?/font>**<font style="color:rgb(6, 6, 7);">锛屽洜涓烘棤娉曡繘琛屽箍鎾€?/font>
+### Numpy广播机制
+1. **<font style="color:rgb(6, 6, 7);">如果两个数组的维度数不同，形状较小的数组会在最左边补 1</font>**<font style="color:rgb(6, 6, 7);">，直到两个数组的维度数相同。</font>
+2. **<font style="color:rgb(6, 6, 7);">从右向左比较两个数组的形状</font>**<font style="color:rgb(6, 6, 7);">，如果某个维度的大小不同，且其中一个数组在该维度的大小为 1，则该数组会在该维度上进行扩展，以匹配另一个数组的大小。</font>
+3. **<font style="color:rgb(6, 6, 7);">如果某个维度的大小不同，且两个数组在该维度的大小均不为 1，则会抛出错误</font>**<font style="color:rgb(6, 6, 7);">，因为无法进行广播。</font>
 
-### 姣旇緝鎺╃爜
-<font style="color:rgb(6, 6, 7);">甯冨皵鎺╃爜鏄?NumPy 涓鐞嗘暟缁勬暟鎹殑寮哄ぇ宸ュ叿锛屽彲浠ラ珮鏁堝湴绛涢€夈€佷慨鏀瑰拰缁熻鏁扮粍涓殑鍏冪礌銆傞€氳繃鍚堢悊浣跨敤甯冨皵鎺╃爜锛屽彲浠ラ伩鍏嶆樉寮忓惊鐜紝鎻愰珮浠ｇ爜鐨勬晥鐜囧拰鍙鎬?/font>
+### 比较掩码
+<font style="color:rgb(6, 6, 7);">布尔掩码是 NumPy 中处理数组数据的强大工具，可以高效地筛选、修改和统计数组中的元素。通过合理使用布尔掩码，可以避免显式循环，提高代码的效率和可读性</font>
 
-### <font style="color:rgb(6, 6, 7);">榄旀硶鍛戒护</font>
-1. %time 鍜?%timeit鐢ㄤ簬娴嬮噺浠ｇ爜鐨勬墽琛屾椂闂淬€?
-    - %time锛氭祴閲忓崟娆℃墽琛岀殑鏃堕棿銆?
-    - %timeit锛氬娆℃墽琛屼唬鐮侊紝缁欏嚭骞冲潎鎵ц鏃堕棿锛屾洿閫傚悎娴嬮噺灏忔浠ｇ爜鐨勬€ц兘銆?
+### <font style="color:rgb(6, 6, 7);">魔法命令</font>
+1. %time 和 %timeit用于测量代码的执行时间。
+    - %time：测量单次执行的时间。
+    - %timeit：多次执行代码，给出平均执行时间，更适合测量小段代码的性能。
 
 ```python
 import numpy as np
-娴嬮噺鍗曟鎵ц鏃堕棿
+测量单次执行时间
 %time np.random.rand(1000000)
-娴嬮噺澶氭鎵ц鐨勫钩鍧囨椂闂?
+测量多次执行的平均时间
 %timeit np.random.rand(1000000)
 ```
 
-2. %matplotlib锛氱敤浜庡湪 Jupyter Notebook 涓祵鍏?Matplotlib 鍥惧舰銆?
-    - %matplotlib inline锛氬皢鍥惧舰宓屽叆鍒?Notebook 涓€?
-    - %matplotlib notebook锛氭彁渚涗氦浜掑紡鍥惧舰鏀寔銆?
+2. %matplotlib：用于在 Jupyter Notebook 中嵌入 Matplotlib 图形。
+    - %matplotlib inline：将图形嵌入到 Notebook 中。
+    - %matplotlib notebook：提供交互式图形支持。
 
 ```python
 %matplotlib inline
@@ -20032,9 +19986,9 @@ plt.plot(x, np.sin(x))
 plt.show()
 ```
 
-3.  %who 鍜?%whos锛氱敤浜庡垪鍑哄綋鍓嶅懡鍚嶇┖闂翠腑鐨勫彉閲忋€?
-    - %who锛氬垪鍑哄綋鍓嶅懡鍚嶇┖闂翠腑鐨勬墍鏈夊彉閲忋€?
-    - %whos锛氬垪鍑哄綋鍓嶅懡鍚嶇┖闂翠腑鐨勬墍鏈夊彉閲忓強鍏惰缁嗕俊鎭紙绫诲瀷銆佸ぇ灏忕瓑锛夈€?
+3.  %who 和 %whos：用于列出当前命名空间中的变量。
+    - %who：列出当前命名空间中的所有变量。
+    - %whos：列出当前命名空间中的所有变量及其详细信息（类型、大小等）。
 
 ```python
 import numpy as np
@@ -20044,52 +19998,50 @@ b = np.array([[1, 2], [3, 4]])
 %whos
 ```
 
-4. %run锛氱敤浜庤繍琛屼竴涓?Python 鑴氭湰鏂囦欢
+4. %run：用于运行一个 Python 脚本文件
 
 ```python
 %run my_script.py
 ```
 
 
-', NOW());
-SET @last_note_id = LAST_INSERT_ID();
+', 0, NOW());
 
-INSERT INTO 
-ote (uthor_id, 	itle, content, created_at)
-VALUES (1005, 'SprngMVC', '# 绠€浠?
-## 鍩烘湰鍘熺悊
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+VALUES (20, 1005, 'SprngMVC', '# 简介
+## 基本原理
 <img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1750230213640-25cd6846-2414-4a6d-aac0-d71d412546ca.png" width="744.8" title="" crop="0,0,1,1" id="uf44df764" class="ne-image">
 
-**绠€瑕佸垎鏋愭墽琛屾祦绋?*
+**简要分析执行流程**
 
-1. DispatcherServlet琛ㄧず鍓嶇疆鎺у埗鍣紝鏄暣涓猄pringMVC鐨勬帶鍒朵腑蹇冦€傜敤鎴峰彂鍑鸿姹傦紝DispatcherServlet鎺ユ敹璇锋眰骞舵嫤鎴姹傘€?
+1. DispatcherServlet表示前置控制器，是整个SpringMVC的控制中心。用户发出请求，DispatcherServlet接收请求并拦截请求。
 
-鎴戜滑鍋囪璇锋眰鐨剈rl涓?: http://localhost:8080/SpringMVC/hello
+我们假设请求的url为 : http://localhost:8080/SpringMVC/hello
 
-**濡備笂url鎷嗗垎鎴愪笁閮ㄥ垎锛?*
+**如上url拆分成三部分：**
 
-http://localhost:8080鏈嶅姟鍣ㄥ煙鍚?
+http://localhost:8080服务器域名
 
-SpringMVC閮ㄧ讲鍦ㄦ湇鍔″櫒涓婄殑web绔欑偣
+SpringMVC部署在服务器上的web站点
 
-hello琛ㄧず鎺у埗鍣?
+hello表示控制器
 
-閫氳繃鍒嗘瀽锛屽涓妘rl琛ㄧず涓猴細璇锋眰浣嶄簬鏈嶅姟鍣╨ocalhost:8080涓婄殑SpringMVC绔欑偣鐨刪ello鎺у埗鍣ㄣ€?
+通过分析，如上url表示为：请求位于服务器localhost:8080上的SpringMVC站点的hello控制器。
 
-2. HandlerMapping涓哄鐞嗗櫒鏄犲皠銆侱ispatcherServlet璋冪敤HandlerMapping,HandlerMapping鏍规嵁璇锋眰url鏌ユ壘Handler銆?
-3. HandlerExecution琛ㄧず鍏蜂綋鐨凥andler,鍏朵富瑕佷綔鐢ㄦ槸鏍规嵁url鏌ユ壘鎺у埗鍣紝濡備笂url琚煡鎵炬帶鍒跺櫒涓猴細hello銆?
-4. HandlerExecution灏嗚В鏋愬悗鐨勪俊鎭紶閫掔粰DispatcherServlet,濡傝В鏋愭帶鍒跺櫒鏄犲皠绛夈€?
-5. HandlerAdapter琛ㄧず澶勭悊鍣ㄩ€傞厤鍣紝鍏舵寜鐓х壒瀹氱殑瑙勫垯鍘绘墽琛孒andler銆?
-6. Handler璁╁叿浣撶殑Controller鎵ц銆?
-7. Controller灏嗗叿浣撶殑鎵ц淇℃伅杩斿洖缁橦andlerAdapter,濡侻odelAndView銆?
-8. HandlerAdapter灏嗚鍥鹃€昏緫鍚嶆垨妯″瀷浼犻€掔粰DispatcherServlet銆?
-9. DispatcherServlet璋冪敤瑙嗗浘瑙ｆ瀽鍣?ViewResolver)鏉ヨВ鏋怘andlerAdapter浼犻€掔殑閫昏緫瑙嗗浘鍚嶃€?
-10. 瑙嗗浘瑙ｆ瀽鍣ㄥ皢瑙ｆ瀽鐨勯€昏緫瑙嗗浘鍚嶄紶缁橠ispatcherServlet銆?
-11. DispatcherServlet鏍规嵁瑙嗗浘瑙ｆ瀽鍣ㄨВ鏋愮殑瑙嗗浘缁撴灉锛岃皟鐢ㄥ叿浣撶殑瑙嗗浘銆?
-12. 鏈€缁堣鍥惧憟鐜扮粰鐢ㄦ埛銆?
+2. HandlerMapping为处理器映射。DispatcherServlet调用HandlerMapping,HandlerMapping根据请求url查找Handler。
+3. HandlerExecution表示具体的Handler,其主要作用是根据url查找控制器，如上url被查找控制器为：hello。
+4. HandlerExecution将解析后的信息传递给DispatcherServlet,如解析控制器映射等。
+5. HandlerAdapter表示处理器适配器，其按照特定的规则去执行Handler。
+6. Handler让具体的Controller执行。
+7. Controller将具体的执行信息返回给HandlerAdapter,如ModelAndView。
+8. HandlerAdapter将视图逻辑名或模型传递给DispatcherServlet。
+9. DispatcherServlet调用视图解析器(ViewResolver)来解析HandlerAdapter传递的逻辑视图名。
+10. 视图解析器将解析的逻辑视图名传给DispatcherServlet。
+11. DispatcherServlet根据视图解析器解析的视图结果，调用具体的视图。
+12. 最终视图呈现给用户。
 
-## 绗竴涓猻pringMVC
-+ web.xml閰嶇疆DispatchServlet
+## 第一个springMVC
++ web.xml配置DispatchServlet
 
 ```java
 <?xml version="1.0" encoding="UTF-8"?>
@@ -20097,16 +20049,16 @@ hello琛ㄧず鎺у埗鍣?
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-    <!--閰嶇疆dispatchServlet锛氳繖涓槸springMVC鐨勬牳蹇冿細璇锋眰鍒嗗彂鍣紝鍓嶇鎺у埗鍣?->
+    <!--配置dispatchServlet：这个是springMVC的核心：请求分发器，前端控制器-->
     <servlet>
         <servlet-name>springmvc</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <!--DispatcherServlet瑕佺粦瀹歴pring鐨勯厤缃枃浠?->
+        <!--DispatcherServlet要绑定spring的配置文件-->
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>classpath:springmvc-servlet.xml</param-value>
         </init-param>
-        <!--鍚姩绾у埆-->
+        <!--启动级别-->
         <load-on-startup>1</load-on-startup>
     </servlet>
 
@@ -20117,7 +20069,7 @@ hello琛ㄧず鎺у埗鍣?
 </web-app>
 ```
 
-+ 璁剧疆瑙嗗浘瑙ｆ瀽鍣?
++ 设置视图解析器
 
 ```java
 <?xml version="1.0" encoding="UTF-8"?>
@@ -20127,26 +20079,26 @@ hello琛ㄧず鎺у埗鍣?
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- 澶勭悊鍣ㄦ槧灏勫櫒锛氬彲浠ヤ笉鐢ㄦ樉寮忚缃?->
+    <!-- 处理器映射器：可以不用显式设置-->
     <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
 
-    <!--澶勭悊鍣ㄩ€傞厤鍣細鍙互涓嶇敤鏄惧紡璁剧疆-->
+    <!--处理器适配器：可以不用显式设置-->
     <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
 
-    <!--瑙嗗浘瑙ｆ瀽鍣? 妯＄増寮曟搸锛屽繀椤昏缃?->
+    <!--视图解析器: 模版引擎，必须设置-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="internalResourceViewResolver">
-        <!--鍓嶇紑-->
+        <!--前缀-->
         <property name="prefix" value="/WEB-INF/jsp/"/>
-        <!--鍚庣紑-->
+        <!--后缀-->
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <!--BeanNameUrlHandlerMapping锛屾敞鍐屽疄鐜扮被-->
+    <!--BeanNameUrlHandlerMapping，注册实现类-->
     <bean id="/hello" class="com.jie.controller.HelloController"/>
 </beans>
 ```
 
-+ 瀹炵幇Controller鎺ュ彛
++ 实现Controller接口
 
 ```java
 package com.jie.controller;
@@ -20162,11 +20114,11 @@ public class HelloController implements Controller {
 
         ModelAndView modelAndView = new ModelAndView();
 
-        // 涓氬姟浠ｇ爜
+        // 业务代码
         String message = "Hello Spring MVC!";
 
         modelAndView.addObject("msg", message);
-        // 瑙嗗浘璺宠浆
+        // 视图跳转
         modelAndView.setViewName("test");
 
         return modelAndView;
@@ -20174,8 +20126,8 @@ public class HelloController implements Controller {
 }
 ```
 
-## 娉ㄨВ瀹炵幇锛堢畝鍗曪級
-+ web.xml 閰嶇疆鍩烘湰涓嶅彉
+## 注解实现（简单）
++ web.xml 配置基本不变
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -20183,16 +20135,16 @@ public class HelloController implements Controller {
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
   version="4.0">
-  <!--閰嶇疆dispatchServlet锛氳繖涓槸springMVC鐨勬牳蹇冿細璇锋眰鍒嗗彂鍣紝鍓嶇鎺у埗鍣?->
+  <!--配置dispatchServlet：这个是springMVC的核心：请求分发器，前端控制器-->
   <servlet>
     <servlet-name>springmvc</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    <!--DispatcherServlet瑕佺粦瀹歴pring鐨勯厤缃枃浠?->
+    <!--DispatcherServlet要绑定spring的配置文件-->
     <init-param>
       <param-name>contextConfigLocation</param-name>
       <param-value>classpath:springmvc-servlet.xml</param-value>
     </init-param>
-    <!--鍚姩绾у埆-->
+    <!--启动级别-->
     <load-on-startup>1</load-on-startup>
   </servlet>
 
@@ -20203,7 +20155,7 @@ public class HelloController implements Controller {
 </web-app>
 ```
 
-+ springmvc-servlet.xm 璁剧疆娉ㄨВ鎵弿锛孖OC瀹瑰櫒锛岃鍥捐В鏋愬櫒
++ springmvc-servlet.xm 设置注解扫描，IOC容器，视图解析器
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?><beans xmlns="http://www.springframework.org/schema/beans"
@@ -20216,21 +20168,21 @@ public class HelloController implements Controller {
                                              https://www.springframework.org/schema/context/spring-context.xsd
                                              http://www.springframework.org/schema/mvc
                                              https://www.springframework.org/schema/mvc/spring-mvc.xsd">
-    <!-- 鑷姩鎵弿鍖咃紝璁╂寚瀹氬寘涓嬬殑娉ㄨВ鐢熸晥,鐢盜OC瀹瑰櫒缁熶竴绠＄悊 -->
+    <!-- 自动扫描包，让指定包下的注解生效,由IOC容器统一管理 -->
     <context:component-scan base-package="com.jie.controller"/>
     <mvc:default-servlet-handler />
     <mvc:annotation-driven />
 
-    <!-- 瑙嗗浘瑙ｆ瀽鍣?-->
+    <!-- 视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="internalResourceViewResolver">
-        <!-- 鍓嶇紑 -->
+        <!-- 前缀 -->
         <property name="prefix" value="/WEB-INF/jsp/" />
-        <!-- 鍚庣紑 -->
+        <!-- 后缀 -->
         <property name="suffix" value=".jsp" />   </bean>
 </beans>
 ```
 
-+ 鍒涘缓瀵瑰簲鐨勫寘鍜屽疄鐜版柟娉?
++ 创建对应的包和实现方法
 
 ```java
 @Controller
@@ -20239,7 +20191,7 @@ public class HelloController {
     @RequestMapping("/hello")
     public String hello(Model model) {
 
-        //鍚戞ā鍨嬩腑娣诲姞灞炴€sg涓庡€硷紝鍙互鍦↗SP椤甸潰涓彇鍑哄苟娓叉煋
+        //向模型中添加属性msg与值，可以在JSP页面中取出并渲染
         model.addAttribute("msg", "Hello World111111111111111");
         //web-inf/jsp/hello.jsp
         return "hello";
@@ -20247,7 +20199,7 @@ public class HelloController {
 }
 ```
 
-+ 鍓嶇鎺ユ敹鍙傛暟  msg
++ 前端接收参数  msg
 
 ```html
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -20261,36 +20213,36 @@ ${msg}
 </html>
 ```
 
-# Controller鍜孯equestMapping
-## 鎺у埗鍣–ontroller
-+ 鎺у埗鍣ㄥ鏉傛彁渚涜闂簲鐢ㄧ▼搴忕殑琛屼负锛岄€氬父閫氳繃鎺ュ彛瀹氫箟鎴栨敞瑙ｅ畾涔変袱绉嶆柟娉曞疄鐜般€?
-+ 鎺у埗鍣ㄨ礋璐ｈВ鏋愮敤鎴风殑璇锋眰骞跺皢鍏惰浆鎹负涓€涓ā鍨嬨€?
-+ 鍦⊿pring MVC涓竴涓帶鍒跺櫒绫诲彲浠ュ寘鍚涓柟娉?
-+ 鍦⊿pring MVC涓紝瀵逛簬Controller鐨勯厤缃柟寮忔湁寰堝绉?
+# Controller和RequestMapping
+## 控制器Controller
++ 控制器复杂提供访问应用程序的行为，通常通过接口定义或注解定义两种方法实现。
++ 控制器负责解析用户的请求并将其转换为一个模型。
++ 在Spring MVC中一个控制器类可以包含多个方法
++ 在Spring MVC中，对于Controller的配置方式有很多种
 
-浣跨敤娉ㄨВ@Controller
+使用注解@Controller
 
-+ @Controller娉ㄨВ绫诲瀷鐢ㄤ簬澹版槑Spring绫荤殑瀹炰緥鏄竴涓帶鍒跺櫒锛堝湪璁睮OC鏃惰繕鎻愬埌浜嗗彟澶?涓敞瑙ｏ級锛?
-+ Spring鍙互浣跨敤鎵弿鏈哄埗鏉ユ壘鍒板簲鐢ㄧ▼搴忎腑鎵€鏈夊熀浜庢敞瑙ｇ殑鎺у埗鍣ㄧ被锛屼负浜嗕繚璇丼pring鑳芥壘鍒颁綘鐨勬帶鍒跺櫒锛岄渶瑕佸湪閰嶇疆鏂囦欢涓０鏄庣粍浠舵壂鎻忋€?
++ @Controller注解类型用于声明Spring类的实例是一个控制器（在讲IOC时还提到了另外3个注解）；
++ Spring可以使用扫描机制来找到应用程序中所有基于注解的控制器类，为了保证Spring能找到你的控制器，需要在配置文件中声明组件扫描。
 
 ```xml
-<!-- 鑷姩鎵弿鎸囧畾鐨勫寘锛屼笅闈㈡墍鏈夋敞瑙ｇ被浜ょ粰IOC瀹瑰櫒绠＄悊 -->
+<!-- 自动扫描指定的包，下面所有注解类交给IOC容器管理 -->
 <context:component-scan base-package="com.kuang.controller"/>
 ```
 
-+ 澧炲姞涓€涓狢ontrollerTest2绫伙紝浣跨敤娉ㄨВ瀹炵幇锛?
++ 增加一个ControllerTest2类，使用注解实现；
 
 ```java
-//@Controller娉ㄨВ鐨勭被浼氳嚜鍔ㄦ坊鍔犲埌Spring涓婁笅鏂囦腑
+//@Controller注解的类会自动添加到Spring上下文中
 @Controller
 public class ControllerTest2{
 
-    //鏄犲皠璁块棶璺緞
+    //映射访问路径
     @RequestMapping("/t2")
     public String index(Model model){
-        //Spring MVC浼氳嚜鍔ㄥ疄渚嬪寲涓€涓狹odel瀵硅薄鐢ㄤ簬鍚戣鍥句腑浼犲€?
+        //Spring MVC会自动实例化一个Model对象用于向视图中传值
         model.addAttribute("msg", "ControllerTest2");
-        //杩斿洖瑙嗗浘浣嶇疆
+        //返回视图位置
         return "test";
     }
 }
@@ -20301,9 +20253,9 @@ public class ControllerTest2{
 ## RequestMapping
 **@RequestMapping**
 
-+ @RequestMapping娉ㄨВ鐢ㄤ簬鏄犲皠url鍒版帶鍒跺櫒绫绘垨涓€涓壒瀹氱殑澶勭悊绋嬪簭鏂规硶銆傚彲鐢ㄤ簬绫绘垨鏂规硶涓娿€傜敤浜庣被涓婏紝琛ㄧず绫讳腑鐨勬墍鏈夊搷搴旇姹傜殑鏂规硶閮芥槸浠ヨ鍦板潃浣滀负鐖惰矾寰勩€?
-+ 涓轰簡娴嬭瘯缁撹鏇村姞鍑嗙‘锛屾垜浠彲浠ュ姞涓婁竴涓」鐩悕娴嬭瘯 myweb
-+ 鍙敞瑙ｅ湪鏂规硶涓婇潰
++ @RequestMapping注解用于映射url到控制器类或一个特定的处理程序方法。可用于类或方法上。用于类上，表示类中的所有响应请求的方法都是以该地址作为父路径。
++ 为了测试结论更加准确，我们可以加上一个项目名测试 myweb
++ 只注解在方法上面
 
 ```java
 @Controller
@@ -20315,9 +20267,9 @@ public class TestController {
 }
 ```
 
-璁块棶璺緞锛歨ttp://localhost:8080 / 椤圭洰鍚?/ h1
+访问路径：http://localhost:8080 / 项目名 / h1
 
-+ 鍚屾椂娉ㄨВ绫讳笌鏂规硶
++ 同时注解类与方法
 
 ```java
 @Controller
@@ -20330,67 +20282,67 @@ public class TestController {
 }
 ```
 
-璁块棶璺緞锛歨ttp://localhost:8080 / 椤圭洰鍚? admin /h1  , 闇€瑕佸厛鎸囧畾绫荤殑璺緞鍐嶆寚瀹氭柟娉曠殑璺緞锛?
+访问路径：http://localhost:8080 / 项目名/ admin /h1  , 需要先指定类的路径再指定方法的路径；
 
-## RestFul 椋庢牸
-**姒傚康**
+## RestFul 风格
+**概念**
 
-+ Restful灏辨槸涓€涓祫婧愬畾浣嶅強璧勬簮鎿嶄綔鐨勯鏍笺€備笉鏄爣鍑嗕篃涓嶆槸鍗忚锛屽彧鏄竴绉嶉鏍笺€傚熀浜庤繖涓鏍艰璁＄殑杞欢鍙互鏇寸畝娲侊紝鏇存湁灞傛锛屾洿鏄撲簬瀹炵幇缂撳瓨绛夋満鍒躲€?
++ Restful就是一个资源定位及资源操作的风格。不是标准也不是协议，只是一种风格。基于这个风格设计的软件可以更简洁，更有层次，更易于实现缓存等机制。
 
-**鍔熻兘**
+**功能**
 
-+ 璧勬簮锛氫簰鑱旂綉鎵€鏈夌殑浜嬬墿閮藉彲浠ヨ鎶借薄涓鸿祫婧?
-+ 璧勬簮鎿嶄綔锛氫娇鐢≒OST銆丏ELETE銆丳UT銆丟ET锛屼娇鐢ㄤ笉鍚屾柟娉曞璧勬簮杩涜鎿嶄綔銆傚垎鍒搴?娣诲姞銆?鍒犻櫎銆佷慨鏀广€佹煡璇€?
++ 资源：互联网所有的事物都可以被抽象为资源
++ 资源操作：使用POST、DELETE、PUT、GET，使用不同方法对资源进行操作。分别对应 添加、 删除、修改、查询。
 
-**浼犵粺鏂瑰紡鎿嶄綔璧勬簮**  锛氶€氳繃涓嶅悓鐨勫弬鏁版潵瀹炵幇涓嶅悓鐨勬晥鏋滐紒鏂规硶鍗曚竴锛宲ost 鍜?get
+**传统方式操作资源**  ：通过不同的参数来实现不同的效果！方法单一，post 和 get
 
-	http://127.0.0.1/item/queryItem.action?id=1 鏌ヨ,GET
+	http://127.0.0.1/item/queryItem.action?id=1 查询,GET
 
-	http://127.0.0.1/item/saveItem.action 鏂板,POST
+	http://127.0.0.1/item/saveItem.action 新增,POST
 
-	http://127.0.0.1/item/updateItem.action 鏇存柊,POST
+	http://127.0.0.1/item/updateItem.action 更新,POST
 
-	http://127.0.0.1/item/deleteItem.action?id=1 鍒犻櫎,GET鎴朠OST
+	http://127.0.0.1/item/deleteItem.action?id=1 删除,GET或POST
 
-**浣跨敤RESTful鎿嶄綔璧勬簮** 锛氬彲浠ラ€氳繃涓嶅悓鐨勮姹傛柟寮忔潵瀹炵幇涓嶅悓鐨勬晥鏋滐紒濡備笅锛氳姹傚湴鍧€涓€鏍凤紝浣嗘槸鍔熻兘鍙互涓嶅悓锛?
+**使用RESTful操作资源** ：可以通过不同的请求方式来实现不同的效果！如下：请求地址一样，但是功能可以不同！
 
-	http://127.0.0.1/item/1 鏌ヨ,GET
+	http://127.0.0.1/item/1 查询,GET
 
-	http://127.0.0.1/item 鏂板,POST
+	http://127.0.0.1/item 新增,POST
 
-	http://127.0.0.1/item 鏇存柊,PUT
+	http://127.0.0.1/item 更新,PUT
 
-	http://127.0.0.1/item/1 鍒犻櫎,DELETE
+	http://127.0.0.1/item/1 删除,DELETE
 
-**瀛︿範娴嬭瘯**
+**学习测试**
 
-+ 鍦⊿pring MVC涓彲浠ヤ娇鐢? @PathVariable 娉ㄨВ锛岃鏂规硶鍙傛暟鐨勫€煎搴旂粦瀹氬埌涓€涓猆RI妯℃澘鍙橀噺涓娿€?
++ 在Spring MVC中可以使用  @PathVariable 注解，让方法参数的值对应绑定到一个URI模板变量上。
 
 ```java
 @Controller
 public class RestFulController {
 
-    //鏄犲皠璁块棶璺緞
+    //映射访问路径
     @RequestMapping("/commit/{p1}/{p2}")
     public String index(@PathVariable int p1, @PathVariable int p2, Model model){
 
         int result = p1+p2;
-        //Spring MVC浼氳嚜鍔ㄥ疄渚嬪寲涓€涓狹odel瀵硅薄鐢ㄤ簬鍚戣鍥句腑浼犲€?
-        model.addAttribute("msg", "缁撴灉锛?+result);
-        //杩斿洖瑙嗗浘浣嶇疆
+        //Spring MVC会自动实例化一个Model对象用于向视图中传值
+        model.addAttribute("msg", "结果："+result);
+        //返回视图位置
         // localhost:8080/commit/p1/p2
         return "test";
     }
 }
 ```
 
-**浣跨敤method灞炴€ф寚瀹氳姹傜被鍨?*
+**使用method属性指定请求类型**
 
-+ 鐢ㄤ簬绾︽潫璇锋眰鐨勭被鍨嬶紝鍙互鏀剁獎璇锋眰鑼冨洿銆傛寚瀹氳姹傝皳璇嶇殑绫诲瀷濡侴ET, POST, HEAD, OPTIONS, PUT, PATCH, DELETE, TRACE绛?
++ 用于约束请求的类型，可以收窄请求范围。指定请求谓词的类型如GET, POST, HEAD, OPTIONS, PUT, PATCH, DELETE, TRACE等
 
-**鎵€鏈夌殑鍦板潃鏍忚姹傞粯璁ら兘浼氭槸 HTTP GET 绫诲瀷鐨?*
+**所有的地址栏请求默认都会是 HTTP GET 类型的**
 
-+ 鏂规硶绾у埆鐨勬敞瑙ｅ彉浣撴湁濡備笅鍑犱釜锛氱粍鍚堟敞瑙?
++ 方法级别的注解变体有如下几个：组合注解
 
 ```java
 @GetMapping
@@ -20400,64 +20352,64 @@ public class RestFulController {
 @PatchMapping
 ```
 
-+ @GetMapping 鏄竴涓粍鍚堟敞瑙ｏ紝骞虫椂浣跨敤鐨勪細姣旇緝澶氾紒
-+ 瀹冩墍鎵紨鐨勬槸 @RequestMapping(method =RequestMethod.GET) 鐨勪竴涓揩鎹锋柟寮忋€?
++ @GetMapping 是一个组合注解，平时使用的会比较多！
++ 它所扮演的是 @RequestMapping(method =RequestMethod.GET) 的一个快捷方式。
 
-# 杞彂銆佽烦杞€佹暟鎹鐞?
-## SpringMVC瀹炵幇杞彂鍜岃烦杞?
-**閫氳繃SpringMVC鏉ュ疄鐜拌浆鍙戝拰閲嶅畾鍚?- 鏃犻渶瑙嗗浘瑙ｆ瀽鍣紱**
+# 转发、跳转、数据处理
+## SpringMVC实现转发和跳转
+**通过SpringMVC来实现转发和重定向 - 无需视图解析器；**
 
-娴嬭瘯鍓嶏紝闇€瑕佸皢瑙嗗浘瑙ｆ瀽鍣ㄦ敞閲婃帀
+测试前，需要将视图解析器注释掉
 
 ```java
 @Controller
 public class ResultSpringMVC {
     @RequestMapping("/rsm/t1")
     public String test1(){
-        //杞彂
+        //转发
         return "/index.jsp";
     }
 
     @RequestMapping("/rsm/t2")
     public String test2(){
-        //杞彂浜?
+        //转发二
         return "forward:/index.jsp";
     }
 
     @RequestMapping("/rsm/t3")
     public String test3(){
-        //閲嶅畾鍚?
+        //重定向
         return "redirect:/index.jsp";
     }
 }
 ```
 
-**閫氳繃SpringMVC鏉ュ疄鐜拌浆鍙戝拰閲嶅畾鍚?- 鏈夎鍥捐В鏋愬櫒锛?*
+**通过SpringMVC来实现转发和重定向 - 有视图解析器；**
 
-閲嶅畾鍚?, 涓嶉渶瑕佽鍥捐В鏋愬櫒 , 鏈川灏辨槸閲嶆柊璇锋眰涓€涓柊鍦版柟鍢?, 鎵€浠ユ敞鎰忚矾寰勯棶棰?
+重定向 , 不需要视图解析器 , 本质就是重新请求一个新地方嘛 , 所以注意路径问题.
 
-鍙互閲嶅畾鍚戝埌鍙﹀涓€涓姹傚疄鐜?.
+可以重定向到另外一个请求实现 .
 
 ```java
 @Controller
 public class ResultSpringMVC2 {
     @RequestMapping("/rsm2/t1")
     public String test1(){
-        //杞彂
+        //转发
         return "test";
     }
 
     @RequestMapping("/rsm2/t2")
     public String test2(){
-        //閲嶅畾鍚?
+        //重定向
         return "redirect:/index.jsp";
-        //return "redirect:hello.do"; //hello.do涓哄彟涓€涓姹?
+        //return "redirect:hello.do"; //hello.do为另一个请求/
     }
 
 }
 ```
 
-## 鏁版嵁澶勭悊
+## 数据处理
 ```java
 package com.jie.controller;
 
@@ -20473,25 +20425,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserController {
 
     @GetMapping("/t1/{username}")
-    // 鍓嶇浼犻€掍竴涓弬鏁?
+    // 前端传递一个参数
     public String test1(@PathVariable("username") String name, Model model) {
 
-        // 1.鎺ユ敹鍓嶇鏁版嵁
+        // 1.接收前端数据
         System.out.println(name);
 
-        // 2.灏嗚繑鍥炵殑缁撴灉浼犻€掔粰鍓嶇  Model
+        // 2.将返回的结果传递给前端  Model
         model.addAttribute("msg", name);
 
-        // 璺宠浆瑙嗗浘
+        // 跳转视图
         return "hello";
     }
 
     /**
-     * 1.鎺ユ敹鍓嶇鐢ㄦ埛浼犻€掔殑鍙傛暟锛屽垽鏂弬鏁扮殑鍚嶅瓧锛屽亣璁惧悕瀛楃洿鎺ュ湪鏂规硶涓婏紝鍙互鐩存帴浣跨敤
-     * 2. 鍋囪浼犻€掔殑鍙傛暟瀵硅薄User锛屽尮閰峌ser瀵硅薄涓殑瀛楁鍚嶏紝濡傛灉鍚嶅瓧涓€鑷村垯OK锛屽惁鍒欏尮閰嶄笉鍒?
+     * 1.接收前端用户传递的参数，判断参数的名字，假设名字直接在方法上，可以直接使用
+     * 2. 假设传递的参数对象User，匹配User对象中的字段名，如果名字一致则OK，否则匹配不到
      * **/
 
-    // 鍓嶇浼犻€掍竴涓璞?锛?id锛?name锛?age
+    // 前端传递一个对象 ： id， name， age
     @GetMapping("/t2")
     public String test2(User user, Model model) {
         System.out.println(user);
@@ -20503,8 +20455,8 @@ public class UserController {
 
 ```
 
-# 涔辩爜闂
-## SpringMVC瑙ｅ喅涔辩爜鐨勮繃婊ゅ櫒
+# 乱码问题
+## SpringMVC解决乱码的过滤器
 ```xml
 <filter>
   <filter-name>encoding</filter-name>
@@ -20520,8 +20472,8 @@ public class UserController {
 </filter-mapping>
 ```
 
-## 鑷畾涔夎繃婊ゅ櫒绫?
-+ 杩囨护鍣ㄧ被
+## 自定义过滤器类
++ 过滤器类
 
 ```java
 package com.kuang.filter;
@@ -20535,7 +20487,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 /**
- * 瑙ｅ喅get鍜宲ost璇锋眰 鍏ㄩ儴涔辩爜鐨勮繃婊ゅ櫒
+ * 解决get和post请求 全部乱码的过滤器
  */
 public class GenericEncodingFilter implements Filter {
 
@@ -20545,13 +20497,13 @@ public class GenericEncodingFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        //澶勭悊response鐨勫瓧绗︾紪鐮?
+        //处理response的字符编码
         HttpServletResponse myResponse=(HttpServletResponse) response;
         myResponse.setContentType("text/html;charset=UTF-8");
 
-        // 杞瀷涓轰笌鍗忚鐩稿叧瀵硅薄
+        // 转型为与协议相关对象
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        // 瀵箁equest鍖呰澧炲己
+        // 对request包装增强
         HttpServletRequest myrequest = new MyRequest(httpServletRequest);
         chain.doFilter(myrequest, response);
     }
@@ -20562,42 +20514,42 @@ public class GenericEncodingFilter implements Filter {
 
 }
 
-//鑷畾涔塺equest瀵硅薄锛孒ttpServletRequest鐨勫寘瑁呯被
+//自定义request对象，HttpServletRequest的包装类
 class MyRequest extends HttpServletRequestWrapper {
 
     private HttpServletRequest request;
-    //鏄惁缂栫爜鐨勬爣璁?
+    //是否编码的标记
     private boolean hasEncode;
-    //瀹氫箟涓€涓彲浠ヤ紶鍏ttpServletRequest瀵硅薄鐨勬瀯閫犲嚱鏁帮紝浠ヤ究瀵瑰叾杩涜瑁呴グ
+    //定义一个可以传入HttpServletRequest对象的构造函数，以便对其进行装饰
     public MyRequest(HttpServletRequest request) {
-        super(request);// super蹇呴』鍐?
+        super(request);// super必须写
         this.request = request;
     }
 
-    // 瀵归渶瑕佸寮烘柟娉?杩涜瑕嗙洊
+    // 对需要增强方法 进行覆盖
     @Override
     public Map getParameterMap() {
-        // 鍏堣幏寰楄姹傛柟寮?
+        // 先获得请求方式
         String method = request.getMethod();
         if (method.equalsIgnoreCase("post")) {
-            // post璇锋眰
+            // post请求
             try {
-                // 澶勭悊post涔辩爜
+                // 处理post乱码
                 request.setCharacterEncoding("utf-8");
                 return request.getParameterMap();
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
         } else if (method.equalsIgnoreCase("get")) {
-            // get璇锋眰
+            // get请求
             Map<String, String[]> parameterMap = request.getParameterMap();
-            if (!hasEncode) { // 纭繚get鎵嬪姩缂栫爜閫昏緫鍙繍琛屼竴娆?
+            if (!hasEncode) { // 确保get手动编码逻辑只运行一次
                 for (String parameterName : parameterMap.keySet()) {
                     String[] values = parameterMap.get(parameterName);
                     if (values != null) {
                         for (int i = 0; i < values.length; i++) {
                             try {
-                                // 澶勭悊get涔辩爜
+                                // 处理get乱码
                                 values[i] = new String(values[i]
                                                        .getBytes("ISO-8859-1"), "utf-8");
                             } catch (UnsupportedEncodingException e) {
@@ -20613,7 +20565,7 @@ class MyRequest extends HttpServletRequestWrapper {
         return super.getParameterMap();
     }
 
-    //鍙栦竴涓€?
+    //取一个值
     @Override
     public String getParameter(String name) {
         Map<String, String[]> parameterMap = getParameterMap();
@@ -20621,10 +20573,10 @@ class MyRequest extends HttpServletRequestWrapper {
         if (values == null) {
             return null;
         }
-        return values[0]; // 鍙栧洖鍙傛暟鐨勭涓€涓€?
+        return values[0]; // 取回参数的第一个值
     }
 
-    //鍙栨墍鏈夊€?
+    //取所有值
     @Override
     public String[] getParameterValues(String name) {
         Map<String, String[]> parameterMap = getParameterMap();
@@ -20634,7 +20586,7 @@ class MyRequest extends HttpServletRequestWrapper {
 }
 ```
 
-+ 鍦╳eb.xml涓厤缃繖涓繃婊ゅ櫒
++ 在web.xml中配置这个过滤器
 
 ```xml
 <filter>
@@ -20648,18 +20600,18 @@ class MyRequest extends HttpServletRequestWrapper {
 </filter-mapping>
 ```
 
-## JSON涔辩爜闂
-    - 瑙ｅ喅涔辩爜鐨勯棶棰?
-        * 浣跨敤@RequestMapping璁剧疆
+## JSON乱码问题
+    - 解决乱码的问题
+        * 使用@RequestMapping设置
 
 ```xml
 @RequestMapping(value = "/t1",produces = "application/json;charset=utf-8")
 ```
 
-        * 鎴戜滑鍙互鍦╯pringmvc鐨勯厤缃枃浠朵笂娣诲姞涓€娈垫秷鎭疭tringHttpMessageConverter杞崲閰嶇疆锛?
+        * 我们可以在springmvc的配置文件上添加一段消息StringHttpMessageConverter转换配置！
 
 ```xml
-<!--鎴戜滑鍙互鍦╯pringmvc鐨勯厤缃枃浠朵笂娣诲姞涓€娈垫秷鎭疭tringHttpMessageConverter杞崲閰嶇疆锛?->
+<!--我们可以在springmvc的配置文件上添加一段消息StringHttpMessageConverter转换配置！-->
 <mvc:annotation-driven>
   <mvc:message-converters register-defaults="true">
     <bean class="org.springframework.http.converter.StringHttpMessageConverter">
@@ -20677,56 +20629,56 @@ class MyRequest extends HttpServletRequestWrapper {
 ```
 
 # JSON
-## 绠€浠?
-+ JSON(JavaScript Object Notation, JS 瀵硅薄鏍囪) 鏄竴绉嶈交閲忕骇鐨勬暟鎹氦鎹㈡牸寮忥紝鐩墠浣跨敤鐗瑰埆骞挎硾銆?
-+ 閲囩敤瀹屽叏鐙珛浜庣紪绋嬭瑷€鐨?*鏂囨湰鏍煎紡**鏉ュ瓨鍌ㄥ拰琛ㄧず鏁版嵁銆?
-+ 绠€娲佸拰娓呮櫚鐨勫眰娆＄粨鏋勪娇寰?JSON 鎴愪负鐞嗘兂鐨勬暟鎹氦鎹㈣瑷€銆?
-+ 鏄撲簬浜洪槄璇诲拰缂栧啓锛屽悓鏃朵篃鏄撲簬鏈哄櫒瑙ｆ瀽鍜岀敓鎴愶紝骞舵湁鏁堝湴鎻愬崌缃戠粶浼犺緭鏁堢巼銆?
+## 简介
++ JSON(JavaScript Object Notation, JS 对象标记) 是一种轻量级的数据交换格式，目前使用特别广泛。
++ 采用完全独立于编程语言的**文本格式**来存储和表示数据。
++ 简洁和清晰的层次结构使得 JSON 成为理想的数据交换语言。
++ 易于人阅读和编写，同时也易于机器解析和生成，并有效地提升网络传输效率。
 
-鍦?JavaScript 璇█涓紝涓€鍒囬兘鏄璞°€傚洜姝わ紝浠讳綍JavaScript 鏀寔鐨勭被鍨嬮兘鍙互閫氳繃 JSON 鏉ヨ〃绀猴紝渚嬪瀛楃涓层€佹暟瀛椼€佸璞°€佹暟缁勭瓑銆傜湅鐪嬩粬鐨勮姹傚拰璇硶鏍煎紡锛?
+在 JavaScript 语言中，一切都是对象。因此，任何JavaScript 支持的类型都可以通过 JSON 来表示，例如字符串、数字、对象、数组等。看看他的要求和语法格式：
 
-+ 瀵硅薄琛ㄧず涓洪敭鍊煎锛屾暟鎹敱閫楀彿鍒嗛殧
-+ 鑺辨嫭鍙蜂繚瀛樺璞?
-+ 鏂规嫭鍙蜂繚瀛樻暟缁?
-+ JSON(JavaScript Object Notation, JS 瀵硅薄鏍囪) 鏄竴绉嶈交閲忕骇鐨勬暟鎹氦鎹㈡牸寮忥紝鐩墠浣跨敤鐗瑰埆骞挎硾銆?
++ 对象表示为键值对，数据由逗号分隔
++ 花括号保存对象
++ 方括号保存数组
++ JSON(JavaScript Object Notation, JS 对象标记) 是一种轻量级的数据交换格式，目前使用特别广泛。
 
-**JSON 閿€煎**鏄敤鏉ヤ繚瀛?JavaScript 瀵硅薄鐨勪竴绉嶆柟寮忥紝鍜?JavaScript 瀵硅薄鐨勫啓娉曚篃澶у悓灏忓紓锛岄敭/鍊煎缁勫悎涓殑閿悕鍐欏湪鍓嶉潰骞剁敤鍙屽紩鍙?"" 鍖呰９锛屼娇鐢ㄥ啋鍙?: 鍒嗛殧锛岀劧鍚庣揣鎺ョ潃鍊硷細
+**JSON 键值对**是用来保存 JavaScript 对象的一种方式，和 JavaScript 对象的写法也大同小异，键/值对组合中的键名写在前面并用双引号 "" 包裹，使用冒号 : 分隔，然后紧接着值：
 
 ```json
 {"name": "QinJiang"}
 {"age": "3"}
-{"sex": "鐢?}
+{"sex": "男"}
 ```
 
-寰堝浜烘悶涓嶆竻妤?JSON 鍜?JavaScript 瀵硅薄鐨勫叧绯伙紝鐢氳嚦杩炶皝鏄皝閮戒笉娓呮銆傚叾瀹烇紝鍙互杩欎箞鐞嗚В锛?
+很多人搞不清楚 JSON 和 JavaScript 对象的关系，甚至连谁是谁都不清楚。其实，可以这么理解：
 
-JSON 鏄?JavaScript 瀵硅薄鐨勫瓧绗︿覆琛ㄧず娉曪紝瀹冧娇鐢ㄦ枃鏈〃绀轰竴涓?JS 瀵硅薄鐨勪俊鎭紝鏈川鏄竴涓瓧绗︿覆銆?
+JSON 是 JavaScript 对象的字符串表示法，它使用文本表示一个 JS 对象的信息，本质是一个字符串。
 
 ```javascript
-//杩欐槸涓€涓璞★紝娉ㄦ剰閿悕涔熸槸鍙互浣跨敤寮曞彿鍖呰９鐨?
+//这是一个对象，注意键名也是可以使用引号包裹的
 var obj = {a: ''Hello'', b: ''World''}; 
-//杩欐槸涓€涓?JSON 瀛楃涓诧紝鏈川鏄竴涓瓧绗︿覆
+//这是一个 JSON 字符串，本质是一个字符串
 var json = ''{"a": "Hello", "b": "World"}''; 
 ```
 
-**JSON 鍜?JavaScript 瀵硅薄浜掕浆**
+**JSON 和 JavaScript 对象互转**
 
-瑕佸疄鐜颁粠JSON瀛楃涓茶浆鎹负JavaScript 瀵硅薄锛屼娇鐢?JSON.parse() 鏂规硶锛?
+要实现从JSON字符串转换为JavaScript 对象，使用 JSON.parse() 方法：
 
 ```javascript
 var obj = JSON.parse(''{"a": "Hello", "b": "World"}'');
-//缁撴灉鏄?{a: ''Hello'', b: ''World''}
+//结果是 {a: ''Hello'', b: ''World''}
 ```
 
-瑕佸疄鐜颁粠JavaScript 瀵硅薄杞崲涓篔SON瀛楃涓诧紝浣跨敤 JSON.stringify() 鏂规硶锛?
+要实现从JavaScript 对象转换为JSON字符串，使用 JSON.stringify() 方法：
 
 ```javascript
 var json = JSON.stringify({a: ''Hello'', b: ''World''});
-//缁撴灉鏄?''{"a": "Hello", "b": "World"}''
+//结果是 ''{"a": "Hello", "b": "World"}''
 ```
 
-## Controller杩斿洖JSON鏁版嵁
-+ 瀵煎叆渚濊禆
+## Controller返回JSON数据
++ 导入依赖
 
 ```xml
 <dependency>
@@ -20736,8 +20688,8 @@ var json = JSON.stringify({a: ''Hello'', b: ''World''});
 </dependency>
 ```
 
-+ 姝ｅ父鐨剋eb.xml鍜宻pringmvc-servlet.xml閰嶇疆
-    - 灏唈ava瀵硅薄杞负JSON瀛楃涓蹭笂浼?
++ 正常的web.xml和springmvc-servlet.xml配置
+    - 将java对象转为JSON字符串上传
 
 ```java
 //@RequestMapping(value = "/t1",produces = "application/json;charset=utf-8")
@@ -20746,10 +20698,10 @@ public String t1() throws JsonProcessingException {
 
 ArrayList<User> users = new ArrayList<User>();
 
-User user1 = new User("绉︾枂1鍙?, 3, "鐢?);
-User user2 = new User("绉︾枂2鍙?, 3, "鐢?);
-User user3 = new User("绉︾枂3鍙?, 3, "鐢?);
-User user4 = new User("绉︾枂4鍙?, 3, "鐢?);
+User user1 = new User("秦疆1号", 3, "男");
+User user2 = new User("秦疆2号", 3, "男");
+User user3 = new User("秦疆3号", 3, "男");
+User user4 = new User("秦疆4号", 3, "男");
 
 users.add(user1);
 users.add(user2);
@@ -20762,17 +20714,17 @@ return mapper.writeValueAsString(users);
 }
 ```
 
-    - 瑙ｅ喅涔辩爜鐨勯棶棰?
-        * 浣跨敤@RequestMapping璁剧疆
+    - 解决乱码的问题
+        * 使用@RequestMapping设置
 
 ```xml
 @RequestMapping(value = "/t1",produces = "application/json;charset=utf-8")
 ```
 
-        * 鎴戜滑鍙互鍦╯pringmvc鐨勯厤缃枃浠朵笂娣诲姞涓€娈垫秷鎭疭tringHttpMessageConverter杞崲閰嶇疆锛?
+        * 我们可以在springmvc的配置文件上添加一段消息StringHttpMessageConverter转换配置！
 
 ```xml
-<!--鎴戜滑鍙互鍦╯pringmvc鐨勯厤缃枃浠朵笂娣诲姞涓€娈垫秷鎭疭tringHttpMessageConverter杞崲閰嶇疆锛?->
+<!--我们可以在springmvc的配置文件上添加一段消息StringHttpMessageConverter转换配置！-->
 <mvc:annotation-driven>
   <mvc:message-converters register-defaults="true">
     <bean class="org.springframework.http.converter.StringHttpMessageConverter">
@@ -20791,8 +20743,8 @@ return mapper.writeValueAsString(users);
 
 
 
-## 鑷繁鍐欏伐鍏风被绠€鍖栦唬鐮佽繑鍥炰竴涓椂闂存埑
-+ 宸ュ叿绫?
+## 自己写工具类简化代码返回一个时间戳
++ 工具类
 
 ```java
 public class JsonUtils {
@@ -20804,11 +20756,11 @@ public class JsonUtils {
 
     public static String getJson(Object object, String dateFormat) {
         ObjectMapper mapper = new ObjectMapper();
-        //涓嶄娇鐢ㄦ椂闂村樊鐨勬柟寮?
+        //不使用时间差的方式
         mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-        //鑷畾涔夋棩鏈熸牸寮忓璞?
+        //自定义日期格式对象
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
-        //鎸囧畾鏃ユ湡鏍煎紡
+        //指定日期格式
         mapper.setDateFormat(sdf);
         try {
             return mapper.writeValueAsString(object);
@@ -20819,24 +20771,24 @@ public class JsonUtils {
 }
 ```
 
-+ 娴嬭瘯
++ 测试
 
 ```java
-// 浣跨敤宸ュ叿绫?
+// 使用工具类
 @RequestMapping("/t3")
-    // 浣跨敤鑷繁鍐欑殑宸ュ叿绫?
+    // 使用自己写的工具类
     public String t3() throws JsonProcessingException {
         return JsonUtils.getJson(new Date());
     }
 
-// 涓嶄娇鐢ㄥ伐鍏风被
+// 不使用工具类
 @RequestMapping("/t2")
-    // 杩斿洖涓€涓椂闂?
+    // 返回一个时间
     public String t2() throws JsonProcessingException {
-        // 涓嶆寚瀹氭椂闂存牸寮?
+        // 不指定时间格式
         // return new ObjectMapper().writeValueAsString(new Date());
 
-        // 鎸囧畾鏃堕棿鏍煎紡
+        // 指定时间格式
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         ObjectMapper mapper = new ObjectMapper();
         mapper.setDateFormat(sdf);
@@ -20844,8 +20796,8 @@ public class JsonUtils {
     }
 ```
 
-## 浣跨敤fastJson瀹炵幇杞崲
-+ 瀵煎叆渚濊禆
+## 使用fastJson实现转换
++ 导入依赖
 
 ```xml
 <dependency>
@@ -20855,42 +20807,42 @@ public class JsonUtils {
 </dependency>
 ```
 
-+ 娴嬭瘯
++ 测试
 
 ```java
-// 浣跨敤fastJson 瀹炵幇
+// 使用fastJson 实现
 @RequestMapping("/t4")
 public String t4() throws JsonProcessingException {
     ArrayList<User> users = new ArrayList<User>();
 
-    User user1 = new User("绉︾枂1鍙?, 3, "鐢?);
-    User user2 = new User("绉︾枂2鍙?, 3, "鐢?);
-    User user3 = new User("绉︾枂3鍙?, 3, "鐢?);
-    User user4 = new User("绉︾枂4鍙?, 3, "鐢?);
+    User user1 = new User("秦疆1号", 3, "男");
+    User user2 = new User("秦疆2号", 3, "男");
+    User user3 = new User("秦疆3号", 3, "男");
+    User user4 = new User("秦疆4号", 3, "男");
 
     users.add(user1);
     users.add(user2);
     users.add(user3);
     users.add(user4);
 
-    // 灏唈ava瀵硅薄杞负JSON瀛楃涓?
+    // 将java对象转为JSON字符串
     String str1 = JSON.toJSONString(users);
     String str2 = JSON.toJSONString(user2);
-    // 灏咼SON瀛楃涓茶浆涓簀ava瀵硅薄
+    // 将JSON字符串转为java对象
     User jp_user2 =JSON.parseObject(str2, User.class);
-    // 灏唈ava瀵硅薄杞负JSON瀵硅薄
+    // 将java对象转为JSON对象
     JSONObject jsonObject = (JSONObject) JSON.toJSON(user2);
-    // JSON瀵硅薄杞负java瀵硅薄
+    // JSON对象转为java对象
     User jp_user3  = JSON.toJavaObject(jsonObject, User.class);
     return str1+str2+JsonUtils.getJson(jp_user3)+JsonUtils.getJson(jp_user2)+JsonUtils.getJson(jp_user3);
 }
 
 ```
 
-# 鏁村悎ssm
-## 瀵煎叆渚濊禆锛岃祫婧愯繃婊?
+# 整合ssm
+## 导入依赖，资源过滤
 ```xml
-<!--渚濊禆 junit 鏁版嵁搴撻┍鍔紝杩炴帴姹狅紝 servlet锛?jsp锛?Mybatis锛?Mybatis-spring, spring-->
+<!--依赖 junit 数据库驱动，连接池， servlet， jsp， Mybatis， Mybatis-spring, spring-->
 <dependencies>
   <dependency>
     <groupId>junit</groupId>
@@ -20898,13 +20850,13 @@ public String t4() throws JsonProcessingException {
     <version>3.8.1</version>
     <scope>test</scope>
   </dependency>
-  <!--鏁版嵁搴撻┍鍔?->
+  <!--数据库驱动-->
   <dependency>
     <groupId>mysql</groupId>
     <artifactId>mysql-connector-java</artifactId>
     <version>8.0.33</version>
   </dependency>
-  <!--鏁版嵁搴撹繛鎺ユ睜锛歝3p0-->
+  <!--数据库连接池：c3p0-->
   <dependency>
     <groupId>com.mchange</groupId>
     <artifactId>c3p0</artifactId>
@@ -20944,7 +20896,7 @@ public String t4() throws JsonProcessingException {
     <version>6.2.8</version>
   </dependency>
 </dependencies>
-<!--Maven 璧勬簮杩囨护闂-->
+<!--Maven 资源过滤问题-->
 <build>
   <resources>
     <resource>
@@ -20966,73 +20918,71 @@ public String t4() throws JsonProcessingException {
   </resources>
 </build>
 ```
-', NOW());
-SET @last_note_id = LAST_INSERT_ID();
+', 0, NOW());
 
-INSERT INTO 
-ote (uthor_id, 	itle, content, created_at)
-VALUES (1005, '注解和反射', '# 娉ㄨВjava.Annotation
-## 浠€涔堟槸娉ㄨВ
-鍙互琚叾浠栫▼搴忥紙姣斿锛氱紪璇戝櫒绛夛級璇诲彇
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+VALUES (21, 1005, '注解和反射', '# 注解java.Annotation
+## 什么是注解
+可以被其他程序（比如：编译器等）读取
 
-鏍煎紡"@娉ㄨВ鍚?
+格式"@注解名"
 
-鍙€氳繃鍑℃槸鏈哄埗缂栫▼瀹炵幇瀵硅繖浜涘厓鏁版嵁鐨勮闂?
+可通过凡是机制编程实现对这些元数据的访问
 
 
 
-## 鍐呯疆娉ㄨВ
-+ @Override锛氬畾涔夊湪java.lang.Override涓紝鍙€傜敤浜庝慨杈炴柟娉曠殑锛岃〃绀轰竴涓柟娉曞０鏄庢墦绠楅噸鍐欒秴绫讳腑鐨勫彟涓€涓柟娉?
-+ @Deprecated锛氬畾涔夊湪java.lang.Deprecated涓紝琛ㄧず涓嶉紦鍔辩▼搴忓憳浣跨敤杩欎簺鏂规硶鐨勫厓绱狅紝閫氬父鏄洜涓哄畠寰堝嵄闄╂垨瀛樺湪鏇村ソ鐨勯€夋嫨
-+ @SuppressWarnings锛氬畾涔夊湪java.lang.SuppressWarnings涓紝鐢ㄦ潵鎶戝埗缂栬瘧鏃剁殑璀﹀憡淇℃伅锛岄渶瑕侀€夋嫨鍙傛暟
+## 内置注解
++ @Override：定义在java.lang.Override中，只适用于修辞方法的，表示一个方法声明打算重写超类中的另一个方法
++ @Deprecated：定义在java.lang.Deprecated中，表示不鼓励程序员使用这些方法的元素，通常是因为它很危险或存在更好的选择
++ @SuppressWarnings：定义在java.lang.SuppressWarnings中，用来抑制编译时的警告信息，需要选择参数
     - @SuppressWarnings("all")
     - @SuppressWarnings("unchecked")
     - @SuppressWarnings(value={"unchecked","deprecation"})
-    - 绛夌瓑銆傘€傘€傘€傘€?
+    - 等等。。。。。
 
-## 鍏冩敞瑙?
-+ 浣滅敤锛氳礋璐ｆ敞瑙ｅ叾浠栨敞瑙ｏ紝java瀹氫箟浜?涓爣鍑嗙殑meta-annotation绫诲瀷锛屼粬浠鐢ㄦ潵鎻愪緵鍏朵粬annoatation绫诲瀷浣滅敤鐨勮鏄?
-+ 杩欎簺绫诲瀷鍜屼粬浠墍鏀寔鐨勭被鍦╦ava.lang.annotation鍖呬腑鍙互鎵惧埌锛園Target,@Retention,@Documented,@Inherited锛?
-    - @Target锛氱敤浜庢弿杩版敞瑙ｇ殑浣跨敤鑼冨洿锛堝嵆锛氳鎻忚堪鐨勬敞瑙ｅ彲浠ョ敤鍦ㄤ粈涔堝湴鏂癸級
-    - @Retention锛氳〃绀洪渶瑕佸啀浠€涔堢骇鍒繚瀛樿娉ㄩ噴淇℃伅锛岀敤浜庢弿杩版敞瑙ｇ殑鐢熷懡鍛ㄦ湡
-        * 锛圫OURCE<CLASS<RUNTIME锛?
-    - @Document锛氳鏄庤娉ㄨВ灏嗚鍖呭惈鍦╦avadoc涓?
-    - @Inherited锛氳鏄庡瓙绫诲彲浠ョ户鎵跨埗绫讳腑鐨勮娉ㄨВ
+## 元注解
++ 作用：负责注解其他注解，java定义了4个标准的meta-annotation类型，他们被用来提供其他annoatation类型作用的说明
++ 这些类型和他们所支持的类在java.lang.annotation包中可以找到（@Target,@Retention,@Documented,@Inherited）
+    - @Target：用于描述注解的使用范围（即：被描述的注解可以用在什么地方）
+    - @Retention：表示需要再什么级别保存该注释信息，用于描述注解的生命周期
+        * （SOURCE<CLASS<RUNTIME）
+    - @Document：说明该注解将被包含在javadoc中
+    - @Inherited：说明子类可以继承父类中的该注解
 
-## 鑷畾涔夋敞瑙?@Interface
-浣跨敤@Interface鑷畾涔夋敞瑙ｏ紝鑷姩缁ф壙浜唈ava.lang.annotation.Annotation鎺ュ彛
+## 自定义注解 @Interface
+使用@Interface自定义注解，自动继承了java.lang.annotation.Annotation接口
 
 ```java
 package com.jie.annotation;
 
 import java.lang.annotation.*;
 
-// 娴嬭瘯鍏冩敞瑙?
+// 测试元注解
 
 public class Test02 {
-    // 娉ㄨВ鍙互鏄剧ず璧嬪€硷紝鑻ユ病鏈夐粯璁ゅ€硷紝灏卞繀椤荤粰娉ㄨВ璧嬪€?
+    // 注解可以显示赋值，若没有默认值，就必须给注解赋值
     @MyAnnotation(name = "string")
-    @MyAnnotation2(value="闅忎究")
+    @MyAnnotation2(value="随便")
     public void test() {
 
     }
 }
 
-// 瀹氫箟涓€涓厓娉ㄨВ
-// Target 琛ㄧず娉ㄨВ鍙互浣跨敤鍦ㄥ摢浜涘湴鏂?
+// 定义一个元注解
+// Target 表示注解可以使用在哪些地方
 @Target(value = {ElementType.TYPE, ElementType.METHOD})
-// Retention 琛ㄧず娉ㄨВ鍦ㄤ粈涔堝湴鏂硅繕鏈夋晥
+// Retention 表示注解在什么地方还有效
 @Retention(RetentionPolicy.RUNTIME)
-// Documented 琛ㄧず鏄惁灏嗘敞瑙ｇ敓鎴愬湪javadoc涓?
+// Documented 表示是否将注解生成在javadoc中
 @Documented
-// Inherited 瀛愮被鍙互缁ф壙鐖剁被鐨勬敞瑙?
+// Inherited 子类可以继承父类的注解
 @Inherited
 @interface MyAnnotation{
-    // 娉ㄨВ鐨勫弬鏁帮細 鍙傛暟绫诲瀷 + 鍙傛暟鍚?);
+    // 注解的参数： 参数类型 + 参数名();
     String name() default "";
     int age() default 0;
-    int id() default -1; // 濡傛灉榛樿鍊间负-1锛?浠ｈ〃涓嶅瓨鍦?
-    String schools() default "鍖楀ぇ";
+    int id() default -1; // 如果默认值为-1， 代表不存在
+    String schools() default "北大";
 
 }
 
@@ -21044,55 +20994,55 @@ public class Test02 {
 
 ```
 
-# 鍙嶅皠鏈哄埗 java.Reflaction
+# 反射机制 java.Reflaction
 ## java Reflection
-+ Reflection(鍙嶅皠)锛氭槸java琚涓哄姩鎬佽瑷€鐨勭瀹讹紝鍙嶅皠鏈哄埗鍏佽绋嬪簭鍦ㄦ墽琛屽櫒鍊熷姪Refletion API鍙栧緱浠讳綍绫荤殑鍐呴儴淇℃伅锛屽苟鑳界洿鎺ユ搷浣滀换浣曞璞＄殑鍐呴儴灞炴€у強鏂规硶 `Class c = Class.forName("java.lang.String")`
-+ 鍔犺浇瀹岀被鍚庯紝鍦ㄥ爢鍐呭瓨鐨勬柟娉曞尯涓氨浜х敓鍙竴涓狢lass绫诲瀷鐨勫璞★紙涓€涓被鍙湁涓€涓狢lass瀵硅薄锛夛紝杩欎釜瀵硅薄灏卞寘鍚簡瀹屾暣鐨勭被鐨勭粨鏋勪俊鎭?
++ Reflection(反射)：是java被视为动态语言的管家，反射机制允许程序在执行器借助Refletion API取得任何类的内部信息，并能直接操作任何对象的内部属性及方法 `Class c = Class.forName("java.lang.String")`
++ 加载完类后，在堆内存的方法区中就产生可一个Class类型的对象（一个类只有一个Class对象），这个对象就包含了完整的类的结构信息
 
-### 鍙嶅皠鐩稿叧鐨勪富瑕丄PI
-+ java.lang.CLass锛氫唬琛ㄤ竴涓被
-+ java.lang.reflact.Method锛氫唬琛ㄧ被鐨勬柟娉?
-+ java.lang.reflect.Field锛氫唬琛ㄧ被鐨勬垚鍛樺彉閲?
-+ java.lang.reflect.Constructor锛氫唬琛ㄧ被鐨勬瀯閫犲櫒
+### 反射相关的主要API
++ java.lang.CLass：代表一个类
++ java.lang.reflact.Method：代表类的方法
++ java.lang.reflect.Field：代表类的成员变量
++ java.lang.reflect.Constructor：代表类的构造器
 
-## Class绫?
-+ 鍦∣bject绫讳腑瀹氫箟浜嗕竴涓嬬殑鏂规硶锛屾鏂规硶姹熷寳鎵€鏈夊瓙绫荤户鎵?
+## Class类
++ 在Object类中定义了一下的方法，此方法江北所有子类继承
 
 `public final Class getClass()`
 
-+ 浠ヤ笂绫荤殑杩斿洖鍊肩殑绫诲瀷鏄竴涓狢lass绫伙紝姝ょ被鏄疛ava鍙嶅皠鐨勬簮澶达紝鍙互閫氳繃瀵硅薄鍙嶅皠姹傚嚭绫荤殑鍚嶇О
-+ Class绫讳腑甯哥敤鐨勬柟娉?
++ 以上类的返回值的类型是一个Class类，此类是Java反射的源头，可以通过对象反射求出类的名称
++ Class类中常用的方法
 
 <img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1744624319300-08eeda9b-7e58-4c65-953b-c4c8be5231b0.png" width="587.3333333333334" title="" crop="0,0,1,1" id="uf32c5735" class="ne-image">
 
-+ 鑾峰彇Class绫讳腑鐨勫疄渚?
++ 获取Class类中的实例
 
 ```java
 package com.jie.annotation;
 
-// 娴嬭瘯Class绫荤殑鍒涘缓鏂瑰紡鏈夊摢浜?
+// 测试Class类的创建方式有哪些
 public class Test04 {
     public static void main(String[] args) throws ClassNotFoundException {
         Porson porson = new Porson();
-        System.out.println("杩欎釜浜烘槸"+porson.name);
+        System.out.println("这个人是"+porson.name);
 
-        // 鏂瑰紡涓€锛?閫氳繃瀵硅薄鑾峰緱
+        // 方式一： 通过对象获得
         Class c1 = porson.getClass();
         System.out.println(c1.hashCode());
 
-        // 鏂瑰紡浜岋細 forname鑾峰緱
+        // 方式二： forname获得
         Class c2 = Class.forName("com.jie.annotation.Student");
         System.out.println(c2.hashCode());
 
-        // 鏂瑰紡涓夛細閫氳繃 绫诲悕.class 鑾峰緱
+        // 方式三：通过 类名.class 获得
         Class c3 = Student.class;
         System.out.println(c3.hashCode());
 
-        // 鏂瑰紡鍥涳細 鍩烘湰鍐呯疆绫诲瀷鐨勫寘瑁呯被閮芥湁涓€涓猅ype灞炴€?
+        // 方式四： 基本内置类型的包装类都有一个Type属性
         Class c4 = Integer.TYPE;
         System.out.println(c4);
         
-        // 鑾峰緱鐖剁被绫诲瀷
+        // 获得父类类型
         Class c5 = c1.getSuperclass();
         System.out.println(c5);
 
@@ -21115,24 +21065,24 @@ class Porson{
 
 class Student extends Porson{
     public Student(){
-        this.name = "瀛︾敓";
+        this.name = "学生";
     }
 }
 
 class Teacher extends Porson{
     public Teacher(){
-        this.name = "鑰佸笀";
+        this.name = "老师";
     }
 }
 ```
 
-## 鍙互鏈塁lass瀵硅薄鐨勭被鍨?
-+ class锛氬閮ㄧ被锛屾垚鍛橈紙鎴愬憳鍐呴儴绫伙紝闈欐€佸唴閮ㄧ被锛夛紝灞€閮ㄥ唴閮ㄧ被锛屽尶鍚嶅唴閮ㄧ被
-+ interface 锛氭帴鍙?
-+ []锛氭暟缁?
-+ enum锛氭灇涓?
-+ annotation锛氭敞瑙interface
-+ primitive type锛氬熀鏈暟鎹被鍨?
+## 可以有Class对象的类型
++ class：外部类，成员（成员内部类，静态内部类），局部内部类，匿名内部类
++ interface ：接口
++ []：数组
++ enum：枚举
++ annotation：注解@interface
++ primitive type：基本数据类型
 + void
 
 ```java
@@ -21141,16 +21091,16 @@ package com.jie.annotation;
 import javax.xml.stream.events.Comment;
 import java.lang.annotation.ElementType;
 
-// 鎵€鏈夌被鍨嬬殑class
+// 所有类型的class
 public class Test01 {
     public static void main(String[] args) {
-        Class c1 = Object.class;   //绫?
-        Class c2 = Comment.class;  // 鎺ュ彛
-        Class c3 = String[].class; // 涓€缁存暟缁?
-        Class c4 = int[][].class; // 浜岀淮鏁扮粍
-        Class c5 = Override.class;  // 娉ㄨВ
-        Class c6 = ElementType.class;  // 鏋氫妇
-        Class c7 = Integer.class; // 鍩烘湰鏁版嵁绫诲瀷
+        Class c1 = Object.class;   //类
+        Class c2 = Comment.class;  // 接口
+        Class c3 = String[].class; // 一维数组
+        Class c4 = int[][].class; // 二维数组
+        Class c5 = Override.class;  // 注解
+        Class c6 = ElementType.class;  // 枚举
+        Class c7 = Integer.class; // 基本数据类型
         Class c8 = void.class;   // void
         Class c9 = Class.class;  //class
 
@@ -21164,7 +21114,7 @@ public class Test01 {
         System.out.println(c8);
         System.out.println(c9);
 
-        // 鍙绫诲瀷鍜岀淮搴︿竴鏍凤紝灏辨槸鍚屼竴涓猚lass
+        // 只要类型和维度一样，就是同一个class
         int[] a = new int[10];
         int[] b = new int[100];
         System.out.println(a.getClass().hashCode());
@@ -21173,34 +21123,34 @@ public class Test01 {
 }
 ```
 
-## 绫诲姞杞?
-+ 鍔犺浇鍒板唴瀛橈紝浼氫骇鐢熶竴涓被瀵瑰簲Class瀵硅薄
-+ 杩炴帴锛?
-+ 鍒濆鍖?
+## 类加载
++ 加载到内存，会产生一个类对应Class对象
++ 连接，
++ 初始化
     - <clinit>(){  }
 
-## 浠€涔堟椂鍊欎細鍙戠敓绫诲垵濮嬪寲
-+ 绱殑涓诲姩寮曠敤锛堜竴瀹氫細鍙戠敓鍒濆鍖栵級
-    - 褰撹櫄鎷熸満鍚姩锛屽厛鍒濆鍖杕ain鏂规硶鎵€鍦ㄧ殑绫?
-    - new涓€涓被鐨勫璞?
-    - 璋冪敤绫荤殑闈欐€佹垚鍛橈紙闄や簡final甯搁噺锛夊拰闈欐€佹柟娉?
-    - 浣跨敤java.lang.reflect鍖呯殑鏂规硶瀵圭被杩涜鍙嶅皠璋冪敤
-    - 褰撳垵濮嬪寲涓€涓被锛屽鏋滃幓鐖剁被娌℃湁琚垵濮嬪寲锛屽垯鍏堝洖鍒濆鍖栧畠鐨勭埗绫?
-+ 绫荤殑琚姩寮曠敤锛堜笉浼氬彂鐢熺被鐨勫垵濮嬪寲锛?
-    - 褰撹闂竴涓潤鎬佸煙鏃讹紝鍙湁鐪熸澹版槑杩欎釜涓庣殑绫绘墠琚垵濮嬪寲
-    - 閫氳繃鏁扮粍瀹氫箟绫诲紩鐢紝涓嶄細瑙﹀彂姝ょ被鐨勫垵濮嬪寲
-    - 寮曠敤甯搁噺涓嶄細瑙﹀彂姝ょ被鐨勫垵濮嬪寲锛堝父閲忓湪閾炬帴闃舵灏卞瓨鍏ヨ皟鐢ㄧ被鐨勫父閲忔睜涓簡锛?
+## 什么时候会发生类初始化
++ 累的主动引用（一定会发生初始化）
+    - 当虚拟机启动，先初始化main方法所在的类
+    - new一个类的对象
+    - 调用类的静态成员（除了final常量）和静态方法
+    - 使用java.lang.reflect包的方法对类进行反射调用
+    - 当初始化一个类，如果去父类没有被初始化，则先回初始化它的父类
++ 类的被动引用（不会发生类的初始化）
+    - 当访问一个静态域时，只有真正声明这个与的类才被初始化
+    - 通过数组定义类引用，不会触发此类的初始化
+    - 引用常量不会触发此类的初始化（常量在链接阶段就存入调用类的常量池中了）
 
-## 绫诲姞杞藉櫒鐨勪綔鐢?
-+ 绫诲姞杞藉櫒鐨勪綔鐢細灏哻lass鏂囦欢瀛楄妭鐮佸唴瀹瑰姞杞藉埌鍐呭瓨涓紝骞跺皢杩欎簺闈欐€佹暟鎹浆鎹㈡垚鏂规硶鍖虹殑杩愯鏃舵暟鎹粨鏋勶紝鐒跺悗鍦ㄥ爢涓敓鎴愪竴涓唬琛ㄨ繖涓被鐨刯ava.lang.Class瀵硅薄锛屼綔涓烘柟娉曞尯涓被鏁版嵁鐨勮闂叆鍙ｃ€?
-+ 绫荤紦瀛橈細鏍囧噯鐨凧avaSE绫诲姞杞藉櫒鍙互鎸夌収瑕佹眰鏌ユ壘绫伙紝浣嗕竴鏃︽煇涓被琚姞杞藉埌绫诲姞杞藉櫒涓紝瀹冨皢缁存寔鍔犺浇锛堢紦瀛橈級涓€娈垫椂闂达紝涓嶈繃JVM鍨冨溇鍥炴敹鏈哄埗鍙互鍥炴敹杩欎簺Class瀵硅薄
-+ 绫诲姞杞藉櫒
-    - 寮曞绫诲姞杞藉櫒锛氫粠C++缂栧啓鐨勶紝鏄疛VM鑷甫鐨勭被鍔犺浇鍣紝璐熻矗Java骞冲彴鏍稿績搴擄紝鐢ㄦ潵瑁呰浇鏍稿績绫诲簱锛岃鍔犺浇鍣ㄦ棤娉曠洿鎺ヨ幏鍙?
-    - 鎵╁睍绫诲姞杞藉櫒锛氳礋璐re/bin/text鐩綍涓嬬殑jar鍖呮垨-D java.ext.dirs 鎸囧畾鐩綍涓嬬殑jar鍖呰鍏ュ伐浣滃簱
-    - 绯荤粺绫诲姞杞藉櫒锛氳礋璐ava -classpath 鎴?-D java.class.path鎵€鎸囧畾鐨勭洰褰曚笅鐨勭被涓巎ar鍖呰鍏ュ伐浣滐紝鏈€甯哥敤鐨勭被鍔犺浇鍣?
+## 类加载器的作用
++ 类加载器的作用：将class文件字节码内容加载到内存中，并将这些静态数据转换成方法区的运行时数据结构，然后在堆中生成一个代表这个类的java.lang.Class对象，作为方法区中类数据的访问入口。
++ 类缓存：标准的JavaSE类加载器可以按照要求查找类，但一旦某个类被加载到类加载器中，它将维持加载（缓存）一段时间，不过JVM垃圾回收机制可以回收这些Class对象
++ 类加载器
+    - 引导类加载器：从C++编写的，是JVM自带的类加载器，负责Java平台核心库，用来装载核心类库，该加载器无法直接获取
+    - 扩展类加载器：负责jre/bin/text目录下的jar包或-D java.ext.dirs 指定目录下的jar包装入工作库
+    - 系统类加载器：负责java -classpath 或 -D java.class.path所指定的目录下的类与jar包装入工作，最常用的类加载器
 
-## 鑾峰彇杩愯鏃剁被鐨勫畬鏁寸粨鏋?
-閫氳繃鍙嶅皠鑾峰彇杩愯
+## 获取运行时类的完整结构
+通过反射获取运行
 
 ```java
 package com.jie.annotation;
@@ -21209,62 +21159,62 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-// 鑾峰彇绫荤殑淇℃伅
+// 获取类的信息
 public class Test06 {
     public static void main(String[] args) throws ClassNotFoundException, NoSuchFieldException, NoSuchMethodException {
         Class c1 = Class.forName("com.jie.annotation.User");
 
-        // 鑾峰彇绫荤殑鍚嶅瓧
-        System.out.println(c1.getName()); // 鑾峰彇鍖呭悕 + 绫诲悕
-        System.out.println(c1.getSimpleName()); // 鑾峰彇绫诲悕
+        // 获取类的名字
+        System.out.println(c1.getName()); // 获取包名 + 类名
+        System.out.println(c1.getSimpleName()); // 获取类名
 
-        // 鑾峰彇绫荤殑灞炴€?
-        // Field[] fields = c1.getFields();    //鍙兘鎵惧埌public灞炴€?
-        Field[] fields = c1.getDeclaredFields();  // 鎵惧埌鍏ㄩ儴灞炴€?
+        // 获取类的属性
+        // Field[] fields = c1.getFields();    //只能找到public属性
+        Field[] fields = c1.getDeclaredFields();  // 找到全部属性
         for (Field field : fields) {
             System.out.println(field.getName());
         }
 
-        // 鑾峰緱鐗瑰畾灞炴€х殑鍊?
+        // 获得特定属性的值
         Field name = c1.getDeclaredField("name");
         System.out.println(name);
 
-        // 鑾峰緱绫荤殑鏂规硶
-        Method[] methods = c1.getMethods();   // 鑾峰緱鏈被鍙婂叾鐖剁被鐨勫叏閮╬ublic鏂规硶
+        // 获得类的方法
+        Method[] methods = c1.getMethods();   // 获得本类及其父类的全部public方法
         for (Method method : methods){
-            System.out.println("姝ｅ父鐨?+ method);
+            System.out.println("正常的"+ method);
         }
-        methods = c1.getDeclaredMethods();   // 鑾峰緱鎵€鏈夋柟娉?
+        methods = c1.getDeclaredMethods();   // 获得所有方法
         for (Method method : methods){
             System.out.println("getDeclaredMethods"+method);
         }
         
-        // 鑾峰緱鎸囧畾鏂规硶
+        // 获得指定方法
         Method getName = c1.getMethod("getName", null);
         Method setName = c1.getMethod("setName", String.class);
         System.out.println(getName);
         System.out.println(setName);
 
-        // 鑾峰緱鎸囧畾鐨勬瀯閫犲櫒
-        Constructor[] constructors = c1.getConstructors();  // 鑾峰緱public鐨勬瀯閫?鏂规硶
+        // 获得指定的构造器
+        Constructor[] constructors = c1.getConstructors();  // 获得public的构造 方法
         for (Constructor constructor : constructors){
             System.out.println(constructor);
         }
-        constructors = c1.getDeclaredConstructors();    // 鑾峰緱鍏ㄩ儴鏋勯€犳柟娉?
+        constructors = c1.getDeclaredConstructors();    // 获得全部构造方法
         for (Constructor constructor : constructors){
             System.out.println(constructor);
         }
 
-        // 鑾峰緱鎸囧畾鐨勬瀯閫犲櫒
+        // 获得指定的构造器
         Constructor declaredConstructor = c1.getDeclaredConstructor(String.class, int.class, int.class);
-        System.out.println("鎸囧畾"+declaredConstructor);
+        System.out.println("指定"+declaredConstructor);
     }
 }
 
 
 ```
 
-## 鍔ㄦ€佸垱寤哄璞℃墽琛屾柟娉?
+## 动态创建对象执行方法
 ```java
 package com.jie.annotation;
 
@@ -21273,35 +21223,35 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-// 鍔ㄦ€佺殑鍒涘缓瀵硅薄 锛?閫氳繃鍙嶅皠
+// 动态的创建对象 ， 通过反射
 public class Test07 {
     public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, NoSuchFieldException {
         Class c1 = Class.forName("com.jie.annotation.User");
 
-//        // 鏋勯€犱竴涓璞?
-//        User user = (User)c1.newInstance();  // 鏈川鏄皟鐢ㄦ棤鍙傛瀯閫犲櫒
+//        // 构造一个对象
+//        User user = (User)c1.newInstance();  // 本质是调用无参构造器
 //        System.out.println(user);
 //
-//        // 閫氳繃鏋勯€犲幓鍒涘缓瀵硅薄
+//        // 通过构造去创建对象
 //        Constructor constructor = c1.getDeclaredConstructor(String.class, int.class,int.class);
 //        constructor.newInstance("jie", 001, 18);
 //        User user2 = (User)c1.newInstance();
 //        System.out.println(user2);
 
-        // 閫氳繃鍙嶅皠璋冪敤鏅€氭柟娉?
+        // 通过反射调用普通方法
         User user3 = (User) c1.newInstance();
-        // 閫氳繃鍙嶅皠鑾峰彇涓€涓柟娉?
+        // 通过反射获取一个方法
         Method setName = c1.getMethod("setName", String.class);
-        // invoke : 婵€娲绘柟娉?
-        // 锛堝璞★紝 鈥滄柟娉曞€尖€滐級
+        // invoke : 激活方法
+        // （对象， “方法值“）
         setName.invoke(user3, "jie");
         System.out.println(user3.getName());
 
-        //閫氳繃鍙嶅皠鎿嶄綔灞炴€?
+        //通过反射操作属性
         User user4 = (User) c1.newInstance();
         Field name = c1.getDeclaredField("name");
 
-        // 涓嶈兘鐩存帴鎿嶄綔绉佹湁灞炴€э紝闇€瑕佸叧闂▼搴忕殑瀹夊叏妫€娴嬶紝 灞炴€ф垨鏂规硶鐨?name.setAccessible(true);
+        // 不能直接操作私有属性，需要关闭程序的安全检测， 属性或方法的 name.setAccessible(true);
         name.setAccessible(true);
         name.set(user4, "jie2");
         System.out.println(user4.getName());
@@ -21310,16 +21260,16 @@ public class Test07 {
 
 ```
 
-## 鍙嶅皠鎬ц兘鍒嗘瀽
+## 反射性能分析
 ```java
 package com.jie.annotation;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-// 鍒嗘瀽鎬ц兘 闂
+// 分析性能 问题
 public class Test08 {
-    // 鏅€氭柟寮忚皟鐢?
+    // 普通方式调用
     public static void test01() {
         User user = new User();
         long stratTime = System.currentTimeMillis();
@@ -21327,10 +21277,10 @@ public class Test08 {
             user.getName();
         }
         long endTime = System.currentTimeMillis();
-        System.out.println("鏅€氭柟娉曟墽琛?0浜挎"+(endTime - stratTime)+"ms");
+        System.out.println("普通方法执行10亿次"+(endTime - stratTime)+"ms");
 
     }
-    // 鍙嶅皠鏂瑰紡璋冪敤
+    // 反射方式调用
     public static void test02() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         User user = new User();
         Class c1 = Class.forName("com.jie.annotation.User");
@@ -21340,9 +21290,9 @@ public class Test08 {
             getname.invoke(user, null);
         }
         long endTime = System.currentTimeMillis();
-        System.out.println("鍙嶅皠鏂规硶鎵ц10浜挎"+(endTime - stratTime)+"ms");
+        System.out.println("反射方法执行10亿次"+(endTime - stratTime)+"ms");
     }
-    // 鍙嶅皠鏂瑰紡璋冪敤 鍏抽棴妫€娴?
+    // 反射方式调用 关闭检测
     public static void test03() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         User user = new User();
         Class c1 = Class.forName("com.jie.annotation.User");
@@ -21353,7 +21303,7 @@ public class Test08 {
             getname.invoke(user, null);
         }
         long endTime = System.currentTimeMillis();
-        System.out.println("鍏抽棴妫€娴嬫墽琛?0浜挎"+(endTime - stratTime)+"ms");
+        System.out.println("关闭检测执行10亿次"+(endTime - stratTime)+"ms");
     }
 
     public static void main(String[] args) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
@@ -21365,11 +21315,11 @@ public class Test08 {
 
 ```
 
-## 閫氳繃鍙嶅皠鎿嶄綔娉涘瀷
-+ ParameterizedType锛氳〃绀轰竴绉嶅弬鏁板寲绫诲瀷锛屾瘮濡侰ollection<String>
-+ GenericArrayType锛氳〃绀轰竴绉嶅厓绱犵被鍨嬫槸鍙傛暟鍖栫被鍨嬫垨鑰呯被鍨嬪彉閲忕殑鏁扮粍绫诲瀷
-+ TypeVariable锛氭槸鍚勭绫诲瀷鍙橀噺鐨勫叕鍏辩埗鎺ュ彛
-+ WildcardType锛氫唬琛ㄤ竴绉嶉€氶厤绗﹁〃杈惧紡
+## 通过反射操作泛型
++ ParameterizedType：表示一种参数化类型，比如Collection<String>
++ GenericArrayType：表示一种元素类型是参数化类型或者类型变量的数组类型
++ TypeVariable：是各种类型变量的公共父接口
++ WildcardType：代表一种通配符表达式
 
 ```java
 package com.jie.annotation;
@@ -21381,7 +21331,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
-// 閫氳繃鍙嶅皠鑾峰彇娉涘瀷
+// 通过反射获取泛型
 public class Test09 {
     public void test01(Map<String, User> map, List<User> list) {
         System.out.println("test01");
@@ -21408,7 +21358,7 @@ public class Test09 {
 }
 ```
 
-## 鍙嶅皠鑾峰彇娉ㄨВ鍒嗘瀽
+## 反射获取注解分析
 ```java
 package com.jie.annotation;
 
@@ -21419,18 +21369,18 @@ public class Test10 {
     public static void main(String[] args) throws ClassNotFoundException, NoSuchFieldException {
         Class c1 = Class.forName("com.jie.annotation.Student2");
 
-        // 閫氳繃鍙嶅皠鑾峰緱娉ㄨВ
+        // 通过反射获得注解
         Annotation[] annotations = c1.getAnnotations();
         for (Annotation annotation : annotations) {
             System.out.println(annotation);
         }
 
-        // 鑾峰緱娉ㄨВ鐨剉alue鐨勫€?
+        // 获得注解的value的值
         Tablejie tablejie = (Tablejie) c1.getAnnotation(Tablejie.class);
         String value = tablejie.value();
         System.out.println(value);
 
-        // 鑾峰緱绫绘寚瀹氱殑娉ㄨВ
+        // 获得类指定的注解
         Field f = c1.getDeclaredField("name");
         Fieldjie annotation = f.getAnnotation(Fieldjie.class);
         System.out.println(annotation.columnName());
@@ -21482,14 +21432,14 @@ class Student2 {
     }
 }
 
-// 绫诲悕鐨勬敞瑙?
+// 类名的注解
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @interface Tablejie{
     String value();
 }
 
-// 灞炴€х殑娉ㄨВ
+// 属性的注解
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @interface Fieldjie{
@@ -21498,6 +21448,18 @@ class Student2 {
     int length();
 }
 ```
-', NOW());
-SET @last_note_id = LAST_INSERT_ID();
+', 0, NOW());
 
+-- ============================================================
+-- 3. ?????????
+-- ============================================================
+
+UPDATE `user` SET `note_count` = 5 WHERE `id` = 1001;
+UPDATE `user` SET `note_count` = 4 WHERE `id` = 1002;
+UPDATE `user` SET `note_count` = 4 WHERE `id` = 1003;
+UPDATE `user` SET `note_count` = 4 WHERE `id` = 1004;
+UPDATE `user` SET `note_count` = 4 WHERE `id` = 1005;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+COMMIT;
