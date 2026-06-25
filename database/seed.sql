@@ -1,35 +1,57 @@
 -- ============================================================
 -- ???? ? ?????? (seed.sql)
--- ????: 2025-06-25 18:45:00
--- ??: ?? BCrypt ????? '123456'
 -- ============================================================
 
 START TRANSACTION;
-
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ============================================================
--- 1. ????
+-- 1. ??
 -- ============================================================
 
 DELETE FROM `user`;
-INSERT INTO `user` (`id`, `username`, `password`, `email`, `avatar`, `bio`, `note_count`, `created_at`)
-VALUES (1001, 'user1001', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'user1001@example.com', 'avatars/1001_106799.jpg', '', 0, NOW());
-INSERT INTO `user` (`id`, `username`, `password`, `email`, `avatar`, `bio`, `note_count`, `created_at`)
-VALUES (1002, 'user1002', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'user1002@example.com', 'avatars/1002_960094.jpg', '', 0, NOW());
-INSERT INTO `user` (`id`, `username`, `password`, `email`, `avatar`, `bio`, `note_count`, `created_at`)
-VALUES (1003, 'user1003', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'user1003@example.com', 'avatars/1003_273803.jpeg', '', 0, NOW());
-INSERT INTO `user` (`id`, `username`, `password`, `email`, `avatar`, `bio`, `note_count`, `created_at`)
-VALUES (1004, 'user1004', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'user1004@example.com', 'avatars/1004_415551.jpeg', '', 0, NOW());
-INSERT INTO `user` (`id`, `username`, `password`, `email`, `avatar`, `bio`, `note_count`, `created_at`)
-VALUES (1005, 'user1005', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'user1005@example.com', 'avatars/1005_692517.jpg', '', 0, NOW());
+
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `avatar`, `bio`, `note_count`, `follower_count`, `following_count`, `total_likes`, `created_at`)
+VALUES (1001, 'user1001', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'user1001@example.com', 'avatars/1001_106799.jpg', '', 5, 4, 4, 12, NOW());
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `avatar`, `bio`, `note_count`, `follower_count`, `following_count`, `total_likes`, `created_at`)
+VALUES (1002, 'user1002', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'user1002@example.com', 'avatars/1002_960094.jpg', '', 4, 2, 2, 15, NOW());
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `avatar`, `bio`, `note_count`, `follower_count`, `following_count`, `total_likes`, `created_at`)
+VALUES (1003, 'user1003', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'user1003@example.com', 'avatars/1003_273803.jpeg', '', 4, 3, 2, 14, NOW());
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `avatar`, `bio`, `note_count`, `follower_count`, `following_count`, `total_likes`, `created_at`)
+VALUES (1004, 'user1004', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'user1004@example.com', 'avatars/1004_415551.jpeg', '', 4, 2, 2, 15, NOW());
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `avatar`, `bio`, `note_count`, `follower_count`, `following_count`, `total_likes`, `created_at`)
+VALUES (1005, 'user1005', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'user1005@example.com', 'avatars/1005_692517.jpg', '', 4, 2, 3, 17, NOW());
 
 -- ============================================================
--- 2. ????
+-- 2. ??
+-- ============================================================
+
+DELETE FROM `tag`;
+
+INSERT INTO `tag` (`id`, `name`) VALUES (1, 'CSS');
+INSERT INTO `tag` (`id`, `name`) VALUES (2, 'Java');
+INSERT INTO `tag` (`id`, `name`) VALUES (3, 'MyBatis');
+INSERT INTO `tag` (`id`, `name`) VALUES (4, '???');
+INSERT INTO `tag` (`id`, `name`) VALUES (5, 'Redis');
+INSERT INTO `tag` (`id`, `name`) VALUES (6, 'Python');
+INSERT INTO `tag` (`id`, `name`) VALUES (7, 'Django');
+INSERT INTO `tag` (`id`, `name`) VALUES (8, 'MySQL');
+INSERT INTO `tag` (`id`, `name`) VALUES (9, 'Spring');
+INSERT INTO `tag` (`id`, `name`) VALUES (10, 'HTML');
+INSERT INTO `tag` (`id`, `name`) VALUES (11, '??');
+INSERT INTO `tag` (`id`, `name`) VALUES (12, 'JavaScript');
+INSERT INTO `tag` (`id`, `name`) VALUES (13, 'Nginx');
+INSERT INTO `tag` (`id`, `name`) VALUES (14, '??');
+INSERT INTO `tag` (`id`, `name`) VALUES (15, 'Spring Cloud');
+INSERT INTO `tag` (`id`, `name`) VALUES (16, 'Spring MVC');
+
+-- ============================================================
+-- 3. ??
 -- ============================================================
 
 DELETE FROM `note`;
-INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `favorite_count`, `created_at`)
 VALUES (1, 1001, 'CSS', '# CSS简介
 ## 发展史
 css1.0
@@ -469,9 +491,8 @@ z-index: 10；
 ## opacity 背景透明度
 0~1
 
-# 动画：', 0, NOW());
-
-INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+# 动画：', 3, 2, NOW());
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `favorite_count`, `created_at`)
 VALUES (2, 1001, 'MyBatis-Plus', '# <font style="color:rgb(23, 24, 28);">简介</font>
 [<font style="color:rgb(70, 142, 247);">MyBatis-Plus</font>](https://github.com/baomidou/mybatis-plus)<font style="color:rgb(53, 56, 65);"> </font><font style="color:rgb(53, 56, 65);">是一个</font><font style="color:rgb(53, 56, 65);"> </font>[<font style="color:rgb(70, 142, 247);">MyBatis</font>](https://www.mybatis.org/mybatis-3/)<font style="color:rgb(53, 56, 65);"> </font><font style="color:rgb(53, 56, 65);">的增强工具，在 MyBatis 的基础上只做增强不做改变，为简化开发、提高效率而生。</font>
 
@@ -1131,9 +1152,8 @@ public class WrapperTest {
 
 
 
-# 代码自动生成器', 0, NOW());
-
-INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+# 代码自动生成器', 7, 2, NOW());
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `favorite_count`, `created_at`)
 VALUES (3, 1001, 'Redis', '# <font style="color:rgb(15, 17, 21);">Redis 概述、</font>
 ## 概述
 <font style="color:rgb(15, 17, 21);"> Redis 是一个开源的、基于内存的键值对存储数据库，被誉为“数据结构服务器”。它以</font>**<font style="color:rgb(15, 17, 21);">极高的性能</font>**<font style="color:rgb(15, 17, 21);">著称，读写速度可达每秒10万次以上，主要用于解决高并发场景下数据库的访问瓶颈问题。</font>
@@ -4659,9 +4679,8 @@ redis-cli -p 26379 SENTINEL slaves mymaster
 
 
 **一句话总结：哨兵模式是 Redis 生产环境高可用的标准方案，至少部署 3 个哨兵实例，监控主从集群，实现自动故障转移。**
-', 0, NOW());
-
-INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+', 4, 3, NOW());
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `favorite_count`, `created_at`)
 VALUES (4, 1001, 'javaSE', '## 常用快捷键
 Ctrl + D  ： 复制当前行到下一行
 
@@ -5706,9 +5725,8 @@ public class Outer{
 + 在方法中通过throw关键字抛出异常对象
 + 如果在当前抛出异常的方法中处理异常，可以使用try-catch语句捕获并处理；否则在方法的声明处通过throws关键字指明要抛出给方法调用者的异常，继续镜像下一步操作
 + 在出现异常方法的调用者中捕获并处理异常
-', 0, NOW());
-
-INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+', 5, 5, NOW());
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `favorite_count`, `created_at`)
 VALUES (5, 1001, '集合框架', '# 集合
 + 概念：对象的容器，实现了对对象常用的操作，类似数组功能
 + 集合和数组的区别
@@ -6485,9 +6503,8 @@ shuffle(list) ：打乱list的数据
 list.toArray(): 将list转为数组
 
 Array.asList(array)：将数组转为list  //转完后的数组是受限数组，不能进行添加和删除
-', 0, NOW());
-
-INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+', 3, 2, NOW());
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `favorite_count`, `created_at`)
 VALUES (6, 1002, 'Django', '### URL组成
 `scheme://host:port/path/?query-strint=xxx#anchor`
 
@@ -8437,9 +8454,8 @@ MIDDLEWARE = [
 或者是直接使用csrf_token标签，在自动生成一个带有csrf_token的input标签
 
 /bg
-', 0, NOW());
-
-INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+', 4, 2, NOW());
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `favorite_count`, `created_at`)
 VALUES (7, 1002, 'MySql', '# 基本命令
 ```sql
 show databases;  #查看所有数据库
@@ -9617,9 +9633,8 @@ c3p0-版本号.jar
 mchange-commons-java-版本号.jar
 
 配置文件
-', 0, NOW());
-
-INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+', 4, 2, NOW());
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `favorite_count`, `created_at`)
 VALUES (8, 1002, 'Spring', '# 简介
 + 导包
 
@@ -10596,9 +10611,8 @@ public class UserMapperTest {
 
 </beans>
 ```
-', 0, NOW());
-
-INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+', 2, 0, NOW());
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `favorite_count`, `created_at`)
 VALUES (9, 1002, 'python基础', '### 数据类型
 int:整数，123；float：小数，1.2，complex：复数,1+2i；str：字符串，“abc”；list：列表，[1,''ok];tuple：元祖，(1,3,''ok'');bool：布尔，True.False;dict：字典，{"tom":20,"jack":30};set：集合, {"tom".16,20}
 
@@ -11489,9 +11503,8 @@ DataFrame的分析统计
 需要库openpyxl（对.xlsx）或xlrd或xlwt支持（老的.xls）
 
 读取的每个工作表都是一个DataFrame
-', 0, NOW());
-
-INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+', 4, 2, NOW());
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `favorite_count`, `created_at`)
 VALUES (10, 1003, 'HTML', '## 网页的基本标签
 + 标题标签
 
@@ -11855,9 +11868,8 @@ pattern：正则表达式
 [https://www.jb51.net/tools/regexsc.htm](https://www.jb51.net/tools/regexsc.htm)
 
 
-', 0, NOW());
-
-INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+', 3, 2, NOW());
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `favorite_count`, `created_at`)
 VALUES (11, 1003, 'Mybatis', '# 简介
 ## 什么是Mybatis
 1. Mybatis 百度百科
@@ -13239,9 +13251,8 @@ Caused by: java.io.NotSerializableException:com.jie.pojo.User
 + 在Maven中导包
 + 在Mapper中指定ehcache缓存
 + 写配置文件ehcache.xml
-', 0, NOW());
-
-INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+', 5, 3, NOW());
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `favorite_count`, `created_at`)
 VALUES (12, 1003, 'Springboot', '# 配置文件
 SpringBoot使用一个全局的配置文件，配置文件名称是固定的
 
@@ -15604,9 +15615,8 @@ public class ScheduledTaskMonitor {
 4. 分布式环境需要考虑锁机制
 5. 长时间任务建议使用异步
 6. 做好异常处理和日志记录
-', 0, NOW());
-
-INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+', 5, 4, NOW());
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `favorite_count`, `created_at`)
 VALUES (13, 1003, '多线程', '# 概述
 ## Process(进程),Thread(线程)
 进程是系统分配的，线程在进程里面，至少有一个main（主）线程
@@ -16672,9 +16682,8 @@ class MyThread extends Thread {
     }
 }
 ```
-', 0, NOW());
-
-INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+', 3, 0, NOW());
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `favorite_count`, `created_at`)
 VALUES (14, 1004, 'JavaScript', '# 快速入门
 ## 引入JavaScript
 + 内部标签
@@ -17759,9 +17768,8 @@ mouse: <span id="mouseMove"></span>
 </html>
 ```
 
-## 操作DOM', 0, NOW());
-
-INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+## 操作DOM', 4, 2, NOW());
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `favorite_count`, `created_at`)
 VALUES (15, 1004, 'Nginx', '### 📚 Nginx 深入学习笔记（扩展版）
 #### 0. 核心配置结构回顾
 Nginx 的配置本质上是一个**树形上下文（Context）**结构：
@@ -17970,9 +17978,8 @@ Nginx 本身没有主备切换功能，通常配合 **Keepalived** 实现两台 
 ---
 
 这份扩展笔记覆盖了 Nginx 从基础到进阶的核心内容。如果想再深入某个具体方向，比如 **Lua 脚本扩展（OpenResty）** 或 **与 K8s Ingress 的集成**，可以随时告诉我。😊
-', 0, NOW());
-
-INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+', 3, 2, NOW());
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `favorite_count`, `created_at`)
 VALUES (16, 1004, 'SprngCloud', '### 📚 Nginx 深入学习笔记（扩展版）
 #### 0. 核心配置结构回顾
 Nginx 的配置本质上是一个**树形上下文（Context）**结构：
@@ -18181,9 +18188,8 @@ Nginx 本身没有主备切换功能，通常配合 **Keepalived** 实现两台 
 ---
 
 这份扩展笔记覆盖了 Nginx 从基础到进阶的核心内容。如果想再深入某个具体方向，比如 **Lua 脚本扩展（OpenResty）** 或 **与 K8s Ingress 的集成**，可以随时告诉我。😊
-', 0, NOW());
-
-INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+', 2, 0, NOW());
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `favorite_count`, `created_at`)
 VALUES (17, 1004, '常用类', '# Object类
 ## getClass方法
 + 返回类对象
@@ -18239,9 +18245,8 @@ s1.equals(s2);
 + public String endWith(String str)：判断字符串是否以str结尾
 + public String replace(char oldChar,char newChar)：将就字符串转换为新字符串
 + public String[] split(String str)：根据str做拆分
-', 0, NOW());
-
-INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+', 2, 0, NOW());
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `favorite_count`, `created_at`)
 VALUES (18, 1005, 'JavaWeb', '# Tomcat
 ## 用tomcat发布一个网站
 将自己写的网站，放到服务器（tomcat）中指定的web应用的文件夹（webapps）下，就可以访问了
@@ -19594,9 +19599,8 @@ ts.sendMessage(message, message.getAllRecipients());
 ts.close();
 ```
 
-## 复杂邮件', 0, NOW());
-
-INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+## 复杂邮件', 3, 2, NOW());
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `favorite_count`, `created_at`)
 VALUES (19, 1005, 'Numpy', '### array创建组
 语法格式如下
 
@@ -20005,9 +20009,8 @@ b = np.array([[1, 2], [3, 4]])
 ```
 
 
-', 0, NOW());
-
-INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+', 2, 0, NOW());
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `favorite_count`, `created_at`)
 VALUES (20, 1005, 'SprngMVC', '# 简介
 ## 基本原理
 <img src="https://cdn.nlark.com/yuque/0/2025/png/54050922/1750230213640-25cd6846-2414-4a6d-aac0-d71d412546ca.png" width="744.8" title="" crop="0,0,1,1" id="uf44df764" class="ne-image">
@@ -20918,9 +20921,8 @@ public String t4() throws JsonProcessingException {
   </resources>
 </build>
 ```
-', 0, NOW());
-
-INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `created_at`)
+', 2, 2, NOW());
+INSERT INTO `note` (`id`, `author_id`, `title`, `content`, `like_count`, `favorite_count`, `created_at`)
 VALUES (21, 1005, '注解和反射', '# 注解java.Annotation
 ## 什么是注解
 可以被其他程序（比如：编译器等）读取
@@ -21448,18 +21450,194 @@ class Student2 {
     int length();
 }
 ```
-', 0, NOW());
+', 3, 2, NOW());
 
 -- ============================================================
--- 3. ?????????
+-- 4. ??-????
 -- ============================================================
 
-UPDATE `user` SET `note_count` = 5 WHERE `id` = 1001;
-UPDATE `user` SET `note_count` = 4 WHERE `id` = 1002;
-UPDATE `user` SET `note_count` = 4 WHERE `id` = 1003;
-UPDATE `user` SET `note_count` = 4 WHERE `id` = 1004;
-UPDATE `user` SET `note_count` = 4 WHERE `id` = 1005;
+DELETE FROM `note_tag`;
+
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (1, 1);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (2, 2);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (3, 3);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (3, 4);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (4, 5);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (4, 4);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (5, 2);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (6, 6);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (6, 7);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (7, 8);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (7, 4);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (8, 6);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (9, 2);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (9, 9);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (10, 10);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (10, 11);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (11, 3);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (11, 4);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (12, 2);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (12, 9);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (13, 2);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (14, 12);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (14, 11);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (15, 13);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (15, 14);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (16, 2);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (16, 15);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (17, 2);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (18, 2);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (18, 11);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (19, 6);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (20, 2);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (20, 16);
+INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (21, 2);
+
+-- ============================================================
+-- 5. ??????
+-- ============================================================
+
+DELETE FROM `user_follow`;
+
+INSERT INTO `user_follow` (`follower_id`, `followee_id`) VALUES (1001, 1002);
+INSERT INTO `user_follow` (`follower_id`, `followee_id`) VALUES (1001, 1003);
+INSERT INTO `user_follow` (`follower_id`, `followee_id`) VALUES (1001, 1004);
+INSERT INTO `user_follow` (`follower_id`, `followee_id`) VALUES (1001, 1005);
+INSERT INTO `user_follow` (`follower_id`, `followee_id`) VALUES (1002, 1001);
+INSERT INTO `user_follow` (`follower_id`, `followee_id`) VALUES (1002, 1003);
+INSERT INTO `user_follow` (`follower_id`, `followee_id`) VALUES (1003, 1001);
+INSERT INTO `user_follow` (`follower_id`, `followee_id`) VALUES (1003, 1005);
+INSERT INTO `user_follow` (`follower_id`, `followee_id`) VALUES (1004, 1001);
+INSERT INTO `user_follow` (`follower_id`, `followee_id`) VALUES (1004, 1002);
+INSERT INTO `user_follow` (`follower_id`, `followee_id`) VALUES (1005, 1001);
+INSERT INTO `user_follow` (`follower_id`, `followee_id`) VALUES (1005, 1003);
+INSERT INTO `user_follow` (`follower_id`, `followee_id`) VALUES (1005, 1004);
+
+-- ============================================================
+-- 6. ????
+-- ============================================================
+
+DELETE FROM `note_like`;
+
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (1, 1002);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (1, 1003);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (1, 1004);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (2, 1002);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (2, 1003);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (2, 1004);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (2, 1005);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (2, 1001);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (2, 1003);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (2, 1005);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (3, 1002);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (3, 1004);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (3, 1005);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (3, 1001);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (4, 1002);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (4, 1003);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (4, 1004);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (4, 1005);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (4, 1001);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (5, 1002);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (5, 1004);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (5, 1005);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (6, 1001);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (6, 1003);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (6, 1005);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (6, 1004);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (7, 1001);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (7, 1002);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (7, 1003);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (7, 1005);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (8, 1002);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (8, 1004);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (9, 1002);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (9, 1003);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (9, 1004);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (9, 1005);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (10, 1001);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (10, 1003);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (10, 1005);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (11, 1001);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (11, 1002);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (11, 1003);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (11, 1004);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (11, 1005);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (12, 1001);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (12, 1002);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (12, 1003);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (12, 1004);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (12, 1005);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (13, 1002);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (13, 1004);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (13, 1005);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (14, 1001);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (14, 1003);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (14, 1004);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (14, 1005);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (15, 1002);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (15, 1003);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (15, 1005);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (16, 1002);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (16, 1004);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (17, 1003);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (17, 1005);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (18, 1001);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (18, 1002);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (18, 1004);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (19, 1001);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (19, 1005);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (20, 1002);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (20, 1004);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (21, 1001);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (21, 1003);
+INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (21, 1005);
+
+-- ============================================================
+-- 7. ????
+-- ============================================================
+
+DELETE FROM `note_favorite`;
+
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (1, 1002);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (1, 1005);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (2, 1003);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (2, 1004);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (3, 1001);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (3, 1004);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (3, 1005);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (4, 1002);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (4, 1003);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (4, 1004);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (4, 1005);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (4, 1001);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (5, 1003);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (5, 1005);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (6, 1001);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (6, 1004);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (7, 1002);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (7, 1005);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (9, 1003);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (9, 1004);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (10, 1002);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (10, 1005);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (11, 1001);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (11, 1003);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (11, 1004);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (12, 1002);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (12, 1004);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (12, 1005);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (12, 1001);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (14, 1003);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (14, 1005);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (15, 1002);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (15, 1004);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (18, 1001);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (18, 1005);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (20, 1003);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (20, 1004);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (21, 1001);
+INSERT INTO `note_favorite` (`note_id`, `user_id`) VALUES (21, 1005);
 
 SET FOREIGN_KEY_CHECKS = 1;
-
 COMMIT;
