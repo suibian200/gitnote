@@ -10,3 +10,12 @@ data/
 # IDE
 .idea/
 
+
+# Java / Maven
+target/
+*.class
+*.jar
+*.war
+*.log
+*.iml
+.idea/
