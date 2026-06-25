@@ -1,13 +1,13 @@
 -- ============================================================
 -- ???? ? ?????? (seed.sql)
+-- ????: 2025-06-25
 -- ============================================================
 
+SET NAMES utf8mb4;
 START TRANSACTION;
 SET FOREIGN_KEY_CHECKS = 0;
 
--- ============================================================
--- 1. ??
--- ============================================================
+-- 1. ?? ------------------------------------------------
 
 DELETE FROM `user`;
 
@@ -22,32 +22,28 @@ VALUES (1004, 'user1004', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZd
 INSERT INTO `user` (`id`, `username`, `password`, `email`, `avatar`, `bio`, `note_count`, `follower_count`, `following_count`, `total_likes`, `created_at`)
 VALUES (1005, 'user1005', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'user1005@example.com', 'avatars/1005_692517.jpg', '', 4, 2, 3, 17, NOW());
 
--- ============================================================
--- 2. ??
--- ============================================================
+-- 2. ?? ------------------------------------------------
 
 DELETE FROM `tag`;
 
 INSERT INTO `tag` (`id`, `name`) VALUES (1, 'CSS');
 INSERT INTO `tag` (`id`, `name`) VALUES (2, 'Java');
 INSERT INTO `tag` (`id`, `name`) VALUES (3, 'MyBatis');
-INSERT INTO `tag` (`id`, `name`) VALUES (4, '???');
+INSERT INTO `tag` (`id`, `name`) VALUES (4, '数据库');
 INSERT INTO `tag` (`id`, `name`) VALUES (5, 'Redis');
 INSERT INTO `tag` (`id`, `name`) VALUES (6, 'Python');
 INSERT INTO `tag` (`id`, `name`) VALUES (7, 'Django');
 INSERT INTO `tag` (`id`, `name`) VALUES (8, 'MySQL');
 INSERT INTO `tag` (`id`, `name`) VALUES (9, 'Spring');
 INSERT INTO `tag` (`id`, `name`) VALUES (10, 'HTML');
-INSERT INTO `tag` (`id`, `name`) VALUES (11, '??');
+INSERT INTO `tag` (`id`, `name`) VALUES (11, '前端');
 INSERT INTO `tag` (`id`, `name`) VALUES (12, 'JavaScript');
 INSERT INTO `tag` (`id`, `name`) VALUES (13, 'Nginx');
-INSERT INTO `tag` (`id`, `name`) VALUES (14, '??');
+INSERT INTO `tag` (`id`, `name`) VALUES (14, '运维');
 INSERT INTO `tag` (`id`, `name`) VALUES (15, 'Spring Cloud');
 INSERT INTO `tag` (`id`, `name`) VALUES (16, 'Spring MVC');
 
--- ============================================================
--- 3. ??
--- ============================================================
+-- 3. ?? ------------------------------------------------
 
 DELETE FROM `note`;
 
@@ -3209,7 +3205,7 @@ aof-use-rdb-preamble yes
 ### 7.3 备份策略
 ```bash
 # 定时备份RDB（crontab）
-0 2 * * * cp /var/lib/redis/dump.rdb /backup/dump_$(date +\%Y\%m\%d).rdb
+0 2 * * * cp /var/lib/redis/dump.rdb /backup/dump_$(date +\\%Y\\%m\\%d).rdb
 
 # 异地备份
 0 3 * * * rsync -avz /backup/ backup-server:/backup/
@@ -3845,7 +3841,7 @@ public class StockService {
     
     public void pushStockPrice(String stockCode, double price) {
         String channel = "stock:" + stockCode;
-        String message = String.format("{\"code\":\"%s\",\"price\":%.2f}", stockCode, price);
+        String message = String.format("{\\"code\\":\\"%s\\",\\"price\\":%.2f}", stockCode, price);
         jedis.publish(channel, message);
     }
 }
@@ -4707,8 +4703,8 @@ Ctrl + Alt + T ：选择代码被包裹的类型
     - 我的电脑-->右键-->属性
     - 环境变量-->新建系统变量-->JAVA_HOME，安装路径
     - 配置path变量
-        * %JAVA_HOME%\bin
-        * %JAVA_HOME%\jre\bin
+        * %JAVA_HOME%\\bin
+        * %JAVA_HOME%\\jre\\bin
 + java -version
 
 ### HelloWorld
@@ -4847,16 +4843,16 @@ public class Demo2{
 ```
 
 2. 转义字符
-+ \t：水平制表符
-+ \n：换行符
-+ \r：回车符
-+ \b：规格符
-+ \f：换页符
-+ \\：反斜杠字符
-+ \''：单引号字符
-+ \"：双引号字符
-+ \u：表示一个Unicode字符
-+ \ddd：表示一个八进制字符
++ \\t：水平制表符
++ \\n：换行符
++ \\r：回车符
++ \\b：规格符
++ \\f：换页符
++ \\\\：反斜杠字符
++ \\''：单引号字符
++ \\"：双引号字符
++ \\u：表示一个Unicode字符
++ \\ddd：表示一个八进制字符
 
 ### 类型转换
 不同类型的数据先转换为同一类型，然后进行运算
@@ -5220,7 +5216,7 @@ for(初始化; 布尔表达式; 更新){
 ```java
 for(int i = 1; i <= 9; i++){
     for(int j = 1; j <= i; j++){
-        System.out.print(i+"*"+j+"="+(i*j)+"\t");
+        System.out.print(i+"*"+j+"="+(i*j)+"\\t");
     }
     System.out.println();
 }
@@ -8204,7 +8200,7 @@ class IndexView(View):
 ```python
 class MyForm(forms.Form):
     telephone = forms.CharField(
-        validators=[validators.RegexValidator("1[345678]\d{9}",
+        validators=[validators.RegexValidator("1[345678]\\d{9}",
         message=''请输入正确格式的手机号码！'')])
 ```
 
@@ -8214,7 +8210,7 @@ class MyForm(forms.Form):
 ```python
 class MyForm(forms.Form):
     telephone = forms.CharField(validators=
-    [validators.RegexValidator("1[345678]\d{9}",message=''请输入正确格式的手机号码！'')])
+    [validators.RegexValidator("1[345678]\\d{9}",message=''请输入正确格式的手机号码！'')])
     def clean_telephone(self):
         telephone = self.cleaned_data.get(''telephone'')
         exists = User.objects.filter(telephone=telephone).exists()
@@ -8228,7 +8224,7 @@ class MyForm(forms.Form):
 ```python
 class MyForm(forms.Form):
     telephone = forms.CharField(validators=
-    [validators.RegexValidator("1[345678]\d{9}",message=''请输入正确格式的手机号码！'')])
+    [validators.RegexValidator("1[345678]\\d{9}",message=''请输入正确格式的手机号码！'')])
     pwd1 = forms.CharField(max_length=12)
     pwd2 = forms.CharField(max_length=12)
     
@@ -10813,7 +10809,7 @@ list[2] = 2000   #将下标为2的值更换为2000
 print(''Google'' in list)  #>>True
 #若x是字符串，则x.split()的值是一个列表
 #包含字符串x经空格，制表符，换行符分隔得到的所有子串
-print("34\t\t45\n7".split()) #>>[''34'', ''45''. ''''7]
+print("34\\t\\t45\\n7".split()) #>>[''34'', ''45''. ''''7]
 ```
 
 ### <font style="color:rgb(6, 6, 7);">字典（dict）</font>
@@ -10922,19 +10918,19 @@ os库和shutil库中有一些函数可以用来操作文件和文件夹
 #### 正则表达式中的功能字符
 | 字符/组合 | 匹配的模式 | 正则表达式 | 匹配的字符串 |
 | --- | --- | --- | --- |
-| `.` | 除‘\n’外的任意一个字符，包括汉字 | ''a.b''<br/> | ''acb''<br/>''adb'' |
+| `.` | 除‘\\n’外的任意一个字符，包括汉字 | ''a.b''<br/> | ''acb''<br/>''adb'' |
 | `*` | 量词，表示左边的字符可以出现0次或任意多次 | ''a*b'' | ''b''<br/>''aaaaab'' |
 | `?` | 量词，表示左边的字符可以出现0次或1次 | ''ka?b'' | ''kb''<br/>''kab'' |
 | `+` | 量词，表示左边的字符必须出现1次或更多次 | ''ka+b'' | ''kab''<br/>''kaaaab'' |
 | `{m, n}` | 量词，m,n是整数，表示左边的字符必须出现至少m次，最多n次。n也可以不写，表示没有次数上线 | ''ka{1}b''<br/>''ka{2,4}b''<br/>''ka{2,}b'' | ''kab''<br/>''kaaaab''<br/>''kaaaaaaaaaab'' |
-| `\d` | 一个数字字符，等价于[0-9] | ''a\db'' | ''a3b''<br/>''a2b'' |
-| `\D` | 一个非数字字符，等价于[^\d],[0-9] | ''a\Db'' | ''acb'' |
-| `\s` | 一个空白字符，如空格，\r\t\d | ''a\sb'' | ''a b''<br/>''a\nb'' |
-| `\S` | 一个非空白字符 | ''a\Sb'' | ''akb'' |
-| `\w` | 一个单词字符：包括汉字或大小写英文字母，数字，下划线，或其他语言的文字 | ''a\wb'' | ''a_b''<br/>''a中b'' |
-| `\W` | 一个不是单词的字符 | ''a\Wb'' | ''a?b'' |
+| `\\d` | 一个数字字符，等价于[0-9] | ''a\\db'' | ''a3b''<br/>''a2b'' |
+| `\\D` | 一个非数字字符，等价于[^\\d],[0-9] | ''a\\Db'' | ''acb'' |
+| `\\s` | 一个空白字符，如空格，\\r\\t\\d | ''a\\sb'' | ''a b''<br/>''a\\nb'' |
+| `\\S` | 一个非空白字符 | ''a\\Sb'' | ''akb'' |
+| `\\w` | 一个单词字符：包括汉字或大小写英文字母，数字，下划线，或其他语言的文字 | ''a\\wb'' | ''a_b''<br/>''a中b'' |
+| `\\W` | 一个不是单词的字符 | ''a\\Wb'' | ''a?b'' |
 | `|` | A|B表示能匹配A或能匹配B均算匹配 | ''ab|c'' | ''ab''<br/>''c'' |
-| `\` | 正则表达式中常见的特殊字符. + ? * ^ $ [] (）{} \ 在正则表达式中表示字符本身就在字符前加上`\` | ''a\\''<br/>''a\$b''<br/>''a\[\]b'' | ''a\''<br/>''a$b''<br/>''a[]b'' |
+| `\\` | 正则表达式中常见的特殊字符. + ? * ^ $ [] (）{} \\ 在正则表达式中表示字符本身就在字符前加上`\\` | ''a\\\\''<br/>''a\\$b''<br/>''a\\[\\]b'' | ''a\\''<br/>''a$b''<br/>''a[]b'' |
 
 
 #### 正则表达式中范围符号[]和量词
@@ -10944,13 +10940,13 @@ os库和shutil库中有一些函数可以用来操作文件和文件夹
 
 `[a-zA-z]`匹配任一英文字母
 
-`[\da-z\?]`匹配一个 数字 或 小写英文字母 或 ''?''
+`[\\da-z\\?]`匹配一个 数字 或 小写英文字母 或 ''?''
 
 `[^abc]`匹配一个非''a'' '' b'' ''c''的字符
 
 `[^a-f0-3]`匹配一个非a-f的英文字母，也非0-3的数字的字符
 
-`[\ue00-\9fa5]`表示一个汉字
+`[\\ue00-\\9fa5]`表示一个汉字
 
 #### 正则表达式中的函数
 `re.match(pattern, string, flag=0)`
@@ -10974,17 +10970,17 @@ os库和shutil库中有一些函数可以用来操作文件和文件夹
 用于替换匹配的子串
 
 #### 边界符号
-`\A`字符串的左边界
+`\\A`字符串的左边界
 
-`\Z`字符串的有边界
+`\\Z`字符串的有边界
 
-`^`与`\A`同，但在多行匹配模式下还可以表示一行文字的左边界
+`^`与`\\A`同，但在多行匹配模式下还可以表示一行文字的左边界
 
-`$`与`\Z`同，但在多行匹配模式下还可以表示一行文字的右边界
+`$`与`\\Z`同，但在多行匹配模式下还可以表示一行文字的右边界
 
-`\b`表示此处应为单词的左边界或有边界，即不可是单词字符
+`\\b`表示此处应为单词的左边界或有边界，即不可是单词字符
 
-`\B`表示此处不允许单词的左边界或有边界，即必须是单词字符
+`\\B`表示此处不允许单词的左边界或有边界，即必须是单词字符
 
 #### 分组(....)
 括号中的表达式是一个分组。多个分组按左括号从左到右从1开始依次编号
@@ -12105,8 +12101,8 @@ public class User {
     public String toString() {
         return "User{" +
         "id=" + id +
-        ", name=''" + name + ''\'''' +
-        ", password=''" + password + ''\'''' +
+        ", name=''" + name + ''\\'''' +
+        ", password=''" + password + ''\\'''' +
         ''}'';
     }
 }
@@ -13287,7 +13283,7 @@ name: zhangsan
 age: 25
 enabled: true
 # 字符串可以不加引号，特殊字符或转义时用双引号
-description: "hello \n world"   # 会转义 \n
+description: "hello \\n world"   # 会转义 \\n
 simple: hello world              # 普通字符串
 
 
@@ -16826,12 +16822,12 @@ person.age
 # 数据类型
 ## 字符串
 + 正常字符串使用单引号或双引号包裹
-+ 注意转义字符  \
-    - \''
-    - \n
-    - \t
-    - \u####    unicode编码
-    - \x     ascll 字符
++ 注意转义字符  \\
+    - \\''
+    - \\n
+    - \\t
+    - \\u####    unicode编码
+    - \\x     ascll 字符
 + 多行字符串编写
 
 ```javascript
@@ -17798,8 +17794,8 @@ location [修饰符] /uri/ {
 | :--- | :--- | :--- |
 | **无** | **前缀匹配**，以指定 URI 开头即匹配 | `location /api` 匹配 `/api`, `/api/v1`, `/api/user` |
 | **=** | **精确匹配**，必须完全一致，匹配后立即停止 | `location = /` 只匹配根路径 `/` |
-| **~** | **正则匹配（区分大小写）** | `location ~ ^/images/.*\.(jpg|png)$` |
-| **~******* | **正则匹配（不区分大小写）** | `location ~* \.html$` 匹配 `.html`, `.HTML` |
+| **~** | **正则匹配（区分大小写）** | `location ~ ^/images/.*\\.(jpg|png)$` |
+| **~******* | **正则匹配（不区分大小写）** | `location ~* \\.html$` 匹配 `.html`, `.HTML` |
 | **^~** | **优先前缀匹配**，如果匹配上，则不再进行后续的正则匹配 | `location ^~ /static/` 匹配 `/static/` 下的所有请求 |
 
 
@@ -17842,7 +17838,7 @@ server {
     server_name static.example.com;
 
     # 匹配图片、样式、脚本文件
-    location ~* \.(gif|jpg|jpeg|png|css|js|ico)$ {
+    location ~* \\.(gif|jpg|jpeg|png|css|js|ico)$ {
         root /var/www/static;  # 本地磁盘路径
         expires 30d;           # 设置浏览器缓存过期时间为30天
         access_log off;        # 关闭访问日志，减少磁盘IO
@@ -18008,8 +18004,8 @@ location [修饰符] /uri/ {
 | :--- | :--- | :--- |
 | **无** | **前缀匹配**，以指定 URI 开头即匹配 | `location /api` 匹配 `/api`, `/api/v1`, `/api/user` |
 | **=** | **精确匹配**，必须完全一致，匹配后立即停止 | `location = /` 只匹配根路径 `/` |
-| **~** | **正则匹配（区分大小写）** | `location ~ ^/images/.*\.(jpg|png)$` |
-| **~******* | **正则匹配（不区分大小写）** | `location ~* \.html$` 匹配 `.html`, `.HTML` |
+| **~** | **正则匹配（区分大小写）** | `location ~ ^/images/.*\\.(jpg|png)$` |
+| **~******* | **正则匹配（不区分大小写）** | `location ~* \\.html$` 匹配 `.html`, `.HTML` |
 | **^~** | **优先前缀匹配**，如果匹配上，则不再进行后续的正则匹配 | `location ^~ /static/` 匹配 `/static/` 下的所有请求 |
 
 
@@ -18052,7 +18048,7 @@ server {
     server_name static.example.com;
 
     # 匹配图片、样式、脚本文件
-    location ~* \.(gif|jpg|jpeg|png|css|js|ico)$ {
+    location ~* \\.(gif|jpg|jpeg|png|css|js|ico)$ {
         root /var/www/static;  # 本地磁盘路径
         expires 30d;           # 设置浏览器缓存过期时间为30天
         access_log off;        # 关闭访问日志，减少磁盘IO
@@ -19268,7 +19264,7 @@ boolean isFormField();
 String getFieldName();
 //用于将FileItem对象中保存的数据流内容以一个字符串返回
 String getString(String encoding) throws UnsupportedEncodingException;
-//文件上传字段的文件名 IE显示：路径+文件名（C:\1.txt） 其他：1.txt
+//文件上传字段的文件名 IE显示：路径+文件名（C:\\1.txt） 其他：1.txt
 String getName();
 //输入流返回上传文件数据
 InputStream getInputStream() throws IOException;
@@ -21061,7 +21057,7 @@ class Porson{
     public Porson() {}
 
     public String toString() {
-        return "Porson(" + name + ''\'''' + ")";
+        return "Porson(" + name + ''\\'''' + ")";
     }
 }
 
@@ -21452,9 +21448,7 @@ class Student2 {
 ```
 ', 3, 2, NOW());
 
--- ============================================================
--- 4. ??-????
--- ============================================================
+-- 4. ??-???? ----------------------------------------
 
 DELETE FROM `note_tag`;
 
@@ -21493,9 +21487,7 @@ INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (20, 2);
 INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (20, 16);
 INSERT INTO `note_tag` (`note_id`, `tag_id`) VALUES (21, 2);
 
--- ============================================================
--- 5. ??????
--- ============================================================
+-- 5. ???? ----------------------------------------------
 
 DELETE FROM `user_follow`;
 
@@ -21513,9 +21505,7 @@ INSERT INTO `user_follow` (`follower_id`, `followee_id`) VALUES (1005, 1001);
 INSERT INTO `user_follow` (`follower_id`, `followee_id`) VALUES (1005, 1003);
 INSERT INTO `user_follow` (`follower_id`, `followee_id`) VALUES (1005, 1004);
 
--- ============================================================
--- 6. ????
--- ============================================================
+-- 6. ???? ----------------------------------------------
 
 DELETE FROM `note_like`;
 
@@ -21593,9 +21583,7 @@ INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (21, 1001);
 INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (21, 1003);
 INSERT INTO `note_like` (`note_id`, `user_id`) VALUES (21, 1005);
 
--- ============================================================
--- 7. ????
--- ============================================================
+-- 7. ???? ----------------------------------------------
 
 DELETE FROM `note_favorite`;
 
