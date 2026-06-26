@@ -14,14 +14,22 @@ import com.note.exception.BusinessException;
 import com.note.mapper.*;
 import com.note.redis.RedisService;
 import com.note.service.NoteService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 @Service
-@RequiredArgsConstructor
 public class NoteServiceImpl implements NoteService {
+
+    public NoteServiceImpl(NoteMapper noteMapper, UserMapper userMapper, TagMapper tagMapper, NoteTagMapper noteTagMapper, NoteLikeMapper noteLikeMapper, NoteFavoriteMapper noteFavoriteMapper, RedisService redis) {
+        this.noteMapper = noteMapper;
+        this.userMapper = userMapper;
+        this.tagMapper = tagMapper;
+        this.noteTagMapper = noteTagMapper;
+        this.noteLikeMapper = noteLikeMapper;
+        this.noteFavoriteMapper = noteFavoriteMapper;
+        this.redis = redis;
+    }
     private final NoteMapper noteMapper;
     private final UserMapper userMapper;
     private final TagMapper tagMapper;
@@ -60,7 +68,7 @@ public class NoteServiceImpl implements NoteService {
         }
         IPage<Note> notePage = noteMapper.selectPage(new Page<>(page, size), wrapper);
         var list = notePage.getRecords().stream().map(n -> toListResponse(n, currentUserId)).toList();
-        return new PageResult<>(list, notePage.getTotal(), notePage.getCurrent(), notePage.getSize());
+        return new PageResult(list, notePage.getTotal(), notePage.getCurrent(), notePage.getSize());
     }
     @Override
     public PageResult<NoteListResponse> getNoteDynamic(int page, int size, Long currentUserId) {
@@ -72,7 +80,7 @@ public class NoteServiceImpl implements NoteService {
                             "SELECT followee_id FROM user_follow WHERE follower_id = " + currentUserId)
                         .orderByDesc(Note::getCreatedAt));
         var list = notePage.getRecords().stream().map(n -> toListResponse(n, currentUserId)).toList();
-        return new PageResult<>(list, notePage.getTotal(), notePage.getCurrent(), notePage.getSize());
+        return new PageResult(list, notePage.getTotal(), notePage.getCurrent(), notePage.getSize());
     }
     @Override
     public PageResult<NoteListResponse> getUserNotes(Long userId, int page, int size, Long currentUserId) {
@@ -82,7 +90,7 @@ public class NoteServiceImpl implements NoteService {
                         .eq(Note::getDeleted, false)
                         .orderByDesc(Note::getCreatedAt));
         var list = notePage.getRecords().stream().map(n -> toListResponse(n, currentUserId)).toList();
-        return new PageResult<>(list, notePage.getTotal(), notePage.getCurrent(), notePage.getSize());
+        return new PageResult(list, notePage.getTotal(), notePage.getCurrent(), notePage.getSize());
     }
     @Override
     public NoteDetailResponse getNoteDetail(Long noteId, Long currentUserId) {
@@ -237,12 +245,11 @@ public class NoteServiceImpl implements NoteService {
         User author = userMapper.selectById(n.getAuthorId());
         List<String> tags = getTagsByNoteId(n.getId());
         String summary = n.getContent()
-                .replaceAll("!\[[^\]]*\]\([^)]+\)", "")   // remove images
-                .replaceAll("\[[^\]]*\]\([^)]+\)", "")    // remove links
-                .replaceAll("[#*>`~\-|_]", "")                 // remove markdown symbols
+                .replaceAll("!\\[[^\\]]*\\]\\([^)]+\\)", "")   // remove images
+                .replaceAll("\\[[^\\]]*\\]\\([^)]+\\)", "")    // remove links
+                .replaceAll("[#*>`~\\-|_]", "")                 // remove markdown symbols
                 .replaceAll("\n{2,}", "\n")                    // collapse blank lines
-                .replace('
-', ' ')                              // newlines to spaces
+                .replace('\n', ' ')                              // newlines to spaces
                 .trim();
         if (summary.length() > 120) summary = summary.substring(0, 120) + "...";
         boolean isLiked = currentUserId != null &&
@@ -261,4 +268,5 @@ public class NoteServiceImpl implements NoteService {
         resp.setCreateTime(n.getCreatedAt());
         return resp;
     }
+
 }

@@ -1,8 +1,8 @@
 package com.note.exception;
-import lombok.Getter;
-@Getter
 public class BusinessException extends RuntimeException {
-    private final int code;
+
+    public BusinessException() {}
+    private int code;
     public BusinessException(int code, String message) {
         super(message);
         this.code = code;
@@ -10,4 +10,7 @@ public class BusinessException extends RuntimeException {
     public BusinessException(String message) {
         this(400, message);
     }
+
+    public int getCode() { return code; }
+    public void setCode(int code) { this.code = code; }
 }

@@ -27,7 +27,7 @@
         <div class="detail-footer">
           <el-button
             :type="note.isLiked ? 'primary' : 'default'"
-            :icon="ThumbsUp"
+            :icon="Pointer"
             @click="handleLike"
           >
             {{ note.isLiked ? '已点赞' : '点赞' }} {{ note.likeCount || 0 }}
@@ -50,7 +50,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { Edit, Delete, ThumbsUp, Star } from '@element-plus/icons-vue'
+import { Edit, Delete, Pointer, Star } from '@element-plus/icons-vue'
 import { getNoteDetail, likeNote, unlikeNote, deleteNote as deleteNoteApi } from '@/api/note'
 import { useUserStore } from '@/stores/user'
 import { renderMarkdown, formatTime } from '@/utils'

@@ -67,7 +67,7 @@
           <div class="note-footer">
             <span class="note-time">{{ formatTime(note.createTime) }}</span>
             <span class="note-meta">
-              <el-icon size="14"><ThumbsUp /></el-icon> {{ note.likeCount || 0 }}
+              <el-icon size="14"><Pointer /></el-icon> {{ note.likeCount || 0 }}
             </span>
           </div>
         </div>
@@ -107,7 +107,7 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { Edit, Delete, ThumbsUp } from '@element-plus/icons-vue'
+import { Edit, Delete, Pointer } from '@element-plus/icons-vue'
 import { getUserInfo } from '@/api/user'
 import { followUser, unfollowUser } from '@/api/user'
 import { getUserNotes, deleteNote as deleteNoteApi } from '@/api/note'

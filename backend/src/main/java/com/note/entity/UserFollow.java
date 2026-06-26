@@ -1,8 +1,6 @@
 package com.note.entity;
 import com.baomidou.mybatisplus.annotation.*;
-import lombok.Data;
 import java.time.LocalDateTime;
-@Data
 @TableName("user_follow")
 public class UserFollow {
     @TableId(type = IdType.AUTO)
@@ -11,4 +9,37 @@ public class UserFollow {
     private Long followeeId;
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createdAt;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getFollowerId() {
+        return followerId;
+    }
+
+    public void setFollowerId(Long followerId) {
+        this.followerId = followerId;
+    }
+
+    public Long getFolloweeId() {
+        return followeeId;
+    }
+
+    public void setFolloweeId(Long followeeId) {
+        this.followeeId = followeeId;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
 }

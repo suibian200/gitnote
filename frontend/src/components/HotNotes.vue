@@ -14,7 +14,7 @@
           <span class="note-author">{{ note.authorName }}</span>
         </div>
         <span class="note-likes">
-          <el-icon><ThumbsUp /></el-icon>
+          <el-icon><Pointer /></el-icon>
           {{ note.likeCount || 0 }}
         </span>
       </div>
@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import { ThumbsUp } from '@element-plus/icons-vue'
+import { Pointer } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router'
 
 const props = defineProps({

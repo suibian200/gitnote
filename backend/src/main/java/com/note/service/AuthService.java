@@ -5,4 +5,5 @@ import com.note.dto.response.LoginResponse;
 public interface AuthService {
     LoginResponse login(LoginRequest req);
     void register(RegisterRequest req);
+    void resetPassword(String username, String password);
 }

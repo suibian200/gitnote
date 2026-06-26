@@ -8,13 +8,18 @@ import com.note.mapper.NoteTagMapper;
 import com.note.mapper.UserMapper;
 import com.note.redis.RedisService;
 import com.note.service.RankService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 @Service
-@RequiredArgsConstructor
 public class RankServiceImpl implements RankService {
+
+    public RankServiceImpl(UserMapper userMapper, NoteMapper noteMapper, NoteTagMapper noteTagMapper, RedisService redis) {
+        this.userMapper = userMapper;
+        this.noteMapper = noteMapper;
+        this.noteTagMapper = noteTagMapper;
+        this.redis = redis;
+    }
     private final UserMapper userMapper;
     private final NoteMapper noteMapper;
     private final NoteTagMapper noteTagMapper;
@@ -73,4 +78,5 @@ public class RankServiceImpl implements RankService {
         r.setCreateTime(n.getCreatedAt());
         return r;
     }
+
 }

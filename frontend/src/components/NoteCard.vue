@@ -28,7 +28,7 @@
           {{ formatTime(note.createTime) }}
         </span>
         <span class="meta-item">
-          <el-icon><ThumbsUp /></el-icon>
+          <el-icon><Pointer /></el-icon>
           {{ note.likeCount || 0 }}
         </span>
         <span class="meta-item">
@@ -43,7 +43,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { Clock, ThumbsUp, ChatDotSquare } from '@element-plus/icons-vue'
+import { Clock, Pointer, ChatDotSquare } from '@element-plus/icons-vue'
 import { stripMarkdown, formatTime } from '@/utils'
 
 const props = defineProps({

@@ -9,11 +9,11 @@ export function getNoteDynamic(params = {}) {
 }
 
 export function getUserNotes(id, params = {}) {
-  return request.get(/note/user/, { params })
+  return request.get(`/note/user/${id}`, { params })
 }
 
 export function getNoteDetail(id) {
-  return request.get(/note/)
+  return request.get(`/note/${id}`)
 }
 
 export function createNote(data) {
@@ -21,11 +21,11 @@ export function createNote(data) {
 }
 
 export function updateNote(id, data) {
-  return request.put(/note/, data)
+  return request.put(`/note/${id}`, data)
 }
 
 export function deleteNote(id) {
-  return request.delete(/note/)
+  return request.delete(`/note/${id}`)
 }
 
 export function getNoteTags() {
@@ -33,9 +33,9 @@ export function getNoteTags() {
 }
 
 export function likeNote(id) {
-  return request.post(/note/like/)
+  return request.post(`/note/like/${id}`)
 }
 
 export function unlikeNote(id) {
-  return request.delete(/note/like/)
+  return request.delete(`/note/like/${id}`)
 }

@@ -13,12 +13,16 @@ import com.note.mapper.UserFollowMapper;
 import com.note.mapper.UserMapper;
 import com.note.redis.RedisService;
 import com.note.service.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 @Service
-@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+
+    public UserServiceImpl(UserMapper userMapper, UserFollowMapper userFollowMapper, RedisService redisService) {
+        this.userMapper = userMapper;
+        this.userFollowMapper = userFollowMapper;
+        this.redisService = redisService;
+    }
     private final UserMapper userMapper;
     private final UserFollowMapper userFollowMapper;
     private final RedisService redisService;
@@ -51,7 +55,7 @@ public class UserServiceImpl implements UserService {
             User u = userMapper.selectById(f.getFolloweeId());
             return toSimple(u, currentUserId);
         }).toList();
-        return new PageResult<>(list, followPage.getTotal(), followPage.getCurrent(), followPage.getSize());
+        return new PageResult(list, followPage.getTotal(), followPage.getCurrent(), followPage.getSize());
     }
     @Override
     public PageResult<UserSimpleResponse> getFollowers(Long userId, int page, int size, Long currentUserId) {
@@ -64,7 +68,7 @@ public class UserServiceImpl implements UserService {
             User u = userMapper.selectById(f.getFollowerId());
             return toSimple(u, currentUserId);
         }).toList();
-        return new PageResult<>(list, followPage.getTotal(), followPage.getCurrent(), followPage.getSize());
+        return new PageResult(list, followPage.getTotal(), followPage.getCurrent(), followPage.getSize());
     }
     @Override
     @Transactional
@@ -112,7 +116,7 @@ public class UserServiceImpl implements UserService {
                         .orderByDesc(User::getTotalLikes));
         var list = userPage.getRecords().stream()
                 .map(u -> toSimple(u, currentUserId)).toList();
-        return new PageResult<>(list, userPage.getTotal(), userPage.getCurrent(), userPage.getSize());
+        return new PageResult(list, userPage.getTotal(), userPage.getCurrent(), userPage.getSize());
     }
     private UserSimpleResponse toSimple(User u, Long currentUserId) {
         UserSimpleResponse r = new UserSimpleResponse();
@@ -125,4 +129,5 @@ public class UserServiceImpl implements UserService {
             redisService.isMember("following:" + currentUserId, String.valueOf(u.getId())));
         return r;
     }
+
 }

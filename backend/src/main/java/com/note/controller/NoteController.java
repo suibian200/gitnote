@@ -6,7 +6,6 @@ import com.note.dto.response.NoteListResponse;
 import com.note.dto.response.PageResult;
 import com.note.service.NoteService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +13,15 @@ import java.util.List;
 import java.util.Map;
 @RestController
 @RequestMapping("/api/note")
-@RequiredArgsConstructor
 public class NoteController {
+
+    public NoteController(NoteService noteService) {
+        this.noteService = noteService;
+    }
+
+    
+
+    
     private final NoteService noteService;
     @GetMapping("/list")
     public ResponseEntity<PageResult<NoteListResponse>> list(
@@ -88,4 +94,7 @@ public class NoteController {
         noteService.unlikeNote(id, currentUserId);
         return ResponseEntity.ok().build();
     }
+
+
+
 }

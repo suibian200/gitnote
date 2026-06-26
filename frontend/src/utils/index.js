@@ -37,11 +37,12 @@ export function formatTime(timeStr) {
   const now = new Date()
   const diff = now - date
   if (diff < 60000) return '刚刚'
-  if (diff < 3600000) return ${Math.floor(diff / 60000)}分钟前
-  if (diff < 86400000) return ${Math.floor(diff / 3600000)}小时前
+  if (diff < 3600000) return `${Math.floor(diff / 60000)}分钟前`
+  if (diff < 86400000) return `${Math.floor(diff / 3600000)}小时前`
   if (diff < 172800000) return '昨天'
   const y = date.getFullYear()
   const m = String(date.getMonth() + 1).padStart(2, '0')
   const d = String(date.getDate()).padStart(2, '0')
-  return ${y}--
+  return `${y}-${m}-${d}`
 }
+

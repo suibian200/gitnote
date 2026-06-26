@@ -8,15 +8,18 @@ import com.note.exception.BusinessException;
 import com.note.mapper.UserMapper;
 import com.note.security.JwtUtil;
 import com.note.service.AuthService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 @Service
-@RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
+    public AuthServiceImpl(UserMapper userMapper, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
+        this.userMapper = userMapper;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
+    }
     @Override
     public LoginResponse login(LoginRequest req) {
         User user = userMapper.selectOne(
@@ -49,5 +52,14 @@ public class AuthServiceImpl implements AuthService {
         user.setFollowingCount(0);
         user.setTotalLikes(0);
         userMapper.insert(user);
+    }
+    @Override
+    public void resetPassword(String username, String password) {
+        User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getUsername, username));
+        if (user == null) {
+            throw new BusinessException("用户不存在");
+        }
+        user.setPassword(passwordEncoder.encode(password));
+        userMapper.updateById(user);
     }
 }

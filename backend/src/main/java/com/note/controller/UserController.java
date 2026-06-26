@@ -3,14 +3,20 @@ import com.note.dto.response.PageResult;
 import com.note.dto.response.UserProfileResponse;
 import com.note.dto.response.UserSimpleResponse;
 import com.note.service.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/user")
-@RequiredArgsConstructor
 public class UserController {
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    
+
+    
     private final UserService userService;
     @GetMapping("/{id}")
     public ResponseEntity<UserProfileResponse> getUserProfile(
@@ -56,4 +62,5 @@ public class UserController {
             @AuthenticationPrincipal Long currentUserId) {
         return ResponseEntity.ok(userService.search(keyword, page, size, currentUserId));
     }
+
 }

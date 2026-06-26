@@ -1,13 +1,20 @@
 package com.note.redis;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 @Service
-@RequiredArgsConstructor
 public class RedisService {
+
+    public RedisService(StringRedisTemplate redis) {
+        this.redis = redis;
+    }
+
+    
+
+    
     private final StringRedisTemplate redis;
     // === Set: ??/??/???? ===
     public void addToSet(String key, String value) { redis.opsForSet().add(key, value); }
@@ -16,7 +23,7 @@ public class RedisService {
         Boolean r = redis.opsForSet().isMember(key, value);
         return Boolean.TRUE.equals(r);
     }
-    public List<Boolean> isMemberBatch(String key, String... values) {
+    public Map<Object, Boolean> isMemberBatch(String key, String... values) {
         return redis.opsForSet().isMember(key, values);
     }
     // === SortedSet: ?? ===
@@ -35,4 +42,7 @@ public class RedisService {
     }
     public String get(String key) { return redis.opsForValue().get(key); }
     public void delete(String key) { redis.delete(key); }
+
+
+
 }

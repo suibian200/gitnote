@@ -3,7 +3,7 @@
     :model-value="visible"
     title="粉丝"
     width="480px"
-    @update:model-value="('update:visible', )"
+    @update:model-value="$emit('update:visible', $event)"
     @close="handleClose"
   >
     <div v-loading="loading" class="user-list">
