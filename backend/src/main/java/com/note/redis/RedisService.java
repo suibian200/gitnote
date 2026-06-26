@@ -45,4 +45,10 @@ public class RedisService {
 
 
 
+
+    // === Set: size/keys ===
+    public Long scard(String key) { return redis.opsForSet().size(key); }
+    public Set<String> keys(String pattern) { return redis.keys(pattern); }
+    public Set<String> getSetMembers(String key) { return redis.opsForSet().members(key); }
+
 }

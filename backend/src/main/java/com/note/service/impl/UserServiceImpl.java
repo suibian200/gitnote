@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
         UserProfileResponse resp = new UserProfileResponse();
         resp.setUserId(user.getId());
         resp.setUsername(user.getUsername());
-        resp.setAvatar(user.getAvatar() == null ? "" : user.getAvatar());
+        resp.setAvatar(user.getAvatar() == null ? "" : "/" + user.getAvatar());
         resp.setBio(user.getBio() == null ? "" : user.getBio());
         resp.setNoteCount(user.getNoteCount());
         resp.setFollowingCount(user.getFollowingCount());
@@ -122,11 +122,22 @@ public class UserServiceImpl implements UserService {
         UserSimpleResponse r = new UserSimpleResponse();
         r.setUserId(u.getId());
         r.setUsername(u.getUsername());
-        r.setAvatar(u.getAvatar() == null ? "" : u.getAvatar());
+        r.setAvatar(u.getAvatar() == null ? "" : "/" + u.getAvatar());
         r.setBio(u.getBio() == null ? "" : u.getBio());
         r.setLikeCount(u.getTotalLikes() == null ? 0 : u.getTotalLikes());
-        r.setIsFollowing(currentUserId != null &&
-            redisService.isMember("following:" + currentUserId, String.valueOf(u.getId())));
+        if (currentUserId != null) {
+            boolean following = redisService.isMember("following:" + currentUserId, String.valueOf(u.getId()));
+            if (!following) {
+                following = userFollowMapper.selectCount(
+                    new LambdaQueryWrapper<UserFollow>()
+                        .eq(UserFollow::getFollowerId, currentUserId)
+                        .eq(UserFollow::getFolloweeId, u.getId())) > 0;
+                if (following) {
+                    redisService.addToSet("following:" + currentUserId, String.valueOf(u.getId()));
+                }
+            }
+            r.setIsFollowing(following);
+        }
         return r;
     }
 

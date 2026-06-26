@@ -34,8 +34,7 @@ const props = defineProps({
 const router = useRouter()
 
 function goToDetail(id) {
-  const routeData = router.resolve({ name: 'NoteDetail', params: { id } })
-  window.open(routeData.href, '_blank')
+  router.push({ name: 'NoteDetail', params: { id } })
 }
 </script>
 

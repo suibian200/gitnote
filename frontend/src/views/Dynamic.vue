@@ -69,8 +69,7 @@ function summary(note) {
 }
 
 function goToDetail(id) {
-  const routeData = router.resolve({ name: 'NoteDetail', params: { id } })
-  window.open(routeData.href, '_blank')
+  router.push({ name: 'NoteDetail', params: { id } })
 }
 
 function handleSizeChange(val) {

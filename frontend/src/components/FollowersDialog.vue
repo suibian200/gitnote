@@ -18,12 +18,12 @@
         </div>
         <el-button
           v-if="user.userId !== currentUserId"
-          :type="user.isFollowing ? 'default' : 'primary'"
+          :type="user.following ? 'default' : 'primary'"
           size="small"
-          :plain="user.isFollowing"
+          :plain="user.following"
           @click="handleFollow(user)"
         >
-          {{ user.isFollowing ? '已关注' : '关注' }}
+          {{ user.following ? '已关注' : '+回关' }}
         </el-button>
       </div>
     </div>
@@ -79,13 +79,13 @@ async function fetchUsers() {
 
 async function handleFollow(user) {
   try {
-    if (user.isFollowing) {
+    if (user.following) {
       await unfollowUser(user.userId)
-      user.isFollowing = false
+      user.following = false
       ElMessage.success('已取消关注')
     } else {
       await followUser(user.userId)
-      user.isFollowing = true
+      user.following = true
       ElMessage.success('关注成功')
     }
   } catch { /* handled by interceptor */ }

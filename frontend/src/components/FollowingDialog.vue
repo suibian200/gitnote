@@ -18,12 +18,12 @@
         </div>
         <el-button
           v-if="user.userId !== currentUserId"
-          :type="user.isFollowing ? 'default' : 'primary'"
+          type="default"
           size="small"
-          :plain="user.isFollowing"
-          @click="handleFollow(user)"
+          plain
+          @click="handleUnfollow(user)"
         >
-          {{ user.isFollowing ? '已关注' : '关注' }}
+          已关注
         </el-button>
       </div>
     </div>
@@ -45,7 +45,7 @@
 import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
-import { getFollowingList, followUser, unfollowUser } from '@/api/user'
+import { getFollowingList, unfollowUser } from '@/api/user'
 import { useUserStore } from '@/stores/user'
 
 const props = defineProps({
@@ -77,17 +77,12 @@ async function fetchUsers() {
   }
 }
 
-async function handleFollow(user) {
+async function handleUnfollow(user) {
   try {
-    if (user.isFollowing) {
-      await unfollowUser(user.userId)
-      user.isFollowing = false
-      ElMessage.success('已取消关注')
-    } else {
-      await followUser(user.userId)
-      user.isFollowing = true
-      ElMessage.success('关注成功')
-    }
+    await unfollowUser(user.userId)
+    users.value = users.value.filter(u => u.userId !== user.userId)
+    total.value = Math.max(0, total.value - 1)
+    ElMessage.success('已取消关注')
   } catch { /* handled by interceptor */ }
 }
 

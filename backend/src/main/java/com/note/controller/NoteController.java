@@ -4,6 +4,7 @@ import com.note.dto.request.NoteUpdateRequest;
 import com.note.dto.response.NoteDetailResponse;
 import com.note.dto.response.NoteListResponse;
 import com.note.dto.response.PageResult;
+import com.note.dto.response.LikeResponse;
 import com.note.service.NoteService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -81,18 +82,16 @@ public class NoteController {
         return ResponseEntity.ok(noteService.getNoteTags());
     }
     @PostMapping("/like/{id}")
-    public ResponseEntity<?> like(
+    public ResponseEntity<LikeResponse> like(
             @PathVariable Long id,
             @AuthenticationPrincipal Long currentUserId) {
-        noteService.likeNote(id, currentUserId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(noteService.likeNote(id, currentUserId));
     }
     @DeleteMapping("/like/{id}")
-    public ResponseEntity<?> unlike(
+    public ResponseEntity<LikeResponse> unlike(
             @PathVariable Long id,
             @AuthenticationPrincipal Long currentUserId) {
-        noteService.unlikeNote(id, currentUserId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(noteService.unlikeNote(id, currentUserId));
     }
 
 

@@ -140,7 +140,7 @@ async function fetchProfile() {
   try {
     const res = await getUserInfo(targetUserId.value)
     profileInfo.value = res
-    isFollowing.value = res.isFollowing || false
+    isFollowing.value = res.following || false
   } finally {
     loading.value = false
   }
@@ -195,8 +195,7 @@ async function deleteNote(id) {
 }
 
 function goToDetail(id) {
-  const routeData = router.resolve({ name: 'NoteDetail', params: { id } })
-  window.open(routeData.href, '_blank')
+  router.push({ name: 'NoteDetail', params: { id } })
 }
 
 function handleSizeChange(val) {

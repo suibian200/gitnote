@@ -1,4 +1,5 @@
 package com.note.dto.response;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
 import java.util.List;
 public class NoteDetailResponse {
@@ -46,6 +47,7 @@ public class NoteDetailResponse {
     public void setAuthorAvatar(String authorAvatar) { this.authorAvatar = authorAvatar; }
     public Integer getLikeCount() { return likeCount; }
     public void setLikeCount(Integer likeCount) { this.likeCount = likeCount; }
+    @JsonProperty("isLiked")
     public Boolean isLiked() { return isLiked; }
     public void setIsLiked(Boolean isLiked) { this.isLiked = isLiked; }
     public Boolean isFavorited() { return isFavorited; }

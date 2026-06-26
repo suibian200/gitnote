@@ -1,4 +1,4 @@
-﻿import axios from 'axios'
+import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import router from '@/router'
 
@@ -19,7 +19,23 @@ request.interceptors.request.use(
 )
 
 request.interceptors.response.use(
-  (response) => response.data,
+  (response) => {
+    (function fixAvatarUrls(obj) {
+        if (!obj || typeof obj !== 'object') return
+        if (Array.isArray(obj)) { obj.forEach(fixAvatarUrls); return }
+        for (const key of Object.keys(obj)) {
+            const val = obj[key]
+            if ((key === 'avatar' || key === 'authorAvatar') && typeof val === 'string' && val && !val.startsWith('/') && !val.startsWith('http')) {
+                obj[key] = '/' + val
+            } else if (Array.isArray(val)) {
+                val.forEach(fixAvatarUrls)
+            } else if (val && typeof val === 'object') {
+                fixAvatarUrls(val)
+            }
+        }
+    })(response.data)
+    return response.data
+},
   (error) => {
     const msg = error.response?.data?.message || error.message || '请求失败'
     if (error.response?.status === 401) {

@@ -14,6 +14,6 @@ public interface NoteService {
     void updateNote(Long noteId, NoteUpdateRequest req, Long userId);
     void deleteNote(Long noteId, Long userId);
     List<String> getNoteTags();
-    void likeNote(Long noteId, Long userId);
-    void unlikeNote(Long noteId, Long userId);
+    com.note.dto.response.LikeResponse likeNote(Long noteId, Long userId);
+    com.note.dto.response.LikeResponse unlikeNote(Long noteId, Long userId);
 }

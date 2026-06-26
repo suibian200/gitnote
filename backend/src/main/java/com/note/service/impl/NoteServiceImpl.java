@@ -42,6 +42,9 @@ public class NoteServiceImpl implements NoteService {
                                                     String tag, String keyword, Long currentUserId) {
         var wrapper = new LambdaQueryWrapper<Note>()
                 .eq(Note::getDeleted, false);
+        if (currentUserId != null) {
+            wrapper.ne(Note::getAuthorId, currentUserId);
+        }
         // Tag filter: resolve tag name to note IDs
         if (tag != null && !tag.isEmpty()) {
             Tag t = tagMapper.selectOne(new LambdaQueryWrapper<Tag>().eq(Tag::getName, tag));
@@ -76,8 +79,7 @@ public class NoteServiceImpl implements NoteService {
         IPage<Note> notePage = noteMapper.selectPage(new Page<>(page, size),
                 new LambdaQueryWrapper<Note>()
                         .eq(Note::getDeleted, false)
-                        .inSql(Note::getAuthorId,
-                            "SELECT followee_id FROM user_follow WHERE follower_id = " + currentUserId)
+                        .inSql(Note::getAuthorId, "SELECT followee_id FROM user_follow WHERE follower_id = " + currentUserId)
                         .orderByDesc(Note::getCreatedAt));
         var list = notePage.getRecords().stream().map(n -> toListResponse(n, currentUserId)).toList();
         return new PageResult(list, notePage.getTotal(), notePage.getCurrent(), notePage.getSize());
@@ -99,11 +101,14 @@ public class NoteServiceImpl implements NoteService {
         User author = userMapper.selectById(note.getAuthorId());
         List<String> tags = getTagsByNoteId(noteId);
         boolean isLiked = currentUserId != null &&
-            redis.isMember("liked:" + currentUserId, String.valueOf(noteId));
+            redis.isMember("like:note:" + noteId, String.valueOf(currentUserId));
         boolean isFavorited = currentUserId != null &&
             noteFavoriteMapper.selectCount(new LambdaQueryWrapper<NoteFavorite>()
                 .eq(NoteFavorite::getNoteId, noteId)
                 .eq(NoteFavorite::getUserId, currentUserId)) > 0;
+        long todayLikes = redis.scard("like:note:" + noteId) == null ? 0L : redis.scard("like:note:" + noteId);
+        int mysqlCount = note.getLikeCount() == null ? 0 : note.getLikeCount();
+        int totalLikeCount = mysqlCount + (int) todayLikes;
         NoteDetailResponse resp = new NoteDetailResponse();
         resp.setId(note.getId());
         resp.setTitle(note.getTitle());
@@ -111,8 +116,8 @@ public class NoteServiceImpl implements NoteService {
         resp.setTags(tags);
         resp.setAuthorId(author.getId());
         resp.setAuthorName(author.getUsername());
-        resp.setAuthorAvatar(author.getAvatar() == null ? "" : author.getAvatar());
-        resp.setLikeCount(note.getLikeCount());
+        resp.setAuthorAvatar(author.getAvatar() == null ? "" : "/" + author.getAvatar());
+        resp.setLikeCount(totalLikeCount);
         resp.setIsLiked(isLiked);
         resp.setIsFavorited(isFavorited);
         resp.setCreateTime(note.getCreatedAt());
@@ -185,45 +190,45 @@ public class NoteServiceImpl implements NoteService {
     }
     @Override
     @Transactional
-    public void likeNote(Long noteId, Long userId) {
-        if (noteLikeMapper.selectCount(new LambdaQueryWrapper<NoteLike>()
-                .eq(NoteLike::getNoteId, noteId)
-                .eq(NoteLike::getUserId, userId)) > 0) return;
-        NoteLike nl = new NoteLike();
-        nl.setNoteId(noteId);
-        nl.setUserId(userId);
-        noteLikeMapper.insert(nl);
-        noteMapper.update(null, new LambdaUpdateWrapper<Note>()
-                .eq(Note::getId, noteId)
-                .setSql("like_count = like_count + 1"));
+    public com.note.dto.response.LikeResponse likeNote(Long noteId, Long userId) {
         Note note = noteMapper.selectById(noteId);
+        if (note == null || note.getDeleted()) {
+            throw new BusinessException("笔记不存在");
+        }
+        if (note.getAuthorId().equals(userId)) {
+            throw new BusinessException(400, "不能给自己点赞");
+        }
+        String redisKey = "like:note:" + noteId;
+        if (redis.isMember(redisKey, String.valueOf(userId))) {
+            throw new BusinessException(400, "今天已经点赞过了");
+        }
+        redis.addToSet(redisKey, String.valueOf(userId));
+        long todayLikes = redis.scard(redisKey) == null ? 0L : redis.scard(redisKey);
+        int mysqlCount = note == null ? 0 : (note.getLikeCount() == null ? 0 : note.getLikeCount());
+        long totalLikes = mysqlCount + todayLikes;
         if (note != null) {
-            userMapper.update(null, new LambdaUpdateWrapper<User>()
-                    .eq(User::getId, note.getAuthorId())
-                    .setSql("total_likes = total_likes + 1"));
             redis.incrementScore("rank:notes:like_count", String.valueOf(noteId), 1);
             redis.incrementScore("rank:users:total_likes", String.valueOf(note.getAuthorId()), 1);
         }
-        redis.addToSet("liked:" + userId, String.valueOf(noteId));
+        return new com.note.dto.response.LikeResponse(true, totalLikes);
     }
     @Override
     @Transactional
-    public void unlikeNote(Long noteId, Long userId) {
-        noteLikeMapper.delete(new LambdaQueryWrapper<NoteLike>()
-                .eq(NoteLike::getNoteId, noteId)
-                .eq(NoteLike::getUserId, userId));
-        noteMapper.update(null, new LambdaUpdateWrapper<Note>()
-                .eq(Note::getId, noteId)
-                .setSql("like_count = GREATEST(0, like_count - 1)"));
+    public com.note.dto.response.LikeResponse unlikeNote(Long noteId, Long userId) {
+        String redisKey = "like:note:" + noteId;
+        if (!redis.isMember(redisKey, String.valueOf(userId))) {
+            throw new BusinessException(400, "今天没有点赞过");
+        }
+        redis.removeFromSet(redisKey, String.valueOf(userId));
+        long todayLikes = redis.scard(redisKey) == null ? 0L : redis.scard(redisKey);
         Note note = noteMapper.selectById(noteId);
+        int mysqlCount = note == null ? 0 : (note.getLikeCount() == null ? 0 : note.getLikeCount());
+        long totalLikes = mysqlCount + todayLikes;
         if (note != null) {
-            userMapper.update(null, new LambdaUpdateWrapper<User>()
-                    .eq(User::getId, note.getAuthorId())
-                    .setSql("total_likes = GREATEST(0, total_likes - 1)"));
             redis.incrementScore("rank:notes:like_count", String.valueOf(noteId), -1);
             redis.incrementScore("rank:users:total_likes", String.valueOf(note.getAuthorId()), -1);
         }
-        redis.removeFromSet("liked:" + userId, String.valueOf(noteId));
+        return new com.note.dto.response.LikeResponse(false, totalLikes);
     }
     private List<String> getTagsByNoteId(Long noteId) {
         return noteTagMapper.selectList(
@@ -253,7 +258,10 @@ public class NoteServiceImpl implements NoteService {
                 .trim();
         if (summary.length() > 120) summary = summary.substring(0, 120) + "...";
         boolean isLiked = currentUserId != null &&
-            redis.isMember("liked:" + currentUserId, String.valueOf(n.getId()));
+            redis.isMember("like:note:" + n.getId(), String.valueOf(currentUserId));
+        long todayLikes = redis.scard("like:note:" + n.getId()) == null ? 0L : redis.scard("like:note:" + n.getId());
+        int mysqlCount = n.getLikeCount() == null ? 0 : n.getLikeCount();
+        int totalLikeCount = mysqlCount + (int) todayLikes;
         NoteListResponse resp = new NoteListResponse();
         resp.setId(n.getId());
         resp.setTitle(n.getTitle());
@@ -261,8 +269,8 @@ public class NoteServiceImpl implements NoteService {
         resp.setTags(tags);
         resp.setAuthorId(author.getId());
         resp.setAuthorName(author.getUsername());
-        resp.setAuthorAvatar(author.getAvatar() == null ? "" : author.getAvatar());
-        resp.setLikeCount(n.getLikeCount());
+        resp.setAuthorAvatar(author.getAvatar() == null ? "" : "/" + author.getAvatar());
+        resp.setLikeCount(totalLikeCount);
         resp.setCommentCount(n.getCommentCount());
         resp.setIsLiked(isLiked);
         resp.setCreateTime(n.getCreatedAt());

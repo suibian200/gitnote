@@ -26,8 +26,8 @@
 
         <div class="detail-footer">
           <el-button
-            :type="note.isLiked ? 'primary' : 'default'"
-            :icon="Pointer"
+            :type="note.isLiked ? 'warning' : 'default'"
+            :icon="note.isLiked ? StarFilled : Star"
             @click="handleLike"
           >
             {{ note.isLiked ? '已点赞' : '点赞' }} {{ note.likeCount || 0 }}
@@ -50,7 +50,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { Edit, Delete, Pointer, Star } from '@element-plus/icons-vue'
+import { Edit, Delete, Star, StarFilled } from '@element-plus/icons-vue'
 import { getNoteDetail, likeNote, unlikeNote, deleteNote as deleteNoteApi } from '@/api/note'
 import { useUserStore } from '@/stores/user'
 import { renderMarkdown, formatTime } from '@/utils'
@@ -89,18 +89,23 @@ async function fetchDetail() {
 async function handleLike() {
   if (!note.value) return
   try {
+    let res
     if (liked.value) {
-      await unlikeNote(noteId)
-      liked.value = false
-      likeCount.value = Math.max(0, likeCount.value - 1)
-      note.value.isLiked = false
-      note.value.likeCount = likeCount.value
+      res = await unlikeNote(noteId)
     } else {
-      await likeNote(noteId)
-      liked.value = true
-      likeCount.value += 1
-      note.value.isLiked = true
-      note.value.likeCount = likeCount.value
+      res = await likeNote(noteId)
+    }
+    if (res && res.code) {
+      ElMessage.warning(res.message || '\u64cd\u4f5c\u5931\u8d25')
+      return
+    }
+    if (res && typeof res.liked === 'boolean') {
+      liked.value = res.liked
+      note.value.isLiked = res.liked
+    }
+    if (res && typeof res.totalLikes === 'number') {
+      likeCount.value = res.totalLikes
+      note.value.likeCount = res.totalLikes
     }
   } catch { /* handled by interceptor */ }
 }

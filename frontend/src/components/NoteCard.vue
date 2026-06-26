@@ -27,8 +27,8 @@
           <el-icon><Clock /></el-icon>
           {{ formatTime(note.createTime) }}
         </span>
-        <span class="meta-item">
-          <el-icon><Pointer /></el-icon>
+        <span class="meta-item like-btn" :class="{ liked: note.isLiked }" @click.stop="handleLike">
+          <el-icon><StarFilled v-if="note.isLiked" /><Star v-else /></el-icon>
           {{ note.likeCount || 0 }}
         </span>
         <span class="meta-item">
@@ -43,7 +43,9 @@
 <script setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { Clock, Pointer, ChatDotSquare } from '@element-plus/icons-vue'
+import { Clock, Star, StarFilled, ChatDotSquare } from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
+import { likeNote, unlikeNote } from '@/api/note'
 import { stripMarkdown, formatTime } from '@/utils'
 
 const props = defineProps({
@@ -57,9 +59,32 @@ const summary = computed(() => {
   return text.length > 120 ? text.slice(0, 120) + '...' : text
 })
 
+async function handleLike(event) {
+  event.stopPropagation()
+  try {
+    let res
+    if (props.note.isLiked) {
+      res = await unlikeNote(props.note.id)
+    } else {
+      res = await likeNote(props.note.id)
+    }
+    if (res && res.code) {
+      ElMessage.warning(res.message || '\u64cd\u4f5c\u5931\u8d25')
+      return
+    }
+    if (res && typeof res.liked === 'boolean') {
+      props.note.isLiked = res.liked
+    }
+    if (res && typeof res.totalLikes === 'number') {
+      props.note.likeCount = res.totalLikes
+    }
+  } catch {
+    // handled by interceptor
+  }
+}
+
 function goToDetail() {
-  const routeData = router.resolve({ name: 'NoteDetail', params: { id: props.note.id } })
-  window.open(routeData.href, '_blank')
+  router.push({ name: 'NoteDetail', params: { id: props.note.id } })
 }
 
 function goToProfile() {
@@ -142,5 +167,18 @@ function goToProfile() {
   gap: 4px;
   font-size: 13px;
   color: #909399;
+}
+.like-btn {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.like-btn:hover {
+  color: #606266;
+}
+.like-btn.liked {
+  color: #f7ba2a;
+}
+.like-btn.liked:hover {
+  color: #e6a800;
 }
 </style>
