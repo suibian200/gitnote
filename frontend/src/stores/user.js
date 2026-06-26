@@ -26,6 +26,10 @@ export const useUserStore = defineStore('user', () => {
 
   async function login(username, password) {
     const res = await loginApi({ username, password })
+    // Check if response is an error (BusinessException returns 200 with code)
+    if (res.code) {
+      throw new Error(res.message || '\u767b\u5f55\u5931\u8d25')
+    }
     token.value = res.token
     userInfo.value = {
       userId: res.userId,
@@ -39,7 +43,11 @@ export const useUserStore = defineStore('user', () => {
   }
 
   async function register(username, password, email) {
-    return await registerApi({ username, password, email })
+    const res = await registerApi({ username, password, email })
+    if (res && res.code) {
+      throw new Error(res.message || '\u6ce8\u518c\u5931\u8d25')
+    }
+    return res
   }
 
   function logout() {

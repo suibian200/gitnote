@@ -1,27 +1,20 @@
-﻿<template>
+<template>
   <div class="login-page">
     <div class="login-card">
       <h2 class="title">个人笔记系统</h2>
-      <el-form
-        ref="formRef"
-        :model="form"
-        :rules="rules"
-        label-width="0"
-        size="large"
-        @submit.prevent="handleLogin"
-      >
-        <el-form-item prop="username">
-          <el-input v-model="form.username" placeholder="用户名" :prefix-icon="User" />
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input v-model="form.password" type="password" placeholder="密码" show-password :prefix-icon="Lock" />
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" :loading="loading" class="submit-btn" @click="handleLogin">
+      <div class="form-wrapper">
+        <div class="input-group">
+          <el-input v-model="form.username" placeholder="用户名" :prefix-icon="User" @keydown.enter.prevent="handleLogin" />
+        </div>
+        <div class="input-group">
+          <el-input v-model="form.password" type="password" placeholder="密码" show-password :prefix-icon="Lock" @keydown.enter.prevent="handleLogin" />
+        </div>
+        <div class="input-group">
+          <el-button type="primary" :loading="loading" class="submit-btn" native-type="button" @click="handleLogin">
             登 录
           </el-button>
-        </el-form-item>
-      </el-form>
+        </div>
+      </div>
       <div class="extra-links">
         <span>还没有账号？</span>
         <router-link to="/register">立即注册</router-link>
@@ -39,7 +32,6 @@ import { useUserStore } from '@/stores/user'
 
 const router = useRouter()
 const userStore = useUserStore()
-const formRef = ref(null)
 const loading = ref(false)
 
 const form = reactive({
@@ -47,20 +39,18 @@ const form = reactive({
   password: ''
 })
 
-const rules = {
-  username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-  password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
-}
-
 async function handleLogin() {
-  const valid = await formRef.value.validate().catch(() => false)
-  if (!valid) return
+  if (!form.username.trim() || !form.password.trim()) {
+    ElMessage.warning('请输入用户名和密码')
+    return
+  }
   loading.value = true
   try {
     await userStore.login(form.username, form.password)
     ElMessage.success('登录成功')
     router.push('/home')
   } catch (err) {
+    ElMessage.error(err.message || '登录失败')
   } finally {
     loading.value = false
   }
@@ -88,6 +78,13 @@ async function handleLogin() {
   font-size: 26px;
   color: #303133;
   font-weight: 700;
+}
+.form-wrapper {
+  width: 100%;
+}
+.input-group {
+  margin-bottom: 22px;
+  width: 100%;
 }
 .submit-btn {
   width: 100%;

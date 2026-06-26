@@ -12,6 +12,6 @@ public class AuthEntryPoint implements AuthenticationEntryPoint {
                          AuthenticationException authException) throws IOException {
         response.setContentType("application/json;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.getWriter().write("{\"code\":401,\"message\":\"????token???\"}");
+        response.getWriter().write("{\"code\":401,\"message\":\"未登录或token已过期\"}");
     }
 }
